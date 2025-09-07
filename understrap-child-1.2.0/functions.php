@@ -44,6 +44,12 @@ function understrap_child_enqueue_styles_scripts() {
         array( 'pmp-components' ), // Depends on the PMP components style
         $theme->get( 'Version' )
     );
+    
+    // PMP Dashboard stylesheet
+    wp_enqueue_style( 'pmp-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
 
     // --- Optional: Enqueue other libraries if needed ---
     // Example: Enqueue Font Awesome (ensure it's not already loaded by parent/plugins)
@@ -70,6 +76,10 @@ function understrap_child_enqueue_styles_scripts() {
     wp_enqueue_script( 'pmp-dashboard', get_stylesheet_directory_uri() . '/assets/js/dashboard.js', 
         array('jquery'), $theme->get( 'Version' ), true );
     
+    // PMP Progress Tracker JavaScript
+    wp_enqueue_script( 'pmp-progress-tracker', get_stylesheet_directory_uri() . '/assets/js/progress-tracker.js', 
+        array('jquery'), $theme->get( 'Version' ), true );
+    
     // PMP Resources JavaScript
     wp_enqueue_script( 'pmp-resources', get_stylesheet_directory_uri() . '/assets/js/resources.js', 
         array('jquery'), $theme->get( 'Version' ), true );
@@ -92,6 +102,13 @@ function understrap_child_enqueue_styles_scripts() {
         'userId' => get_current_user_id(),
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'restUrl' => rest_url('pmp/v1/')
+    ));
+    
+    // Localize progress tracker script with AJAX data
+    wp_localize_script( 'pmp-progress-tracker', 'pmpAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('pmp_ajax_nonce'),
+        'userId' => get_current_user_id()
     ));
 
 	// Enable comment-reply script for threaded comments
@@ -364,6 +381,13 @@ require_once get_stylesheet_directory() . '/includes/class-pmp-performance-optim
 require_once get_stylesheet_directory() . '/includes/class-pmp-asset-optimizer.php';
 require_once get_stylesheet_directory() . '/includes/class-pmp-caching-system.php';
 require_once get_stylesheet_directory() . '/includes/pmp-content-shortcodes.php';
+require_once get_stylesheet_directory() . '/includes/pmp-enqueue.php';
+require_once get_stylesheet_directory() . '/includes/pmp-progress-integration.php';
+
+// Include test file for development (only for administrators)
+if (current_user_can('administrator') || (defined('WP_DEBUG') && WP_DEBUG)) {
+    require_once get_stylesheet_directory() . '/test-progress-tracking.php';
+}
 
 // --- Initialize Performance Optimizer ---
 if (class_exists('PMP_Performance_Optimizer')) {

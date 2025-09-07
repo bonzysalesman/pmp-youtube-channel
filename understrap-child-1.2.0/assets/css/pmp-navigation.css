@@ -290,24 +290,7 @@
         margin-bottom: 0;
     }
     
-    .pmp-primary-nav .nav-link {
-        padding: 1rem 1.25rem;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: #495057;
-        border-radius: 0.375rem;
-        transition: all 0.2s ease-in-out;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .pmp-primary-nav .nav-link:hover,
-    .pmp-primary-nav .nav-link:focus {
-        background-color: #f8f9fa;
-        color: #007bff;
-        transform: translateX(5px);
-    }
+    /* Mobile navigation styles inherit from main navbar styles in style.css */
     
     .pmp-primary-nav .nav-item.has-icon .nav-link i {
         margin-right: 0.75rem;
@@ -474,10 +457,7 @@
 
 /* Tablet Specific Adjustments */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .pmp-primary-nav .nav-link {
-        font-size: 1rem;
-        padding: 0.875rem 1rem;
-    }
+    /* Tablet navigation styles inherit from main navbar styles */
     
     .pmp-primary-nav .dropdown-item {
         padding: 0.75rem 1.5rem;
@@ -498,10 +478,7 @@
         border-radius: 0;
     }
     
-    .pmp-primary-nav .nav-link {
-        font-size: 1rem;
-        padding: 0.875rem 1rem;
-    }
+    /* Small mobile navigation styles inherit from main navbar styles */
     
     .pmp-primary-nav .dropdown-item {
         padding: 0.75rem 1.5rem;
