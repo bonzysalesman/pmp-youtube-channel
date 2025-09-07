@@ -22,7 +22,7 @@ I’ve created a 700+ page self-study guide based on the official PMP Exam Conte
 
 This comprehensive self-study tool is built for candidates who want to:
 Pass the PMP exam on their first attempt
-Understand what the eam is really testing
+Understand what the exam is really testing
 Learn practical strategies using real world examples
 Study effectively - even on a budget
 
