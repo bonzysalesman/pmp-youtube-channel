@@ -1,0 +1,94 @@
+{
+  "main_menu": {
+    "items": [
+      {
+        "title": "Dashboard",
+        "url": "/dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "roles": [
+          "student",
+          "instructor",
+          "admin"
+        ]
+      },
+      {
+        "title": "Course Content",
+        "url": "/course",
+        "icon": "book",
+        "order": 2,
+        "roles": [
+          "student",
+          "instructor",
+          "admin"
+        ],
+        "submenu": [
+          {
+            "title": "Week 1: Foundation",
+            "url": "/course/week-1",
+            "domain": "Foundation"
+          },
+          {
+            "title": "Week 2-4: People Domain",
+            "url": "/course/people",
+            "domain": "People"
+          },
+          {
+            "title": "Week 5-11: Process Domain",
+            "url": "/course/process",
+            "domain": "Process"
+          },
+          {
+            "title": "Week 12-13: Final Prep",
+            "url": "/course/final-prep",
+            "domain": "General"
+          }
+        ]
+      },
+      {
+        "title": "Practice Tests",
+        "url": "/practice",
+        "icon": "quiz",
+        "order": 3,
+        "roles": [
+          "student",
+          "instructor",
+          "admin"
+        ]
+      },
+      {
+        "title": "Resources",
+        "url": "/resources",
+        "icon": "download",
+        "order": 4,
+        "roles": [
+          "student",
+          "instructor",
+          "admin"
+        ]
+      },
+      {
+        "title": "Progress",
+        "url": "/progress",
+        "icon": "chart",
+        "order": 5,
+        "roles": [
+          "student",
+          "instructor",
+          "admin"
+        ]
+      }
+    ]
+  },
+  "breadcrumb_config": {
+    "enabled": true,
+    "separator": " > ",
+    "show_home": true,
+    "home_text": "Home"
+  },
+  "mobile_menu": {
+    "breakpoint": 768,
+    "hamburger_style": "modern",
+    "overlay_enabled": true
+  }
+}

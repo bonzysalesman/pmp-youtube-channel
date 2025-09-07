@@ -1,0 +1,143 @@
+{
+  "layout": {
+    "columns": 3,
+    "responsive_breakpoints": {
+      "tablet": 768,
+      "mobile": 480
+    }
+  },
+  "widgets": [
+    {
+      "id": "progress_overview",
+      "title": "Your Progress",
+      "type": "progress_chart",
+      "position": {
+        "row": 1,
+        "col": 1,
+        "span": 2
+      },
+      "settings": {
+        "show_percentage": true,
+        "show_time_remaining": true,
+        "chart_type": "circular"
+      }
+    },
+    {
+      "id": "current_lesson",
+      "title": "Current Lesson",
+      "type": "lesson_card",
+      "position": {
+        "row": 1,
+        "col": 3,
+        "span": 1
+      },
+      "settings": {
+        "show_preview": true,
+        "show_duration": true
+      }
+    },
+    {
+      "id": "upcoming_lessons",
+      "title": "Up Next",
+      "type": "lesson_list",
+      "position": {
+        "row": 2,
+        "col": 1,
+        "span": 1
+      },
+      "settings": {
+        "limit": 5,
+        "show_week": true
+      }
+    },
+    {
+      "id": "recent_activity",
+      "title": "Recent Activity",
+      "type": "activity_feed",
+      "position": {
+        "row": 2,
+        "col": 2,
+        "span": 1
+      },
+      "settings": {
+        "limit": 10,
+        "show_timestamps": true
+      }
+    },
+    {
+      "id": "quick_actions",
+      "title": "Quick Actions",
+      "type": "action_buttons",
+      "position": {
+        "row": 2,
+        "col": 3,
+        "span": 1
+      },
+      "settings": {
+        "buttons": [
+          {
+            "label": "Continue Learning",
+            "action": "continue_lesson",
+            "icon": "play"
+          },
+          {
+            "label": "Take Practice Test",
+            "action": "practice_test",
+            "icon": "quiz"
+          },
+          {
+            "label": "Download Resources",
+            "action": "resources",
+            "icon": "download"
+          },
+          {
+            "label": "View Progress Report",
+            "action": "progress_report",
+            "icon": "chart"
+          }
+        ]
+      }
+    },
+    {
+      "id": "study_streak",
+      "title": "Study Streak",
+      "type": "streak_counter",
+      "position": {
+        "row": 3,
+        "col": 1,
+        "span": 1
+      },
+      "settings": {
+        "show_calendar": true,
+        "show_goals": true
+      }
+    },
+    {
+      "id": "performance_metrics",
+      "title": "Performance",
+      "type": "metrics_grid",
+      "position": {
+        "row": 3,
+        "col": 2,
+        "span": 2
+      },
+      "settings": {
+        "metrics": [
+          "lessons_completed",
+          "practice_score_avg",
+          "time_spent_learning",
+          "completion_rate"
+        ]
+      }
+    }
+  ],
+  "user_preferences": {
+    "customizable_layout": true,
+    "widget_visibility": true,
+    "theme_selection": [
+      "light",
+      "dark",
+      "auto"
+    ]
+  }
+}

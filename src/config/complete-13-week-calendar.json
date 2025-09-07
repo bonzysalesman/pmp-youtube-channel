@@ -1,0 +1,358 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "dates": "Sept 1-7",
+      "theme": "Introduction & Foundations",
+      "color": "purple",
+      "workGroup": "Introduction",
+      "videos": {
+        "monday": {
+          "type": "channel-trailer",
+          "title": "Welcome to Your 13-Week PMP Journey | Pass on First Try",
+          "hook": "Ready to earn your PMP certification in 13 weeks with a proven system?"
+        },
+        "tuesday": {
+          "dayNumber": 1,
+          "title": "Day 1: PMP Exam 2024 Complete Overview | What You Need to Know"
+        },
+        "wednesday": {
+          "dayNumber": 2,
+          "title": "Day 2: PMP Study Resources That Actually Work | Avoid These Mistakes"
+        },
+        "thursday": {
+          "dayNumber": 3,
+          "title": "Day 3: Master the ECO | Your Exam Blueprint Explained"
+        },
+        "friday": {
+          "dayNumber": 4,
+          "title": "Day 4: The PMP Mindset | How to Think Like a PMP"
+        }
+      }
+    },
+    {
+      "week": 2,
+      "dates": "Sept 8-14", 
+      "theme": "Work Group 1 - Building a Team (Part 1)",
+      "color": "green",
+      "domain": "People (42%)",
+      "videos": {
+        "monday": {
+          "title": "Week 2: Building High-Performance Teams | People Domain (42%)",
+          "ecoTasks": ["Manage conflict", "Lead a team"]
+        },
+        "tuesday": {
+          "dayNumber": 8,
+          "title": "Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos"
+        },
+        "wednesday": {
+          "dayNumber": 9,
+          "title": "Day 9: Negotiation Skills Every PMP Needs | Win-Win Outcomes"
+        },
+        "thursday": {
+          "dayNumber": 10,
+          "title": "Day 10: Servant Leadership in Action | Empower Your Team"
+        },
+        "friday": {
+          "title": "Week 2 Mastery Check | People Domain Practice Questions"
+        }
+      }
+    },
+    {
+      "week": 3,
+      "dates": "Sept 15-21",
+      "theme": "Work Group 1 - Building a Team (Part 2)",
+      "color": "green", 
+      "domain": "People (42%)",
+      "videos": {
+        "monday": {
+          "title": "Week 3: Training Teams for PMP Success | Skills Development"
+        },
+        "tuesday": {
+          "dayNumber": 16,
+          "title": "Day 16: Master Virtual Teams | Remote Leadership Excellence"
+        },
+        "wednesday": {
+          "dayNumber": 17,
+          "title": "Day 17: Remove Impediments Like a Pro | Obstacle Management"
+        },
+        "thursday": {
+          "dayNumber": 18,
+          "title": "Day 18: Boost Team Performance | Motivation & Engagement"
+        },
+        "friday": {
+          "title": "Week 3: People Domain Practice Exam | Test Your Knowledge"
+        }
+      }
+    },
+    {
+      "week": 4,
+      "dates": "Sept 22-28",
+      "theme": "Work Group 2 - Starting the Project (Part 1)",
+      "color": "blue",
+      "domain": "Process (50%)",
+      "videos": {
+        "monday": {
+          "title": "Week 4: Choose the Right Methodology | Predictive vs Agile vs Hybrid"
+        },
+        "tuesday": {
+          "dayNumber": 23,
+          "title": "Day 23: Scope Management Mastery | Define What's In & Out"
+        },
+        "wednesday": {
+          "dayNumber": 24,
+          "title": "Day 24: Budget Like a PMP | Resource Planning Excellence"
+        },
+        "thursday": {
+          "dayNumber": 25,
+          "title": "Day 25: Essential Project Documents | Artifacts That Matter"
+        },
+        "friday": {
+          "title": "Process Domain Foundation | Week 4 Practice & Review"
+        }
+      }
+    },
+    {
+      "week": 5,
+      "dates": "Sept 29-Oct 5",
+      "theme": "Work Group 2 - Starting the Project (Part 2)",
+      "color": "blue",
+      "domain": "Process (50%)",
+      "videos": {
+        "monday": {
+          "title": "Week 5: Schedule Like a Pro | Time Management Excellence"
+        },
+        "tuesday": {
+          "dayNumber": 30,
+          "title": "Day 30: Quality Excellence | Prevention Over Inspection"
+        },
+        "wednesday": {
+          "dayNumber": 31,
+          "title": "Day 31: Integrate Your Plans | Holistic Project Management"
+        },
+        "thursday": {
+          "dayNumber": 32,
+          "title": "Day 32: Procurement Strategy | Make vs Buy Decisions"
+        },
+        "friday": {
+          "dayNumber": 33,
+          "title": "Day 33: Governance Framework | Set Up for Success"
+        }
+      }
+    },
+    {
+      "week": 6,
+      "dates": "Oct 6-12",
+      "theme": "Work Group 3 - Doing the Work (Part 1)",
+      "color": "blue",
+      "domain": "Process (50%)",
+      "videos": {
+        "monday": {
+          "title": "Week 6: Risk Management Mastery | Turn Uncertainty into Opportunity"
+        },
+        "tuesday": {
+          "dayNumber": 37,
+          "title": "Day 37: Execute for Maximum Value | Benefits Realization"
+        },
+        "wednesday": {
+          "dayNumber": 38,
+          "title": "Day 38: Communication Excellence | Stakeholder Engagement"
+        },
+        "thursday": {
+          "dayNumber": 39,
+          "title": "Day 39: Stakeholder Mastery | Influence Without Authority"
+        },
+        "friday": {
+          "title": "Week 6 Integration | Execution Excellence Review"
+        }
+      }
+    },
+    {
+      "week": 7,
+      "dates": "Oct 13-19",
+      "theme": "Work Group 3 - Doing the Work (Part 2)",
+      "color": "blue",
+      "domain": "Process (50%)",
+      "videos": {
+        "monday": {
+          "title": "Week 7: Artifact Mastery | Information That Drives Decisions"
+        },
+        "tuesday": {
+          "dayNumber": 44,
+          "title": "Day 44: Change Like a Champion | Controlled Flexibility"
+        },
+        "wednesday": {
+          "dayNumber": 45,
+          "title": "Day 45: Issue Resolution | Problem-Solving Excellence"
+        },
+        "thursday": {
+          "dayNumber": 46,
+          "title": "Day 46: Knowledge Management | Capture & Share Wisdom"
+        },
+        "friday": {
+          "dayNumber": 47,
+          "title": "Day 47: Supplier Excellence | Vendor Relationship Management"
+        }
+      }
+    },
+    {
+      "week": 8,
+      "dates": "Oct 20-26",
+      "theme": "Work Group 3 - Doing the Work (Part 3)",
+      "color": "blue",
+      "domain": "Process (50%)",
+      "videos": {
+        "monday": {
+          "title": "Week 8: Process Domain Mastery | Integrate All Execution Skills"
+        },
+        "tuesday": {
+          "title": "Process Domain Practice Exam | 50-Question Challenge",
+          "type": "practice-test"
+        },
+        "wednesday": {
+          "title": "Mid-Program Assessment | Evaluate Your Progress",
+          "type": "assessment"
+        },
+        "thursday": {
+          "title": "Full Practice Exam #1 | 180-Question Challenge",
+          "type": "full-exam"
+        },
+        "friday": {
+          "title": "Practice Exam Analysis | Identify Your Path to Success"
+        }
+      }
+    },
+    {
+      "week": 9,
+      "dates": "Oct 27-Nov 2",
+      "theme": "Work Group 4 - Keeping on Track (Part 1)",
+      "color": "green",
+      "domain": "People (42%)",
+      "videos": {
+        "monday": {
+          "title": "Week 9: Leadership Excellence | Inspire High Performance"
+        },
+        "tuesday": {
+          "dayNumber": 54,
+          "title": "Day 54: Performance Support | Coaching for Excellence"
+        },
+        "wednesday": {
+          "dayNumber": 55,
+          "title": "Day 55: Collaboration Mastery | Build Winning Alliances"
+        },
+        "thursday": {
+          "dayNumber": 56,
+          "title": "Day 56: Conflict Resolution | Turn Tension into Innovation"
+        },
+        "friday": {
+          "title": "Week 9: Leadership Skills Integration | Practice Session"
+        }
+      }
+    },
+    {
+      "week": 10,
+      "dates": "Nov 3-9",
+      "theme": "Work Group 4 - Keeping on Track (Part 2)",
+      "color": "green",
+      "domain": "People (42%)",
+      "videos": {
+        "monday": {
+          "title": "Week 10: Mentorship Excellence | Develop Your People"
+        },
+        "tuesday": {
+          "dayNumber": 61,
+          "title": "Day 61: Shared Vision | Align Your Team"
+        },
+        "wednesday": {
+          "dayNumber": 62,
+          "title": "Day 62: Emotional Intelligence | The Leadership Multiplier"
+        },
+        "thursday": {
+          "dayNumber": 63,
+          "title": "Day 63: Team Dynamics Mastery | Psychology of High Performance"
+        },
+        "friday": {
+          "title": "People Leadership Practice Exam | Advanced Scenarios"
+        }
+      }
+    },
+    {
+      "week": 11,
+      "dates": "Nov 10-16",
+      "theme": "Work Group 5 - Focus on the Business (Part 1)",
+      "color": "orange",
+      "domain": "Business Environment (8%)",
+      "videos": {
+        "monday": {
+          "title": "Week 11: Compliance Excellence | Governance & Standards"
+        },
+        "tuesday": {
+          "dayNumber": 68,
+          "title": "Day 68: Value Delivery | Maximize Business Impact"
+        },
+        "wednesday": {
+          "dayNumber": 69,
+          "title": "Day 69: External Change Management | Navigate Uncertainty"
+        },
+        "thursday": {
+          "dayNumber": 70,
+          "title": "Day 70: Organizational Change | Transform for Success"
+        },
+        "friday": {
+          "title": "Business Environment Mastery | Week 11 Integration"
+        }
+      }
+    },
+    {
+      "week": 12,
+      "dates": "Nov 17-23",
+      "theme": "Final Review & Practice Exams",
+      "color": "purple",
+      "domain": "Mixed",
+      "videos": {
+        "monday": {
+          "title": "Practice Exam #2 | Full 180-Question Assessment",
+          "type": "full-exam"
+        },
+        "tuesday": {
+          "title": "Deep Dive Review | Address Your Weak Areas"
+        },
+        "wednesday": {
+          "title": "Final Practice Exam | Peak Performance Test",
+          "type": "full-exam"
+        },
+        "thursday": {
+          "title": "Laser-Focused Review | Final Knowledge Gaps"
+        },
+        "friday": {
+          "title": "Final Exam Preparation | Everything You Need to Know"
+        }
+      }
+    },
+    {
+      "week": 13,
+      "dates": "Nov 24-30",
+      "theme": "Exam Week",
+      "color": "purple",
+      "domain": "Mixed",
+      "videos": {
+        "monday": {
+          "title": "Exam Week: Logistics & Final Preparation"
+        },
+        "tuesday": {
+          "title": "Final Day Review | Stay Sharp, Stay Calm"
+        },
+        "wednesday": {
+          "title": "EXAM DAY | You've Got This!",
+          "type": "exam-day"
+        },
+        "thursday": {
+          "title": "Post-Exam Debrief | Celebrate Your Achievement"
+        },
+        "friday": {
+          "title": "PMP Success Stories | Your Journey Continues"
+        }
+      }
+    }
+  ]
+}

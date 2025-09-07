@@ -1,0 +1,204 @@
+{
+  "responseTimeTarget": 2,
+  "platforms": {
+    "youtube": {
+      "enabled": true,
+      "priority": 1,
+      "apiKey": "YOUTUBE_API_KEY",
+      "channelId": "YOUTUBE_CHANNEL_ID",
+      "features": {
+        "commentTracking": true,
+        "welcomeComments": true,
+        "communityPosts": true,
+        "liveChat": false
+      }
+    },
+    "discord": {
+      "enabled": true,
+      "priority": 2,
+      "botToken": "DISCORD_BOT_TOKEN",
+      "guildId": "DISCORD_GUILD_ID",
+      "features": {
+        "welcomeMessages": true,
+        "roleAssignment": true,
+        "progressTracking": true,
+        "studyReminders": true
+      },
+      "channels": {
+        "welcome": "welcome",
+        "general": "general",
+        "studyHelp": "study-help",
+        "announcements": "announcements",
+        "milestones": "wins-and-milestones"
+      }
+    },
+    "telegram": {
+      "enabled": true,
+      "priority": 2,
+      "botToken": "TELEGRAM_BOT_TOKEN",
+      "chatId": "TELEGRAM_CHAT_ID",
+      "features": {
+        "welcomeMessages": true,
+        "dailyTips": true,
+        "quickQA": true,
+        "progressUpdates": true
+      }
+    },
+    "email": {
+      "enabled": true,
+      "priority": 3,
+      "apiKey": "EMAIL_API_KEY",
+      "listId": "EMAIL_LIST_ID",
+      "provider": "mailchimp",
+      "features": {
+        "welcomeSequence": true,
+        "weeklyDigest": true,
+        "progressTracking": true,
+        "coursePromotions": true
+      }
+    },
+    "social": {
+      "enabled": true,
+      "priority": 4,
+      "platforms": ["twitter", "linkedin", "facebook"],
+      "features": {
+        "mentionTracking": true,
+        "shareTracking": true,
+        "crossPosting": false
+      }
+    }
+  },
+  "welcomeSequences": {
+    "youtube": {
+      "enabled": true,
+      "delay": 0,
+      "templates": ["new-to-pmp", "experienced", "referral", "default"]
+    },
+    "discord": {
+      "enabled": true,
+      "delay": 300,
+      "templates": ["new-member", "returning-member"]
+    },
+    "telegram": {
+      "enabled": true,
+      "delay": 600,
+      "templates": ["welcome", "study-tips"]
+    },
+    "email": {
+      "enabled": true,
+      "delay": 3600,
+      "sequence": [
+        {
+          "delay": 0,
+          "template": "welcome",
+          "subject": "Welcome to Your PMP Success Journey!"
+        },
+        {
+          "delay": 86400,
+          "template": "getting-started",
+          "subject": "Your First Week: Setting Up for Success"
+        },
+        {
+          "delay": 259200,
+          "template": "study-tips",
+          "subject": "3 Essential PMP Study Tips"
+        },
+        {
+          "delay": 604800,
+          "template": "week-1-check",
+          "subject": "How's Your First Week Going?"
+        }
+      ]
+    }
+  },
+  "progressTracking": {
+    "milestones": {
+      "days": [1, 3, 7, 14, 30, 60, 90],
+      "studyWeeks": [1, 3, 5, 7, 10, 13],
+      "engagementPoints": [10, 50, 100, 250, 500, 1000],
+      "achievements": [
+        "first_comment",
+        "first_week_complete", 
+        "consistent_learner",
+        "community_helper",
+        "study_champion",
+        "pmp_graduate"
+      ]
+    },
+    "celebrationThresholds": [10, 50, 100, 500, 1000],
+    "pointsSystem": {
+      "comment": 5,
+      "videoWatch": 10,
+      "chapterRead": 15,
+      "weekComplete": 50,
+      "helpOthers": 25,
+      "shareProgress": 20
+    }
+  },
+  "engagementRules": {
+    "responseTimeTargets": {
+      "youtube": 2,
+      "discord": 1,
+      "telegram": 1,
+      "email": 24,
+      "social": 4
+    },
+    "priorityKeywords": [
+      "help",
+      "question",
+      "stuck",
+      "confused",
+      "exam",
+      "practice",
+      "thanks",
+      "passed"
+    ],
+    "autoResponses": {
+      "enabled": false,
+      "triggers": ["faq", "common questions"],
+      "escalationKeywords": ["urgent", "exam tomorrow", "frustrated"]
+    }
+  },
+  "contentIntegration": {
+    "studyGuideUrl": "https://example.com/study-guide",
+    "videoPlaylistUrl": "https://youtube.com/playlist?list=...",
+    "practiceQuestionsUrl": "https://example.com/practice",
+    "communityLinks": {
+      "discord": "https://discord.gg/...",
+      "telegram": "https://t.me/...",
+      "facebook": "https://facebook.com/groups/..."
+    }
+  },
+  "notifications": {
+    "slack": {
+      "enabled": false,
+      "webhookUrl": "SLACK_WEBHOOK_URL",
+      "channels": {
+        "alerts": "#community-alerts",
+        "celebrations": "#wins",
+        "reports": "#analytics"
+      }
+    },
+    "email": {
+      "enabled": true,
+      "adminEmail": "admin@example.com",
+      "alertTypes": ["response_overdue", "new_milestone", "system_error"]
+    }
+  },
+  "analytics": {
+    "trackingEnabled": true,
+    "metricsRetention": 365,
+    "reportSchedule": {
+      "daily": true,
+      "weekly": true,
+      "monthly": true
+    },
+    "kpis": [
+      "response_time",
+      "engagement_rate",
+      "member_growth",
+      "milestone_completion",
+      "platform_activity"
+    ]
+  }
+}

@@ -1,0 +1,829 @@
+/**
+ * PMP Navigation Styles
+ * 
+ * Custom styles for the PMP WordPress theme navigation system
+ */
+
+/* ==========================================================================
+   Primary Navigation Styles
+   ========================================================================== */
+
+.pmp-primary-nav {
+    font-weight: 500;
+}
+
+.pmp-primary-nav .nav-item.has-icon .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.pmp-primary-nav .nav-item.has-icon .nav-link i {
+    margin-right: 0.5rem;
+    width: 1.25rem;
+    text-align: center;
+}
+
+.pmp-primary-nav .nav-item.has-color .nav-link {
+    position: relative;
+}
+
+.pmp-primary-nav .nav-item.has-color .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background-color: var(--item-color, #007bff);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.pmp-primary-nav .nav-item.has-color:hover .nav-link::before,
+.pmp-primary-nav .nav-item.has-color.current-page .nav-link::before {
+    opacity: 1;
+}
+
+/* Dropdown Menu Enhancements */
+.pmp-primary-nav .dropdown-menu {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+}
+
+.pmp-primary-nav .dropdown-item {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.pmp-primary-nav .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.pmp-primary-nav .dropdown-item .nav-description {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    line-height: 1.3;
+}
+
+/* Domain Color Coding */
+.pmp-primary-nav .nav-item[data-color="#28a745"] .nav-link {
+    --item-color: #28a745; /* Green for People domain */
+}
+
+.pmp-primary-nav .nav-item[data-color="#007bff"] .nav-link {
+    --item-color: #007bff; /* Blue for Process domain */
+}
+
+.pmp-primary-nav .nav-item[data-color="#fd7e14"] .nav-link {
+    --item-color: #fd7e14; /* Orange for Business domain */
+}
+
+.pmp-primary-nav .nav-item[data-color="#6f42c1"] .nav-link {
+    --item-color: #6f42c1; /* Purple for Review */
+}
+
+.pmp-primary-nav .nav-item[data-color="#dc3545"] .nav-link {
+    --item-color: #dc3545; /* Red for Final Prep */
+}
+
+/* ==========================================================================
+   Dashboard Sidebar Navigation
+   ========================================================================== */
+
+.pmp-dashboard-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pmp-dashboard-nav .menu-item {
+    margin-bottom: 0.5rem;
+}
+
+.pmp-dashboard-nav .menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+}
+
+.pmp-dashboard-nav .menu-item a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+    border-color: #dee2e6;
+}
+
+.pmp-dashboard-nav .menu-item.current-page a {
+    background-color: #007bff;
+    color: #ffffff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.pmp-dashboard-nav .menu-item.has-icon a i {
+    width: 1.25rem;
+    margin-right: 0.75rem;
+    text-align: center;
+}
+
+.pmp-dashboard-nav .menu-item a small {
+    margin-left: auto;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Dashboard Navigation Sections */
+.pmp-dashboard-nav-section {
+    margin-bottom: 2rem;
+}
+
+.pmp-dashboard-nav-section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    padding: 0 1rem;
+}
+
+/* ==========================================================================
+   Breadcrumb Navigation
+   ========================================================================== */
+
+.pmp-breadcrumbs {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.pmp-breadcrumbs .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.pmp-breadcrumbs .breadcrumb-item {
+    color: #6c757d;
+}
+
+.pmp-breadcrumbs .breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.pmp-breadcrumbs .breadcrumb-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.pmp-breadcrumbs .breadcrumb-item.active {
+    color: #495057;
+    font-weight: 500;
+}
+
+.pmp-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    color: #adb5bd;
+    margin: 0 0.5rem;
+}
+
+/* ==========================================================================
+   Footer Navigation
+   ========================================================================== */
+
+.footer-widget .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-widget .menu-item {
+    margin-bottom: 0.5rem;
+}
+
+.footer-widget .menu-item a {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.footer-widget .menu-item a:hover {
+    color: #007bff;
+}
+
+.footer-widget .menu-item.has-icon a i {
+    margin-right: 0.5rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.footer-widget .widget-title {
+    color: #495057;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #007bff;
+}
+
+/* ==========================================================================
+   Mobile Navigation Styles
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+    .pmp-primary-nav .navbar-nav {
+        padding-top: 1rem;
+    }
+    
+    .pmp-primary-nav .nav-item {
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .pmp-primary-nav .nav-item:last-child {
+        border-bottom: none;
+    }
+    
+    .pmp-primary-nav .nav-link {
+        padding: 1rem 0;
+        font-size: 1.1rem;
+    }
+    
+    .pmp-primary-nav .dropdown-menu {
+        background-color: #f8f9fa;
+        border: none;
+        box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+        border-radius: 0;
+        margin-top: 0;
+        padding: 0;
+    }
+    
+    .pmp-primary-nav .dropdown-item {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .pmp-primary-nav .dropdown-item:last-child {
+        border-bottom: none;
+    }
+    
+    .pmp-primary-nav .dropdown-item.has-color {
+        border-left: 3px solid var(--item-color, #007bff);
+    }
+    
+    /* Mobile Dashboard Navigation */
+    .pmp-dashboard-nav {
+        display: none;
+    }
+    
+    .pmp-mobile-dashboard-toggle {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    
+    .pmp-mobile-dashboard-toggle:hover {
+        background-color: #0056b3;
+    }
+    
+    .pmp-mobile-dashboard-toggle.active + .pmp-dashboard-nav {
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   Navigation Accessibility
+   ========================================================================== */
+
+.pmp-navigation-enabled .nav-link:focus,
+.pmp-navigation-enabled .dropdown-item:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.pmp-navigation-enabled .nav-link[aria-expanded="true"] {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Skip to content link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 999999;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 0 0 0.375rem 0;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* ==========================================================================
+   Navigation Loading States
+   ========================================================================== */
+
+.pmp-nav-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.pmp-nav-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: pmp-nav-spin 1s linear infinite;
+}
+
+@keyframes pmp-nav-spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ==========================================================================
+   Navigation Animations
+   ========================================================================== */
+
+.pmp-primary-nav .dropdown-menu {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.2s ease-in-out;
+}
+
+.pmp-primary-nav .dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pmp-dashboard-nav .menu-item {
+    transform: translateX(-10px);
+    opacity: 0;
+    animation: pmp-nav-slide-in 0.3s ease-out forwards;
+}
+
+.pmp-dashboard-nav .menu-item:nth-child(1) { animation-delay: 0.1s; }
+.pmp-dashboard-nav .menu-item:nth-child(2) { animation-delay: 0.2s; }
+.pmp-dashboard-nav .menu-item:nth-child(3) { animation-delay: 0.3s; }
+.pmp-dashboard-nav .menu-item:nth-child(4) { animation-delay: 0.4s; }
+.pmp-dashboard-nav .menu-item:nth-child(5) { animation-delay: 0.5s; }
+.pmp-dashboard-nav .menu-item:nth-child(6) { animation-delay: 0.6s; }
+.pmp-dashboard-nav .menu-item:nth-child(7) { animation-delay: 0.7s; }
+.pmp-dashboard-nav .menu-item:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes pmp-nav-slide-in {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    .pmp-primary-nav,
+    .pmp-dashboard-nav,
+    .pmp-breadcrumbs {
+        display: none !important;
+    }
+}
+/* =
+=========================================================================
+   Course Progression Navigation
+   ========================================================================== */
+
+.pmp-lesson-navigation {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+}
+
+.pmp-lesson-navigation:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.pmp-lesson-navigation.compact {
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.lesson-domain-info {
+    text-align: center;
+}
+
+.domain-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    color: white;
+    font-weight: 500;
+    font-size: 0.875rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.domain-badge .domain-name {
+    display: block;
+    font-weight: 600;
+}
+
+.domain-badge .lesson-position {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.9;
+    margin-top: 0.125rem;
+}
+
+.lesson-navigation-controls {
+    min-height: 3rem;
+    align-items: center;
+}
+
+.current-lesson-info {
+    flex-grow: 1;
+    margin: 0 1rem;
+}
+
+.current-lesson-info .lesson-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.lesson-progress {
+    font-size: 0.875rem;
+}
+
+.lesson-actions {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.lesson-actions .btn {
+    transition: all 0.2s ease;
+}
+
+.lesson-actions .btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Navigation Button Styles */
+.nav-previous .btn,
+.nav-next .btn {
+    min-width: 120px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-previous .btn:hover,
+.nav-next .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.nav-previous .btn.disabled,
+.nav-next .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Course Progress Widget */
+.pmp-course-progress {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.progress-header h5 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.progress-header .badge {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.current-lesson-card {
+    border-left: 4px solid #007bff;
+    transition: all 0.2s ease;
+}
+
+.current-lesson-card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 123, 255, 0.15);
+}
+
+.current-lesson-card .card-title {
+    color: #007bff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.current-lesson-card .card-title i {
+    margin-right: 0.5rem;
+}
+
+.domain-progress {
+    margin-bottom: 1rem;
+}
+
+.domain-progress:last-child {
+    margin-bottom: 0;
+}
+
+.domain-progress .progress {
+    margin-top: 0.25rem;
+    height: 6px;
+}
+
+.domain-progress .progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Navigation States */
+.pmp-lesson-navigation.lesson-completed {
+    border-color: #28a745;
+    background: linear-gradient(135deg, #f8fff9 0%, #ffffff 100%);
+}
+
+.pmp-lesson-navigation.lesson-completed .lesson-title::after {
+    content: " ✓";
+    color: #28a745;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.pmp-lesson-navigation.lesson-completed .domain-badge {
+    box-shadow: 0 0 0 2px #28a745;
+}
+
+/* Message Alerts */
+.pmp-message {
+    margin-bottom: 1rem;
+    border-radius: 0.375rem;
+    animation: pmp-message-slide-in 0.3s ease-out;
+}
+
+@keyframes pmp-message-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Progress Bar Animations */
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+.progress-bar.animate {
+    animation: pmp-progress-fill 1s ease-out;
+}
+
+@keyframes pmp-progress-fill {
+    from {
+        width: 0%;
+    }
+}
+
+/* Lesson Overview Modal Enhancements */
+.modal-content .modal-header {
+    border-bottom: 2px solid #007bff;
+}
+
+.modal-content .modal-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.modal-content .modal-body h6 {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
+}
+
+.modal-content .modal-body h6:first-child {
+    margin-top: 0;
+}
+
+.modal-content .modal-body ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.modal-content .modal-body ul li i {
+    margin-right: 0.5rem;
+}
+
+/* ==========================================================================
+   Responsive Course Progression Navigation
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .pmp-lesson-navigation.mobile-navigation .lesson-navigation-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .pmp-lesson-navigation.mobile-navigation .current-lesson-info {
+        order: -1;
+        margin: 0 0 1rem 0;
+        text-align: center;
+    }
+    
+    .pmp-lesson-navigation.mobile-navigation .nav-previous,
+    .pmp-lesson-navigation.mobile-navigation .nav-next {
+        flex: 1;
+    }
+    
+    .pmp-lesson-navigation.stacked-navigation .lesson-navigation-controls {
+        flex-direction: column;
+    }
+    
+    .pmp-lesson-navigation.stacked-navigation .nav-previous,
+    .pmp-lesson-navigation.stacked-navigation .nav-next {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .domain-badge {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .lesson-actions .btn {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .current-lesson-info .lesson-title {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .pmp-lesson-navigation {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .lesson-navigation-controls .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        min-width: 100px;
+    }
+    
+    .nav-previous .btn .d-md-none,
+    .nav-next .btn .d-md-none {
+        display: inline !important;
+    }
+    
+    .nav-previous .btn .d-none.d-md-inline,
+    .nav-next .btn .d-none.d-md-inline {
+        display: none !important;
+    }
+    
+    .pmp-course-progress {
+        padding: 1rem;
+    }
+    
+    .current-lesson-card .btn {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+.pmp-lesson-navigation:focus-within {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.lesson-navigation-controls .btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.pmp-lesson-navigation[tabindex="0"]:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .pmp-lesson-navigation {
+        border: 2px solid #000;
+    }
+    
+    .domain-badge {
+        border: 1px solid #000;
+    }
+    
+    .lesson-navigation-controls .btn {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .pmp-lesson-navigation,
+    .lesson-navigation-controls .btn,
+    .progress-bar,
+    .pmp-message {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* ==========================================================================
+   Print Styles for Course Progression
+   ========================================================================== */
+
+@media print {
+    .pmp-lesson-navigation {
+        border: 1px solid #000;
+        box-shadow: none;
+        page-break-inside: avoid;
+        background: #fff !important;
+    }
+    
+    .lesson-actions,
+    .modal {
+        display: none !important;
+    }
+    
+    .current-lesson-info .lesson-title {
+        color: #000 !important;
+    }
+    
+    .domain-badge {
+        color: #000 !important;
+        background: #fff !important;
+        border: 1px solid #000 !important;
+    }
+}

@@ -1,0 +1,78 @@
+{
+  "name": "pmp-wordpress-frontend",
+  "version": "1.0.0",
+  "description": "PMP WordPress Frontend with comprehensive test suite",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:php": "vendor/bin/phpunit",
+    "test:php-coverage": "vendor/bin/phpunit --coverage-html tests/coverage/php",
+    "test:js": "jest --testPathPattern=tests/js",
+    "test:js-watch": "jest --watch --testPathPattern=tests/js",
+    "test:all": "npm run test:php && npm run test:js",
+    "lint:js": "eslint assets/js/**/*.js",
+    "lint:js-fix": "eslint assets/js/**/*.js --fix"
+  },
+  "keywords": [
+    "wordpress",
+    "pmp",
+    "frontend",
+    "testing",
+    "jest",
+    "phpunit"
+  ],
+  "author": "PMP Course Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.42.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.0",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard"
+    ],
+    "env": {
+      "browser": true,
+      "jquery": true,
+      "jest": true
+    },
+    "globals": {
+      "pmpData": "readonly",
+      "wp": "readonly",
+      "PMPNavigation": "writable",
+      "PMPDashboard": "writable",
+      "PMPResourcesManager": "writable"
+    },
+    "rules": {
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ]
+    }
+  }
+}

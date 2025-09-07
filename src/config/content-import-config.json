@@ -1,0 +1,61 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "root",
+    "password": "",
+    "database": "wordpress",
+    "charset": "utf8mb4"
+  },
+  "wordpress": {
+    "site_url": "http://localhost:8080",
+    "table_prefix": "wp_",
+    "default_author_id": 1,
+    "default_post_status": "publish",
+    "default_comment_status": "open"
+  },
+  "content": {
+    "source_path": "src/content/chunks",
+    "cross_references_path": "src/content/cross-references",
+    "custom_post_type": "lesson",
+    "taxonomy_category": "lesson_category",
+    "taxonomy_tag": "lesson_tag"
+  },
+  "import_settings": {
+    "batch_size": 10,
+    "delay_between_batches": 1000,
+    "validate_before_import": true,
+    "create_backup": true,
+    "overwrite_existing": false,
+    "import_media": true,
+    "import_cross_references": true
+  },
+  "validation": {
+    "required_metadata": [
+      "title",
+      "domain"
+    ],
+    "max_content_length": 50000,
+    "min_content_length": 500,
+    "allowed_domains": [
+      "Foundation",
+      "Foundation (Critical for all domains)",
+      "People",
+      "People (42%)",
+      "Process",
+      "Process (50%)", 
+      "Business Environment",
+      "Business Environment (8%)",
+      "General",
+      "Exam Preparation",
+      "Final Preparation",
+      "PMP Mindset and Professional Excellence"
+    ]
+  },
+  "logging": {
+    "level": "info",
+    "log_file": "logs/content-import.log",
+    "console_output": true,
+    "detailed_errors": true
+  }
+}

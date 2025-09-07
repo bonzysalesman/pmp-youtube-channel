@@ -1,0 +1,247 @@
+{
+    "playlistStructure": {
+        "main": {
+            "title": "13-Week PMP Study Plan - Complete Series",
+            "videoCount": 91,
+            "organization": "chronological",
+            "description": "Complete 13-week structured study plan for PMP certification"
+        },
+        "workGroups": {
+            "Building Team": {
+                "weeks": [
+                    1,
+                    2,
+                    3
+                ],
+                "videoCount": 21,
+                "domain": "People",
+                "color": "green",
+                "focus": "Team formation, leadership, conflict management"
+            },
+            "Starting Project": {
+                "weeks": [
+                    4,
+                    5
+                ],
+                "videoCount": 14,
+                "domain": "Process",
+                "color": "blue",
+                "focus": "Project planning, integration, methodology"
+            },
+            "Doing Work": {
+                "weeks": [
+                    6,
+                    7,
+                    8
+                ],
+                "videoCount": 21,
+                "domain": "Process",
+                "color": "blue",
+                "focus": "Execution, monitoring, resource management"
+            },
+            "Keeping Track": {
+                "weeks": [
+                    9,
+                    10
+                ],
+                "videoCount": 14,
+                "domain": "Process",
+                "color": "blue",
+                "focus": "Control, tracking, issue management"
+            },
+            "Business Focus": {
+                "weeks": [
+                    11
+                ],
+                "videoCount": 7,
+                "domain": "Business Environment",
+                "color": "orange",
+                "focus": "Organizational change, compliance"
+            },
+            "Final Prep": {
+                "weeks": [
+                    12,
+                    13
+                ],
+                "videoCount": 14,
+                "domain": "Mixed",
+                "color": "purple",
+                "focus": "Exam preparation, final review"
+            }
+        },
+        "domains": {
+            "People": {
+                "examWeight": "42%",
+                "color": "green",
+                "estimatedVideos": 38,
+                "keyTopics": [
+                    "Team building and leadership",
+                    "Conflict management",
+                    "Stakeholder engagement",
+                    "Communication and collaboration"
+                ]
+            },
+            "Process": {
+                "examWeight": "50%",
+                "color": "blue",
+                "estimatedVideos": 46,
+                "keyTopics": [
+                    "Project planning and integration",
+                    "Scope, schedule, and resource management",
+                    "Quality and risk management",
+                    "Monitoring and controlling"
+                ]
+            },
+            "Business Environment": {
+                "examWeight": "8%",
+                "color": "orange",
+                "estimatedVideos": 7,
+                "keyTopics": [
+                    "Organizational factors",
+                    "Compliance and governance",
+                    "Change management",
+                    "Value delivery"
+                ]
+            }
+        },
+        "contentTypes": {
+            "overview": {
+                "count": 13,
+                "duration": "18 minutes",
+                "description": "Weekly overview videos introducing each week's focus"
+            },
+            "daily-study": {
+                "count": 52,
+                "duration": "15 minutes",
+                "description": "Daily study sessions covering core concepts"
+            },
+            "practice": {
+                "count": 13,
+                "duration": "25 minutes",
+                "description": "Weekly practice sessions with scenarios and questions"
+            },
+            "review": {
+                "count": 13,
+                "duration": "20 minutes",
+                "description": "Weekly review sessions summarizing key takeaways"
+            }
+        }
+    },
+    "seoOptimization": {
+        "primaryKeywords": [
+            "PMP exam prep",
+            "PMP certification",
+            "Project Management Professional",
+            "PMI certification",
+            "PMP study guide",
+            "13 week study plan"
+        ],
+        "domainKeywords": {
+            "People": [
+                "PMP People Domain",
+                "Team Management",
+                "Leadership",
+                "Conflict Resolution",
+                "Stakeholder Management"
+            ],
+            "Process": [
+                "PMP Process Domain",
+                "Project Management",
+                "Planning",
+                "Execution",
+                "Monitoring"
+            ],
+            "Business Environment": [
+                "PMP Business Environment",
+                "Organizational Change",
+                "Compliance",
+                "Governance"
+            ]
+        },
+        "contentTypeKeywords": {
+            "daily-study": [
+                "Daily Study",
+                "PMP Lessons",
+                "Study Sessions"
+            ],
+            "practice": [
+                "Practice Questions",
+                "PMP Practice",
+                "Exam Practice"
+            ],
+            "review": [
+                "Week Review",
+                "Study Review",
+                "Key Takeaways"
+            ],
+            "overview": [
+                "Week Overview",
+                "Study Plan",
+                "Weekly Introduction"
+            ]
+        }
+    },
+    "playlistDescriptionTemplates": {
+        "main": {
+            "sections": [
+                "introduction",
+                "learningOutcomes",
+                "studySchedule",
+                "workGroupProgression",
+                "studyResources",
+                "progressTracking"
+            ]
+        },
+        "workGroup": {
+            "sections": [
+                "introduction",
+                "domainFocus",
+                "weeksCovered",
+                "keyConcepts",
+                "relatedPlaylists",
+                "progressTracking"
+            ]
+        },
+        "domain": {
+            "sections": [
+                "introduction",
+                "examWeight",
+                "focusAreas",
+                "contentIncludes",
+                "studyProgression"
+            ]
+        },
+        "contentType": {
+            "sections": [
+                "introduction",
+                "videoFormat",
+                "learningObjectives",
+                "studyTips",
+                "relatedContent"
+            ]
+        }
+    },
+    "organizationRules": {
+        "mainPlaylist": {
+            "order": "chronological",
+            "startWith": "w01_d1",
+            "endWith": "w13_d7",
+            "grouping": "none"
+        },
+        "workGroupPlaylists": {
+            "order": "chronological",
+            "grouping": "by_week",
+            "includeAllTypes": true
+        },
+        "domainPlaylists": {
+            "order": "chronological",
+            "grouping": "by_domain_content",
+            "includeAllTypes": true
+        },
+        "contentTypePlaylists": {
+            "order": "chronological",
+            "grouping": "by_type",
+            "separateByWeek": false
+        }
+    }
+}

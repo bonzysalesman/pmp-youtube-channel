@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "name": "Task Completion Workflow",
+  "description": "Automatically updates documentation, creates commits, pushes changes, and initiates change requests after completing development tasks. Involves the user in the process and utilizes appropriate MCP and native tools.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.js",
+      "src/**/*.md",
+      "*.md",
+      "package.json",
+      "src/config/*.json",
+      "src/automation/**/*.js",
+      "understrap-child-1.2.0/**/*.php",
+      "understrap-child-1.2.0/**/*.js"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A task has been completed with file changes detected. Please:\n\n1. Check for installed MCP servers and available tools\n2. Update relevant documentation files (README.md, technical docs, etc.)\n3. Review the changes and create a descriptive commit message\n4. Push the changes to the repository\n5. Create a change request or pull request if appropriate\n6. Involve the user in the process by asking for their review and approval\n7. Use appropriate MCP servers and native tools for git operations, documentation updates, and change management\n\nFocus on maintaining code quality, documentation accuracy, and proper version control practices."
+  }
+}

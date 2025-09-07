@@ -1,0 +1,250 @@
+{
+  "program": {
+    "title": "13-Week PMP Certification Journey",
+    "totalWeeks": 13,
+    "totalVideos": 91,
+    "startDate": "2024-09-01",
+    "endDate": "2024-11-30"
+  },
+  "months": [
+    {
+      "month": 1,
+      "title": "Building a Team & Starting the Project",
+      "weeks": [1, 2, 3, 4]
+    },
+    {
+      "month": 2,
+      "title": "Starting the Project & Doing the Work", 
+      "weeks": [5, 6, 7, 8]
+    },
+    {
+      "month": 3,
+      "title": "Leadership, Compliance & Final Prep",
+      "weeks": [9, 10, 11, 12, 13]
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "dates": "Sept 1-7",
+      "theme": "Introduction & Foundations",
+      "color": "purple",
+      "workGroup": "Introduction",
+      "focus": "Program overview, exam structure, mindset foundation",
+      "videos": [
+        {
+          "day": "Monday",
+          "type": "channel-trailer",
+          "title": "Welcome to Your 13-Week PMP Journey | Pass on First Try",
+          "duration": "5-7 minutes",
+          "hook": "Ready to earn your PMP certification in 13 weeks with a proven system?",
+          "keyPoints": ["Your credentials", "structured approach", "community support"],
+          "cta": "Subscribe + download study calendar",
+          "leadMagnet": "13-Week Study Calendar"
+        },
+        {
+          "day": "Tuesday",
+          "dayNumber": 1,
+          "type": "daily-study",
+          "title": "Day 1: PMP Exam 2024 Complete Overview | What You Need to Know",
+          "duration": "15-18 minutes",
+          "content": "Exam format, domains breakdown, eligibility requirements",
+          "practiceElement": "ECO navigation exercise",
+          "nextPreview": "Essential resources",
+          "ecoTasks": ["Understanding exam structure", "Domain weighting"]
+        },
+        {
+          "day": "Wednesday", 
+          "dayNumber": 2,
+          "type": "daily-study",
+          "title": "Day 2: PMP Study Resources That Actually Work | Avoid These Mistakes",
+          "duration": "15-18 minutes",
+          "content": "PMBOK vs ECO, recommended materials, what NOT to waste time on",
+          "leadMagnet": "Complete Resource Checklist",
+          "communityQuestion": "What resources are you currently using?",
+          "ecoTasks": ["Resource evaluation", "Study planning"]
+        },
+        {
+          "day": "Thursday",
+          "dayNumber": 3, 
+          "type": "daily-study",
+          "title": "Day 3: Master the ECO | Your Exam Blueprint Explained",
+          "duration": "15-18 minutes",
+          "content": "Tasks vs enablers, domain weighting, how to read ECO",
+          "activity": "ECO mapping exercise",
+          "mindsetMoment": "Think like PMI, not like your workplace",
+          "ecoTasks": ["ECO navigation", "Task understanding"]
+        },
+        {
+          "day": "Friday",
+          "dayNumber": 4,
+          "type": "daily-study", 
+          "title": "Day 4: The PMP Mindset | How to Think Like a PMP",
+          "duration": "15-18 minutes",
+          "content": "Proactive vs reactive, servant leadership, value focus",
+          "scenarios": "3 mindset application examples",
+          "weekendPrep": "Study environment setup",
+          "ecoTasks": ["Mindset development", "Leadership principles"]
+        },
+        {
+          "day": "Saturday",
+          "type": "practice",
+          "title": "Week 1 Recap + Practice Questions",
+          "duration": "15 minutes"
+        },
+        {
+          "day": "Sunday", 
+          "type": "review",
+          "title": "Community Q&A Session",
+          "duration": "30 minutes",
+          "format": "livestream or pre-recorded"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "dates": "Sept 8-14",
+      "theme": "Work Group 1 - Building a Team (Part 1)",
+      "color": "green",
+      "workGroup": "Building Team",
+      "domain": "People (42%)",
+      "focus": "Team formation stages, diversity benefits, psychological safety",
+      "videos": [
+        {
+          "day": "Monday",
+          "type": "weekly-intro",
+          "title": "Week 2: Building High-Performance Teams | People Domain (42%)",
+          "duration": "15-18 minutes",
+          "ecoTasks": ["Manage conflict", "Lead a team"],
+          "content": "Team formation stages, diversity benefits, psychological safety",
+          "caseStudy": "Remote team formation success story"
+        },
+        {
+          "day": "Tuesday",
+          "dayNumber": 8,
+          "type": "daily-study",
+          "title": "Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos",
+          "duration": "15-18 minutes", 
+          "content": "Ground rule categories, facilitation techniques, enforcement",
+          "templateOffer": "Team Charter Template",
+          "practice": "Ground rule scenario workshop",
+          "ecoTasks": ["Define team ground rules"]
+        },
+        {
+          "day": "Wednesday",
+          "dayNumber": 9,
+          "type": "daily-study",
+          "title": "Day 9: Negotiation Skills Every PMP Needs | Win-Win Outcomes",
+          "duration": "15-18 minutes",
+          "content": "Interest-based negotiation, BATNA, stakeholder analysis", 
+          "rolePlay": "Contract negotiation scenario",
+          "mindset": "Collaborate, don't dictate",
+          "ecoTasks": ["Negotiate project agreements"]
+        },
+        {
+          "day": "Thursday",
+          "dayNumber": 10,
+          "type": "daily-study",
+          "title": "Day 10: Servant Leadership in Action | Empower Your Team",
+          "duration": "15-18 minutes",
+          "content": "Delegation vs empowerment, coaching techniques, motivation theory",
+          "tools": "Empowerment assessment checklist",
+          "realExample": "Team empowerment transformation",
+          "ecoTasks": ["Empower team members and stakeholders"]
+        },
+        {
+          "day": "Friday",
+          "type": "weekly-review",
+          "title": "Week 2 Mastery Check | People Domain Practice Questions",
+          "duration": "15-20 minutes",
+          "content": "10 scenario-based questions, detailed explanations",
+          "reflection": "Team building self-assessment",
+          "preview": "Week 3 virtual teams focus"
+        },
+        {
+          "day": "Saturday",
+          "type": "practice",
+          "title": "People Domain Practice Session",
+          "duration": "20-25 minutes"
+        },
+        {
+          "day": "Sunday",
+          "type": "review", 
+          "title": "Week 2 Review & Community Discussion",
+          "duration": "15-20 minutes"
+        }
+      ]
+    }
+  ],
+  "productionGuidelines": {
+    "videoLengthStandards": {
+      "dailyStudy": "12-18 minutes",
+      "practiceSessions": "20-25 minutes", 
+      "reviewSessions": "15-20 minutes",
+      "examSimulations": "10-15 minutes + exam time"
+    },
+    "thumbnailColorCoding": {
+      "people": {
+        "color": "green",
+        "hex": "#2ECC71",
+        "description": "People Domain backgrounds"
+      },
+      "process": {
+        "color": "blue", 
+        "hex": "#3498DB",
+        "description": "Process Domain backgrounds"
+      },
+      "businessEnvironment": {
+        "color": "orange",
+        "hex": "#E67E22", 
+        "description": "Business Environment backgrounds"
+      },
+      "practiceReview": {
+        "color": "purple",
+        "hex": "#9B59B6",
+        "description": "Practice/Review backgrounds"
+      }
+    },
+    "consistentFormatElements": {
+      "hook": {
+        "duration": "0-30 seconds",
+        "description": "Compelling opening question or statement"
+      },
+      "learningObjectives": {
+        "duration": "30-60 seconds", 
+        "description": "What viewers will learn"
+      },
+      "ecoConnection": {
+        "duration": "60-90 seconds",
+        "description": "How content maps to exam"
+      },
+      "mainContent": {
+        "duration": "8-12 minutes",
+        "description": "Core teaching with examples"
+      },
+      "practiceApplication": {
+        "duration": "2-4 minutes",
+        "description": "Scenario or questions"
+      },
+      "keyTakeaways": {
+        "duration": "1-2 minutes",
+        "description": "Summary and action items"
+      },
+      "nextVideoPreview": {
+        "duration": "30 seconds",
+        "description": "Tomorrow's topic tease"
+      },
+      "subscribeReminder": {
+        "duration": "15 seconds",
+        "description": "Consistent call-to-action"
+      }
+    },
+    "communityEngagementStrategy": {
+      "pinnedComments": "Pin comment on every video with study tip",
+      "responseTime": "Respond to all comments within 24 hours",
+      "weeklyPosts": "Weekly community posts with motivation",
+      "liveQA": "Monthly live Q&A sessions",
+      "progressTracking": "Progress tracking through polls and comments"
+    }
+  }
+}

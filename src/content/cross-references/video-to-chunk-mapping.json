@@ -1,0 +1,236 @@
+{
+  "week_01": {
+    "day_01": {
+      "video_title": "Day 1: PMP Exam 2024 Complete Overview | What You Need to Know",
+      "primary_chunk": "chunk-01-intro.md",
+      "sections_covered": [
+        "Exam format and structure",
+        "Domain weightings (42%, 50%, 8%)",
+        "Question types overview",
+        "ECO vs PMBOK distinction"
+      ],
+      "cross_references": [
+        {
+          "chunk": "chunk-01-study-prep.md",
+          "section": "ECO-First Approach",
+          "context": "Detailed ECO study strategy"
+        }
+      ]
+    },
+    "day_02": {
+      "video_title": "Day 2: PMP Study Resources That Actually Work | Avoid These Mistakes",
+      "primary_chunk": "chunk-01-study-prep.md",
+      "sections_covered": [
+        "ECO vs PMBOK vs Agile Practice Guide",
+        "Study schedule optimization",
+        "Common study mistakes",
+        "Resource recommendations"
+      ],
+      "cross_references": [
+        {
+          "chunk": "chunk-01-intro.md",
+          "section": "Understanding Key Resources",
+          "context": "Resource comparison details"
+        }
+      ]
+    },
+    "day_03": {
+      "video_title": "Day 3: Master the ECO | Your Exam Blueprint Explained",
+      "primary_chunk": "chunk-01-study-prep.md",
+      "sections_covered": [
+        "ECO navigation and structure",
+        "Tasks vs enablers explanation",
+        "Domain mapping exercise",
+        "Study planning with ECO"
+      ],
+      "cross_references": [
+        {
+          "chunk": "chunk-01-intro.md",
+          "section": "Course Content Breakdown",
+          "context": "Domain percentage implications"
+        }
+      ]
+    },
+    "day_04": {
+      "video_title": "Day 4: The PMP Mindset | How to Think Like a PMP",
+      "primary_chunk": "chunk-01-mindset.md",
+      "sections_covered": [
+        "Proactive vs reactive leadership",
+        "Servant leadership principles",
+        "Value-driven decision making",
+        "Stakeholder-centric perspective"
+      ],
+      "cross_references": [
+        {
+          "chunk": "chunk-01-study-prep.md",
+          "section": "Question Analysis Strategy",
+          "context": "Applying mindset to exam questions"
+        }
+      ]
+    }
+  },
+  "week_02": {
+    "day_08": {
+      "video_title": "Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos",
+      "primary_chunk": "chunk-02-team-basics.md",
+      "sections_covered": [
+        "Ground rule categories",
+        "Facilitation techniques",
+        "Enforcement strategies",
+        "Team charter development"
+      ],
+      "eco_tasks": ["Define team ground rules", "Build a team"]
+    },
+    "day_09": {
+      "video_title": "Day 9: Negotiation Skills Every PMP Needs | Win-Win Outcomes",
+      "primary_chunk": "chunk-02-negotiation.md",
+      "sections_covered": [
+        "Interest-based negotiation",
+        "BATNA development",
+        "Stakeholder analysis",
+        "Contract negotiation scenarios"
+      ],
+      "eco_tasks": ["Negotiate project agreements"]
+    },
+    "day_10": {
+      "video_title": "Day 10: Servant Leadership in Action | Empower Your Team",
+      "primary_chunk": "chunk-02-empowerment.md",
+      "sections_covered": [
+        "Delegation vs empowerment",
+        "Coaching techniques",
+        "Motivation theory application",
+        "Team development strategies"
+      ],
+      "eco_tasks": ["Empower team members and stakeholders"]
+    }
+  },
+  "week_10": {
+    "day_65": {
+      "video_title": "Day 65: Knowledge Transfer Excellence",
+      "primary_chunk": "chunk-10-knowledge.md",
+      "sections_covered": [
+        "Explicit vs tacit knowledge transfer",
+        "Knowledge transfer responsibilities",
+        "Creating knowledge-sharing environments",
+        "Implementation approaches"
+      ],
+      "eco_tasks": ["2.16 Ensure Knowledge Transfer for Project Continuity"]
+    },
+    "day_66": {
+      "video_title": "Day 66: Compliance Excellence",
+      "primary_chunk": "chunk-10-compliance.md",
+      "sections_covered": [
+        "Compliance requirements analysis",
+        "Compliance management strategies",
+        "Control implementation",
+        "Issue management"
+      ],
+      "eco_tasks": ["3.1 Plan and Manage Project Compliance"]
+    }
+  },
+  "week_11": {
+    "day_71": {
+      "video_title": "Day 71: Business Environment Mastery",
+      "primary_chunk": "chunk-11-business-env.md",
+      "sections_covered": [
+        "External environment scanning",
+        "Impact assessment processes",
+        "Strategic adaptation approaches",
+        "Stakeholder management"
+      ],
+      "eco_tasks": ["3.3 Evaluate External Business Environment Changes"]
+    },
+    "day_72": {
+      "video_title": "Day 72: Organizational Change Excellence",
+      "primary_chunk": "chunk-11-org-change.md",
+      "sections_covered": [
+        "Change readiness assessment",
+        "Change management frameworks",
+        "Implementation support strategies",
+        "Resistance management"
+      ],
+      "eco_tasks": ["3.4 Support Organisational Change"]
+    },
+    "day_73": {
+      "video_title": "Day 73: Project Closure Excellence",
+      "primary_chunk": "chunk-11-closure.md",
+      "sections_covered": [
+        "Closure planning and execution",
+        "Lessons learned capture",
+        "Transition management",
+        "Administrative completion"
+      ],
+      "eco_tasks": ["2.17 Plan and Manage Project/Phase Closure or Transitions"]
+    }
+  },
+  "week_12": {
+    "day_78": {
+      "video_title": "Day 78: Exam Strategy Mastery",
+      "primary_chunk": "chunk-12-exam-prep.md",
+      "sections_covered": [
+        "Test-taking strategies",
+        "Time management techniques",
+        "Anxiety management",
+        "Final preparation approaches"
+      ],
+      "eco_tasks": ["All domains - comprehensive review"]
+    },
+    "day_79": {
+      "video_title": "Day 79: People Domain Mastery Review",
+      "primary_chunk": "chunk-12-review-people.md",
+      "sections_covered": [
+        "People domain synthesis",
+        "Leadership and conflict scenarios",
+        "Stakeholder engagement mastery",
+        "Emotional intelligence application"
+      ],
+      "eco_tasks": ["All People domain tasks (1.1-1.14)"]
+    },
+    "day_80": {
+      "video_title": "Day 80: Process Domain Mastery Review",
+      "primary_chunk": "chunk-12-review-process.md",
+      "sections_covered": [
+        "Process domain integration",
+        "Earned value management mastery",
+        "Risk and change management",
+        "Quality and procurement excellence"
+      ],
+      "eco_tasks": ["All Process domain tasks (2.1-2.17)"]
+    }
+  },
+  "week_13": {
+    "day_85": {
+      "video_title": "Day 85: Final Preparation Excellence",
+      "primary_chunk": "chunk-13-final-review.md",
+      "sections_covered": [
+        "Final week strategies",
+        "Confidence building techniques",
+        "Exam day preparation",
+        "Performance optimization"
+      ],
+      "eco_tasks": ["All domains - final synthesis"]
+    },
+    "day_86": {
+      "video_title": "Day 86: Business Environment Mastery Review",
+      "primary_chunk": "chunk-13-business-env.md",
+      "sections_covered": [
+        "Business Environment synthesis",
+        "Strategic thinking application",
+        "Value delivery mastery",
+        "Compliance and change integration"
+      ],
+      "eco_tasks": ["All Business Environment tasks (3.1-3.4)"]
+    },
+    "day_87": {
+      "video_title": "Day 87: PMP Mindset Mastery",
+      "primary_chunk": "chunk-13-mindset-mastery.md",
+      "sections_covered": [
+        "Professional excellence principles",
+        "Ethical decision-making",
+        "Confidence building",
+        "Career readiness"
+      ],
+      "eco_tasks": ["All domains - mindset application"]
+    }
+  }
+}

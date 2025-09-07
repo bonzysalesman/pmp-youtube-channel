@@ -1,0 +1,136 @@
+{
+  "studyPlan": {
+    "totalWeeks": 13,
+    "totalVideos": 91,
+    "startDate": "2024-01-01",
+    "weeklyStructure": {
+      "monday": "Week Overview",
+      "tuesday": "Core Lesson",
+      "wednesday": "Core Lesson", 
+      "thursday": "Core Lesson",
+      "friday": "Core Lesson",
+      "saturday": "Practice Session",
+      "sunday": "Weekly Review"
+    }
+  },
+  "workGroups": {
+    "buildingTeam": {
+      "weeks": [1, 2, 3],
+      "focus": "Team formation, leadership, stakeholder management",
+      "domainEmphasis": "People (42%)"
+    },
+    "startingProject": {
+      "weeks": [4, 5],
+      "focus": "Project initiation, planning fundamentals",
+      "domainEmphasis": "Process (50%)"
+    },
+    "doingWork": {
+      "weeks": [6, 7, 8],
+      "focus": "Execution, monitoring, controlling",
+      "domainEmphasis": "Process (50%)"
+    },
+    "keepingTrack": {
+      "weeks": [9, 10],
+      "focus": "Performance monitoring, change management",
+      "domainEmphasis": "Process (50%)"
+    },
+    "businessFocus": {
+      "weeks": [11],
+      "focus": "Business environment, organizational strategy",
+      "domainEmphasis": "Business Environment (8%)"
+    },
+    "finalPrep": {
+      "weeks": [12, 13],
+      "focus": "Exam strategies, final review, confidence building",
+      "domainEmphasis": "Mixed domains"
+    }
+  },
+  "contentTypes": {
+    "dailyStudy": {
+      "duration": "15-20 minutes",
+      "format": "7-section structure",
+      "frequency": "Monday-Friday",
+      "thumbnailColor": "domain-specific"
+    },
+    "practiceSession": {
+      "duration": "20-25 minutes", 
+      "format": "Scenario-based questions",
+      "frequency": "Saturday",
+      "thumbnailColor": "purple"
+    },
+    "weeklyReview": {
+      "duration": "15-20 minutes",
+      "format": "Concept integration",
+      "frequency": "Sunday", 
+      "thumbnailColor": "mixed-domain"
+    }
+  },
+  "ecoMapping": {
+    "people": {
+      "percentage": 42,
+      "color": "#2ECC71",
+      "tasks": [
+        "Manage conflict",
+        "Lead a team", 
+        "Support team performance",
+        "Empower team members and stakeholders",
+        "Ensure team members/stakeholders are adequately trained",
+        "Build a team",
+        "Address and remove impediments, obstacles, and blockers for the team",
+        "Negotiate project agreements",
+        "Collaborate with stakeholders",
+        "Build shared understanding",
+        "Engage and support virtual teams",
+        "Define team ground rules",
+        "Mentor relevant stakeholders",
+        "Promote team performance through the application of emotional intelligence"
+      ]
+    },
+    "process": {
+      "percentage": 50,
+      "color": "#3498DB", 
+      "tasks": [
+        "Execute project with the urgency required to deliver business value",
+        "Manage communications",
+        "Assess and manage risks",
+        "Engage stakeholders",
+        "Plan and manage budget and resources",
+        "Plan and manage schedule",
+        "Plan and manage quality of products/deliverables",
+        "Plan and manage scope",
+        "Integrate project planning activities",
+        "Manage project changes",
+        "Plan and manage procurement",
+        "Manage project artifacts",
+        "Determine appropriate project methodology/methods and practices",
+        "Establish project governance structure",
+        "Manage project issues",
+        "Ensure knowledge transfer for project continuity",
+        "Plan and manage project/phase closure or transitions"
+      ]
+    },
+    "businessEnvironment": {
+      "percentage": 8,
+      "color": "#E67E22",
+      "tasks": [
+        "Plan and manage project compliance",
+        "Evaluate and deliver project benefits and value",
+        "Evaluate and address external business environment changes for impact on scope",
+        "Support organizational change"
+      ]
+    }
+  },
+  "uploadSchedule": {
+    "timezone": "America/New_York",
+    "optimalTimes": {
+      "dailyStudy": "06:00",
+      "practice": "12:00", 
+      "review": "18:00"
+    },
+    "batchRecording": {
+      "sessionsPerWeek": 1,
+      "videosPerSession": "5-7",
+      "advanceScheduling": "1-2 days"
+    }
+  }
+}

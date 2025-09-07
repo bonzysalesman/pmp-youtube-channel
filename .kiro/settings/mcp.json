@@ -1,0 +1,101 @@
+{
+  "mcpServers": {
+    "task-manager": {
+      "command": "/Users/bonzysalesman/.local/bin/uvx",
+      "args": [
+        "mcp-task-manager-server@latest"
+      ],
+      "env": {
+        "DATABASE_PATH": "./data/pmp-tasks.db",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "create_task",
+        "update_task",
+        "list_tasks",
+        "delete_task",
+        "create_project",
+        "get_task_by_id"
+      ]
+    },
+    "content-database": {
+      "command": "/Users/bonzysalesman/.local/bin/uvx",
+      "args": [
+        "mcp-database-server@latest"
+      ],
+      "env": {
+        "DB_TYPE": "sqlite",
+        "DB_PATH": "./data/pmp-content.db",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "query",
+        "insert",
+        "update",
+        "create_table",
+        "describe_table"
+      ]
+    },
+    "github-integration": {
+      "command": "/Users/bonzysalesman/.local/bin/uvx",
+      "args": [
+        "mcp-github"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "GITHUB_REPO": "pmp-youtube-channel",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "mcp_github_create_issue",
+        "mcp_github_create_or_update_file",
+        "mcp_github_create_pull_request",
+        "mcp_github_list_issues",
+        "mcp_github_get_file_contents",
+        "mcp_github_search_repositories",
+        "search_repositories",
+        "search_repositories",
+        "get_file_contents",
+        "get_file_contents"
+      ]
+    },
+    "memory-bank": {
+      "command": "/Users/bonzysalesman/.local/bin/uvx",
+      "args": [
+        "memory-bank-mcp@latest"
+      ],
+      "env": {
+        "MEMORY_BANK_PATH": "./data/pmp-learning-memory",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "store_memory",
+        "retrieve_memory",
+        "update_progress",
+        "list_memories",
+        "delete_memory"
+      ]
+    },
+    "filesystem": {
+      "command": "/Users/bonzysalesman/.local/bin/uvx",
+      "args": [
+        "mcp-server-filesystem"
+      ],
+      "env": {
+        "ALLOWED_DIRECTORIES": "./src,./data,./content-chunking-strategy.md",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "read_file",
+        "write_file",
+        "list_directory",
+        "create_directory"
+      ]
+    }
+  }
+}

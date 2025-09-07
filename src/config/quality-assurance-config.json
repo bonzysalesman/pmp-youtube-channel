@@ -1,0 +1,282 @@
+{
+  "ecoValidation": {
+    "enabled": true,
+    "strictMode": true,
+    "requiredCoverage": 0.95,
+    "domainDistribution": {
+      "people": { "min": 0.35, "max": 0.50, "target": 0.42 },
+      "process": { "min": 0.40, "max": 0.60, "target": 0.50 },
+      "business": { "min": 0.05, "max": 0.15, "target": 0.08 }
+    },
+    "criticalTasks": ["T1", "T2", "T11", "T13", "T24"],
+    "validationFrequency": "per_content"
+  },
+  "contentReview": {
+    "enabled": true,
+    "requireSMEApproval": true,
+    "reviewCycles": 2,
+    "accuracyThreshold": 0.98,
+    "reviewerAssignment": {
+      "people_domain": ["sme_001"],
+      "process_domain": ["sme_002"],
+      "business_domain": ["sme_003"],
+      "general": ["int_001", "int_002"]
+    },
+    "reviewTimeouts": {
+      "sme_review": 72,
+      "internal_review": 24,
+      "revision_cycle": 48
+    }
+  },
+  "updateTracking": {
+    "enabled": true,
+    "checkFrequency": "weekly",
+    "autoFlag": true,
+    "sources": {
+      "pmi_website": {
+        "priority": "high",
+        "checkInterval": 168
+      },
+      "eco_updates": {
+        "priority": "critical",
+        "checkInterval": 720
+      },
+      "pmbok_guide": {
+        "priority": "high",
+        "checkInterval": 2160
+      },
+      "standards_library": {
+        "priority": "medium",
+        "checkInterval": 720
+      }
+    },
+    "alertThresholds": {
+      "critical_updates": 0,
+      "high_priority_updates": 2,
+      "medium_priority_updates": 5
+    }
+  },
+  "feedbackIntegration": {
+    "enabled": true,
+    "minimumFeedbackScore": 4.0,
+    "autoRevisionThreshold": 3.5,
+    "feedbackSources": {
+      "youtube": {
+        "weight": 0.4,
+        "types": ["comments", "likes", "community_posts"],
+        "processingFrequency": "realtime"
+      },
+      "discord": {
+        "weight": 0.3,
+        "types": ["messages", "reactions", "polls"],
+        "processingFrequency": "realtime"
+      },
+      "email": {
+        "weight": 0.2,
+        "types": ["replies", "surveys", "direct_feedback"],
+        "processingFrequency": "daily"
+      },
+      "surveys": {
+        "weight": 0.1,
+        "types": ["course_feedback", "content_rating"],
+        "processingFrequency": "weekly"
+      }
+    },
+    "sentimentAnalysis": {
+      "enabled": true,
+      "confidenceThreshold": 0.7,
+      "aspectAnalysis": ["content_quality", "presentation", "difficulty", "pace", "engagement"]
+    },
+    "actionItemGeneration": {
+      "highSeverityIssues": true,
+      "lowScoreThreshold": 0.4,
+      "multipleIssuesThreshold": 2,
+      "highPrioritySuggestions": true
+    }
+  },
+  "qualityMetrics": {
+    "overallScoreWeight": {
+      "ecoCompliance": 0.4,
+      "accuracyScore": 0.4,
+      "userSatisfaction": 0.2
+    },
+    "thresholds": {
+      "excellent": 0.95,
+      "good": 0.85,
+      "acceptable": 0.75,
+      "needsImprovement": 0.65
+    },
+    "reportingFrequency": "weekly",
+    "trendAnalysisPeriod": 30
+  },
+  "automatedChecks": {
+    "terminology": {
+      "enabled": true,
+      "consistencyRules": {
+        "project_manager": {
+          "preferred": "project manager",
+          "alternatives": ["pm", "project lead"],
+          "enforceConsistency": true
+        },
+        "stakeholder": {
+          "preferred": "stakeholder",
+          "alternatives": ["stake holder"],
+          "enforceConsistency": true
+        },
+        "work_breakdown_structure": {
+          "preferred": "work breakdown structure (WBS)",
+          "alternatives": ["wbs", "work breakdown"],
+          "enforceConsistency": false
+        }
+      }
+    },
+    "conceptValidation": {
+      "enabled": true,
+      "requiredConcepts": {
+        "people_domain": [
+          "leadership styles",
+          "team development",
+          "conflict resolution",
+          "stakeholder engagement"
+        ],
+        "process_domain": [
+          "process groups",
+          "knowledge areas",
+          "project lifecycle",
+          "risk management"
+        ],
+        "business_domain": [
+          "organizational structures",
+          "business value",
+          "compliance requirements"
+        ]
+      }
+    },
+    "commonErrors": {
+      "enabled": true,
+      "errorPatterns": [
+        {
+          "pattern": "project manager vs project leader confusion",
+          "severity": "high",
+          "autoFlag": true
+        },
+        {
+          "pattern": "agile and traditional terminology mixing",
+          "severity": "medium",
+          "autoFlag": true
+        },
+        {
+          "pattern": "outdated PMI standards",
+          "severity": "high",
+          "autoFlag": true
+        },
+        {
+          "pattern": "incorrect ECO task mapping",
+          "severity": "high",
+          "autoFlag": true
+        }
+      ]
+    }
+  },
+  "notifications": {
+    "qualityAlerts": {
+      "enabled": true,
+      "channels": ["email", "slack"],
+      "recipients": {
+        "quality_manager": "quality@example.com",
+        "content_manager": "content@example.com",
+        "sme_team": "sme@example.com"
+      },
+      "alertTypes": {
+        "critical_quality_issue": {
+          "threshold": "immediate",
+          "channels": ["email", "slack", "sms"]
+        },
+        "eco_validation_failure": {
+          "threshold": "immediate",
+          "channels": ["email", "slack"]
+        },
+        "low_user_satisfaction": {
+          "threshold": "daily_digest",
+          "channels": ["email"]
+        },
+        "pmi_update_detected": {
+          "threshold": "immediate",
+          "channels": ["email", "slack"]
+        }
+      }
+    }
+  },
+  "reporting": {
+    "dashboards": {
+      "quality_overview": {
+        "enabled": true,
+        "updateFrequency": "hourly",
+        "metrics": [
+          "overall_quality_score",
+          "eco_compliance_rate",
+          "user_satisfaction_average",
+          "open_quality_issues",
+          "pending_reviews"
+        ]
+      },
+      "content_accuracy": {
+        "enabled": true,
+        "updateFrequency": "daily",
+        "metrics": [
+          "accuracy_score_by_domain",
+          "common_accuracy_issues",
+          "reviewer_performance",
+          "revision_rates"
+        ]
+      },
+      "user_feedback": {
+        "enabled": true,
+        "updateFrequency": "realtime",
+        "metrics": [
+          "feedback_volume_by_source",
+          "sentiment_trends",
+          "actionable_feedback_rate",
+          "response_times"
+        ]
+      }
+    },
+    "scheduledReports": {
+      "weekly_quality_summary": {
+        "enabled": true,
+        "schedule": "monday_9am",
+        "recipients": ["quality_manager", "content_manager"],
+        "format": "pdf"
+      },
+      "monthly_accuracy_report": {
+        "enabled": true,
+        "schedule": "first_monday_9am",
+        "recipients": ["sme_team", "project_manager"],
+        "format": "detailed_pdf"
+      },
+      "quarterly_compliance_audit": {
+        "enabled": true,
+        "schedule": "quarterly",
+        "recipients": ["management_team"],
+        "format": "executive_summary"
+      }
+    }
+  },
+  "integrations": {
+    "contentManagementSystem": {
+      "enabled": true,
+      "apiEndpoint": "/api/content",
+      "syncFrequency": "realtime"
+    },
+    "learningManagementSystem": {
+      "enabled": false,
+      "apiEndpoint": "/api/lms",
+      "syncFrequency": "daily"
+    },
+    "analyticsSystem": {
+      "enabled": true,
+      "apiEndpoint": "/api/analytics",
+      "syncFrequency": "hourly"
+    }
+  }
+}
