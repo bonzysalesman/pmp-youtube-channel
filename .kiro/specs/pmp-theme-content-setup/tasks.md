@@ -70,7 +70,7 @@
 
 - [x] Configure dashboard page template
 - [x] Implement progress tracking display
-- [ ] Set up current lesson highlighting
+- [-] Set up current lesson highlighting
 - [ ] Create upcoming lessons preview
 - [ ] Add quick action buttons
 - [ ] Integrate user profile settings

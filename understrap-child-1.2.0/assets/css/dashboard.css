@@ -176,6 +176,123 @@
     color: #6b7280;
 }
 
+/* Current Lesson Highlighting */
+.current-lesson-card {
+    border: 2px solid var(--pmp-primary) !important;
+    box-shadow: 0 4px 12px rgba(91, 40, 179, 0.15) !important;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.current-lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pmp-primary), var(--pmp-secondary));
+    z-index: 1;
+}
+
+.current-lesson-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(91, 40, 179, 0.2) !important;
+}
+
+.current-lesson-card .card-header {
+    background: linear-gradient(135deg, var(--pmp-primary), var(--pmp-secondary)) !important;
+    border-bottom: none;
+}
+
+.current-lesson-badges .badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+}
+
+.current-lesson-card .lesson-thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.current-lesson-card .lesson-thumbnail img {
+    transition: transform 0.3s ease;
+}
+
+.current-lesson-card:hover .lesson-thumbnail img {
+    transform: scale(1.05);
+}
+
+.progress-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 0.5rem;
+    color: white;
+}
+
+.progress-overlay .progress {
+    height: 4px;
+    margin-bottom: 0.25rem;
+}
+
+.progress-overlay .progress-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.current-lesson-card .lesson-title {
+    color: var(--pmp-primary) !important;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.current-lesson-card .lesson-meta .badge {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    border: 1px solid #e9ecef;
+}
+
+.continue-current-lesson-btn {
+    background: linear-gradient(135deg, var(--pmp-primary), var(--pmp-secondary));
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.continue-current-lesson-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(91, 40, 179, 0.3);
+}
+
+.mark-complete-btn {
+    transition: all 0.2s ease;
+}
+
+.mark-complete-btn:hover:not(:disabled) {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.mark-complete-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Current Lesson Placeholder */
+.current-lesson-placeholder {
+    padding: 2rem;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
 /* Continue Learning Card */
 .lesson-thumbnail {
     position: relative;
