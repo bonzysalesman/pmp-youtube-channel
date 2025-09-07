@@ -120,10 +120,43 @@ $container = get_theme_mod('understrap_container_type', 'container');
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end pmp-user-menu" aria-labelledby="navbarUserDropdown">
                                     <?php if (is_user_logged_in()) : ?>
+                                        <?php
+                                        // Get current user and roles
+                                        $current_user = wp_get_current_user();
+                                        $user_roles = $current_user->roles;
+                                        $is_admin = in_array('administrator', $user_roles);
+                                        $is_instructor = in_array('instructor', $user_roles);
+                                        $is_student = in_array('student', $user_roles);
+                                        ?>
+                                        
+                                        <!-- Basic user menu items -->
                                         <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(get_edit_user_link()); ?>"><i class="fas fa-user me-2"></i> My Profile</a></li>
                                         <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/dashboard/')); ?>"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
                                         <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/progress/')); ?>"><i class="fas fa-chart-line me-2"></i> My Progress</a></li>
                                         <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/resources/')); ?>"><i class="fas fa-folder-open me-2"></i> Resources</a></li>
+                                        
+                                        <?php if ($is_student || $is_instructor || $is_admin) : ?>
+                                            <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/resources/advanced/')); ?>"><i class="fas fa-star me-2"></i> Advanced Resources</a></li>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($is_instructor || $is_admin) : ?>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><h6 class="dropdown-header">Instructor Tools</h6></li>
+                                            <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/instructor/dashboard/')); ?>"><i class="fas fa-chalkboard-teacher me-2"></i> Instructor Dashboard</a></li>
+                                            <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(home_url('/instructor/students/')); ?>"><i class="fas fa-users me-2"></i> Student Management</a></li>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($is_admin) : ?>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><h6 class="dropdown-header">Administration</h6></li>
+                                            <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(admin_url()); ?>"><i class="fas fa-cogs me-2"></i> Admin Panel</a></li>
+                                            <li><a class="dropdown-item d-flex align-items-center" href="<?php echo esc_url(admin_url('options-general.php')); ?>"><i class="fas fa-sliders-h me-2"></i> Site Settings</a></li>
+                                        <?php endif; ?>
+                                        
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

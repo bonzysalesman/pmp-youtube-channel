@@ -63,11 +63,18 @@ class PMP_Navigation_Manager
     public function create_navigation_menus()
     {
         $menu_structure = PMP_Navigation_Config::get_main_menu_structure();
+        
+        // Filter menu structure based on current user role
+        $filtered_menu_structure = $this->filter_menu_by_role($menu_structure);
+        
+        // Add role-specific additional items
+        $additional_items = $this->get_role_specific_menu_items();
+        $filtered_menu_structure = array_merge($filtered_menu_structure, $additional_items);
 
         // Create primary navigation menu
         $primary_menu_id = $this->create_menu_from_structure(
             'PMP Primary Navigation',
-            $menu_structure
+            $filtered_menu_structure
         );
 
         if ($primary_menu_id) {
@@ -77,17 +84,20 @@ class PMP_Navigation_Manager
             set_theme_mod('nav_menu_locations', $locations);
         }
 
-        // Create dashboard sidebar menu
-        $dashboard_structure = PMP_Navigation_Config::get_dashboard_sidebar_structure();
-        $dashboard_menu_id = $this->create_menu_from_structure(
-            'PMP Dashboard Sidebar',
-            $dashboard_structure
-        );
+        // Create dashboard sidebar menu (only for logged-in users)
+        if (is_user_logged_in()) {
+            $dashboard_structure = PMP_Navigation_Config::get_dashboard_sidebar_structure();
+            $filtered_dashboard_structure = $this->filter_menu_by_role($dashboard_structure);
+            $dashboard_menu_id = $this->create_menu_from_structure(
+                'PMP Dashboard Sidebar',
+                $filtered_dashboard_structure
+            );
 
-        if ($dashboard_menu_id) {
-            $locations = get_theme_mod('nav_menu_locations');
-            $locations['dashboard-sidebar'] = $dashboard_menu_id;
-            set_theme_mod('nav_menu_locations', $locations);
+            if ($dashboard_menu_id) {
+                $locations = get_theme_mod('nav_menu_locations');
+                $locations['dashboard-sidebar'] = $dashboard_menu_id;
+                set_theme_mod('nav_menu_locations', $locations);
+            }
         }
 
         // Create footer menus
@@ -204,12 +214,28 @@ class PMP_Navigation_Manager
             $args['menu_class'] = isset($args['menu_class'])
                 ? $args['menu_class'] . ' pmp-primary-nav'
                 : 'pmp-primary-nav';
+                
+            // Add role-based CSS classes
+            if (is_user_logged_in()) {
+                $current_user = wp_get_current_user();
+                $user_roles = $current_user->roles;
+                if (!empty($user_roles)) {
+                    $args['menu_class'] .= ' user-role-' . $user_roles[0];
+                }
+            } else {
+                $args['menu_class'] .= ' user-logged-out';
+            }
         }
 
         // Dashboard sidebar menu modifications
         if (isset($args['theme_location']) && $args['theme_location'] === 'dashboard-sidebar') {
             $args['menu_class'] = 'pmp-dashboard-nav list-unstyled';
             $args['container'] = false;
+            
+            // Only show dashboard sidebar for logged-in users
+            if (!is_user_logged_in()) {
+                return null;
+            }
         }
 
         return $args;
@@ -301,6 +327,173 @@ class PMP_Navigation_Manager
         return wp_nav_menu($args);
     }
 
+    /**
+     * Check if menu item should be shown based on user role
+     * 
+     * @param string $item_key Menu item key
+     * @param array $item_data Menu item data
+     * @return bool Whether to show the menu item
+     */
+    private function should_show_menu_item($item_key, $item_data)
+    {
+        // Get role-based visibility rules
+        $visibility_rules = PMP_Navigation_Config::get_role_based_visibility();
+        
+        // Check basic logged-in requirement
+        if (isset($item_data['show_when_logged_in']) && $item_data['show_when_logged_in'] && !is_user_logged_in()) {
+            return false;
+        }
+        
+        // Check logged-out user restrictions
+        if (!is_user_logged_in()) {
+            if (isset($visibility_rules['logged_out']['hide']) && in_array($item_key, $visibility_rules['logged_out']['hide'])) {
+                return false;
+            }
+            if (isset($visibility_rules['logged_out']['show']) && !in_array($item_key, $visibility_rules['logged_out']['show'])) {
+                return false;
+            }
+            return true;
+        }
+        
+        // Get current user roles
+        $current_user = wp_get_current_user();
+        $user_roles = $current_user->roles;
+        
+        // Check role-specific rules (highest role takes precedence)
+        $role_priority = array('administrator', 'instructor', 'student', 'subscriber');
+        
+        foreach ($role_priority as $role) {
+            if (in_array($role, $user_roles)) {
+                if (isset($visibility_rules[$role])) {
+                    $role_rules = $visibility_rules[$role];
+                    
+                    // If show_all is true, show everything
+                    if (isset($role_rules['show_all']) && $role_rules['show_all']) {
+                        return true;
+                    }
+                    
+                    // Check specific hide rules
+                    if (isset($role_rules['hide']) && in_array($item_key, $role_rules['hide'])) {
+                        return false;
+                    }
+                    
+                    // Check specific show rules
+                    if (isset($role_rules['show']) && !in_array($item_key, $role_rules['show'])) {
+                        return false;
+                    }
+                }
+                break; // Use first matching role
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Filter navigation menu based on user role
+     * 
+     * @param array $menu_structure Menu structure array
+     * @return array Filtered menu structure
+     */
+    public function filter_menu_by_role($menu_structure)
+    {
+        $filtered_menu = array();
+        
+        foreach ($menu_structure as $item_key => $item_data) {
+            if ($this->should_show_menu_item($item_key, $item_data)) {
+                // Filter children if they exist
+                if (isset($item_data['children']) && is_array($item_data['children'])) {
+                    $item_data['children'] = $this->filter_menu_by_role($item_data['children']);
+                }
+                $filtered_menu[$item_key] = $item_data;
+            }
+        }
+        
+        return $filtered_menu;
+    }
+    
+    /**
+     * Get role-specific additional menu items
+     * 
+     * @return array Additional menu items for current user role
+     */
+    public function get_role_specific_menu_items()
+    {
+        if (!is_user_logged_in()) {
+            return array();
+        }
+        
+        $current_user = wp_get_current_user();
+        $user_roles = $current_user->roles;
+        $visibility_rules = PMP_Navigation_Config::get_role_based_visibility();
+        $additional_items = array();
+        
+        // Check for additional items based on role
+        $role_priority = array('administrator', 'instructor', 'student', 'subscriber');
+        
+        foreach ($role_priority as $role) {
+            if (in_array($role, $user_roles)) {
+                if (isset($visibility_rules[$role]['additional'])) {
+                    $additional_items = array_merge($additional_items, $this->get_additional_menu_items($visibility_rules[$role]['additional']));
+                }
+                break;
+            }
+        }
+        
+        return $additional_items;
+    }
+    
+    /**
+     * Get additional menu items configuration
+     * 
+     * @param array $item_keys Array of additional item keys
+     * @return array Additional menu items
+     */
+    private function get_additional_menu_items($item_keys)
+    {
+        $additional_items = array(
+            'advanced-resources' => array(
+                'title' => __('Advanced Resources', 'understrap-child'),
+                'url' => home_url('/resources/advanced/'),
+                'icon' => 'fas fa-star',
+                'description' => __('Premium study materials', 'understrap-child')
+            ),
+            'instructor-dashboard' => array(
+                'title' => __('Instructor Dashboard', 'understrap-child'),
+                'url' => home_url('/instructor/dashboard/'),
+                'icon' => 'fas fa-chalkboard-teacher',
+                'description' => __('Manage courses and students', 'understrap-child')
+            ),
+            'student-management' => array(
+                'title' => __('Student Management', 'understrap-child'),
+                'url' => home_url('/instructor/students/'),
+                'icon' => 'fas fa-users',
+                'description' => __('View and manage students', 'understrap-child')
+            ),
+            'admin-panel' => array(
+                'title' => __('Admin Panel', 'understrap-child'),
+                'url' => admin_url(),
+                'icon' => 'fas fa-cogs',
+                'description' => __('WordPress administration', 'understrap-child')
+            ),
+            'site-settings' => array(
+                'title' => __('Site Settings', 'understrap-child'),
+                'url' => admin_url('options-general.php'),
+                'icon' => 'fas fa-sliders-h',
+                'description' => __('Configure site settings', 'understrap-child')
+            )
+        );
+        
+        $result = array();
+        foreach ($item_keys as $key) {
+            if (isset($additional_items[$key])) {
+                $result[$key] = $additional_items[$key];
+            }
+        }
+        
+        return $result;
+    }
+    
     /**
      * Display breadcrumb navigation
      * 
@@ -518,4 +711,72 @@ class PMP_Icon_Nav_Walker extends Walker_Nav_Menu
 }
 
 // Initialize the navigation manager
-new PMP_Navigation_Manager();
+$pmp_nav_manager = new PMP_Navigation_Manager();
+
+// Hook to refresh navigation when user roles change
+add_action('set_user_role', function($user_id, $role, $old_roles) use ($pmp_nav_manager) {
+    // Clear menu cache when user roles change
+    wp_cache_delete('pmp_navigation_menus', 'pmp_theme');
+    
+    // Optionally recreate menus for role-based changes
+    if (current_user_can('manage_options')) {
+        $pmp_nav_manager->create_navigation_menus();
+    }
+}, 10, 3);
+
+// Hook to refresh navigation on user login/logout
+add_action('wp_login', function($user_login, $user) use ($pmp_nav_manager) {
+    wp_cache_delete('pmp_navigation_menus', 'pmp_theme');
+}, 10, 2);
+
+add_action('wp_logout', function() {
+    wp_cache_delete('pmp_navigation_menus', 'pmp_theme');
+});
+
+// Add filter to dynamically modify menu items based on current user
+add_filter('wp_get_nav_menu_items', function($items, $menu, $args) use ($pmp_nav_manager) {
+    if (!$items) {
+        return $items;
+    }
+    
+    $filtered_items = array();
+    
+    foreach ($items as $item) {
+        // Check if this menu item should be visible to current user
+        $item_key = sanitize_title($item->title);
+        $item_data = array(
+            'title' => $item->title,
+            'url' => $item->url
+        );
+        
+        // Get custom meta for role-based visibility
+        $show_when_logged_in = get_post_meta($item->ID, '_menu_item_show_when_logged_in', true);
+        $required_roles = get_post_meta($item->ID, '_menu_item_required_roles', true);
+        
+        if ($show_when_logged_in && !is_user_logged_in()) {
+            continue;
+        }
+        
+        if ($required_roles && is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            $user_roles = $current_user->roles;
+            $required_roles_array = explode(',', $required_roles);
+            
+            $has_required_role = false;
+            foreach ($required_roles_array as $required_role) {
+                if (in_array(trim($required_role), $user_roles)) {
+                    $has_required_role = true;
+                    break;
+                }
+            }
+            
+            if (!$has_required_role) {
+                continue;
+            }
+        }
+        
+        $filtered_items[] = $item;
+    }
+    
+    return $filtered_items;
+}, 10, 3);
