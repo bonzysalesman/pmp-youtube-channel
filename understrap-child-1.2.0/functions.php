@@ -1037,4 +1037,16 @@ function pmp_clear_wpsc_cache() {
     }
 }
 
-?>
+?>/
+/ Include PMP User Settings class
+require_once get_stylesheet_directory() . '/includes/class-pmp-user-settings.php';
+
+// Initialize user settings for logged-in users
+add_action('init', function() {
+    if (is_user_logged_in()) {
+        global $pmp_user_settings;
+        $pmp_user_settings = new PMP_User_Settings(get_current_user_id());
+    }
+});// Includ
+e settings enqueue functionality
+require_once get_stylesheet_directory() . '/includes/pmp-enqueue-settings.php';

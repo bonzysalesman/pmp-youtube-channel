@@ -44,6 +44,9 @@ class PMPProgressTracker {
             continueBtn.addEventListener('click', (e) => this.trackLessonStart(e));
         }
         
+        // Current lesson interactions
+        this.bindCurrentLessonEvents();
+        
         // Quick action tracking
         const quickActions = document.querySelectorAll('.quick-action-btn');
         quickActions.forEach(btn => {
@@ -67,6 +70,78 @@ class PMPProgressTracker {
         // Window focus events for real-time updates
         window.addEventListener('focus', () => this.onWindowFocus());
         window.addEventListener('blur', () => this.onWindowBlur());
+    }
+    
+    /**
+     * Bind current lesson specific events
+     */
+    bindCurrentLessonEvents() {
+        // Continue current lesson button
+        const continueCurrentBtn = document.querySelector('.continue-current-lesson-btn');
+        if (continueCurrentBtn) {
+            continueCurrentBtn.addEventListener('click', (e) => this.handleContinueCurrentLesson(e));
+        }
+        
+        // Mark complete button
+        const markCompleteBtn = document.querySelector('.mark-complete-btn');
+        if (markCompleteBtn) {
+            markCompleteBtn.addEventListener('click', (e) => this.handleMarkComplete(e));
+        }
+        
+        // Current lesson card interactions
+        const currentLessonCard = document.querySelector('.current-lesson-card');
+        if (currentLessonCard) {
+            currentLessonCard.addEventListener('mouseenter', () => this.highlightCurrentLesson());
+            currentLessonCard.addEventListener('mouseleave', () => this.unhighlightCurrentLesson());
+            
+            // Add click tracking for the entire card
+            currentLessonCard.addEventListener('click', (e) => this.handleCurrentLessonCardClick(e));
+        }
+        
+        // Auto-highlight current lesson if it's active
+        this.autoHighlightCurrentLesson();
+    }
+    
+    /**
+     * Handle current lesson card click
+     */
+    handleCurrentLessonCardClick(event) {
+        // Don't trigger if clicking on buttons
+        if (event.target.closest('.btn')) {
+            return;
+        }
+        
+        const lessonCard = event.target.closest('.current-lesson-card');
+        const lessonId = lessonCard.dataset.lessonId;
+        
+        // Track card interaction
+        this.sendTrackingData('current_lesson_card_clicked', {
+            lesson_id: lessonId,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Add visual feedback
+        lessonCard.classList.add('lesson-active');
+        setTimeout(() => {
+            lessonCard.classList.remove('lesson-active');
+        }, 2000);
+    }
+    
+    /**
+     * Auto-highlight current lesson based on user activity
+     */
+    autoHighlightCurrentLesson() {
+        const currentLessonCard = document.querySelector('.current-lesson-card');
+        if (currentLessonCard) {
+            // Check if lesson is in progress
+            const progressBar = currentLessonCard.querySelector('.progress-bar');
+            if (progressBar) {
+                const progress = parseFloat(progressBar.style.width) || 0;
+                if (progress > 0 && progress < 100) {
+                    currentLessonCard.classList.add('lesson-active');
+                }
+            }
+        }
     }
     
     /**
@@ -479,8 +554,16 @@ class PMPProgressTracker {
         this.updateInterval = setInterval(() => {
             if (document.visibilityState === 'visible') {
                 this.loadProgressData();
+                this.refreshCurrentLessonHighlighting();
             }
         }, 300000); // 5 minutes
+        
+        // More frequent updates for current lesson (every 30 seconds)
+        this.currentLessonInterval = setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                this.refreshCurrentLessonHighlighting();
+            }
+        }, 30000); // 30 seconds
     }
     
     /**
@@ -689,10 +772,280 @@ class PMPProgressTracker {
     }
     
     /**
+     * Handle continue current lesson button click
+     */
+    handleContinueCurrentLesson(event) {
+        const lessonId = event.target.dataset.lessonId;
+        
+        // Track lesson start
+        this.sendTrackingData('current_lesson_continued', {
+            lesson_id: lessonId,
+            timestamp: new Date().toISOString(),
+            source: 'current_lesson_card'
+        });
+        
+        // Visual feedback
+        event.target.classList.add('clicked');
+        setTimeout(() => {
+            event.target.classList.remove('clicked');
+        }, 200);
+        
+        // Update last accessed time
+        this.updateLessonAccess(lessonId);
+    }
+    
+    /**
+     * Handle mark complete button click
+     */
+    async handleMarkComplete(event) {
+        event.preventDefault();
+        
+        const lessonId = event.target.dataset.lessonId;
+        const button = event.target;
+        
+        // Show loading state
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Marking Complete...';
+        button.disabled = true;
+        
+        try {
+            const response = await fetch(pmpAjax.ajaxurl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'mark_lesson_complete',
+                    nonce: pmpAjax.nonce,
+                    lesson_id: lessonId
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Show success feedback
+                button.innerHTML = '<i class="fas fa-check me-1"></i>Completed!';
+                button.classList.remove('btn-outline-secondary');
+                button.classList.add('btn-success');
+                
+                // Update progress display
+                this.updateProgressDisplay();
+                
+                // Show completion notification
+                this.showCompletionNotification(lessonId);
+                
+                // Refresh current lesson display after delay
+                setTimeout(() => {
+                    this.refreshCurrentLessonDisplay();
+                }, 2000);
+                
+            } else {
+                throw new Error(result.data || 'Failed to mark lesson complete');
+            }
+        } catch (error) {
+            console.error('Error marking lesson complete:', error);
+            
+            // Show error state
+            button.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Error';
+            button.classList.add('btn-danger');
+            
+            // Reset after delay
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('btn-danger');
+                button.disabled = false;
+            }, 3000);
+        }
+    }
+    
+    /**
+     * Highlight current lesson card
+     */
+    highlightCurrentLesson() {
+        const currentLessonCard = document.querySelector('.current-lesson-card');
+        if (currentLessonCard) {
+            currentLessonCard.style.transform = 'translateY(-4px)';
+            currentLessonCard.style.boxShadow = '0 12px 24px rgba(91, 40, 179, 0.25)';
+        }
+    }
+    
+    /**
+     * Remove highlight from current lesson card
+     */
+    unhighlightCurrentLesson() {
+        const currentLessonCard = document.querySelector('.current-lesson-card');
+        if (currentLessonCard) {
+            currentLessonCard.style.transform = '';
+            currentLessonCard.style.boxShadow = '';
+        }
+    }
+    
+    /**
+     * Update lesson access time
+     */
+    async updateLessonAccess(lessonId) {
+        try {
+            await fetch(pmpAjax.ajaxurl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'set_current_lesson',
+                    nonce: pmpAjax.nonce,
+                    lesson_id: lessonId
+                })
+            });
+        } catch (error) {
+            console.error('Failed to update lesson access:', error);
+        }
+    }
+    
+    /**
+     * Show completion notification
+     */
+    showCompletionNotification(lessonId) {
+        const notification = document.createElement('div');
+        notification.className = 'lesson-completion-notification';
+        notification.innerHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-trophy me-2"></i>
+                <strong>Lesson Completed!</strong> Great job on finishing this lesson.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+    
+    /**
+     * Refresh current lesson display
+     */
+    async refreshCurrentLessonDisplay() {
+        try {
+            const response = await fetch(pmpAjax.ajaxurl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'get_current_lesson',
+                    nonce: pmpAjax.nonce
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Update current lesson display
+                this.updateCurrentLessonCard(result.data);
+            }
+        } catch (error) {
+            console.error('Failed to refresh current lesson display:', error);
+        }
+    }
+    
+    /**
+     * Update current lesson card with new data
+     */
+    updateCurrentLessonCard(lessonData) {
+        const currentLessonCard = document.querySelector('.current-lesson-card');
+        if (currentLessonCard && lessonData) {
+            // Update lesson title
+            const titleElement = currentLessonCard.querySelector('.lesson-title');
+            if (titleElement) {
+                titleElement.textContent = lessonData.title;
+            }
+            
+            // Update progress bar
+            const progressBars = currentLessonCard.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                bar.style.width = lessonData.progress_percentage + '%';
+                bar.setAttribute('aria-valuenow', lessonData.progress_percentage);
+            });
+            
+            // Update badges
+            const badge = currentLessonCard.querySelector('.current-lesson-badges .badge');
+            if (badge) {
+                if (lessonData.is_completed) {
+                    badge.className = 'badge bg-success';
+                    badge.innerHTML = '<i class="fas fa-check me-1"></i>Completed';
+                } else {
+                    badge.className = 'badge bg-warning';
+                    badge.innerHTML = '<i class="fas fa-clock me-1"></i>In Progress';
+                }
+            }
+            
+            // Re-bind events for updated elements
+            this.bindCurrentLessonEvents();
+        }
+    }
+    
+    /**
+     * Refresh current lesson highlighting
+     */
+    async refreshCurrentLessonHighlighting() {
+        try {
+            const response = await fetch(pmpAjax.ajaxurl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'pmp_get_current_lesson',
+                    nonce: pmpAjax.nonce
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.updateCurrentLessonCard(result.data);
+            }
+        } catch (error) {
+            console.error('Failed to refresh current lesson highlighting:', error);
+        }
+    }
+    
+    /**
+     * Format time ago string
+     */
+    formatTimeAgo(timestamp) {
+        const now = new Date();
+        const time = new Date(timestamp);
+        const diffInSeconds = Math.floor((now - time) / 1000);
+        
+        if (diffInSeconds < 60) {
+            return 'just now';
+        } else if (diffInSeconds < 3600) {
+            const minutes = Math.floor(diffInSeconds / 60);
+            return minutes + ' minute' + (minutes > 1 ? 's' : '') + ' ago';
+        } else if (diffInSeconds < 86400) {
+            const hours = Math.floor(diffInSeconds / 3600);
+            return hours + ' hour' + (hours > 1 ? 's' : '') + ' ago';
+        } else {
+            const days = Math.floor(diffInSeconds / 86400);
+            return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+        }
+    }
+    
+    /**
      * Cleanup when page unloads
      */
     cleanup() {
         this.stopPeriodicUpdates();
+        
+        // Stop current lesson updates
+        if (this.currentLessonInterval) {
+            clearInterval(this.currentLessonInterval);
+            this.currentLessonInterval = null;
+        }
         
         // Remove event listeners
         window.removeEventListener('focus', this.onWindowFocus);

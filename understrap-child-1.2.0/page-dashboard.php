@@ -333,26 +333,157 @@ if (class_exists('PMP_Progress_Tracker')) {
                                 </div>
                             </div>
 
+                            <!-- Upcoming Lessons Preview Card -->
+                            <div class="col-lg-6">
+                                <div class="card h-100 border-0 shadow-sm">
+                                    <div class="card-body p-4">
+                                        <?php 
+                                        if ($dashboard) {
+                                            $upcoming_lessons = $dashboard->get_upcoming_lessons(4);
+                                            echo $dashboard->render_upcoming_lessons_preview($upcoming_lessons);
+                                        } else {
+                                            // Fallback upcoming lessons preview for development
+                                            ?>
+                                            <div class="upcoming-lessons-preview">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="mb-0 text-primary">
+                                                        <i class="fas fa-calendar-alt me-2"></i>
+                                                        Coming Up Next
+                                                    </h5>
+                                                    <span class="badge bg-light text-dark">4 lessons</span>
+                                                </div>
+                                                
+                                                <div class="upcoming-lessons-list">
+                                                    <div class="upcoming-lesson-item is-next">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-auto">
+                                                                <div class="lesson-position">
+                                                                    <div class="position-indicator next">
+                                                                        <i class="fas fa-play"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="lesson-meta mb-1">
+                                                                    <span class="badge bg-light text-dark me-2">Week 2 · Day 1</span>
+                                                                    <span class="badge bg-secondary">People Domain</span>
+                                                                </div>
+                                                                <h6 class="lesson-title mb-1">Team Leadership Principles</h6>
+                                                                <p class="lesson-description-short text-muted mb-1">
+                                                                    Essential leadership skills for project managers and team dynamics
+                                                                </p>
+                                                                <div class="lesson-stats-small">
+                                                                    <small class="text-muted me-3">
+                                                                        <i class="fas fa-clock me-1"></i>26 min
+                                                                    </small>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-signal me-1"></i>Intermediate
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <a href="#" class="btn btn-sm btn-primary">
+                                                                    <i class="fas fa-play me-1"></i>Start
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <hr class="lesson-separator">
+                                                    
+                                                    <div class="upcoming-lesson-item">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-auto">
+                                                                <div class="lesson-position">
+                                                                    <div class="position-indicator">2</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="lesson-meta mb-1">
+                                                                    <span class="badge bg-light text-dark me-2">Week 2 · Day 2</span>
+                                                                    <span class="badge bg-secondary">People Domain</span>
+                                                                </div>
+                                                                <h6 class="lesson-title mb-1">Stakeholder Engagement</h6>
+                                                                <p class="lesson-description-short text-muted mb-1">
+                                                                    Strategies for effective stakeholder identification and engagement
+                                                                </p>
+                                                                <div class="lesson-stats-small">
+                                                                    <small class="text-muted me-3">
+                                                                        <i class="fas fa-clock me-1"></i>23 min
+                                                                    </small>
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-signal me-1"></i>Intermediate
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                                                    <i class="fas fa-arrow-right me-1"></i>View
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="text-center mt-3">
+                                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-list me-1"></i>View All Lessons
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Quick Actions Card -->
                             <div class="col-lg-6">
                                 <div class="card h-100 border-0 shadow-sm">
                                     <div class="card-body p-4">
                                         <h5 class="card-title text-primary mb-4">Quick Actions</h5>
-
+                                        
                                         <div class="quick-actions-grid">
-                                            <a href="#" class="quick-action-btn" data-action="study_guide">
-                                                <i class="fas fa-book-open"></i>
+                                            <a href="<?php echo home_url('/resources/'); ?>" class="quick-action-btn" data-action="study_guide">
+                                                <i class="fas fa-book"></i>
                                                 <small>Study Guide</small>
                                             </a>
-                                            <a href="#" class="quick-action-btn" data-action="practice_quiz">
+                                            
+                                            <a href="<?php echo home_url('/practice-quiz/'); ?>" class="quick-action-btn" data-action="practice_quiz">
                                                 <i class="fas fa-question-circle"></i>
                                                 <small>Practice Quiz</small>
                                             </a>
-                                            <a href="#" class="quick-action-btn" data-action="resources">
+                                            
+                                            <a href="<?php echo home_url('/resources/'); ?>" class="quick-action-btn" data-action="resources">
+                                                <i class="fas fa-download"></i>
+                                                <small>Downloads</small>
+                                            </a>
+                                            
+                                            <a href="<?php echo home_url('/dashboard/settings/'); ?>" class="quick-action-btn" data-action="settings">
+                                                <i class="fas fa-cog"></i>
+                                                <small>Settings</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="card-body p-4">
+                                        <h5 class="card-title text-primary mb-4">Quick Actions</h5>
+
+                                        <div class="quick-actions-grid">
+                                            <a href="<?php echo home_url('/study-guide/'); ?>" class="quick-action-btn" data-action="study_guide">
+                                                <i class="fas fa-book-open"></i>
+                                                <small>Study Guide</small>
+                                            </a>
+                                            <a href="<?php echo home_url('/practice-quiz/'); ?>" class="quick-action-btn" data-action="practice_quiz">
+                                                <i class="fas fa-question-circle"></i>
+                                                <small>Practice Quiz</small>
+                                            </a>
+                                            <a href="<?php echo home_url('/resources/'); ?>" class="quick-action-btn" data-action="resources">
                                                 <i class="fas fa-download"></i>
                                                 <small>Resources</small>
                                             </a>
-                                            <a href="#" class="quick-action-btn" data-action="schedule">
+                                            <a href="<?php echo home_url('/schedule/'); ?>" class="quick-action-btn" data-action="schedule">
                                                 <i class="fas fa-calendar"></i>
                                                 <small>Schedule</small>
                                             </a>

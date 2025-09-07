@@ -35,6 +35,25 @@ function pmp_init_progress_tracking() {
 add_action('init', 'pmp_init_progress_tracking');
 
 /**
+ * Render current lesson highlighting card
+ * 
+ * @return string HTML for current lesson card
+ */
+function pmp_render_current_lesson_display() {
+    if (!is_user_logged_in()) {
+        return '<p>Please log in to view your current lesson.</p>';
+    }
+    
+    global $pmp_dashboard;
+    
+    if (!$pmp_dashboard) {
+        pmp_init_progress_tracking();
+    }
+    
+    return $pmp_dashboard->render_current_lesson_card();
+}
+
+/**
  * Render progress tracking display for dashboard
  * 
  * @return string HTML for progress display
@@ -120,12 +139,35 @@ function pmp_progress_display_shortcode($atts) {
 add_shortcode('pmp_progress_display', 'pmp_progress_display_shortcode');
 
 /**
- * Add progress display to dashboard page automatically
+ * Shortcode for current lesson display
+ */
+function pmp_current_lesson_shortcode($atts) {
+    $atts = shortcode_atts([
+        'user_id' => get_current_user_id(),
+        'show_actions' => true
+    ], $atts);
+    
+    return pmp_render_current_lesson_display();
+}
+add_shortcode('pmp_current_lesson', 'pmp_current_lesson_shortcode');
+
+/**
+ * Add progress display and current lesson to dashboard page automatically
  */
 function pmp_add_progress_to_dashboard($content) {
     if (is_page('dashboard') && is_user_logged_in()) {
+        $current_lesson_display = pmp_render_current_lesson_display();
         $progress_display = pmp_render_progress_display();
-        $content = $progress_display . $content;
+        
+        // Add current lesson first, then progress display
+        $dashboard_content = '<div class="pmp-dashboard-content">';
+        $dashboard_content .= '<div class="row">';
+        $dashboard_content .= '<div class="col-12 mb-4">' . $current_lesson_display . '</div>';
+        $dashboard_content .= '<div class="col-12 mb-4">' . $progress_display . '</div>';
+        $dashboard_content .= '</div>';
+        $dashboard_content .= '</div>';
+        
+        $content = $dashboard_content . $content;
     }
     
     return $content;
@@ -162,6 +204,61 @@ function pmp_ajax_refresh_progress() {
     wp_send_json_success($response_data);
 }
 add_action('wp_ajax_pmp_refresh_progress', 'pmp_ajax_refresh_progress');
+
+/**
+ * AJAX handler for getting current lesson data
+ */
+function pmp_ajax_get_current_lesson() {
+    if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('User not logged in');
+    }
+    
+    $user_id = get_current_user_id();
+    $dashboard = new PMP_Dashboard($user_id);
+    
+    $current_lesson = $dashboard->get_current_lesson();
+    
+    if ($current_lesson) {
+        wp_send_json_success($current_lesson);
+    } else {
+        wp_send_json_error('No current lesson available');
+    }
+}
+add_action('wp_ajax_pmp_get_current_lesson', 'pmp_ajax_get_current_lesson');
+
+/**
+ * AJAX handler for setting current lesson
+ */
+function pmp_ajax_set_current_lesson() {
+    if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('User not logged in');
+    }
+    
+    $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+    
+    if (empty($lesson_id)) {
+        wp_send_json_error('Lesson ID is required');
+    }
+    
+    $user_id = get_current_user_id();
+    $dashboard = new PMP_Dashboard($user_id);
+    
+    $dashboard->set_current_lesson($lesson_id);
+    
+    wp_send_json_success([
+        'message' => 'Current lesson updated successfully',
+        'current_lesson' => $dashboard->get_current_lesson()
+    ]);
+}
+add_action('wp_ajax_pmp_set_current_lesson', 'pmp_ajax_set_current_lesson');
 
 /**
  * Enqueue progress tracking assets on dashboard page
