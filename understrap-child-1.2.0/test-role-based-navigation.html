@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role-Based Navigation Test - PMP Theme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/pmp-navigation.css">
+    <style>
+        body { padding-top: 80px; background: #f8f9fa; }
+        .test-container { padding: 2rem 0; }
+        .role-selector {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        }
+        .test-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        }
+        .role-button {
+            margin: 0.25rem;
+            min-width: 120px;
+        }
+        .test-result {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .test-pass { background: #d4edda; color: #155724; }
+        .test-fail { background: #f8d7da; color: #721c24; }
+        .test-info { background: #d1ecf1; color: #0c5460; }
+        .current-role {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+        .role-guest { background: #6c757d; color: white; }
+        .role-student { background: #28a745; color: white; }
+        .role-instructor { background: #007bff; color: white; }
+        .role-administrator { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header (Dynamic based on selected role) -->
+    <header id="wrapper-navbar" class="wrapper-navbar">
+        <nav id="main-nav" class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#" title="PMP Course">
+                    <strong>PMP Course</strong>
+                </a>
+
+                <button class="navbar-toggler pmp-mobile-nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse pmp-mobile-nav-container" id="navbarNav">
+                    <ul class="navbar-nav ms-auto me-3 align-items-lg-center pmp-primary-nav" id="primary-nav">
+                        <!-- Dynamic navigation items will be inserted here -->
+                    </ul>
+
+                    <ul class="navbar-nav flex-lg-row align-items-lg-center pmp-mobile-actions">
+                        <li class="nav-item nav-no-border ms-lg-2">
+                            <a href="#" class="btn btn-primary pmp-cta-button">
+                                <i class="fas fa-rocket me-1"></i>
+                                <span class="d-none d-sm-inline">Get PMP® Ready</span>
+                                <span class="d-sm-none">Get Started</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-no-border dropdown ms-lg-3">
+                            <a class="nav-link dropdown-toggle pt-1 px-0 d-flex align-items-center pmp-user-dropdown" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="d-none d-lg-block me-2" id="user-greeting">Hello, Guest</span>
+                                <span class="d-lg-none me-2" id="user-greeting-mobile">Account</span>
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end pmp-user-menu" id="user-dropdown-menu">
+                                <!-- Dynamic user menu items will be inserted here -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Test Content -->
+    <div class="test-container">
+        <div class="container">
+            <!-- Role Selector -->
+            <div class="role-selector">
+                <h2><i class="fas fa-user-cog me-2"></i>Role-Based Navigation Tester</h2>
+                <p class="mb-3">Select a user role to test the navigation system behavior:</p>
+                
+                <div class="d-flex flex-wrap align-items-center mb-3">
+                    <span class="me-3">Current Role:</span>
+                    <span class="current-role role-guest" id="current-role-display">Guest</span>
+                </div>
+                
+                <div class="role-buttons">
+                    <button class="btn btn-secondary role-button" onclick="switchRole('guest')">
+                        <i class="fas fa-user me-1"></i>Guest User
+                    </button>
+                    <button class="btn btn-success role-button" onclick="switchRole('student')">
+                        <i class="fas fa-graduation-cap me-1"></i>Student
+                    </button>
+                    <button class="btn btn-primary role-button" onclick="switchRole('instructor')">
+                        <i class="fas fa-chalkboard-teacher me-1"></i>Instructor
+                    </button>
+                    <button class="btn btn-danger role-button" onclick="switchRole('administrator')">
+                        <i class="fas fa-cogs me-1"></i>Administrator
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Results -->
+            <div class="test-section">
+                <h3><i class="fas fa-clipboard-check me-2"></i>Navigation Test Results</h3>
+                <div id="test-results">
+                    <div class="test-result test-info">Ready to test navigation. Select a role above to begin.</div>
+                </div>
+                
+                <div class="mt-3">
+                    <button class="btn btn-outline-primary" onclick="runNavigationTests()">
+                        <i class="fas fa-play me-1"></i>Run All Tests
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="clearTestResults()">
+                        <i class="fas fa-trash me-1"></i>Clear Results
+                    </button>
+                </div>
+            </div>
+
+            <!-- Expected Navigation Items -->
+            <div class="test-section">
+                <h3><i class="fas fa-list-check me-2"></i>Expected Navigation Items by Role</h3>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-secondary">Guest User</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-home me-1"></i>Home</li>
+                            <li><i class="fas fa-book-open me-1"></i>Course Overview</li>
+                            <li><i class="fas fa-graduation-cap me-1"></i>Lessons</li>
+                            <li><i class="fas fa-folder-open me-1"></i>Resources</li>
+                            <li><i class="fas fa-life-ring me-1"></i>Support</li>
+                        </ul>
+                        <h6>User Menu:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-sign-in-alt me-1"></i>Login</li>
+                            <li><i class="fas fa-user-plus me-1"></i>Register</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-success">Student</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-home me-1"></i>Home</li>
+                            <li><i class="fas fa-book-open me-1"></i>Course Overview</li>
+                            <li><i class="fas fa-tachometer-alt me-1"></i>My Dashboard</li>
+                            <li><i class="fas fa-graduation-cap me-1"></i>Lessons</li>
+                            <li><i class="fas fa-folder-open me-1"></i>Resources</li>
+                            <li><i class="fas fa-chart-line me-1"></i>Progress</li>
+                            <li><i class="fas fa-life-ring me-1"></i>Support</li>
+                        </ul>
+                        <h6>User Menu:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-user me-1"></i>My Profile</li>
+                            <li><i class="fas fa-tachometer-alt me-1"></i>Dashboard</li>
+                            <li><i class="fas fa-star me-1"></i>Advanced Resources</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-primary">Instructor</h5>
+                        <ul class="list-unstyled">
+                            <li><small class="text-muted">All Student items plus:</small></li>
+                            <li><i class="fas fa-chalkboard-teacher me-1"></i>Instructor Dashboard</li>
+                            <li><i class="fas fa-users me-1"></i>Student Management</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-danger">Administrator</h5>
+                        <ul class="list-unstyled">
+                            <li><small class="text-muted">All Instructor items plus:</small></li>
+                            <li><i class="fas fa-cogs me-1"></i>Admin Panel</li>
+                            <li><i class="fas fa-sliders-h me-1"></i>Site Settings</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility Testing -->
+            <div class="test-section">
+                <h3><i class="fas fa-universal-access me-2"></i>Accessibility Testing</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Keyboard Navigation</h5>
+                        <p>Use Tab, Enter, Escape, and Arrow keys to test navigation:</p>
+                        <ul>
+                            <li>Tab through navigation items</li>
+                            <li>Enter/Space to activate links</li>
+                            <li>Escape to close dropdowns</li>
+                            <li>Arrow keys in dropdown menus</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Screen Reader Testing</h5>
+                        <p>Test with screen readers (NVDA, JAWS, VoiceOver):</p>
+                        <ul>
+                            <li>Navigation landmark identification</li>
+                            <li>ARIA labels and descriptions</li>
+                            <li>Dropdown state announcements</li>
+                            <li>Focus management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/navigation.js"></script>
+    <script>
+        // Navigation configurations for different roles
+        const navigationConfig = {
+            guest: {
+                displayName: 'Guest',
+                className: 'role-guest',
+                greeting: 'Hello, Guest',
+                greetingMobile: 'Account',
+                primaryNav: [
+                    { icon: 'fas fa-home', text: 'Home', href: '#' },
+                    { icon: 'fas fa-book-open', text: 'Course Overview', href: '#' },
+                    { 
+                        icon: 'fas fa-graduation-cap', 
+                        text: 'Lessons', 
+                        href: '#',
+                        dropdown: [
+                            { text: 'Week 1: Foundation', href: '#', description: 'PMP Overview & Study Strategy', color: '#28a745' },
+                            { text: 'Week 2-4: People', href: '#', description: 'People Domain (42%)', color: '#28a745' },
+                            { text: 'Week 5-8: Process', href: '#', description: 'Process Domain (50%)', color: '#007bff' },
+                            { text: 'Week 9-11: Business', href: '#', description: 'Business Environment (8%)', color: '#fd7e14' }
+                        ]
+                    },
+                    { 
+                        icon: 'fas fa-folder-open', 
+                        text: 'Resources', 
+                        href: '#',
+                        dropdown: [
+                            { icon: 'fas fa-file-pdf', text: 'Study Guides', href: '#' },
+                            { icon: 'fas fa-clipboard-check', text: 'Practice Exams', href: '#' },
+                            { icon: 'fas fa-file-alt', text: 'Templates', href: '#' }
+                        ]
+                    },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' }
+                ],
+                userMenu: [
+                    { icon: 'fas fa-sign-in-alt', text: 'Login', href: '#' },
+                    { icon: 'fas fa-user-plus', text: 'Register', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-book-open', text: 'Course Overview', href: '#' }
+                ]
+            },
+            student: {
+                displayName: 'Student',
+                className: 'role-student',
+                greeting: 'Hello, John Student',
+                greetingMobile: 'John Student',
+                primaryNav: [
+                    { icon: 'fas fa-home', text: 'Home', href: '#' },
+                    { icon: 'fas fa-book-open', text: 'Course Overview', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'My Dashboard', href: '#' },
+                    { 
+                        icon: 'fas fa-graduation-cap', 
+                        text: 'Lessons', 
+                        href: '#',
+                        dropdown: [
+                            { text: 'Week 1: Foundation', href: '#', description: 'PMP Overview & Study Strategy', color: '#28a745' },
+                            { text: 'Week 2-4: People', href: '#', description: 'People Domain (42%)', color: '#28a745' },
+                            { text: 'Week 5-8: Process', href: '#', description: 'Process Domain (50%)', color: '#007bff' },
+                            { text: 'Week 9-11: Business', href: '#', description: 'Business Environment (8%)', color: '#fd7e14' }
+                        ]
+                    },
+                    { 
+                        icon: 'fas fa-folder-open', 
+                        text: 'Resources', 
+                        href: '#',
+                        dropdown: [
+                            { icon: 'fas fa-file-pdf', text: 'Study Guides', href: '#' },
+                            { icon: 'fas fa-clipboard-check', text: 'Practice Exams', href: '#' },
+                            { icon: 'fas fa-file-alt', text: 'Templates', href: '#' }
+                        ]
+                    },
+                    { icon: 'fas fa-chart-line', text: 'Progress', href: '#' },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' }
+                ],
+                userMenu: [
+                    { icon: 'fas fa-user', text: 'My Profile', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', href: '#' },
+                    { icon: 'fas fa-chart-line', text: 'My Progress', href: '#' },
+                    { icon: 'fas fa-folder-open', text: 'Resources', href: '#' },
+                    { icon: 'fas fa-star', text: 'Advanced Resources', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-sign-out-alt', text: 'Logout', href: '#', class: 'text-danger' }
+                ]
+            },
+            instructor: {
+                displayName: 'Instructor',
+                className: 'role-instructor',
+                greeting: 'Hello, Jane Instructor',
+                greetingMobile: 'Jane Instructor',
+                primaryNav: [
+                    { icon: 'fas fa-home', text: 'Home', href: '#' },
+                    { icon: 'fas fa-book-open', text: 'Course Overview', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'My Dashboard', href: '#' },
+                    { 
+                        icon: 'fas fa-graduation-cap', 
+                        text: 'Lessons', 
+                        href: '#',
+                        dropdown: [
+                            { text: 'Week 1: Foundation', href: '#', description: 'PMP Overview & Study Strategy', color: '#28a745' },
+                            { text: 'Week 2-4: People', href: '#', description: 'People Domain (42%)', color: '#28a745' },
+                            { text: 'Week 5-8: Process', href: '#', description: 'Process Domain (50%)', color: '#007bff' },
+                            { text: 'Week 9-11: Business', href: '#', description: 'Business Environment (8%)', color: '#fd7e14' }
+                        ]
+                    },
+                    { 
+                        icon: 'fas fa-folder-open', 
+                        text: 'Resources', 
+                        href: '#',
+                        dropdown: [
+                            { icon: 'fas fa-file-pdf', text: 'Study Guides', href: '#' },
+                            { icon: 'fas fa-clipboard-check', text: 'Practice Exams', href: '#' },
+                            { icon: 'fas fa-file-alt', text: 'Templates', href: '#' }
+                        ]
+                    },
+                    { icon: 'fas fa-chart-line', text: 'Progress', href: '#' },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' }
+                ],
+                userMenu: [
+                    { icon: 'fas fa-user', text: 'My Profile', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', href: '#' },
+                    { icon: 'fas fa-chart-line', text: 'My Progress', href: '#' },
+                    { icon: 'fas fa-folder-open', text: 'Resources', href: '#' },
+                    { icon: 'fas fa-star', text: 'Advanced Resources', href: '#' },
+                    { divider: true },
+                    { header: 'Instructor Tools' },
+                    { icon: 'fas fa-chalkboard-teacher', text: 'Instructor Dashboard', href: '#' },
+                    { icon: 'fas fa-users', text: 'Student Management', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-sign-out-alt', text: 'Logout', href: '#', class: 'text-danger' }
+                ]
+            },
+            administrator: {
+                displayName: 'Administrator',
+                className: 'role-administrator',
+                greeting: 'Hello, Admin User',
+                greetingMobile: 'Admin User',
+                primaryNav: [
+                    { icon: 'fas fa-home', text: 'Home', href: '#' },
+                    { icon: 'fas fa-book-open', text: 'Course Overview', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'My Dashboard', href: '#' },
+                    { 
+                        icon: 'fas fa-graduation-cap', 
+                        text: 'Lessons', 
+                        href: '#',
+                        dropdown: [
+                            { text: 'Week 1: Foundation', href: '#', description: 'PMP Overview & Study Strategy', color: '#28a745' },
+                            { text: 'Week 2-4: People', href: '#', description: 'People Domain (42%)', color: '#28a745' },
+                            { text: 'Week 5-8: Process', href: '#', description: 'Process Domain (50%)', color: '#007bff' },
+                            { text: 'Week 9-11: Business', href: '#', description: 'Business Environment (8%)', color: '#fd7e14' }
+                        ]
+                    },
+                    { 
+                        icon: 'fas fa-folder-open', 
+                        text: 'Resources', 
+                        href: '#',
+                        dropdown: [
+                            { icon: 'fas fa-file-pdf', text: 'Study Guides', href: '#' },
+                            { icon: 'fas fa-clipboard-check', text: 'Practice Exams', href: '#' },
+                            { icon: 'fas fa-file-alt', text: 'Templates', href: '#' }
+                        ]
+                    },
+                    { icon: 'fas fa-chart-line', text: 'Progress', href: '#' },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' }
+                ],
+                userMenu: [
+                    { icon: 'fas fa-user', text: 'My Profile', href: '#' },
+                    { icon: 'fas fa-tachometer-alt', text: 'Dashboard', href: '#' },
+                    { icon: 'fas fa-chart-line', text: 'My Progress', href: '#' },
+                    { icon: 'fas fa-folder-open', text: 'Resources', href: '#' },
+                    { icon: 'fas fa-star', text: 'Advanced Resources', href: '#' },
+                    { divider: true },
+                    { header: 'Instructor Tools' },
+                    { icon: 'fas fa-chalkboard-teacher', text: 'Instructor Dashboard', href: '#' },
+                    { icon: 'fas fa-users', text: 'Student Management', href: '#' },
+                    { divider: true },
+                    { header: 'Administration' },
+                    { icon: 'fas fa-cogs', text: 'Admin Panel', href: '#' },
+                    { icon: 'fas fa-sliders-h', text: 'Site Settings', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-life-ring', text: 'Support', href: '#' },
+                    { divider: true },
+                    { icon: 'fas fa-sign-out-alt', text: 'Logout', href: '#', class: 'text-danger' }
+                ]
+            }
+        };
+
+        let currentRole = 'guest';
+
+        function switchRole(role) {
+            currentRole = role;
+            const config = navigationConfig[role];
+            
+            // Update role display
+            const roleDisplay = document.getElementById('current-role-display');
+            roleDisplay.textContent = config.displayName;
+            roleDisplay.className = `current-role ${config.className}`;
+            
+            // Update user greeting
+            document.getElementById('user-greeting').textContent = config.greeting;
+            document.getElementById('user-greeting-mobile').textContent = config.greetingMobile;
+            
+            // Update primary navigation
+            updatePrimaryNavigation(config.primaryNav);
+            
+            // Update user dropdown menu
+            updateUserMenu(config.userMenu);
+            
+            // Log role change
+            logTestResult(`Switched to ${config.displayName} role`, 'info');
+            
+            // Run automatic tests
+            setTimeout(runNavigationTests, 500);
+        }
+
+        function updatePrimaryNavigation(navItems) {
+            const primaryNav = document.getElementById('primary-nav');
+            primaryNav.innerHTML = '';
+            
+            navItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'nav-item' + (item.dropdown ? ' dropdown' : '');
+                
+                if (item.dropdown) {
+                    li.innerHTML = `
+                        <a class="nav-link dropdown-toggle" href="${item.href}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="${item.icon} me-2"></i>${item.text}
+                        </a>
+                        <ul class="dropdown-menu">
+                            ${item.dropdown.map(dropItem => {
+                                if (dropItem.color) {
+                                    return `<li><a class="dropdown-item has-color" href="${dropItem.href}" style="--item-color: ${dropItem.color};">
+                                        ${dropItem.text}
+                                        <small class="nav-description d-block text-muted">${dropItem.description}</small>
+                                    </a></li>`;
+                                } else {
+                                    return `<li><a class="dropdown-item" href="${dropItem.href}">
+                                        ${dropItem.icon ? `<i class="${dropItem.icon} me-2"></i>` : ''}${dropItem.text}
+                                    </a></li>`;
+                                }
+                            }).join('')}
+                        </ul>
+                    `;
+                } else {
+                    li.innerHTML = `
+                        <a class="nav-link" href="${item.href}">
+                            <i class="${item.icon} me-2"></i>${item.text}
+                        </a>
+                    `;
+                }
+                
+                primaryNav.appendChild(li);
+            });
+        }
+
+        function updateUserMenu(menuItems) {
+            const userMenu = document.getElementById('user-dropdown-menu');
+            userMenu.innerHTML = '';
+            
+            menuItems.forEach(item => {
+                const li = document.createElement('li');
+                
+                if (item.divider) {
+                    li.innerHTML = '<hr class="dropdown-divider">';
+                } else if (item.header) {
+                    li.innerHTML = `<h6 class="dropdown-header">${item.header}</h6>`;
+                } else {
+                    li.innerHTML = `
+                        <a class="dropdown-item d-flex align-items-center ${item.class || ''}" href="${item.href}">
+                            <i class="${item.icon} me-2"></i> ${item.text}
+                        </a>
+                    `;
+                }
+                
+                userMenu.appendChild(li);
+            });
+        }
+
+        function runNavigationTests() {
+            clearTestResults();
+            logTestResult('Starting navigation tests...', 'info');
+            
+            // Test primary navigation items
+            testPrimaryNavigation();
+            
+            // Test user menu items
+            testUserMenu();
+            
+            // Test responsive behavior
+            testResponsiveBehavior();
+            
+            // Test accessibility
+            testAccessibility();
+            
+            logTestResult('Navigation tests completed', 'info');
+        }
+
+        function testPrimaryNavigation() {
+            const config = navigationConfig[currentRole];
+            const primaryNav = document.getElementById('primary-nav');
+            const navItems = primaryNav.querySelectorAll('.nav-item');
+            
+            logTestResult(`Testing primary navigation for ${config.displayName} role`, 'info');
+            
+            if (navItems.length === config.primaryNav.length) {
+                logTestResult(`✓ Primary navigation item count correct (${navItems.length})`, 'pass');
+            } else {
+                logTestResult(`✗ Primary navigation item count mismatch. Expected: ${config.primaryNav.length}, Found: ${navItems.length}`, 'fail');
+            }
+            
+            // Test each navigation item
+            config.primaryNav.forEach((expectedItem, index) => {
+                const actualItem = navItems[index];
+                if (actualItem) {
+                    const link = actualItem.querySelector('.nav-link');
+                    const text = link.textContent.trim();
+                    if (text.includes(expectedItem.text)) {
+                        logTestResult(`✓ Navigation item "${expectedItem.text}" found`, 'pass');
+                    } else {
+                        logTestResult(`✗ Navigation item "${expectedItem.text}" not found. Found: "${text}"`, 'fail');
+                    }
+                }
+            });
+        }
+
+        function testUserMenu() {
+            const config = navigationConfig[currentRole];
+            const userMenu = document.getElementById('user-dropdown-menu');
+            const menuItems = userMenu.querySelectorAll('li');
+            
+            logTestResult(`Testing user menu for ${config.displayName} role`, 'info');
+            
+            // Count non-divider items
+            const actualMenuItems = Array.from(menuItems).filter(item => 
+                !item.querySelector('.dropdown-divider') && !item.querySelector('.dropdown-header')
+            );
+            const expectedMenuItems = config.userMenu.filter(item => !item.divider && !item.header);
+            
+            if (actualMenuItems.length === expectedMenuItems.length) {
+                logTestResult(`✓ User menu item count correct (${actualMenuItems.length})`, 'pass');
+            } else {
+                logTestResult(`✗ User menu item count mismatch. Expected: ${expectedMenuItems.length}, Found: ${actualMenuItems.length}`, 'fail');
+            }
+        }
+
+        function testResponsiveBehavior() {
+            logTestResult('Testing responsive behavior', 'info');
+            
+            const navToggle = document.querySelector('.pmp-mobile-nav-toggle');
+            const navCollapse = document.querySelector('#navbarNav');
+            
+            if (navToggle && navCollapse) {
+                logTestResult('✓ Mobile navigation toggle and collapse elements found', 'pass');
+            } else {
+                logTestResult('✗ Mobile navigation elements missing', 'fail');
+            }
+            
+            // Test viewport meta tag
+            const viewportMeta = document.querySelector('meta[name="viewport"]');
+            if (viewportMeta && viewportMeta.content.includes('width=device-width')) {
+                logTestResult('✓ Viewport meta tag configured correctly', 'pass');
+            } else {
+                logTestResult('✗ Viewport meta tag missing or incorrect', 'fail');
+            }
+        }
+
+        function testAccessibility() {
+            logTestResult('Testing accessibility features', 'info');
+            
+            // Test ARIA labels
+            const navToggle = document.querySelector('.pmp-mobile-nav-toggle');
+            if (navToggle && navToggle.getAttribute('aria-label')) {
+                logTestResult('✓ Navigation toggle has ARIA label', 'pass');
+            } else {
+                logTestResult('✗ Navigation toggle missing ARIA label', 'fail');
+            }
+            
+            // Test dropdown ARIA attributes
+            const dropdowns = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+            let ariaCompliant = true;
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.getAttribute('aria-expanded')) {
+                    ariaCompliant = false;
+                }
+            });
+            
+            if (ariaCompliant && dropdowns.length > 0) {
+                logTestResult('✓ Dropdown elements have ARIA attributes', 'pass');
+            } else if (dropdowns.length === 0) {
+                logTestResult('ℹ No dropdown elements to test', 'info');
+            } else {
+                logTestResult('✗ Some dropdown elements missing ARIA attributes', 'fail');
+            }
+        }
+
+        function logTestResult(message, type) {
+            const resultsContainer = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result test-${type}`;
+            resultDiv.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultsContainer.appendChild(resultDiv);
+            
+            // Auto-scroll to bottom
+            resultsContainer.scrollTop = resultsContainer.scrollHeight;
+        }
+
+        function clearTestResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+
+        // Initialize with guest role
+        document.addEventListener('DOMContentLoaded', () => {
+            switchRole('guest');
+            logTestResult('Role-based navigation tester initialized', 'info');
+        });
+
+        // Log navigation events
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-link')) {
+                const link = e.target.closest('.nav-link');
+                logTestResult(`Navigation link clicked: ${link.textContent.trim()}`, 'info');
+            }
+        });
+    </script>
+</body>
+</html>

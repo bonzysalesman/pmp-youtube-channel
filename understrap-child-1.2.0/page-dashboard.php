@@ -18,7 +18,10 @@ $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
 $user_name = $current_user->display_name;
 
-// Initialize dashboard class if it exists
+// Initialize dashboard class and progress tracker
+$dashboard = null;
+$progress_tracker = null;
+
 if (class_exists('PMP_Dashboard')) {
     $dashboard = new PMP_Dashboard($user_id);
     $progress_stats = $dashboard->get_progress_stats();
@@ -33,17 +36,53 @@ if (class_exists('PMP_Dashboard')) {
         'current_week' => 7
     ];
     $next_lesson = (object) [
+        'id' => 'lesson-07-01',
         'title' => 'Risk Management Fundamentals',
         'description' => 'Learn the core concepts of project risk management and identification techniques.',
         'thumbnail' => get_template_directory_uri() . '/images/lesson-placeholder.jpg',
         'duration' => '22 minutes',
-        'url' => '#'
+        'url' => home_url('/lesson/risk-management-fundamentals/'),
+        'week' => 7,
+        'module' => 'Process Domain',
+        'difficulty' => 'Intermediate',
+        'estimated_time' => 22,
+        'completion_rate' => 87.3,
+        'recommendation_reason' => 'Essential for Process domain mastery'
     ];
     $recent_activity = [
-        ['title' => 'Completed: Stakeholder Engagement', 'timestamp' => '2 hours ago'],
-        ['title' => 'Started: Quality Management', 'timestamp' => '1 day ago'],
-        ['title' => 'Completed: Communication Planning', 'timestamp' => '2 days ago']
+        [
+            'title' => 'Completed: Stakeholder Engagement',
+            'type' => 'completed',
+            'timestamp' => date('Y-m-d H:i:s', strtotime('-2 hours')),
+            'formatted_time' => '2 hours ago',
+            'icon' => 'fas fa-check-circle',
+            'color' => 'success',
+            'url' => home_url('/lesson/stakeholder-engagement/')
+        ],
+        [
+            'title' => 'Started: Quality Management',
+            'type' => 'started',
+            'timestamp' => date('Y-m-d H:i:s', strtotime('-1 day')),
+            'formatted_time' => '1 day ago',
+            'icon' => 'fas fa-play-circle',
+            'color' => 'primary',
+            'url' => home_url('/lesson/quality-management/')
+        ],
+        [
+            'title' => 'Completed: Communication Planning',
+            'type' => 'completed',
+            'timestamp' => date('Y-m-d H:i:s', strtotime('-2 days')),
+            'formatted_time' => '2 days ago',
+            'icon' => 'fas fa-check-circle',
+            'color' => 'success',
+            'url' => home_url('/lesson/communication-planning/')
+        ]
     ];
+}
+
+// Initialize progress tracker if available
+if (class_exists('PMP_Progress_Tracker')) {
+    $progress_tracker = new PMP_Progress_Tracker($user_id);
 }
 ?>
 
@@ -61,20 +100,20 @@ if (class_exists('PMP_Dashboard')) {
                 ?>
                 
                 <!-- Welcome Section -->
-                <section class="dashboard-welcome py-4">
+                <section class="dashboard-welcome">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h1 class="display-5 fw-bold text-primary mb-2">
+                                <h1 class="mb-2">
                                     Welcome back, <?php echo esc_html($user_name); ?>!
                                 </h1>
-                                <p class="lead text-muted mb-0">
+                                <p class="lead mb-0">
                                     Continue your PMP certification journey. You're making great progress!
                                 </p>
                             </div>
                             <div class="col-md-4 text-md-end">
                                 <div class="dashboard-stats-quick">
-                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                    <span class="badge fs-6 px-3 py-2">
                                         Week <?php echo esc_html($progress_stats['current_week']); ?> of 13
                                     </span>
                                 </div>
@@ -84,8 +123,19 @@ if (class_exists('PMP_Dashboard')) {
                 </section>
 
                 <!-- Dashboard Grid -->
-                <section class="dashboard-content py-4">
+                <section class="dashboard-content">
                     <div class="container">
+                        <!-- Progress Data Status -->
+                        <?php if ($progress_tracker): ?>
+                            <div class="alert alert-info cached-data-warning d-none" id="cached-data-warning">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Progress data may be cached. 
+                                <a href="#" onclick="window.pmpProgressTracker?.refreshProgressData(); return false;">
+                                    Click here to refresh
+                                </a> for the latest information.
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="row g-4">
                             <!-- Progress Overview Card -->
                             <div class="col-lg-4 col-md-6">
@@ -289,31 +339,23 @@ if (class_exists('PMP_Dashboard')) {
                                     <div class="card-body p-4">
                                         <h5 class="card-title text-primary mb-4">Quick Actions</h5>
 
-                                        <div class="row g-3">
-                                            <div class="col-6">
-                                                <a href="#" class="btn btn-outline-primary w-100 py-3">
-                                                    <i class="fas fa-book-open d-block mb-2"></i>
-                                                    <small>Study Guide</small>
-                                                </a>
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="btn btn-outline-success w-100 py-3">
-                                                    <i class="fas fa-question-circle d-block mb-2"></i>
-                                                    <small>Practice Quiz</small>
-                                                </a>
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="btn btn-outline-info w-100 py-3">
-                                                    <i class="fas fa-download d-block mb-2"></i>
-                                                    <small>Resources</small>
-                                                </a>
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="btn btn-outline-warning w-100 py-3">
-                                                    <i class="fas fa-calendar d-block mb-2"></i>
-                                                    <small>Schedule</small>
-                                                </a>
-                                            </div>
+                                        <div class="quick-actions-grid">
+                                            <a href="#" class="quick-action-btn" data-action="study_guide">
+                                                <i class="fas fa-book-open"></i>
+                                                <small>Study Guide</small>
+                                            </a>
+                                            <a href="#" class="quick-action-btn" data-action="practice_quiz">
+                                                <i class="fas fa-question-circle"></i>
+                                                <small>Practice Quiz</small>
+                                            </a>
+                                            <a href="#" class="quick-action-btn" data-action="resources">
+                                                <i class="fas fa-download"></i>
+                                                <small>Resources</small>
+                                            </a>
+                                            <a href="#" class="quick-action-btn" data-action="schedule">
+                                                <i class="fas fa-calendar"></i>
+                                                <small>Schedule</small>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

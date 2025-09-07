@@ -24,6 +24,19 @@ class PMP_Dashboard {
     public function __construct($user_id, $course_id = 'pmp-prep-course') {
         $this->user_id = $user_id;
         $this->course_id = $course_id;
+        
+        // Initialize AJAX handlers
+        $this->init_ajax_handlers();
+    }
+    
+    /**
+     * Initialize AJAX handlers for progress tracking
+     */
+    private function init_ajax_handlers() {
+        add_action('wp_ajax_get_user_progress', [$this, 'ajax_get_user_progress']);
+        add_action('wp_ajax_track_user_event', [$this, 'ajax_track_user_event']);
+        add_action('wp_ajax_update_lesson_progress', [$this, 'ajax_update_lesson_progress']);
+        add_action('wp_ajax_get_detailed_progress', [$this, 'ajax_get_detailed_progress']);
     }
     
     /**
@@ -754,4 +767,392 @@ class PMP_Dashboard {
         <?php
         return ob_get_clean();
     }
-}
+    
+    /**
+     * AJAX handler for getting user progress data
+     */
+    public function ajax_get_user_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        // Get user ID (use current user if not specified)
+        $user_id = isset($_POST['user_id']) && $_POST['user_id'] !== 'current' 
+            ? intval($_POST['user_id']) 
+            : get_current_user_id();
+        
+        // Create progress tracker instance
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            
+            $response_data = [
+                'overall' => $progress_tracker->get_overall_progress(),
+                'domain' => $progress_tracker->get_domain_progress(),
+                'weekly' => $progress_tracker->get_weekly_progress(),
+                'analytics' => $progress_tracker->get_performance_analytics(),
+                'recent_activity' => $this->get_recent_activity(5),
+                'next_lesson' => $this->get_next_lesson(),
+                'recommendations' => $this->get_lesson_recommendations(),
+                'motivational_message' => $this->get_motivational_message()
+            ];
+            
+            wp_send_json_success($response_data);
+        } else {
+            // Fallback to basic dashboard data
+            $response_data = [
+                'overall' => $this->get_progress_stats(),
+                'recent_activity' => $this->get_recent_activity(5),
+                'next_lesson' => $this->get_next_lesson(),
+                'motivational_message' => $this->get_motivational_message()
+            ];
+            
+            wp_send_json_success($response_data);
+        }
+    }
+    
+    /**
+     * AJAX handler for tracking user events
+     */
+    public function ajax_track_user_event() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $event_type = sanitize_text_field($_POST['event_type'] ?? '');
+        $event_data = json_decode(stripslashes($_POST['event_data'] ?? '{}'), true);
+        
+        if (empty($event_type)) {
+            wp_send_json_error('Event type is required');
+        }
+        
+        // Log the event
+        $this->log_activity($event_data['title'] ?? $event_type, $event_type, $event_data);
+        
+        wp_send_json_success(['message' => 'Event tracked successfully']);
+    }
+    
+    /**
+     * AJAX handler for updating lesson progress
+     */
+    public function ajax_update_lesson_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        $completion = floatval($_POST['completion_percentage'] ?? 100);
+        
+        if (empty($lesson_id)) {
+            wp_send_json_error('Lesson ID is required');
+        }
+        
+        $this->update_lesson_progress($lesson_id, $completion);
+        
+        wp_send_json_success([
+            'message' => 'Progress updated successfully',
+            'progress' => $this->get_progress_stats()
+        ]);
+    }
+    
+    /**
+     * AJAX handler for getting detailed progress
+     */
+    public function ajax_get_detailed_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($this->user_id);
+            
+            $response_data = [
+                'overall' => $progress_tracker->get_overall_progress(),
+                'domain' => $progress_tracker->get_domain_progress(),
+                'weekly' => $progress_tracker->get_weekly_progress(),
+                'analytics' => $progress_tracker->get_performance_analytics()
+            ];
+            
+            wp_send_json_success($response_data);
+        } else {
+            wp_send_json_error('Progress tracker not available');
+        }
+    }
+    
+    /**
+     * Get lesson recommendations based on user progress
+     * 
+     * @return array Array of lesson recommendations
+     */
+    private function get_lesson_recommendations(): array {
+        $progress = $this->get_progress_stats();
+        $recommendations = [];
+        
+        // Add contextual recommendations based on progress
+        if ($progress['percentage'] < 25) {
+            $recommendations[] = [
+                'title' => 'Focus on Foundation Concepts',
+                'description' => 'Build a strong foundation with Week 1 materials',
+                'type' => 'foundation'
+            ];
+        } elseif ($progress['percentage'] < 50) {
+            $recommendations[] = [
+                'title' => 'Practice People Domain Skills',
+                'description' => 'Strengthen your understanding of team dynamics',
+                'type' => 'people'
+            ];
+        } elseif ($progress['percentage'] < 75) {
+            $recommendations[] = [
+                'title' => 'Master Process Domain',
+                'description' => 'Focus on project lifecycle and processes',
+                'type' => 'process'
+            ];
+        } else {
+            $recommendations[] = [
+                'title' => 'Final Exam Preparation',
+                'description' => 'Review and practice with mock exams',
+                'type' => 'exam_prep'
+            ];
+        }
+        
+        return $recommendations;
+    } = isset($_POST['user_id']) && $_POST['user_id'] !== 'current' 
+            ? intval($_POST['user_id']) 
+            : get_current_user_id();
+        
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        // Initialize progress tracker
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            
+            $progress_data = [
+                'overall' => $progress_tracker->get_overall_progress(),
+                'domain' => $progress_tracker->get_domain_progress(),
+                'weekly' => $progress_tracker->get_weekly_progress(),
+                'recent_activity' => $this->get_recent_activity(10),
+                'recommendations' => $this->get_personalized_recommendations($user_id),
+                'analytics' => $progress_tracker->get_performance_analytics()
+            ];
+        } else {
+            // Fallback to dashboard data
+            $dashboard = new PMP_Dashboard($user_id);
+            $progress_stats = $dashboard->get_progress_stats();
+            
+            $progress_data = [
+                'overall' => [
+                    'percentage' => $progress_stats['percentage'],
+                    'completed_lessons' => $progress_stats['completed'],
+                    'total_lessons' => $progress_stats['total'],
+                    'current_week' => $progress_stats['current_week'],
+                    'estimated_completion_date' => $dashboard->calculate_estimated_completion($progress_stats)
+                ],
+                'recent_activity' => $dashboard->get_recent_activity(10),
+                'recommendations' => []
+            ];
+        }
+        
+        wp_send_json_success($progress_data);
+    }
+    
+    /**
+     * AJAX handler for tracking user events
+     */
+    public function ajax_track_user_event() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        $event_type = sanitize_text_field($_POST['event_type']);
+        $event_data = json_decode(stripslashes($_POST['event_data']), true);
+        
+        // Log the event
+        $this->log_user_event($user_id, $event_type, $event_data);
+        
+        wp_send_json_success(['message' => 'Event tracked successfully']);
+    }
+    
+    /**
+     * AJAX handler for updating lesson progress
+     */
+    public function ajax_update_lesson_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id']);
+        $completion_percentage = floatval($_POST['completion_percentage']);
+        $session_data = json_decode(stripslashes($_POST['session_data'] ?? '{}'), true);
+        
+        // Update progress using progress tracker
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            $progress_tracker->update_lesson_progress($lesson_id, $completion_percentage, $session_data);
+        } else {
+            // Fallback to dashboard method
+            $this->update_lesson_progress($lesson_id, $completion_percentage);
+        }
+        
+        // Return updated progress data
+        $updated_progress = $this->get_progress_stats();
+        wp_send_json_success($updated_progress);
+    }
+    
+    /**
+     * AJAX handler for getting detailed progress data
+     */
+    public function ajax_get_detailed_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            
+            $detailed_data = [
+                'overall_progress' => $progress_tracker->get_overall_progress(),
+                'domain_progress' => $progress_tracker->get_domain_progress(),
+                'weekly_progress' => $progress_tracker->get_weekly_progress(),
+                'performance_analytics' => $progress_tracker->get_performance_analytics(),
+                'milestone_progress' => $progress_tracker->get_milestone_progress(),
+                'study_patterns' => $progress_tracker->analyze_study_patterns()
+            ];
+        } else {
+            $detailed_data = [
+                'overall_progress' => $this->get_progress_stats(),
+                'message' => 'Limited progress data available'
+            ];
+        }
+        
+        wp_send_json_success($detailed_data);
+    }
+    
+    /**
+     * Log user event for analytics
+     * 
+     * @param int $user_id User ID
+     * @param string $event_type Event type
+     * @param array $event_data Event data
+     */
+    private function log_user_event($user_id, $event_type, $event_data) {
+        $events = get_user_meta($user_id, 'pmp_user_events', true);
+        
+        if (!is_array($events)) {
+            $events = [];
+        }
+        
+        $event = [
+            'type' => $event_type,
+            'data' => $event_data,
+            'timestamp' => current_time('mysql'),
+            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? ''
+        ];
+        
+        array_unshift($events, $event);
+        
+        // Keep only last 100 events
+        $events = array_slice($events, 0, 100);
+        
+        update_user_meta($user_id, 'pmp_user_events', $events);
+        
+        // Also log to activity feed if it's a significant event
+        if (in_array($event_type, ['lesson_started', 'lesson_completed', 'quiz_completed'])) {
+            $this->log_activity_from_event($event_type, $event_data);
+        }
+    }
+    
+    /**
+     * Log activity from event data
+     * 
+     * @param string $event_type Event type
+     * @param array $event_data Event data
+     */
+    private function log_activity_from_event($event_type, $event_data) {
+        $activity_titles = [
+            'lesson_started' => 'Started: ' . ($event_data['lesson_title'] ?? 'New Lesson'),
+            'lesson_completed' => 'Completed: ' . ($event_data['lesson_title'] ?? 'Lesson'),
+            'quiz_completed' => 'Completed Quiz: ' . ($event_data['quiz_title'] ?? 'Practice Quiz')
+        ];
+        
+        $title = $activity_titles[$event_type] ?? 'Activity: ' . $event_type;
+        $this->log_activity($title, $event_type, $event_data);
+    }
+    
+    /**
+     * Get personalized recommendations for user
+     * 
+     * @param int $user_id User ID
+     * @return array Recommendations
+     */
+    private function get_personalized_recommendations($user_id) {
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            $analytics = $progress_tracker->get_performance_analytics();
+            return $analytics['recommendations'] ?? [];
+        }
+        
+        // Fallback recommendations
+        $progress = $this->get_progress_stats();
+        $recommendations = [];
+        
+        if ($progress['percentage'] < 25) {
+            $recommendations[] = [
+                'type' => 'study_frequency',
+                'title' => 'Establish Study Routine',
+                'description' => 'Try to study for 20-30 minutes daily to build momentum.',
+                'priority' => 'high'
+            ];
+        } elseif ($progress['percentage'] < 50) {
+            $recommendations[] = [
+                'type' => 'practice',
+                'title' => 'Add Practice Questions',
+                'description' => 'Start incorporating practice questions to reinforce learning.',
+                'priority' => 'medium'
+            ];
+        } elseif ($progress['percentage'] < 75) {
+            $recommendations[] = [
+                'type' => 'review',
+                'title' => 'Review Previous Material',
+                'description' => 'Review earlier lessons to strengthen your foundation.',
+                'priority' => 'medium'
+            ];
+        } else {
+            $recommendations[] = [
+                'type' => 'exam_prep',
+                'title' => 'Focus on Exam Preparation',
+                'description' => 'Start taking full-length practice exams.',
+                'priority' => 'high'
+            ];
+        }
+        
+        return $recommendations;
+    }
+}}
