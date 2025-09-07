@@ -7,9 +7,12 @@ class PMPNavigation {
     constructor() {
         this.navigation = document.querySelector('.pmp-course-navigation');
         this.navToggle = document.querySelector('.nav-toggle');
+        this.mobileNavToggle = document.querySelector('.pmp-mobile-nav-toggle');
+        this.navbarCollapse = document.querySelector('#navbarNav');
         this.moduleToggles = document.querySelectorAll('.module-toggle');
         this.lessonLinks = document.querySelectorAll('.lesson-link');
         this.currentLessonId = this.getCurrentLessonId();
+        this.isMobile = window.innerWidth <= 991.98;
         
         this.init();
     }
@@ -18,8 +21,7 @@ class PMPNavigation {
      * Initialize all navigation functionality
      */
     init() {
-        if (!this.navigation) return;
-        
+        this.setupMobileNavigation();
         this.setupMobileToggle();
         this.setupModuleToggles();
         this.setupLessonNavigation();
@@ -29,16 +31,62 @@ class PMPNavigation {
         this.setupResizeHandler();
         this.setupAccessibilityFeatures();
         this.setupAriaLiveRegions();
+        this.setupTouchGestures();
         
         // Set initial state
         this.updateActiveStates();
         this.loadModuleStates();
         this.scrollToCurrentLesson();
         this.announceInitialState();
+        
+        // Initialize mobile-specific features
+        if (this.isMobile) {
+            this.initMobileFeatures();
+        }
     }
     
     /**
-     * Setup mobile navigation toggle
+     * Setup enhanced mobile navigation
+     */
+    setupMobileNavigation() {
+        if (!this.mobileNavToggle || !this.navbarCollapse) return;
+        
+        // Enhanced mobile navigation toggle
+        this.mobileNavToggle.addEventListener('click', (e) => {
+            const isExpanded = this.mobileNavToggle.getAttribute('aria-expanded') === 'true';
+            this.toggleMainMobileNav(!isExpanded);
+        });
+        
+        // Close navigation when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (this.isMobile && 
+                this.navbarCollapse.classList.contains('show') &&
+                !this.navbarCollapse.contains(e.target) &&
+                !this.mobileNavToggle.contains(e.target)) {
+                this.closeMainMobileNav();
+            }
+        });
+        
+        // Close navigation on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.navbarCollapse.classList.contains('show')) {
+                this.closeMainMobileNav();
+                this.mobileNavToggle.focus();
+            }
+        });
+        
+        // Handle Bootstrap collapse events
+        this.navbarCollapse.addEventListener('shown.bs.collapse', () => {
+            this.onMobileNavOpen();
+        });
+        
+        this.navbarCollapse.addEventListener('hidden.bs.collapse', () => {
+            this.onMobileNavClose();
+        });
+    }
+    
+    /**
+     * Setup mobile navigation toggle (for course navigation)
      */
     setupMobileToggle() {
         if (!this.navToggle) return;
@@ -50,8 +98,8 @@ class PMPNavigation {
         
         // Close navigation when clicking outside on mobile
         document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 1024 && 
-                this.navigation.classList.contains('nav-open') &&
+            if (this.isMobile && 
+                this.navigation && this.navigation.classList.contains('nav-open') &&
                 !this.navigation.contains(e.target)) {
                 this.closeMobileNav();
             }
@@ -59,7 +107,7 @@ class PMPNavigation {
         
         // Close navigation on escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.navigation.classList.contains('nav-open')) {
+            if (e.key === 'Escape' && this.navigation && this.navigation.classList.contains('nav-open')) {
                 this.closeMobileNav();
                 this.navToggle.focus();
             }
@@ -98,9 +146,109 @@ class PMPNavigation {
      * Close mobile navigation
      */
     closeMobileNav() {
-        this.navigation.classList.remove('nav-open');
-        this.navToggle.setAttribute('aria-expanded', 'false');
+        if (this.navigation) {
+            this.navigation.classList.remove('nav-open');
+        }
+        if (this.navToggle) {
+            this.navToggle.setAttribute('aria-expanded', 'false');
+        }
         document.body.style.overflow = '';
+    }
+    
+    /**
+     * Toggle main mobile navigation
+     */
+    toggleMainMobileNav(show) {
+        if (show) {
+            this.openMainMobileNav();
+        } else {
+            this.closeMainMobileNav();
+        }
+    }
+    
+    /**
+     * Open main mobile navigation
+     */
+    openMainMobileNav() {
+        this.mobileNavToggle.setAttribute('aria-expanded', 'true');
+        this.mobileNavToggle.classList.add('active');
+        
+        // Prevent body scroll on mobile when nav is open
+        if (this.isMobile) {
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Focus management
+        setTimeout(() => {
+            const firstFocusable = this.navbarCollapse.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            if (firstFocusable) {
+                firstFocusable.focus();
+            }
+        }, 100);
+        
+        // Announce to screen readers
+        this.announceToScreenReader('Navigation menu opened');
+    }
+    
+    /**
+     * Close main mobile navigation
+     */
+    closeMainMobileNav() {
+        this.mobileNavToggle.setAttribute('aria-expanded', 'false');
+        this.mobileNavToggle.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Use Bootstrap's collapse method if available
+        if (window.bootstrap && window.bootstrap.Collapse) {
+            const bsCollapse = window.bootstrap.Collapse.getInstance(this.navbarCollapse);
+            if (bsCollapse) {
+                bsCollapse.hide();
+            }
+        }
+        
+        // Announce to screen readers
+        this.announceToScreenReader('Navigation menu closed');
+    }
+    
+    /**
+     * Handle mobile navigation open event
+     */
+    onMobileNavOpen() {
+        // Add mobile-specific classes or behaviors
+        document.body.classList.add('mobile-nav-open');
+        
+        // Setup mobile-specific event listeners
+        this.setupMobileNavListeners();
+    }
+    
+    /**
+     * Handle mobile navigation close event
+     */
+    onMobileNavClose() {
+        document.body.classList.remove('mobile-nav-open');
+        document.body.style.overflow = '';
+        
+        // Clean up mobile-specific event listeners
+        this.cleanupMobileNavListeners();
+    }
+    
+    /**
+     * Setup mobile-specific navigation listeners
+     */
+    setupMobileNavListeners() {
+        // Handle swipe gestures to close navigation
+        this.setupSwipeToClose();
+        
+        // Enhanced touch interactions for dropdown menus
+        this.enhanceDropdownTouch();
+    }
+    
+    /**
+     * Clean up mobile navigation listeners
+     */
+    cleanupMobileNavListeners() {
+        // Remove swipe listeners
+        this.removeSwipeListeners();
     }
     
     /**
@@ -468,12 +616,253 @@ class PMPNavigation {
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
+                const wasMobile = this.isMobile;
+                this.isMobile = window.innerWidth <= 991.98;
+                
                 // Close mobile nav if window becomes large
-                if (window.innerWidth > 1024 && this.navigation.classList.contains('nav-open')) {
-                    this.closeMobileNav();
+                if (window.innerWidth > 991.98) {
+                    if (this.navigation && this.navigation.classList.contains('nav-open')) {
+                        this.closeMobileNav();
+                    }
+                    if (this.navbarCollapse && this.navbarCollapse.classList.contains('show')) {
+                        this.closeMainMobileNav();
+                    }
+                    document.body.style.overflow = '';
                 }
+                
+                // Initialize mobile features if switching to mobile
+                if (!wasMobile && this.isMobile) {
+                    this.initMobileFeatures();
+                }
+                
+                // Update navigation layout for new screen size
+                this.updateNavigationLayout();
             }, 250);
         });
+    }
+    
+    /**
+     * Setup touch gestures for mobile navigation
+     */
+    setupTouchGestures() {
+        if (!('ontouchstart' in window)) return;
+        
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchEndX = 0;
+        this.touchEndY = 0;
+        
+        // Add touch event listeners to navigation
+        if (this.navbarCollapse) {
+            this.navbarCollapse.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+            this.navbarCollapse.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+        }
+    }
+    
+    /**
+     * Handle touch start for swipe gestures
+     */
+    handleTouchStart(e) {
+        this.touchStartX = e.changedTouches[0].screenX;
+        this.touchStartY = e.changedTouches[0].screenY;
+    }
+    
+    /**
+     * Handle touch end for swipe gestures
+     */
+    handleTouchEnd(e) {
+        this.touchEndX = e.changedTouches[0].screenX;
+        this.touchEndY = e.changedTouches[0].screenY;
+        this.handleSwipeGesture();
+    }
+    
+    /**
+     * Process swipe gesture
+     */
+    handleSwipeGesture() {
+        const deltaX = this.touchEndX - this.touchStartX;
+        const deltaY = this.touchEndY - this.touchStartY;
+        const minSwipeDistance = 50;
+        
+        // Swipe up to close mobile navigation
+        if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY < -minSwipeDistance) {
+            if (this.navbarCollapse && this.navbarCollapse.classList.contains('show')) {
+                this.closeMainMobileNav();
+            }
+        }
+    }
+    
+    /**
+     * Initialize mobile-specific features
+     */
+    initMobileFeatures() {
+        // Add mobile-specific classes
+        document.body.classList.add('pmp-mobile-navigation');
+        
+        // Setup mobile dashboard toggle if it exists
+        this.setupMobileDashboardToggle();
+        
+        // Enhance dropdown behavior for touch
+        this.enhanceDropdownTouch();
+        
+        // Setup mobile-specific accessibility features
+        this.setupMobileAccessibility();
+    }
+    
+    /**
+     * Setup mobile dashboard toggle
+     */
+    setupMobileDashboardToggle() {
+        const dashboardToggle = document.querySelector('.pmp-mobile-dashboard-toggle');
+        const dashboardNav = document.querySelector('.pmp-dashboard-nav');
+        
+        if (!dashboardToggle || !dashboardNav) return;
+        
+        dashboardToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isActive = dashboardToggle.classList.contains('active');
+            
+            if (isActive) {
+                dashboardToggle.classList.remove('active');
+                dashboardNav.style.display = 'none';
+                dashboardToggle.setAttribute('aria-expanded', 'false');
+            } else {
+                dashboardToggle.classList.add('active');
+                dashboardNav.style.display = 'block';
+                dashboardToggle.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+    
+    /**
+     * Enhance dropdown behavior for touch devices
+     */
+    enhanceDropdownTouch() {
+        const dropdownToggles = this.navbarCollapse.querySelectorAll('.dropdown-toggle');
+        
+        dropdownToggles.forEach(toggle => {
+            // Prevent double-tap issues on mobile
+            toggle.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                
+                // Toggle dropdown manually for better mobile experience
+                const dropdown = toggle.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                    const isShown = dropdown.classList.contains('show');
+                    
+                    // Close all other dropdowns first
+                    this.closeAllDropdowns();
+                    
+                    if (!isShown) {
+                        dropdown.classList.add('show');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+        });
+    }
+    
+    /**
+     * Close all dropdown menus
+     */
+    closeAllDropdowns() {
+        const dropdowns = this.navbarCollapse.querySelectorAll('.dropdown-menu.show');
+        const toggles = this.navbarCollapse.querySelectorAll('.dropdown-toggle[aria-expanded="true"]');
+        
+        dropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        toggles.forEach(toggle => toggle.setAttribute('aria-expanded', 'false'));
+    }
+    
+    /**
+     * Setup mobile-specific accessibility features
+     */
+    setupMobileAccessibility() {
+        // Add mobile-specific ARIA labels
+        if (this.mobileNavToggle) {
+            this.mobileNavToggle.setAttribute('aria-label', 'Toggle mobile navigation menu');
+        }
+        
+        // Enhance focus management for mobile
+        this.setupMobileFocusManagement();
+    }
+    
+    /**
+     * Setup mobile focus management
+     */
+    setupMobileFocusManagement() {
+        // Trap focus within mobile navigation when open
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && this.navbarCollapse.classList.contains('show')) {
+                this.trapFocusInMobileNav(e);
+            }
+        });
+    }
+    
+    /**
+     * Trap focus within mobile navigation
+     */
+    trapFocusInMobileNav(e) {
+        const focusableElements = this.navbarCollapse.querySelectorAll(
+            'a:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+    
+    /**
+     * Update navigation layout for screen size changes
+     */
+    updateNavigationLayout() {
+        // Update mobile-specific classes and behaviors
+        if (this.isMobile) {
+            document.body.classList.add('pmp-mobile-navigation');
+        } else {
+            document.body.classList.remove('pmp-mobile-navigation', 'mobile-nav-open');
+        }
+        
+        // Update ARIA attributes based on screen size
+        this.updateAriaForScreenSize();
+    }
+    
+    /**
+     * Update ARIA attributes based on screen size
+     */
+    updateAriaForScreenSize() {
+        if (this.mobileNavToggle) {
+            if (this.isMobile) {
+                this.mobileNavToggle.removeAttribute('hidden');
+                this.mobileNavToggle.setAttribute('tabindex', '0');
+            } else {
+                this.mobileNavToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    }
+    
+    /**
+     * Setup swipe to close functionality
+     */
+    setupSwipeToClose() {
+        // Already handled in setupTouchGestures
+    }
+    
+    /**
+     * Remove swipe listeners
+     */
+    removeSwipeListeners() {
+        // Clean up if needed
     }
     
     /**

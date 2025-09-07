@@ -143,12 +143,8 @@ class PMP_Navigation_Manager
     private function add_menu_items_recursive($menu_id, $items, $parent_id = 0)
     {
         foreach ($items as $item_key => $item_data) {
-            // Skip items that should only show when logged in
-            if (
-                isset($item_data['show_when_logged_in']) &&
-                $item_data['show_when_logged_in'] &&
-                ! is_user_logged_in()
-            ) {
+            // Check role-based visibility
+            if (!$this->should_show_menu_item($item_key, $item_data)) {
                 continue;
             }
 
