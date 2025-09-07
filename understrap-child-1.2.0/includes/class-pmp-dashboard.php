@@ -919,8 +919,141 @@ class PMP_Dashboard {
         }
         
         return $recommendations;
+    } = isset($_POST['user_id']) && $_POST['user_id'] !== 'current' 
+            ? intval($_POST['user_id']) 
+            : get_current_user_id();
+        
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        // Initialize progress tracker
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            
+            $progress_data = [
+                'overall' => $progress_tracker->get_overall_progress(),
+                'domain' => $progress_tracker->get_domain_progress(),
+                'weekly' => $progress_tracker->get_weekly_progress(),
+                'recent_activity' => $this->get_recent_activity(10),
+                'recommendations' => $this->get_personalized_recommendations($user_id),
+                'analytics' => $progress_tracker->get_performance_analytics()
+            ];
+        } else {
+            // Fallback to dashboard data
+            $dashboard = new PMP_Dashboard($user_id);
+            $progress_stats = $dashboard->get_progress_stats();
+            
+            $progress_data = [
+                'overall' => [
+                    'percentage' => $progress_stats['percentage'],
+                    'completed_lessons' => $progress_stats['completed'],
+                    'total_lessons' => $progress_stats['total'],
+                    'current_week' => $progress_stats['current_week'],
+                    'estimated_completion_date' => $dashboard->calculate_estimated_completion($progress_stats)
+                ],
+                'recent_activity' => $dashboard->get_recent_activity(10),
+                'recommendations' => []
+            ];
+        }
+        
+        wp_send_json_success($progress_data);
     }
-
+    
+    /**
+     * AJAX handler for tracking user events
+     */
+    public function ajax_track_user_event() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        $event_type = sanitize_text_field($_POST['event_type']);
+        $event_data = json_decode(stripslashes($_POST['event_data']), true);
+        
+        // Log the event
+        $this->log_user_event($user_id, $event_type, $event_data);
+        
+        wp_send_json_success(['message' => 'Event tracked successfully']);
+    }
+    
+    /**
+     * AJAX handler for updating lesson progress
+     */
+    public function ajax_update_lesson_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id']);
+        $completion_percentage = floatval($_POST['completion_percentage']);
+        $session_data = json_decode(stripslashes($_POST['session_data'] ?? '{}'), true);
+        
+        // Update progress using progress tracker
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            $progress_tracker->update_lesson_progress($lesson_id, $completion_percentage, $session_data);
+        } else {
+            // Fallback to dashboard method
+            $this->update_lesson_progress($lesson_id, $completion_percentage);
+        }
+        
+        // Return updated progress data
+        $updated_progress = $this->get_progress_stats();
+        wp_send_json_success($updated_progress);
+    }
+    
+    /**
+     * AJAX handler for getting detailed progress data
+     */
+    public function ajax_get_detailed_progress() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $user_id = get_current_user_id();
+        if (!$user_id) {
+            wp_send_json_error('User not logged in');
+            return;
+        }
+        
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($user_id);
+            
+            $detailed_data = [
+                'overall_progress' => $progress_tracker->get_overall_progress(),
+                'domain_progress' => $progress_tracker->get_domain_progress(),
+                'weekly_progress' => $progress_tracker->get_weekly_progress(),
+                'performance_analytics' => $progress_tracker->get_performance_analytics(),
+                'milestone_progress' => $progress_tracker->get_milestone_progress(),
+                'study_patterns' => $progress_tracker->analyze_study_patterns()
+            ];
+        } else {
+            $detailed_data = [
+                'overall_progress' => $this->get_progress_stats(),
+                'message' => 'Limited progress data available'
+            ];
+        }
+        
+        wp_send_json_success($detailed_data);
+    }
+    
     /**
      * Log user event for analytics
      * 
@@ -1022,4 +1155,4 @@ class PMP_Dashboard {
         
         return $recommendations;
     }
-}
+}}
