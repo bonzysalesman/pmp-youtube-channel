@@ -758,6 +758,91 @@ html {
   }
   #wrapper-footer .footer-widget li a {
       /* Inherits general footer link style */
+      display: block;
+      padding: 0.25rem 0;
+      transition: all 0.3s ease;
+  }
+  #wrapper-footer .footer-widget li a:hover {
+      padding-left: 0.5rem;
+      color: var(--white);
+  }
+  
+  /* Footer Widget Specific Styling */
+  #wrapper-footer .footer-widget {
+      margin-bottom: 1.5rem;
+  }
+  
+  #wrapper-footer .footer-widget .widget-title {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+  }
+  
+  /* Social Media Links Styling */
+  #wrapper-footer .social-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+  }
+  
+  #wrapper-footer .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      text-decoration: none;
+  }
+  
+  #wrapper-footer .social-links a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      text-decoration: none;
+  }
+  
+  #wrapper-footer .social-links a i {
+      font-size: 1.2rem;
+  }
+  
+  /* Contact Information Styling */
+  #wrapper-footer .contact-info p {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+  }
+  
+  #wrapper-footer .contact-info i {
+      width: 20px;
+      text-align: center;
+      margin-right: 0.75rem;
+      color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Footer Responsive Design */
+  @media (max-width: 767.98px) {
+      #wrapper-footer .row > div {
+          margin-bottom: 2rem;
+      }
+      
+      #wrapper-footer .social-links {
+          justify-content: center;
+          margin-bottom: 1.5rem;
+      }
+      
+      #wrapper-footer .text-center {
+          text-align: center !important;
+      }
+      
+      #wrapper-footer .contact-info {
+          text-align: center;
+      }
+      
+      #wrapper-footer .contact-info p {
+          justify-content: center;
+      }
   }
   
   /* 12.0 Utilities & Misc

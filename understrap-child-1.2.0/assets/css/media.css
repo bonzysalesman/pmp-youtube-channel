@@ -1,0 +1,315 @@
+/**
+ * Media Styles for PMP Course Content
+ * Handles lazy loading, optimization, and responsive design
+ */
+
+/* Lazy Loading States */
+.lazy-load {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-load.loading {
+    opacity: 0.5;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+.lazy-load.error {
+    opacity: 0.3;
+    background: #f8f8f8 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ccc"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>') center center no-repeat;
+    background-size: 48px 48px;
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Course Images */
+.course-images {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.week-thumbnail {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.week-thumbnail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.lesson-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.infographic {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* Video Content */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.video-thumbnail:hover {
+    opacity: 0.8;
+}
+
+.video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.video-play-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-button::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 20px solid #007cba;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+}
+
+/* Document Previews */
+.document-preview {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.document-preview:hover {
+    border-color: #007cba;
+    box-shadow: 0 2px 8px rgba(0,124,186,0.1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.document-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.document-info h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.document-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Interactive Content */
+.interactive-content {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #007cba;
+}
+
+.progress-tracker {
+    background: linear-gradient(135deg, #007cba 0%, #005a8b 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #28a745;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Responsive Grid Layouts */
+.media-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.media-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.media-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.media-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Widget Thumbnails */
+.widget-thumb {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .lazy-load,
+    .week-thumbnail,
+    .video-thumbnail,
+    .document-preview,
+    .video-play-button {
+        transition: none;
+    }
+    
+    @keyframes loading-shimmer {
+        0%, 100% { background-position: 0 0; }
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .course-images {
+        gap: 0.5rem;
+    }
+    
+    .week-thumbnail {
+        max-width: 100%;
+        height: 150px;
+    }
+    
+    .video-play-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .video-play-button::after {
+        border-left-width: 15px;
+        border-top-width: 9px;
+        border-bottom-width: 9px;
+    }
+    
+    .document-preview {
+        padding: 0.75rem;
+    }
+    
+    .document-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 0.75rem;
+    }
+    
+    .media-grid-2,
+    .media-grid-3,
+    .media-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* High DPI Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .week-thumbnail,
+    .lesson-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .video-container,
+    .interactive-content,
+    .progress-tracker {
+        display: none;
+    }
+    
+    .course-images,
+    .lesson-image,
+    .infographic {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}

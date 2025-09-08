@@ -384,10 +384,9 @@ require_once get_stylesheet_directory() . '/includes/pmp-content-shortcodes.php'
 require_once get_stylesheet_directory() . '/includes/pmp-enqueue.php';
 require_once get_stylesheet_directory() . '/includes/pmp-progress-integration.php';
 
-// Include test files for development (only for administrators)
+// Include test file for development (only for administrators)
 if (current_user_can('administrator') || (defined('WP_DEBUG') && WP_DEBUG)) {
     require_once get_stylesheet_directory() . '/test-progress-tracking.php';
-    require_once get_stylesheet_directory() . '/test-footer-widgets.php';
 }
 
 // --- Initialize Performance Optimizer ---
@@ -668,110 +667,6 @@ function pmp_handle_track_resource_usage() {
 }
 
 add_filter('show_admin_bar', '__return_false');
-
-// --- Theme Customizer for Footer Settings ---
-function pmp_customize_register($wp_customize) {
-    // Add Footer Settings Section
-    $wp_customize->add_section('pmp_footer_settings', array(
-        'title'    => __('PMP Footer Settings', 'understrap-child'),
-        'priority' => 120,
-    ));
-
-    // Social Media Settings
-    $wp_customize->add_setting('pmp_linkedin_url', array(
-        'default'           => 'https://linkedin.com/company/mohlomi-institute',
-        'sanitize_callback' => 'esc_url_raw',
-    ));
-    $wp_customize->add_control('pmp_linkedin_url', array(
-        'label'   => __('LinkedIn URL', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'url',
-    ));
-
-    $wp_customize->add_setting('pmp_facebook_url', array(
-        'default'           => 'https://facebook.com/mohlomiinstitute',
-        'sanitize_callback' => 'esc_url_raw',
-    ));
-    $wp_customize->add_control('pmp_facebook_url', array(
-        'label'   => __('Facebook URL', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'url',
-    ));
-
-    $wp_customize->add_setting('pmp_twitter_url', array(
-        'default'           => 'https://twitter.com/mohlomiinstitute',
-        'sanitize_callback' => 'esc_url_raw',
-    ));
-    $wp_customize->add_control('pmp_twitter_url', array(
-        'label'   => __('Twitter URL', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'url',
-    ));
-
-    $wp_customize->add_setting('pmp_youtube_url', array(
-        'default'           => 'https://youtube.com/@mohlomiinstitute',
-        'sanitize_callback' => 'esc_url_raw',
-    ));
-    $wp_customize->add_control('pmp_youtube_url', array(
-        'label'   => __('YouTube URL', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'url',
-    ));
-
-    // Contact Information Settings
-    $wp_customize->add_setting('pmp_contact_email', array(
-        'default'           => 'info@mohlomiinstitute.com',
-        'sanitize_callback' => 'sanitize_email',
-    ));
-    $wp_customize->add_control('pmp_contact_email', array(
-        'label'   => __('Contact Email', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'email',
-    ));
-
-    $wp_customize->add_setting('pmp_contact_phone', array(
-        'default'           => '+1 (555) 123-4567',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    $wp_customize->add_control('pmp_contact_phone', array(
-        'label'   => __('Contact Phone', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'text',
-    ));
-
-    $wp_customize->add_setting('pmp_contact_address', array(
-        'default'           => '',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    $wp_customize->add_control('pmp_contact_address', array(
-        'label'   => __('Contact Address', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'text',
-    ));
-
-    // Company Information
-    $wp_customize->add_setting('pmp_company_name', array(
-        'default'           => 'Mohlomi Institute',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    $wp_customize->add_control('pmp_company_name', array(
-        'label'   => __('Company Name', 'understrap-child'),
-        'section' => 'pmp_footer_settings',
-        'type'    => 'text',
-    ));
-
-    $wp_customize->add_setting('pmp_legal_entity', array(
-        'default'           => '',
-        'sanitize_callback' => 'sanitize_text_field',
-    ));
-    $wp_customize->add_control('pmp_legal_entity', array(
-        'label'       => __('Legal Entity Info', 'understrap-child'),
-        'description' => __('Optional legal entity name or registration number', 'understrap-child'),
-        'section'     => 'pmp_footer_settings',
-        'type'        => 'text',
-    ));
-}
-add_action('customize_register', 'pmp_customize_register');
 
 // --- WordPress Infrastructure Integration ---
 
@@ -1133,11 +1028,18 @@ function pmp_clear_w3tc_cache() {
     }
 }
 
-// Include PMP User Settings class
+/**
+ * Clear WP Super Cache on content updates
+ */
+function pmp_clear_wpsc_cache() {
+    if (function_exists('wp_cache_clear_cache')) {
+        wp_cache_clear_cache();
+    }
+}
+
+?>/
+/ Include PMP User Settings class
 require_once get_stylesheet_directory() . '/includes/class-pmp-user-settings.php';
-require_once get_stylesheet_directory() . '/includes/class-pmp-media-manager.php';
-require_once get_stylesheet_directory() . '/includes/class-pmp-youtube-integration.php';
-require_once get_stylesheet_directory() . '/includes/class-pmp-resource-manager.php';
 
 // Initialize user settings for logged-in users
 add_action('init', function() {
@@ -1145,7 +1047,6 @@ add_action('init', function() {
         global $pmp_user_settings;
         $pmp_user_settings = new PMP_User_Settings(get_current_user_id());
     }
-});
-
-// Include settings enqueue functionality
+});// Includ
+e settings enqueue functionality
 require_once get_stylesheet_directory() . '/includes/pmp-enqueue-settings.php';
