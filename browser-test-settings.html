@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMP User Settings - Browser Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-header {
+            background: linear-gradient(135deg, #5b28b3 0%, #7c3aed 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .test-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #5b28b3 0%, #7c3aed 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s ease;
+        }
+        .test-link:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🧪 PMP User Settings - Browser Testing</h1>
+        <p>Comprehensive testing guide for the user profile settings integration</p>
+    </div>
+
+    <div class="test-container">
+        <h2>🚀 Quick Access Links</h2>
+        <div class="test-section">
+            <p>Use these links to quickly navigate to different parts of the WordPress site:</p>
+            
+            <a href="http://localhost:8080/" class="test-link" target="_blank">
+                🏠 Main Site
+            </a>
+            
+            <a href="http://localhost:8080/wp-admin/" class="test-link" target="_blank">
+                ⚙️ WordPress Admin
+            </a>
+            
+            <a href="http://localhost:8080/dashboard/" class="test-link" target="_blank">
+                📊 User Dashboard
+            </a>
+            
+            <a href="http://localhost:8080/dashboard/settings/" class="test-link" target="_blank">
+                🔧 User Settings
+            </a>
+            
+            <a href="http://localhost:8081/" class="test-link" target="_blank">
+                🗄️ phpMyAdmin
+            </a>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>📋 Testing Checklist</h2>
+        
+        <div class="test-section">
+            <h3>1. WordPress Setup</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-warning"></span>Access WordPress admin and complete initial setup</li>
+                <li><span class="status-indicator status-warning"></span>Activate the "Understrap Child" theme</li>
+                <li><span class="status-indicator status-warning"></span>Create a test user account (or use admin)</li>
+                <li><span class="status-indicator status-warning"></span>Verify theme is active and working</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Dashboard Access</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-warning"></span>Navigate to /dashboard/ as logged-in user</li>
+                <li><span class="status-indicator status-warning"></span>Verify dashboard loads without errors</li>
+                <li><span class="status-indicator status-warning"></span>Check that "Settings" quick action button is visible</li>
+                <li><span class="status-indicator status-warning"></span>Verify dashboard styling and layout</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Settings Page Functionality</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-warning"></span>Click "Settings" button from dashboard</li>
+                <li><span class="status-indicator status-warning"></span>Verify settings page loads at /dashboard/settings/</li>
+                <li><span class="status-indicator status-warning"></span>Check all 5 settings tabs are present:
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>• Notifications</li>
+                        <li>• Study Preferences</li>
+                        <li>• Privacy</li>
+                        <li>• Display</li>
+                        <li>• Account Info</li>
+                    </ul>
+                </li>
+                <li><span class="status-indicator status-warning"></span>Test tab navigation (clicking between tabs)</li>
+                <li><span class="status-indicator status-warning"></span>Verify form controls are working (toggles, dropdowns, inputs)</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Settings Functionality</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-warning"></span>Toggle notification switches and verify they respond</li>
+                <li><span class="status-indicator status-warning"></span>Change study time goal slider</li>
+                <li><span class="status-indicator status-warning"></span>Select/deselect preferred study days</li>
+                <li><span class="status-indicator status-warning"></span>Change theme preference and verify it applies</li>
+                <li><span class="status-indicator status-warning"></span>Toggle compact mode and see layout change</li>
+                <li><span class="status-indicator status-warning"></span>Click "Save Settings" button</li>
+                <li><span class="status-indicator status-warning"></span>Verify success message appears</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Integration Testing</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-warning"></span>Navigate back to dashboard</li>
+                <li><span class="status-indicator status-warning"></span>Verify theme changes persist</li>
+                <li><span class="status-indicator status-warning"></span>Return to settings and verify saved values</li>
+                <li><span class="status-indicator status-warning"></span>Test "Reset to Defaults" functionality</li>
+                <li><span class="status-indicator status-warning"></span>Check browser console for JavaScript errors</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔧 Troubleshooting</h2>
+        
+        <div class="test-section">
+            <h3>Common Issues & Solutions</h3>
+            
+            <h4>Settings page returns 404:</h4>
+            <div class="code-block">
+                # Check if page template exists
+                docker-compose exec wordpress ls -la /var/www/html/wp-content/themes/understrap-child/page-dashboard-settings.php
+                
+                # Check WordPress permalinks in admin
+                # Go to Settings > Permalinks and click "Save Changes"
+            </div>
+
+            <h4>JavaScript not loading:</h4>
+            <div class="code-block">
+                # Check if JS file exists
+                docker-compose exec wordpress ls -la /var/www/html/wp-content/themes/understrap-child/assets/js/user-settings.js
+                
+                # Check browser console for errors
+                # Verify theme is active in WordPress admin
+            </div>
+
+            <h4>Settings not saving:</h4>
+            <div class="code-block">
+                # Check WordPress error logs
+                docker-compose logs wordpress
+                
+                # Verify database connection
+                # Check user permissions
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>📊 Test Results</h2>
+        <div class="test-section">
+            <p>Use this section to track your testing progress:</p>
+            
+            <h3>Integration Status:</h3>
+            <ul class="checklist">
+                <li><span class="status-indicator status-success"></span>Files properly mounted in Docker</li>
+                <li><span class="status-indicator status-success"></span>PHP classes loaded correctly</li>
+                <li><span class="status-indicator status-success"></span>JavaScript assets available</li>
+                <li><span class="status-indicator status-success"></span>CSS styles integrated</li>
+                <li><span class="status-indicator status-warning"></span>WordPress theme activation (pending)</li>
+                <li><span class="status-indicator status-warning"></span>User settings functionality (pending)</li>
+            </ul>
+
+            <h3>Next Steps:</h3>
+            <ol>
+                <li>Complete WordPress initial setup</li>
+                <li>Activate the Understrap Child theme</li>
+                <li>Test the settings functionality thoroughly</li>
+                <li>Report any issues or bugs found</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to update status indicators based on testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 PMP User Settings Browser Test Loaded');
+            console.log('📝 Use this page to guide your testing process');
+            
+            // Add click handlers to update status indicators
+            const indicators = document.querySelectorAll('.status-indicator');
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    if (this.classList.contains('status-warning')) {
+                        this.classList.remove('status-warning');
+                        this.classList.add('status-success');
+                    } else if (this.classList.contains('status-success')) {
+                        this.classList.remove('status-success');
+                        this.classList.add('status-error');
+                    } else {
+                        this.classList.remove('status-error');
+                        this.classList.add('status-warning');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

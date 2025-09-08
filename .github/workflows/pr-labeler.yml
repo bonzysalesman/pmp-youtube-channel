@@ -1,0 +1,308 @@
+# Automated PR Labeling System
+# Automatically labels pull requests based on content and file changes
+name: PR Auto-Labeler
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  label-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Auto-label based on files changed
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo, number } = context.issue;
+            
+            // Get the list of files changed in this PR
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner,
+              repo,
+              pull_number: number
+            });
+            
+            const changedFiles = files.map(file => file.filename);
+            const labels = new Set();
+            
+            // File-based labeling rules
+            const labelRules = {
+              'documentation': [
+                /\.md$/,
+                /^docs\//,
+                /README/,
+                /CHANGELOG/,
+                /CONTRIBUTING/,
+                /CODE_OF_CONDUCT/,
+                /SECURITY/
+              ],
+              'github-actions': [
+                /^\.github\/workflows\//,
+                /^\.github\/actions\//
+              ],
+              'configuration': [
+                /package\.json$/,
+                /package-lock\.json$/,
+                /\.env/,
+                /\.eslintrc/,
+                /\.prettierrc/,
+                /jest\.config/,
+                /\.gitignore$/,
+                /^\.github\/(?!workflows|actions)/
+              ],
+              'automation': [
+                /^src\/automation\//,
+                /^scripts\//,
+                /-automation/,
+                /-scheduler/,
+                /-generator/
+              ],
+              'content': [
+                /^src\/content\//,
+                /^src\/templates\//,
+                /chunk-/,
+                /template/
+              ],
+              'testing': [
+                /\.test\./,
+                /\.spec\./,
+                /^src\/__tests__\//,
+                /^tests\//,
+                /jest/
+              ],
+              'wordpress': [
+                /^understrap-child/,
+                /^wordpress\//,
+                /^wp-content\//,
+                /\.php$/
+              ],
+              'docker': [
+                /^docker\//,
+                /Dockerfile/,
+                /docker-compose/
+              ],
+              'dependencies': [
+                /package\.json$/,
+                /package-lock\.json$/,
+                /composer\.json$/,
+                /composer\.lock$/
+              ]
+            };
+            
+            // Apply file-based labels
+            for (const [label, patterns] of Object.entries(labelRules)) {
+              if (patterns.some(pattern => 
+                changedFiles.some(file => pattern.test(file))
+              )) {
+                labels.add(label);
+              }
+            }
+            
+            // Size-based labels
+            const totalChanges = files.reduce((sum, file) => 
+              sum + file.additions + file.deletions, 0
+            );
+            
+            if (totalChanges < 10) {
+              labels.add('size/XS');
+            } else if (totalChanges < 30) {
+              labels.add('size/S');
+            } else if (totalChanges < 100) {
+              labels.add('size/M');
+            } else if (totalChanges < 500) {
+              labels.add('size/L');
+            } else {
+              labels.add('size/XL');
+            }
+            
+            // Apply labels
+            if (labels.size > 0) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: number,
+                labels: Array.from(labels)
+              });
+            }
+            
+      - name: Label based on PR content
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo, number } = context.issue;
+            
+            // Get PR details
+            const { data: pr } = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: number
+            });
+            
+            const title = pr.title.toLowerCase();
+            const body = (pr.body || '').toLowerCase();
+            const content = `${title} ${body}`;
+            const labels = new Set();
+            
+            // Content-based labeling rules
+            const contentRules = {
+              'bug': [
+                /\bfix\b/,
+                /\bbug\b/,
+                /\berror\b/,
+                /\bissue\b/,
+                /\bproblem\b/,
+                /\bcrash\b/,
+                /\bfail/
+              ],
+              'enhancement': [
+                /\bfeat\b/,
+                /\bfeature\b/,
+                /\benhance/,
+                /\bimprove/,
+                /\badd\b/,
+                /\bnew\b/
+              ],
+              'breaking-change': [
+                /breaking/,
+                /\bmajor\b/,
+                /\bremove\b/,
+                /\bdelete\b/,
+                /\bdeprecate/
+              ],
+              'security': [
+                /\bsecurity\b/,
+                /\bvulner/,
+                /\bauth/,
+                /\bpermission/,
+                /\btoken\b/,
+                /\bsecret\b/
+              ],
+              'performance': [
+                /\bperf/,
+                /\boptimiz/,
+                /\bspeed\b/,
+                /\bfast/,
+                /\bslow\b/,
+                /\bcache\b/
+              ],
+              'refactor': [
+                /\brefactor/,
+                /\bclean/,
+                /\brestructure/,
+                /\breorganiz/
+              ],
+              'linear-integration': [
+                /\blinear\b/,
+                /pmp-\d+/,
+                /\btask\b.*\btrack/,
+                /\bissue\b.*\bsync/
+              ]
+            };
+            
+            // Apply content-based labels
+            for (const [label, patterns] of Object.entries(contentRules)) {
+              if (patterns.some(pattern => pattern.test(content))) {
+                labels.add(label);
+              }
+            }
+            
+            // Priority labels based on keywords
+            if (/\burgent\b|\bcritical\b|\bhotfix\b/.test(content)) {
+              labels.add('priority/high');
+            } else if (/\bimportant\b|\bpriority\b/.test(content)) {
+              labels.add('priority/medium');
+            } else {
+              labels.add('priority/low');
+            }
+            
+            // Status labels
+            if (/\bwip\b|\bwork.in.progress\b|\bdraft\b/.test(content)) {
+              labels.add('status/wip');
+            }
+            
+            if (/\bready.for.review\b|\bplease.review\b/.test(content)) {
+              labels.add('status/ready-for-review');
+            }
+            
+            // Apply labels
+            if (labels.size > 0) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: number,
+                labels: Array.from(labels)
+              });
+            }
+            
+      - name: Validate Linear task reference
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo, number } = context.issue;
+            
+            // Get PR details
+            const { data: pr } = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: number
+            });
+            
+            const title = pr.title;
+            const body = pr.body || '';
+            const branch = pr.head.ref;
+            const content = `${title} ${body} ${branch}`;
+            
+            // Check for Linear task reference (PMP-123 format)
+            const linearTaskPattern = /PMP-\d+/i;
+            const hasLinearReference = linearTaskPattern.test(content);
+            
+            if (!hasLinearReference) {
+              // Add label for missing Linear reference
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: number,
+                labels: ['needs-linear-reference']
+              });
+              
+              // Add comment with guidance
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: number,
+                body: `⚠️ **Missing Linear Task Reference**
+                
+This PR doesn't appear to reference a Linear task. Please:
+
+1. Include the Linear task ID (e.g., PMP-123) in the PR title, description, or branch name
+2. Update the "Linear Task Reference" section in the PR template
+3. Ensure the branch name follows the pattern: \`feature/PMP-123-description\`
+
+This helps maintain traceability between development work and project management.`
+              });
+            } else {
+              // Remove the label if it exists and Linear reference is found
+              try {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number: number,
+                  name: 'needs-linear-reference'
+                });
+              } catch (error) {
+                // Label might not exist, ignore error
+              }
+            }
