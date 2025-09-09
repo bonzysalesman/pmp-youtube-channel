@@ -282,7 +282,7 @@ class MCPOrchestrator {
       const analyticsReport = await this.services.analytics.generateWeeklyReport('batch');
       batchWorkflow.analytics_report = analyticsReport;
       
-      console.log(`\n🎉 Batch workflow completed!`);
+      console.log('\n🎉 Batch workflow completed!');
       console.log(`   Total duration: ${batchWorkflow.duration_minutes.toFixed(1)} minutes`);
       console.log(`   Successful weeks: ${batchWorkflow.summary.successful_weeks}`);
       console.log(`   Failed weeks: ${batchWorkflow.summary.failed_weeks}`);
@@ -292,7 +292,7 @@ class MCPOrchestrator {
       return batchWorkflow;
 
     } catch (error) {
-      console.error(`❌ Batch workflow failed:`, error);
+      console.error('❌ Batch workflow failed:', error);
       batchWorkflow.status = 'failed';
       batchWorkflow.error = error.message;
       batchWorkflow.failed_at = new Date().toISOString();

@@ -111,9 +111,9 @@
 
 **Subtasks**:
 
-- [ ] Create progress display widget for course sidebar
-- [ ] Set up current lesson widget with lesson details
-- [ ] Implement next lesson preview widget
+- [x] Create progress display widget for course sidebar
+- [-] Set up current lesson widget with lesson details
+- [x] Implement next lesson preview widget
 - [ ] Add recent resources widget
 - [ ] Create practice question widget
 - [ ] Configure study tips widget

@@ -509,10 +509,10 @@ class UserJourneyTracker {
   // (identifyCommonPaths, analyzeEngagementPatterns, etc.)
 
   calculateOverallConversionRate(funnelAnalysis) {
-    if (!funnelAnalysis || !funnelAnalysis.stageConversions) return 0;
+    if (!funnelAnalysis || !funnelAnalysis.stageConversions) {return 0;}
     
     const conversions = Object.values(funnelAnalysis.stageConversions);
-    if (conversions.length === 0) return 0;
+    if (conversions.length === 0) {return 0;}
     
     return conversions.reduce((sum, conversion) => sum + conversion.conversionRate, 0) / conversions.length;
   }
@@ -533,7 +533,7 @@ class UserJourneyTracker {
       return new Date(journey.end) - new Date(journey.start);
     });
     
-    if (journeyLengths.length === 0) return 0;
+    if (journeyLengths.length === 0) {return 0;}
     
     const avgLengthMs = journeyLengths.reduce((sum, length) => sum + length, 0) / journeyLengths.length;
     return avgLengthMs / (1000 * 60 * 60 * 24); // Convert to days

@@ -103,7 +103,7 @@ class LearningEffectivenessTracker {
    */
   calculateVideoEngagement(videoProgress) {
     const videos = Object.values(videoProgress);
-    if (videos.length === 0) return { score: 0, details: {} };
+    if (videos.length === 0) {return { score: 0, details: {} };}
 
     const totalWatchTime = videos.reduce((sum, video) => sum + (video.watchTime || 0), 0);
     const totalDuration = videos.reduce((sum, video) => sum + (video.duration || 0), 0);
@@ -127,7 +127,7 @@ class LearningEffectivenessTracker {
    */
   calculateStudyGuideEngagement(studyGuideProgress) {
     const chapters = Object.values(studyGuideProgress);
-    if (chapters.length === 0) return { score: 0, details: {} };
+    if (chapters.length === 0) {return { score: 0, details: {} };}
 
     const completedChapters = chapters.filter(chapter => chapter.completed).length;
     const totalTimeSpent = chapters.reduce((sum, chapter) => sum + (chapter.timeSpent || 0), 0);
@@ -171,7 +171,7 @@ class LearningEffectivenessTracker {
     const practiceResults = progressData.practiceResults || {};
     const sessions = Object.values(practiceResults);
 
-    if (sessions.length === 0) return { score: 0, details: {} };
+    if (sessions.length === 0) {return { score: 0, details: {} };}
 
     const totalQuestions = sessions.reduce((sum, session) => sum + (session.totalQuestions || 0), 0);
     const correctAnswers = sessions.reduce((sum, session) => sum + (session.correctAnswers || 0), 0);
@@ -456,7 +456,7 @@ class LearningEffectivenessTracker {
       aggregateData.lastUpdated = new Date().toISOString();
       
       // Add user progress to aggregate
-      if (!aggregateData.userMetrics) aggregateData.userMetrics = [];
+      if (!aggregateData.userMetrics) {aggregateData.userMetrics = [];}
       aggregateData.userMetrics.push({
         userId: userProgress.userId,
         effectiveness: userProgress.learningMetrics.overallEffectiveness,

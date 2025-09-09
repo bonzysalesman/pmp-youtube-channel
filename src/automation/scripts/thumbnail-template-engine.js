@@ -17,7 +17,7 @@ class ThumbnailTemplateEngine {
    * Load thumbnail configuration
    */
   async loadConfig() {
-    if (this.configLoaded) return;
+    if (this.configLoaded) {return;}
     
     try {
       this.config = await fs.readJson(this.configPath);
@@ -198,7 +198,7 @@ class ThumbnailTemplateEngine {
    */
   addBrandingElements(ctx, variant) {
     const variantConfig = this.config.variants[variant];
-    if (!variantConfig?.includeBranding) return;
+    if (!variantConfig?.includeBranding) {return;}
     
     const { brandingElements } = this.config;
     
@@ -250,36 +250,36 @@ class ThumbnailTemplateEngine {
       
       // Determine text content based on element type
       switch (elementName) {
-        case 'dayNumber':
-          text = data.dayNumber ? `Day ${data.dayNumber}` : '';
-          break;
-        case 'mainTitle':
-          text = this.extractCleanTitle(data.title || '');
-          break;
-        case 'weekIndicator':
-          text = data.week ? `Week ${data.week}` : '';
-          break;
-        case 'practiceLabel':
-          text = 'PRACTICE';
-          break;
-        case 'reviewTitle':
-          text = data.week ? `Week ${data.week} Review` : 'Review';
-          break;
-        case 'topicsCovered':
-          text = this.extractCleanTitle(data.title || '');
-          break;
-        case 'progressIndicator':
-          const progress = data.week ? Math.round((data.week / 13) * 100) : 0;
-          text = `${progress}% Complete`;
-          break;
-        case 'subtitle':
-          text = data.subtitle || 'Your Complete PMP Certification Guide';
-          break;
-        case 'callToAction':
-          text = elementConfig.text || 'Subscribe for Your 13-Week Journey';
-          break;
-        default:
-          text = data[elementName] || '';
+      case 'dayNumber':
+        text = data.dayNumber ? `Day ${data.dayNumber}` : '';
+        break;
+      case 'mainTitle':
+        text = this.extractCleanTitle(data.title || '');
+        break;
+      case 'weekIndicator':
+        text = data.week ? `Week ${data.week}` : '';
+        break;
+      case 'practiceLabel':
+        text = 'PRACTICE';
+        break;
+      case 'reviewTitle':
+        text = data.week ? `Week ${data.week} Review` : 'Review';
+        break;
+      case 'topicsCovered':
+        text = this.extractCleanTitle(data.title || '');
+        break;
+      case 'progressIndicator':
+        const progress = data.week ? Math.round((data.week / 13) * 100) : 0;
+        text = `${progress}% Complete`;
+        break;
+      case 'subtitle':
+        text = data.subtitle || 'Your Complete PMP Certification Guide';
+        break;
+      case 'callToAction':
+        text = elementConfig.text || 'Subscribe for Your 13-Week Journey';
+        break;
+      default:
+        text = data[elementName] || '';
       }
       
       if (text) {
@@ -302,23 +302,23 @@ class ThumbnailTemplateEngine {
     }
     
     if (data.domain) {
-      if (data.domain.includes('People')) return 'people';
-      if (data.domain.includes('Process')) return 'process';
-      if (data.domain.includes('Business')) return 'businessEnvironment';
+      if (data.domain.includes('People')) {return 'people';}
+      if (data.domain.includes('Process')) {return 'process';}
+      if (data.domain.includes('Business')) {return 'businessEnvironment';}
     }
     
     if (data.workGroup) {
-      if (data.workGroup.includes('Team')) return 'people';
-      if (data.workGroup.includes('Process')) return 'process';
-      if (data.workGroup.includes('Business')) return 'businessEnvironment';
+      if (data.workGroup.includes('Team')) {return 'people';}
+      if (data.workGroup.includes('Process')) {return 'process';}
+      if (data.workGroup.includes('Business')) {return 'businessEnvironment';}
     }
     
     if (data.color) {
       switch (data.color) {
-        case 'green': return 'people';
-        case 'blue': return 'process';
-        case 'orange': return 'businessEnvironment';
-        case 'purple': return 'practiceReview';
+      case 'green': return 'people';
+      case 'blue': return 'process';
+      case 'orange': return 'businessEnvironment';
+      case 'purple': return 'practiceReview';
       }
     }
     

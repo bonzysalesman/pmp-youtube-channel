@@ -228,29 +228,29 @@ if (require.main === module) {
   const startDate = process.argv[3];
 
   switch (command) {
-    case 'generate':
-      if (!startDate) {
-        console.error('Please specify start date: node upload-scheduler.js generate 2024-01-01');
-        process.exit(1);
-      }
-      scheduler.generateFullSchedule(startDate);
-      break;
+  case 'generate':
+    if (!startDate) {
+      console.error('Please specify start date: node upload-scheduler.js generate 2024-01-01');
+      process.exit(1);
+    }
+    scheduler.generateFullSchedule(startDate);
+    break;
     
-    case 'week':
-      const weekNumber = process.argv[3];
-      const weekStartDate = process.argv[4];
-      if (!weekNumber || !weekStartDate) {
-        console.error('Usage: node upload-scheduler.js week <number> <start-date>');
-        process.exit(1);
-      }
-      const weekSchedule = scheduler.createWeeklySchedule(parseInt(weekNumber), weekStartDate);
-      scheduler.saveSchedule(weekSchedule, weekNumber);
-      break;
+  case 'week':
+    const weekNumber = process.argv[3];
+    const weekStartDate = process.argv[4];
+    if (!weekNumber || !weekStartDate) {
+      console.error('Usage: node upload-scheduler.js week <number> <start-date>');
+      process.exit(1);
+    }
+    const weekSchedule = scheduler.createWeeklySchedule(parseInt(weekNumber), weekStartDate);
+    scheduler.saveSchedule(weekSchedule, weekNumber);
+    break;
     
-    default:
-      console.log('Usage:');
-      console.log('  node upload-scheduler.js generate <start-date>     # Generate full 13-week schedule');
-      console.log('  node upload-scheduler.js week <num> <start-date>   # Generate specific week');
+  default:
+    console.log('Usage:');
+    console.log('  node upload-scheduler.js generate <start-date>     # Generate full 13-week schedule');
+    console.log('  node upload-scheduler.js week <num> <start-date>   # Generate specific week');
   }
 }
 

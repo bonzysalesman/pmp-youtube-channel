@@ -197,22 +197,22 @@ class ThumbnailBatchProcessor {
     this.results.forEach(result => {
       // By week
       const week = result.week;
-      if (!stats.byWeek[week]) stats.byWeek[week] = 0;
+      if (!stats.byWeek[week]) {stats.byWeek[week] = 0;}
       stats.byWeek[week]++;
 
       // By type
       const type = result.videoData.type;
-      if (!stats.byType[type]) stats.byType[type] = 0;
+      if (!stats.byType[type]) {stats.byType[type] = 0;}
       stats.byType[type]++;
 
       // By variant
       const variant = result.variant;
-      if (!stats.byVariant[variant]) stats.byVariant[variant] = 0;
+      if (!stats.byVariant[variant]) {stats.byVariant[variant] = 0;}
       stats.byVariant[variant]++;
 
       // By domain
       const domain = result.videoData.domain || 'Unknown';
-      if (!stats.byDomain[domain]) stats.byDomain[domain] = 0;
+      if (!stats.byDomain[domain]) {stats.byDomain[domain] = 0;}
       stats.byDomain[domain]++;
     });
 
@@ -334,49 +334,49 @@ async function main() {
 
   try {
     switch (command) {
-      case 'all':
-        // Process entire calendar
-        const calendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
-        const generateVariants = args.includes('--variants');
-        const skipExisting = !args.includes('--overwrite');
+    case 'all':
+      // Process entire calendar
+      const calendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
+      const generateVariants = args.includes('--variants');
+      const skipExisting = !args.includes('--overwrite');
 
-        const result = await processor.processContentCalendar(calendarPath, {
-          generateVariants,
-          skipExisting,
-          outputReport: true
-        });
+      const result = await processor.processContentCalendar(calendarPath, {
+        generateVariants,
+        skipExisting,
+        outputReport: true
+      });
 
-        if (result.success) {
-          await processor.validateThumbnails();
-        }
-        break;
+      if (result.success) {
+        await processor.validateThumbnails();
+      }
+      break;
 
-      case 'week':
-        // Process specific week
-        const weekNumber = parseInt(args[1]);
-        if (!weekNumber || weekNumber < 1 || weekNumber > 13) {
-          console.error('❌ Please specify a valid week number (1-13)');
-          process.exit(1);
-        }
+    case 'week':
+      // Process specific week
+      const weekNumber = parseInt(args[1]);
+      if (!weekNumber || weekNumber < 1 || weekNumber > 13) {
+        console.error('❌ Please specify a valid week number (1-13)');
+        process.exit(1);
+      }
 
-        const weekCalendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
-        await processor.processContentCalendar(weekCalendarPath, {
-          weekFilter: weekNumber,
-          generateVariants: args.includes('--variants'),
-          skipExisting: !args.includes('--overwrite')
-        });
-        break;
+      const weekCalendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
+      await processor.processContentCalendar(weekCalendarPath, {
+        weekFilter: weekNumber,
+        generateVariants: args.includes('--variants'),
+        skipExisting: !args.includes('--overwrite')
+      });
+      break;
 
-      case 'validate':
-        // Validate existing thumbnails
-        const validationResult = await processor.validateThumbnails();
-        if (validationResult.invalid > 0 || validationResult.missing > 0) {
-          process.exit(1);
-        }
-        break;
+    case 'validate':
+      // Validate existing thumbnails
+      const validationResult = await processor.validateThumbnails();
+      if (validationResult.invalid > 0 || validationResult.missing > 0) {
+        process.exit(1);
+      }
+      break;
 
-      default:
-        console.log(`
+    default:
+      console.log(`
 PMP Thumbnail Batch Processor
 
 Usage:

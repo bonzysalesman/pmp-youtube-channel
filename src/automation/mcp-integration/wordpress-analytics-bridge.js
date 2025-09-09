@@ -196,15 +196,15 @@ class WordPressAnalyticsBridge {
 
       conversions.forEach(row => {
         switch (row.event_type) {
-          case 'lead_capture':
-            conversionData.leadMagnets = row.count;
-            break;
-          case 'course_signup':
-            conversionData.courseSignups = row.count;
-            break;
-          case 'purchase':
-            conversionData.purchases = row.count;
-            break;
+        case 'lead_capture':
+          conversionData.leadMagnets = row.count;
+          break;
+        case 'course_signup':
+          conversionData.courseSignups = row.count;
+          break;
+        case 'purchase':
+          conversionData.purchases = row.count;
+          break;
         }
       });
 

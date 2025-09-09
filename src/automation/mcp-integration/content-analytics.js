@@ -471,18 +471,18 @@ class ContentAnalytics {
 
     // Process based on event type
     switch (eventData.event_type) {
-      case 'page_view':
-        return await this.processPageViewEvent(enrichedEvent);
-      case 'user_registration':
-        return await this.processUserRegistrationEvent(enrichedEvent);
-      case 'course_enrollment':
-        return await this.processCourseEnrollmentEvent(enrichedEvent);
-      case 'purchase_completed':
-        return await this.processPurchaseEvent(enrichedEvent);
-      case 'lead_capture':
-        return await this.processLeadCaptureEvent(enrichedEvent);
-      default:
-        return await this.processGenericWordPressEvent(enrichedEvent);
+    case 'page_view':
+      return await this.processPageViewEvent(enrichedEvent);
+    case 'user_registration':
+      return await this.processUserRegistrationEvent(enrichedEvent);
+    case 'course_enrollment':
+      return await this.processCourseEnrollmentEvent(enrichedEvent);
+    case 'purchase_completed':
+      return await this.processPurchaseEvent(enrichedEvent);
+    case 'lead_capture':
+      return await this.processLeadCaptureEvent(enrichedEvent);
+    default:
+      return await this.processGenericWordPressEvent(enrichedEvent);
     }
   }
 
@@ -519,18 +519,18 @@ class ContentAnalytics {
     const eventType = eventData.event_type;
 
     switch (eventType) {
-      case 'page_view':
-        return eventData.page_url && eventData.session_id;
-      case 'user_registration':
-        return eventData.user_id && eventData.email;
-      case 'course_enrollment':
-        return eventData.user_id && eventData.course_id;
-      case 'purchase_completed':
-        return eventData.user_id && eventData.order_id && eventData.total;
-      case 'lead_capture':
-        return eventData.email && eventData.lead_magnet_type;
-      default:
-        return true; // Generic events only need basic fields
+    case 'page_view':
+      return eventData.page_url && eventData.session_id;
+    case 'user_registration':
+      return eventData.user_id && eventData.email;
+    case 'course_enrollment':
+      return eventData.user_id && eventData.course_id;
+    case 'purchase_completed':
+      return eventData.user_id && eventData.order_id && eventData.total;
+    case 'lead_capture':
+      return eventData.email && eventData.lead_magnet_type;
+    default:
+      return true; // Generic events only need basic fields
     }
   }
 

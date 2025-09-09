@@ -240,7 +240,7 @@ class EnhancedContentGenerator {
       return personalizedPlan;
       
     } catch (error) {
-      console.error(`❌ Failed to generate personalized content:`, error);
+      console.error('❌ Failed to generate personalized content:', error);
       throw error;
     }
   }
@@ -277,7 +277,7 @@ class EnhancedContentGenerator {
       return report;
       
     } catch (error) {
-      console.error(`❌ Failed to generate analytics report:`, error);
+      console.error('❌ Failed to generate analytics report:', error);
       throw error;
     }
   }
@@ -383,7 +383,7 @@ class EnhancedContentGenerator {
       generated_at: new Date().toISOString()
     };
     
-    console.log(`\n✅ Batch content generation completed:`);
+    console.log('\n✅ Batch content generation completed:');
     console.log(`   - Successful weeks: ${batchReport.successful_weeks}`);
     console.log(`   - Failed weeks: ${batchReport.failed_weeks}`);
     console.log(`   - Total chunks: ${batchReport.total_chunks}`);
@@ -413,7 +413,7 @@ class EnhancedContentGenerator {
     return {
       title: videoConfig.title,
       description: `Week ${weekNumber} video covering ${videoConfig.topics.join(', ')}`,
-      script: `[Video script would be generated here]`,
+      script: '[Video script would be generated here]',
       estimatedDuration: videoConfig.estimatedDuration || 18,
       type: videoConfig.type,
       primaryChunk: videoConfig.primaryChunk
@@ -425,22 +425,22 @@ class EnhancedContentGenerator {
     let score = 0;
     
     // Check word count (target: 2000-3000 words)
-    if (chunk.wordCount >= 2000 && chunk.wordCount <= 3000) score += 20;
-    else if (chunk.wordCount >= 1500) score += 15;
-    else score += 10;
+    if (chunk.wordCount >= 2000 && chunk.wordCount <= 3000) {score += 20;}
+    else if (chunk.wordCount >= 1500) {score += 15;}
+    else {score += 10;}
     
     // Check structure (headers, sections, etc.)
-    if (chunk.content.includes('##')) score += 20;
-    if (chunk.content.includes('###')) score += 10;
+    if (chunk.content.includes('##')) {score += 20;}
+    if (chunk.content.includes('###')) {score += 10;}
     
     // Check ECO task coverage
-    if (chunk.ecoTasks && chunk.ecoTasks.length > 0) score += 25;
+    if (chunk.ecoTasks && chunk.ecoTasks.length > 0) {score += 25;}
     
     // Check examples and practical applications
-    if (chunk.content.includes('Example:') || chunk.content.includes('Scenario:')) score += 15;
+    if (chunk.content.includes('Example:') || chunk.content.includes('Scenario:')) {score += 15;}
     
     // Check cross-references
-    if (chunk.content.includes('🎥') || chunk.content.includes('📊')) score += 10;
+    if (chunk.content.includes('🎥') || chunk.content.includes('📊')) {score += 10;}
     
     return Math.min(score, 100);
   }
@@ -448,9 +448,9 @@ class EnhancedContentGenerator {
   // Configuration and template loading methods
   loadContentTemplates() {
     return {
-      chunk_header: `# {title}\n\n**Week:** {week}\n**Domain:** {domain}\n**ECO Tasks:** {eco_tasks}`,
-      video_script: `## {title}\n\n**Duration:** {duration} minutes\n**Type:** {type}`,
-      practice_session: `## Practice Session: {title}\n\n**Estimated Time:** {time} minutes`
+      chunk_header: '# {title}\n\n**Week:** {week}\n**Domain:** {domain}\n**ECO Tasks:** {eco_tasks}',
+      video_script: '## {title}\n\n**Duration:** {duration} minutes\n**Type:** {type}',
+      practice_session: '## Practice Session: {title}\n\n**Estimated Time:** {time} minutes'
     };
   }
 
@@ -469,10 +469,10 @@ class EnhancedContentGenerator {
     return {
       theme: `Week ${weekNumber} Theme`,
       chunks: [
-        { id: 1, title: `Chunk 1`, domain: 'Process', ecoTasks: ['2.1'], estimatedReadTime: 25, difficultyRating: 3.0 }
+        { id: 1, title: 'Chunk 1', domain: 'Process', ecoTasks: ['2.1'], estimatedReadTime: 25, difficultyRating: 3.0 }
       ],
       videos: [
-        { day: 1, title: `Day 1 Video`, type: 'daily-study', estimatedDuration: 18, topics: ['Topic 1'] }
+        { day: 1, title: 'Day 1 Video', type: 'daily-study', estimatedDuration: 18, topics: ['Topic 1'] }
       ],
       ecoTasks: ['2.1'],
       difficultyLevel: 3.0

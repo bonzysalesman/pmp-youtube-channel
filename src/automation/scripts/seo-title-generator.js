@@ -6,59 +6,59 @@ class SEOTitleGenerator {
     this.keywordDatabase = null;
     this.titleFormulas = {
       daily: [
-        "Day {day}: {topic} | PMP Exam Prep Week {week}",
-        "{topic} Explained | Day {day} PMP Study Guide",
-        "PMP Week {week} Day {day}: Master {topic}",
-        "Learn {topic} in {duration} Minutes | PMP Exam Prep",
-        "{topic} for PMP Success | Week {week} Study Plan"
+        'Day {day}: {topic} | PMP Exam Prep Week {week}',
+        '{topic} Explained | Day {day} PMP Study Guide',
+        'PMP Week {week} Day {day}: Master {topic}',
+        'Learn {topic} in {duration} Minutes | PMP Exam Prep',
+        '{topic} for PMP Success | Week {week} Study Plan'
       ],
       practice: [
-        "PMP Practice: {topic} Questions & Scenarios",
-        "Master {topic} | PMP Practice Session Week {week}",
-        "{topic} Practice Questions | PMP Exam Prep",
-        "Week {week} Practice: {topic} Deep Dive",
-        "PMP {topic} Scenarios | Practice & Review"
+        'PMP Practice: {topic} Questions & Scenarios',
+        'Master {topic} | PMP Practice Session Week {week}',
+        '{topic} Practice Questions | PMP Exam Prep',
+        'Week {week} Practice: {topic} Deep Dive',
+        'PMP {topic} Scenarios | Practice & Review'
       ],
       review: [
-        "Week {week} Review: {topic} Key Concepts",
-        "{topic} Summary | PMP Week {week} Recap",
-        "Master {topic} | Week {week} PMP Review",
-        "PMP Week {week}: {topic} Complete Review",
-        "{topic} Essentials | PMP Study Week {week}"
+        'Week {week} Review: {topic} Key Concepts',
+        '{topic} Summary | PMP Week {week} Recap',
+        'Master {topic} | Week {week} PMP Review',
+        'PMP Week {week}: {topic} Complete Review',
+        '{topic} Essentials | PMP Study Week {week}'
       ],
       overview: [
-        "Week {week} Overview: {topic} Mastery Plan",
-        "PMP Week {week}: Complete {topic} Guide",
-        "{topic} Week | PMP Study Plan Week {week}",
-        "Master {topic} This Week | PMP Exam Prep",
-        "Week {week} Focus: {topic} for PMP Success"
+        'Week {week} Overview: {topic} Mastery Plan',
+        'PMP Week {week}: Complete {topic} Guide',
+        '{topic} Week | PMP Study Plan Week {week}',
+        'Master {topic} This Week | PMP Exam Prep',
+        'Week {week} Focus: {topic} for PMP Success'
       ]
     };
     this.seoOptimizations = {
       hooks: [
-        "Master",
-        "Learn",
-        "Complete Guide to",
-        "Essential",
-        "Ultimate",
-        "Step-by-Step",
-        "Proven",
-        "Expert"
+        'Master',
+        'Learn',
+        'Complete Guide to',
+        'Essential',
+        'Ultimate',
+        'Step-by-Step',
+        'Proven',
+        'Expert'
       ],
       benefits: [
-        "Pass Your PMP Exam",
-        "Boost Your Career",
-        "Get Certified Fast",
-        "Study Smart",
-        "Exam Success",
-        "Professional Growth"
+        'Pass Your PMP Exam',
+        'Boost Your Career',
+        'Get Certified Fast',
+        'Study Smart',
+        'Exam Success',
+        'Professional Growth'
       ],
       urgency: [
-        "2024",
-        "Latest",
-        "Updated",
-        "New",
-        "Current"
+        '2024',
+        'Latest',
+        'Updated',
+        'New',
+        'Current'
       ]
     };
   }
@@ -138,7 +138,7 @@ class SEOTitleGenerator {
   }
 
   truncateTitle(title, maxLength) {
-    if (title.length <= maxLength) return title;
+    if (title.length <= maxLength) {return title;}
     
     // Find the last complete word before the limit
     const truncated = title.substring(0, maxLength);

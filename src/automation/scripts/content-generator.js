@@ -162,7 +162,7 @@ class ContentGenerator {
   generateFromDetailedCalendar() {
     try {
       const calendar = this.loadDetailedCalendar();
-      if (!calendar) return;
+      if (!calendar) {return;}
 
       calendar.weeks.forEach(weekData => {
         this.generateWeekFromCalendar(weekData);
@@ -191,7 +191,7 @@ class ContentGenerator {
       const fileName = `${day}-${videoData.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}.md`;
       
       // Generate script based on video type
-      let content = this.generateVideoScript(videoData, weekData);
+      const content = this.generateVideoScript(videoData, weekData);
       
       if (content) {
         fs.writeFileSync(path.join(weekDir, fileName), content);
@@ -292,28 +292,28 @@ if (require.main === module) {
   const weekNumber = process.argv[3];
 
   switch (command) {
-    case 'week':
-      if (!weekNumber) {
-        console.error('Please specify week number: node content-generator.js week 1');
-        process.exit(1);
-      }
-      // Load specific week data and generate
-      console.log(`Generating content for week ${weekNumber}`);
-      break;
+  case 'week':
+    if (!weekNumber) {
+      console.error('Please specify week number: node content-generator.js week 1');
+      process.exit(1);
+    }
+    // Load specific week data and generate
+    console.log(`Generating content for week ${weekNumber}`);
+    break;
     
-    case 'all':
-      generator.generateAllContent();
-      break;
+  case 'all':
+    generator.generateAllContent();
+    break;
     
-    case 'calendar':
-      generator.generateFromDetailedCalendar();
-      break;
+  case 'calendar':
+    generator.generateFromDetailedCalendar();
+    break;
     
-    default:
-      console.log('Usage:');
-      console.log('  node content-generator.js all          # Generate all content');
-      console.log('  node content-generator.js calendar     # Generate from detailed calendar');
-      console.log('  node content-generator.js week <num>   # Generate specific week');
+  default:
+    console.log('Usage:');
+    console.log('  node content-generator.js all          # Generate all content');
+    console.log('  node content-generator.js calendar     # Generate from detailed calendar');
+    console.log('  node content-generator.js week <num>   # Generate specific week');
   }
 }
 

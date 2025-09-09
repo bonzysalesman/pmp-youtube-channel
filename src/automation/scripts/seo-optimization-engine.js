@@ -131,39 +131,39 @@ class SEOOptimizationEngine {
     let description = `🎯 Day ${day} of Week ${week}: Master ${topic} for PMP Success!\n\n`;
     
     description += `In this comprehensive PMP exam prep video, you'll learn everything you need to know about ${topic}. `;
-    description += `This lesson is part of our structured 13-week PMP study plan designed to help you pass the PMP exam on your first try.\n\n`;
+    description += 'This lesson is part of our structured 13-week PMP study plan designed to help you pass the PMP exam on your first try.\n\n';
     
-    description += `📚 What You'll Learn:\n`;
+    description += '📚 What You\'ll Learn:\n';
     description += `• Core ${topic} concepts for the PMP exam\n`;
-    description += `• Real-world application scenarios\n`;
-    description += `• Practice questions and explanations\n`;
-    description += `• ECO task alignment and exam tips\n\n`;
+    description += '• Real-world application scenarios\n';
+    description += '• Practice questions and explanations\n';
+    description += '• ECO task alignment and exam tips\n\n';
     
     if (ecoTasks && ecoTasks.length > 0) {
-      description += `🎯 ECO Tasks Covered:\n`;
+      description += '🎯 ECO Tasks Covered:\n';
       ecoTasks.forEach(task => {
         description += `• ${task}\n`;
       });
-      description += `\n`;
+      description += '\n';
     }
     
-    description += `⏰ Timestamps:\n`;
-    description += `0:00 - Introduction and Learning Objectives\n`;
-    description += `1:00 - ECO Connection and Context\n`;
+    description += '⏰ Timestamps:\n';
+    description += '0:00 - Introduction and Learning Objectives\n';
+    description += '1:00 - ECO Connection and Context\n';
     description += `2:00 - Main Content: ${topic}\n`;
-    description += `12:00 - Practice Application\n`;
-    description += `15:00 - Key Takeaways\n`;
-    description += `17:00 - Next Video Preview\n\n`;
+    description += '12:00 - Practice Application\n';
+    description += '15:00 - Key Takeaways\n';
+    description += '17:00 - Next Video Preview\n\n';
     
-    description += `📖 FREE Resources:\n`;
-    description += `• 13-Week PMP Study Calendar: [link]\n`;
-    description += `• PMP Mindset Cheat Sheet: [link]\n`;
-    description += `• ECO Task Checklist: [link]\n\n`;
+    description += '📖 FREE Resources:\n';
+    description += '• 13-Week PMP Study Calendar: [link]\n';
+    description += '• PMP Mindset Cheat Sheet: [link]\n';
+    description += '• ECO Task Checklist: [link]\n\n';
     
-    description += `🔔 Subscribe for daily PMP exam prep content!\n`;
-    description += `💬 Questions? Drop them in the comments below!\n\n`;
+    description += '🔔 Subscribe for daily PMP exam prep content!\n';
+    description += '💬 Questions? Drop them in the comments below!\n\n';
     
-    description += `#PMPExamPrep #PMPCertification #ProjectManagement #PMP2024 #StudyGuide`;
+    description += '#PMPExamPrep #PMPCertification #ProjectManagement #PMP2024 #StudyGuide';
     
     return description;
   }
@@ -221,7 +221,7 @@ class SEOOptimizationEngine {
       `week ${week}`,
       `day ${day}`,
       `PMP week ${week}`,
-      `13 week study plan`
+      '13 week study plan'
     ];
     
     const ecoTags = ecoTasks ? ecoTasks.map(task => 
@@ -352,9 +352,9 @@ class SEOOptimizationEngine {
     const powerWords = this.optimizationRules.title.powerWords;
     
     // Select power word based on topic
-    if (topic.toLowerCase().includes('practice')) return 'Master';
-    if (topic.toLowerCase().includes('review')) return 'Complete';
-    if (topic.toLowerCase().includes('exam')) return 'Ultimate';
+    if (topic.toLowerCase().includes('practice')) {return 'Master';}
+    if (topic.toLowerCase().includes('review')) {return 'Complete';}
+    if (topic.toLowerCase().includes('exam')) {return 'Ultimate';}
     
     return powerWords[Math.floor(Math.random() * powerWords.length)];
   }
@@ -364,30 +364,30 @@ class SEOOptimizationEngine {
     
     // Length optimization (50-60 characters is optimal)
     const length = title.length;
-    if (length >= 50 && length <= 60) score += 20;
-    else if (length >= 40 && length <= 70) score += 15;
-    else score += 5;
+    if (length >= 50 && length <= 60) {score += 20;}
+    else if (length >= 40 && length <= 70) {score += 15;}
+    else {score += 5;}
     
     // Keyword placement (earlier is better)
     const topicIndex = title.toLowerCase().indexOf(topic.toLowerCase());
-    if (topicIndex >= 0 && topicIndex < 20) score += 15;
-    else if (topicIndex >= 0) score += 10;
+    if (topicIndex >= 0 && topicIndex < 20) {score += 15;}
+    else if (topicIndex >= 0) {score += 10;}
     
     // Power words
-    if (this.containsPowerWords(title)) score += 10;
+    if (this.containsPowerWords(title)) {score += 10;}
     
     // Numbers (perform well)
-    if (/\d+/.test(title)) score += 10;
+    if (/\d+/.test(title)) {score += 10;}
     
     // Year inclusion
-    if (title.includes('2024')) score += 10;
+    if (title.includes('2024')) {score += 10;}
     
     // Primary keyword inclusion
-    if (title.toLowerCase().includes('pmp')) score += 15;
+    if (title.toLowerCase().includes('pmp')) {score += 15;}
     
     // Avoid keyword stuffing
     const keywordCount = (title.toLowerCase().match(/pmp/g) || []).length;
-    if (keywordCount > 2) score -= 10;
+    if (keywordCount > 2) {score -= 10;}
     
     return Math.max(0, Math.min(100, score));
   }
@@ -413,7 +413,7 @@ class SEOOptimizationEngine {
     const avgWordsPerSentence = words / sentences;
     
     // Flesch Reading Ease approximation
-    let score = 206.835 - (1.015 * avgWordsPerSentence);
+    const score = 206.835 - (1.015 * avgWordsPerSentence);
     
     return Math.max(0, Math.min(100, score));
   }
@@ -423,15 +423,15 @@ class SEOOptimizationEngine {
     
     // Length check
     const length = description.length;
-    if (length >= 120 && length <= 160) score += 25;
-    else if (length >= 100 && length <= 200) score += 20;
-    else score += 10;
+    if (length >= 120 && length <= 160) {score += 25;}
+    else if (length >= 100 && length <= 200) {score += 20;}
+    else {score += 10;}
     
     // Keyword density
     const density = this.calculateKeywordDensity(description);
-    if (density >= 0.02 && density <= 0.05) score += 25;
-    else if (density >= 0.01 && density <= 0.07) score += 15;
-    else score += 5;
+    if (density >= 0.02 && density <= 0.05) {score += 25;}
+    else if (density >= 0.01 && density <= 0.07) {score += 15;}
+    else {score += 5;}
     
     // Call-to-action presence
     if (description.toLowerCase().includes('subscribe') || 
@@ -446,7 +446,7 @@ class SEOOptimizationEngine {
     }
     
     // Hashtags presence
-    if (description.includes('#')) score += 15;
+    if (description.includes('#')) {score += 15;}
     
     return Math.max(0, Math.min(100, score));
   }

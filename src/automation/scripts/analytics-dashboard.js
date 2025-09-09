@@ -288,7 +288,7 @@ class AnalyticsDashboard {
    * Process channel metrics data
    */
   processChannelMetrics(data) {
-    if (!data.rows) return {};
+    if (!data.rows) {return {};}
     
     const totals = data.rows.reduce((acc, row) => {
       acc.views += parseInt(row[1]) || 0;
@@ -320,7 +320,7 @@ class AnalyticsDashboard {
    * Process video-specific metrics
    */
   processVideoMetrics(data) {
-    if (!data.rows || data.rows.length === 0) return {};
+    if (!data.rows || data.rows.length === 0) {return {};}
     
     return data.rows.reduce((acc, row) => {
       acc.views += parseInt(row[1]) || 0;
@@ -753,7 +753,7 @@ class AnalyticsDashboard {
   }
 
   calculateYouTubeEngagementRate(channelData) {
-    if (!channelData || !channelData.views) return 0;
+    if (!channelData || !channelData.views) {return 0;}
     const engagement = (channelData.likes || 0) + (channelData.comments || 0) + (channelData.shares || 0);
     return channelData.views > 0 ? (engagement / channelData.views) : 0;
   }
