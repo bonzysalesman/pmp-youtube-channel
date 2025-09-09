@@ -44,6 +44,24 @@ function understrap_child_enqueue_styles_scripts() {
         array( 'pmp-components' ), // Depends on the PMP components style
         $theme->get( 'Version' )
     );
+    
+    // PMP Dashboard stylesheet
+    wp_enqueue_style( 'pmp-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
+    
+    // PMP Progress Widget stylesheet
+    wp_enqueue_style( 'pmp-progress-widget', get_stylesheet_directory_uri() . '/assets/css/progress-widget.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
+    
+    // PMP Next Lesson Widget stylesheet
+    wp_enqueue_style( 'pmp-next-lesson-widget', get_stylesheet_directory_uri() . '/assets/css/next-lesson-widget.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
 
     // --- Optional: Enqueue other libraries if needed ---
     // Example: Enqueue Font Awesome (ensure it's not already loaded by parent/plugins)
@@ -70,6 +88,10 @@ function understrap_child_enqueue_styles_scripts() {
     wp_enqueue_script( 'pmp-dashboard', get_stylesheet_directory_uri() . '/assets/js/dashboard.js', 
         array('jquery'), $theme->get( 'Version' ), true );
     
+    // PMP Progress Tracker JavaScript
+    wp_enqueue_script( 'pmp-progress-tracker', get_stylesheet_directory_uri() . '/assets/js/progress-tracker.js', 
+        array('jquery'), $theme->get( 'Version' ), true );
+    
     // PMP Resources JavaScript
     wp_enqueue_script( 'pmp-resources', get_stylesheet_directory_uri() . '/assets/js/resources.js', 
         array('jquery'), $theme->get( 'Version' ), true );
@@ -92,6 +114,13 @@ function understrap_child_enqueue_styles_scripts() {
         'userId' => get_current_user_id(),
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'restUrl' => rest_url('pmp/v1/')
+    ));
+    
+    // Localize progress tracker script with AJAX data
+    wp_localize_script( 'pmp-progress-tracker', 'pmpAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('pmp_ajax_nonce'),
+        'userId' => get_current_user_id()
     ));
 
 	// Enable comment-reply script for threaded comments
@@ -169,6 +198,19 @@ function understrap_child_widgets_init() {
 			'after_widget'  => '</div><!-- .footer-widget -->',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
+		)
+	);
+	
+	// Course Sidebar Widget Area
+	register_sidebar(
+		array(
+			'name'          => __( 'Course Sidebar', 'understrap-child' ),
+			'id'            => 'course-sidebar',
+			'description'   => __( 'Widget area for course and lesson pages sidebar.', 'understrap-child' ),
+			'before_widget' => '<div id="%1$s" class="course-sidebar-widget widget %2$s">',
+			'after_widget'  => '</div><!-- .course-sidebar-widget -->',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
 		)
 	);
 }
@@ -363,7 +405,20 @@ require_once get_stylesheet_directory() . '/includes/class-pmp-resources-manager
 require_once get_stylesheet_directory() . '/includes/class-pmp-performance-optimizer.php';
 require_once get_stylesheet_directory() . '/includes/class-pmp-asset-optimizer.php';
 require_once get_stylesheet_directory() . '/includes/class-pmp-caching-system.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-progress-widget.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-next-lesson-widget.php';
+require_once get_stylesheet_directory() . '/includes/pmp-next-lesson-widget-setup.php';
 require_once get_stylesheet_directory() . '/includes/pmp-content-shortcodes.php';
+require_once get_stylesheet_directory() . '/includes/pmp-enqueue.php';
+require_once get_stylesheet_directory() . '/includes/pmp-progress-integration.php';
+
+// Include test files for development (only for administrators)
+if (current_user_can('administrator') || (defined('WP_DEBUG') && WP_DEBUG)) {
+    require_once get_stylesheet_directory() . '/test-progress-tracking.php';
+    require_once get_stylesheet_directory() . '/test-footer-widgets.php';
+    require_once get_stylesheet_directory() . '/test-progress-widget.php';
+    require_once get_stylesheet_directory() . '/test-next-lesson-widget.php';
+}
 
 // --- Initialize Performance Optimizer ---
 if (class_exists('PMP_Performance_Optimizer')) {
@@ -643,6 +698,110 @@ function pmp_handle_track_resource_usage() {
 }
 
 add_filter('show_admin_bar', '__return_false');
+
+// --- Theme Customizer for Footer Settings ---
+function pmp_customize_register($wp_customize) {
+    // Add Footer Settings Section
+    $wp_customize->add_section('pmp_footer_settings', array(
+        'title'    => __('PMP Footer Settings', 'understrap-child'),
+        'priority' => 120,
+    ));
+
+    // Social Media Settings
+    $wp_customize->add_setting('pmp_linkedin_url', array(
+        'default'           => 'https://linkedin.com/company/mohlomi-institute',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pmp_linkedin_url', array(
+        'label'   => __('LinkedIn URL', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'url',
+    ));
+
+    $wp_customize->add_setting('pmp_facebook_url', array(
+        'default'           => 'https://facebook.com/mohlomiinstitute',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pmp_facebook_url', array(
+        'label'   => __('Facebook URL', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'url',
+    ));
+
+    $wp_customize->add_setting('pmp_twitter_url', array(
+        'default'           => 'https://twitter.com/mohlomiinstitute',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pmp_twitter_url', array(
+        'label'   => __('Twitter URL', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'url',
+    ));
+
+    $wp_customize->add_setting('pmp_youtube_url', array(
+        'default'           => 'https://youtube.com/@mohlomiinstitute',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('pmp_youtube_url', array(
+        'label'   => __('YouTube URL', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'url',
+    ));
+
+    // Contact Information Settings
+    $wp_customize->add_setting('pmp_contact_email', array(
+        'default'           => 'info@mohlomiinstitute.com',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('pmp_contact_email', array(
+        'label'   => __('Contact Email', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'email',
+    ));
+
+    $wp_customize->add_setting('pmp_contact_phone', array(
+        'default'           => '+1 (555) 123-4567',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pmp_contact_phone', array(
+        'label'   => __('Contact Phone', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('pmp_contact_address', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pmp_contact_address', array(
+        'label'   => __('Contact Address', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'text',
+    ));
+
+    // Company Information
+    $wp_customize->add_setting('pmp_company_name', array(
+        'default'           => 'Mohlomi Institute',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pmp_company_name', array(
+        'label'   => __('Company Name', 'understrap-child'),
+        'section' => 'pmp_footer_settings',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('pmp_legal_entity', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('pmp_legal_entity', array(
+        'label'       => __('Legal Entity Info', 'understrap-child'),
+        'description' => __('Optional legal entity name or registration number', 'understrap-child'),
+        'section'     => 'pmp_footer_settings',
+        'type'        => 'text',
+    ));
+}
+add_action('customize_register', 'pmp_customize_register');
 
 // --- WordPress Infrastructure Integration ---
 
@@ -1004,13 +1163,19 @@ function pmp_clear_w3tc_cache() {
     }
 }
 
-/**
- * Clear WP Super Cache on content updates
- */
-function pmp_clear_wpsc_cache() {
-    if (function_exists('wp_cache_clear_cache')) {
-        wp_cache_clear_cache();
-    }
-}
+// Include PMP User Settings class
+require_once get_stylesheet_directory() . '/includes/class-pmp-user-settings.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-media-manager.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-youtube-integration.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-resource-manager.php';
 
-?>
+// Initialize user settings for logged-in users
+add_action('init', function() {
+    if (is_user_logged_in()) {
+        global $pmp_user_settings;
+        $pmp_user_settings = new PMP_User_Settings(get_current_user_id());
+    }
+});
+
+// Include settings enqueue functionality
+require_once get_stylesheet_directory() . '/includes/pmp-enqueue-settings.php';

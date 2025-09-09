@@ -61,7 +61,7 @@ $container = get_theme_mod('understrap_container_type', 'container');
                     <?php else : ?>
                         <?php // Fallback to site title if no logo is set in Customizer 
                         ?>
-                        <a class="navbar-brand" rel="home" href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" itemprop="url"><?php bloginfo('name'); ?></a>
+                        <a class="navbar-brand" rel="home" href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" itemprop="url" style="font-family: 'Source Sans Pro';font-weight: 900;">PMP</a>
                     <?php endif; ?>
                     <?php // --- OR Hardcoded Logo (if not using Customizer logo) ---
                     /*

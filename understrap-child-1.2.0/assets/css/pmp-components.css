@@ -1563,7 +1563,7 @@ body {
     .hamburger-line,
     .module-card,
     .lesson-card,
-    .nav-link,
+    .lesson-nav-link,
     .module-toggle,
     .lesson-link {
         transition: none !important;
@@ -1575,7 +1575,7 @@ body {
         transform: none !important;
     }
 
-    .nav-link:hover {
+    .lesson-nav-link:hover {
         transform: none !important;
     }
 }
@@ -1691,7 +1691,7 @@ body {
         border: 1px solid #000000 !important;
     }
 
-    .nav-links {
+    .lesson-nav-links {
         display: none !important;
     }
 }
@@ -3521,7 +3521,7 @@ nhanced Lesson Content Template Styles
     margin: 0 auto;
 }
 
-.nav-links {
+.lesson-nav-links {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -3543,16 +3543,30 @@ nhanced Lesson Content Template Styles
     align-items: center;
     padding: 1.5rem;
     background: white;
-    border: 1px solid #e2e8f0;
+    border: none !important;
     border-radius: 12px;
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
     height: 100%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
-.nav-link:hover {
+.lesson-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: white;
+    border: none !important;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: none;
+}
+
+.lesson-nav-link:hover {
     background: #f8fafc;
     border-color: #5b28b3;
     transform: translateY(-2px);
@@ -3576,7 +3590,7 @@ nhanced Lesson Content Template Styles
     transition: color 0.2s ease;
 }
 
-.nav-link:hover .nav-icon {
+.lesson-nav-link:hover .lesson-nav-icon {
     color: #5b28b3;
 }
 
@@ -3802,7 +3816,7 @@ nhanced Lesson Content Template Styles
         padding: 0.5rem;
     }
 
-    .nav-links {
+    .lesson-nav-links {
         flex-direction: column;
         gap: 1rem;
     }
@@ -3816,7 +3830,7 @@ nhanced Lesson Content Template Styles
         margin-left: 0;
     }
     
-    .nav-link {
+    .lesson-nav-link {
         padding: 1.25rem;
     }
 
@@ -3943,7 +3957,7 @@ nhanced Lesson Content Template Styles
         padding: 0.375rem;
     }
 
-    .nav-link {
+    .lesson-nav-link {
         padding: 1rem;
     }
 
@@ -4013,7 +4027,7 @@ nhanced Lesson Content Template Styles
         font-size: 0.9375rem;
     }
     
-    .nav-link {
+    .lesson-nav-link {
         padding: 0.875rem;
     }
     
@@ -4054,7 +4068,7 @@ nhanced Lesson Content Template Styles
         gap: 1rem;
     }
     
-    .nav-links {
+    .lesson-nav-links {
         flex-direction: row;
         gap: 1.5rem;
     }
@@ -4072,12 +4086,12 @@ nhanced Lesson Content Template Styles
 
 /* Touch Device Optimizations for Lesson Content */
 @media (hover: none) and (pointer: coarse) {
-    .nav-link {
+    .lesson-nav-link {
         min-height: 60px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     
-    .nav-link:active {
+    .lesson-nav-link:active {
         transform: scale(0.98);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
@@ -4133,7 +4147,7 @@ nhanced Lesson Content Template Styles
 }
 
 /* Focus Styles for Lesson Content */
-.nav-link:focus {
+.lesson-nav-link:focus {
     outline: 3px solid #5b28b3;
     outline-offset: 2px;
     box-shadow: 0 0 0 1px rgba(91, 40, 179, 0.2);
@@ -4392,14 +4406,14 @@ nhanced Lesson Content Template Styles
         background: #f0f0f0 !important;
     }
 
-    .nav-link {
+    .lesson-nav-link {
         background: #ffffff !important;
         border: 2px solid #000000 !important;
         color: #000000 !important;
     }
 
-    .nav-link:hover,
-    .nav-link:focus {
+    .lesson-nav-link:hover,
+    .lesson-nav-link:focus {
         background: #f0f0f0 !important;
         border: 2px solid #000000 !important;
         color: #000000 !important;
@@ -4447,14 +4461,14 @@ nhanced Lesson Content Template Styles
         background: Canvas !important;
     }
 
-    .nav-link {
+    .lesson-nav-link {
         background: Canvas !important;
         border: 1px solid CanvasText !important;
         color: CanvasText !important;
     }
 
-    .nav-link:hover,
-    .nav-link:focus {
+    .lesson-nav-link:hover,
+    .lesson-nav-link:focus {
         background: SelectedItem !important;
         color: SelectedItemText !important;
     }
@@ -4646,13 +4660,13 @@ nhanced Lesson Content Template Styles
         background: #111827;
     }
 
-    .nav-link {
+    .lesson-nav-link {
         background: #1f2937;
         border-color: #374151;
         color: #d1d5db;
     }
 
-    .nav-link:hover {
+    .lesson-nav-link:hover {
         background: #111827;
         border-color: #a78bfa;
     }
@@ -4669,7 +4683,7 @@ nhanced Lesson Content Template Styles
         color: #9ca3af;
     }
 
-    .nav-link:hover .nav-icon {
+    .lesson-nav-link:hover .lesson-nav-icon {
         color: #a78bfa;
     }
 }
@@ -4680,13 +4694,13 @@ nhanced Lesson Content Template Styles
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
 
-    .nav-link,
+    .lesson-nav-link,
     .lesson-breadcrumb .breadcrumb-item a,
     .lesson-content a {
         transition: none;
     }
 
-    .nav-link:hover {
+    .lesson-nav-link:hover {
         transform: none;
     }
 }

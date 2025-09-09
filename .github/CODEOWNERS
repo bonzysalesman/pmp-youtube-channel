@@ -1,0 +1,48 @@
+# Global code owners
+# These users will be requested for review when anyone opens a pull request
+* @maintainer
+
+# GitHub Actions and CI/CD workflows
+/.github/ @maintainer @devops-team
+
+# Core automation and scripts
+/src/automation/ @maintainer @automation-team
+/scripts/ @maintainer @automation-team
+
+# Configuration files
+*.json @maintainer
+*.js @maintainer
+*.yml @maintainer
+*.yaml @maintainer
+.env* @maintainer
+
+# Documentation
+*.md @maintainer @docs-team
+/docs/ @maintainer @docs-team
+
+# WordPress theme and plugins
+/understrap-child-1.2.0/ @maintainer @wordpress-team
+/wordpress/ @maintainer @wordpress-team
+/wp-content/ @maintainer @wordpress-team
+*.php @maintainer @wordpress-team
+
+# Docker configuration
+/docker/ @maintainer @devops-team
+Dockerfile* @maintainer @devops-team
+docker-compose* @maintainer @devops-team
+
+# Content and templates
+/src/content/ @maintainer @content-team
+/src/templates/ @maintainer @content-team
+
+# Testing
+/src/__tests__/ @maintainer @qa-team
+*test* @maintainer @qa-team
+jest.* @maintainer @qa-team
+
+# Security-sensitive files
+.env* @maintainer @security-team
+/scripts/setup/ @maintainer @security-team
+
+# Linear integration
+/scripts/linear-integration/ @maintainer @integration-team

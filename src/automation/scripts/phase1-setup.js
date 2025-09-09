@@ -15,239 +15,239 @@ const { execSync } = require('child_process');
 require('dotenv').config();
 
 class Phase1Setup {
-    constructor() {
-        this.projectRoot = path.join(__dirname, '../../..');
-        this.scriptsPath = path.join(__dirname);
-        this.configPath = path.join(__dirname, '../../config');
-        this.results = {
-            contentImport: null,
-            navigation: null,
-            dashboard: null,
-            errors: []
-        };
-    }
+  constructor() {
+    this.projectRoot = path.join(__dirname, '../../..');
+    this.scriptsPath = path.join(__dirname);
+    this.configPath = path.join(__dirname, '../../config');
+    this.results = {
+      contentImport: null,
+      navigation: null,
+      dashboard: null,
+      errors: []
+    };
+  }
 
-    /**
+  /**
      * Check prerequisites for Phase 1 setup
      */
-    async checkPrerequisites() {
-        console.log('🔍 Checking prerequisites...\n');
+  async checkPrerequisites() {
+    console.log('🔍 Checking prerequisites...\n');
         
-        const checks = [];
+    const checks = [];
         
-        // Check if .env file exists
-        const envPath = path.join(this.projectRoot, '.env');
-        if (await fs.pathExists(envPath)) {
-            console.log('✅ Environment file (.env) found');
-            checks.push(true);
-        } else {
-            console.log('❌ Environment file (.env) not found');
-            console.log('   Please copy .env.example to .env and configure your settings');
-            checks.push(false);
-        }
-        
-        // Check if content chunks exist
-        const chunksPath = path.join(this.projectRoot, 'src/content/chunks');
-        if (await fs.pathExists(chunksPath)) {
-            const weeks = await fs.readdir(chunksPath);
-            const weekDirs = weeks.filter(dir => dir.startsWith('week-'));
-            console.log(`✅ Content chunks found (${weekDirs.length} weeks)`);
-            checks.push(true);
-        } else {
-            console.log('❌ Content chunks directory not found');
-            checks.push(false);
-        }
-        
-        // Check if cross-references exist
-        const crossRefPath = path.join(this.projectRoot, 'src/content/cross-references');
-        if (await fs.pathExists(crossRefPath)) {
-            console.log('✅ Cross-reference files found');
-            checks.push(true);
-        } else {
-            console.log('❌ Cross-reference files not found');
-            checks.push(false);
-        }
-        
-        // Check if WordPress is accessible (if running)
-        try {
-            const wpUrl = process.env.WORDPRESS_URL || 'http://localhost:8080';
-            console.log(`✅ WordPress URL configured: ${wpUrl}`);
-            checks.push(true);
-        } catch (error) {
-            console.log('⚠️  WordPress URL not configured, using default');
-            checks.push(true); // Not critical
-        }
-        
-        const allPassed = checks.every(check => check === true);
-        
-        if (allPassed) {
-            console.log('\n🎉 All prerequisites met! Ready to proceed.\n');
-        } else {
-            console.log('\n❌ Some prerequisites are missing. Please address them before continuing.\n');
-        }
-        
-        return allPassed;
+    // Check if .env file exists
+    const envPath = path.join(this.projectRoot, '.env');
+    if (await fs.pathExists(envPath)) {
+      console.log('✅ Environment file (.env) found');
+      checks.push(true);
+    } else {
+      console.log('❌ Environment file (.env) not found');
+      console.log('   Please copy .env.example to .env and configure your settings');
+      checks.push(false);
     }
+        
+    // Check if content chunks exist
+    const chunksPath = path.join(this.projectRoot, 'src/content/chunks');
+    if (await fs.pathExists(chunksPath)) {
+      const weeks = await fs.readdir(chunksPath);
+      const weekDirs = weeks.filter(dir => dir.startsWith('week-'));
+      console.log(`✅ Content chunks found (${weekDirs.length} weeks)`);
+      checks.push(true);
+    } else {
+      console.log('❌ Content chunks directory not found');
+      checks.push(false);
+    }
+        
+    // Check if cross-references exist
+    const crossRefPath = path.join(this.projectRoot, 'src/content/cross-references');
+    if (await fs.pathExists(crossRefPath)) {
+      console.log('✅ Cross-reference files found');
+      checks.push(true);
+    } else {
+      console.log('❌ Cross-reference files not found');
+      checks.push(false);
+    }
+        
+    // Check if WordPress is accessible (if running)
+    try {
+      const wpUrl = process.env.WORDPRESS_URL || 'http://localhost:8080';
+      console.log(`✅ WordPress URL configured: ${wpUrl}`);
+      checks.push(true);
+    } catch (error) {
+      console.log('⚠️  WordPress URL not configured, using default');
+      checks.push(true); // Not critical
+    }
+        
+    const allPassed = checks.every(check => check === true);
+        
+    if (allPassed) {
+      console.log('\n🎉 All prerequisites met! Ready to proceed.\n');
+    } else {
+      console.log('\n❌ Some prerequisites are missing. Please address them before continuing.\n');
+    }
+        
+    return allPassed;
+  }
 
-    /**
+  /**
      * Task 1.1: Execute content import
      */
-    async executeContentImport() {
-        console.log('📥 Task 1.1: Content Import and Organization');
-        console.log('===========================================\n');
+  async executeContentImport() {
+    console.log('📥 Task 1.1: Content Import and Organization');
+    console.log('===========================================\n');
         
-        try {
-            const ContentImporter = require('./content-import-wordpress');
-            const importer = new ContentImporter();
+    try {
+      const ContentImporter = require('./content-import-wordpress');
+      const importer = new ContentImporter();
             
-            console.log('Starting content import process...');
-            await importer.run();
+      console.log('Starting content import process...');
+      await importer.run();
             
-            this.results.contentImport = {
-                status: 'success',
-                message: 'Content import completed successfully',
-                stats: importer.stats
-            };
+      this.results.contentImport = {
+        status: 'success',
+        message: 'Content import completed successfully',
+        stats: importer.stats
+      };
             
-            console.log('✅ Task 1.1 completed successfully!\n');
+      console.log('✅ Task 1.1 completed successfully!\n');
             
-        } catch (error) {
-            console.error('❌ Content import failed:', error.message);
-            this.results.contentImport = {
-                status: 'error',
-                message: error.message
-            };
-            this.results.errors.push({
-                task: '1.1',
-                error: error.message
-            });
-        }
+    } catch (error) {
+      console.error('❌ Content import failed:', error.message);
+      this.results.contentImport = {
+        status: 'error',
+        message: error.message
+      };
+      this.results.errors.push({
+        task: '1.1',
+        error: error.message
+      });
     }
+  }
 
-    /**
+  /**
      * Task 1.2: Setup primary navigation
      */
-    async setupPrimaryNavigation() {
-        console.log('🧭 Task 1.2: Primary Navigation Configuration');
-        console.log('============================================\n');
+  async setupPrimaryNavigation() {
+    console.log('🧭 Task 1.2: Primary Navigation Configuration');
+    console.log('============================================\n');
         
-        try {
-            // Create navigation configuration
-            const navigationConfig = {
-                main_menu: {
-                    items: [
-                        {
-                            title: 'Dashboard',
-                            url: '/dashboard',
-                            icon: 'dashboard',
-                            order: 1,
-                            roles: ['student', 'instructor', 'admin']
-                        },
-                        {
-                            title: 'Course Content',
-                            url: '/course',
-                            icon: 'book',
-                            order: 2,
-                            roles: ['student', 'instructor', 'admin'],
-                            submenu: [
-                                {
-                                    title: 'Week 1: Foundation',
-                                    url: '/course/week-1',
-                                    domain: 'Foundation'
-                                },
-                                {
-                                    title: 'Week 2-4: People Domain',
-                                    url: '/course/people',
-                                    domain: 'People'
-                                },
-                                {
-                                    title: 'Week 5-11: Process Domain',
-                                    url: '/course/process',
-                                    domain: 'Process'
-                                },
-                                {
-                                    title: 'Week 12-13: Final Prep',
-                                    url: '/course/final-prep',
-                                    domain: 'General'
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Practice Tests',
-                            url: '/practice',
-                            icon: 'quiz',
-                            order: 3,
-                            roles: ['student', 'instructor', 'admin']
-                        },
-                        {
-                            title: 'Resources',
-                            url: '/resources',
-                            icon: 'download',
-                            order: 4,
-                            roles: ['student', 'instructor', 'admin']
-                        },
-                        {
-                            title: 'Progress',
-                            url: '/progress',
-                            icon: 'chart',
-                            order: 5,
-                            roles: ['student', 'instructor', 'admin']
-                        }
-                    ]
+    try {
+      // Create navigation configuration
+      const navigationConfig = {
+        main_menu: {
+          items: [
+            {
+              title: 'Dashboard',
+              url: '/dashboard',
+              icon: 'dashboard',
+              order: 1,
+              roles: ['student', 'instructor', 'admin']
+            },
+            {
+              title: 'Course Content',
+              url: '/course',
+              icon: 'book',
+              order: 2,
+              roles: ['student', 'instructor', 'admin'],
+              submenu: [
+                {
+                  title: 'Week 1: Foundation',
+                  url: '/course/week-1',
+                  domain: 'Foundation'
                 },
-                breadcrumb_config: {
-                    enabled: true,
-                    separator: ' > ',
-                    show_home: true,
-                    home_text: 'Home'
+                {
+                  title: 'Week 2-4: People Domain',
+                  url: '/course/people',
+                  domain: 'People'
                 },
-                mobile_menu: {
-                    breakpoint: 768,
-                    hamburger_style: 'modern',
-                    overlay_enabled: true
+                {
+                  title: 'Week 5-11: Process Domain',
+                  url: '/course/process',
+                  domain: 'Process'
+                },
+                {
+                  title: 'Week 12-13: Final Prep',
+                  url: '/course/final-prep',
+                  domain: 'General'
                 }
-            };
-            
-            // Save navigation configuration
-            const navConfigPath = path.join(this.configPath, 'navigation-config.json');
-            await fs.ensureDir(this.configPath);
-            await fs.writeJson(navConfigPath, navigationConfig, { spaces: 2 });
-            
-            // Create WordPress menu registration script
-            const menuRegistrationScript = this.generateMenuRegistrationScript(navigationConfig);
-            const menuScriptPath = path.join(this.scriptsPath, 'register-wordpress-menus.php');
-            await fs.writeFile(menuScriptPath, menuRegistrationScript);
-            
-            this.results.navigation = {
-                status: 'success',
-                message: 'Navigation configuration created successfully',
-                configPath: navConfigPath,
-                scriptPath: menuScriptPath
-            };
-            
-            console.log('✅ Navigation configuration created');
-            console.log(`📄 Config saved to: ${navConfigPath}`);
-            console.log(`🔧 WordPress script: ${menuScriptPath}`);
-            console.log('✅ Task 1.2 completed successfully!\n');
-            
-        } catch (error) {
-            console.error('❌ Navigation setup failed:', error.message);
-            this.results.navigation = {
-                status: 'error',
-                message: error.message
-            };
-            this.results.errors.push({
-                task: '1.2',
-                error: error.message
-            });
+              ]
+            },
+            {
+              title: 'Practice Tests',
+              url: '/practice',
+              icon: 'quiz',
+              order: 3,
+              roles: ['student', 'instructor', 'admin']
+            },
+            {
+              title: 'Resources',
+              url: '/resources',
+              icon: 'download',
+              order: 4,
+              roles: ['student', 'instructor', 'admin']
+            },
+            {
+              title: 'Progress',
+              url: '/progress',
+              icon: 'chart',
+              order: 5,
+              roles: ['student', 'instructor', 'admin']
+            }
+          ]
+        },
+        breadcrumb_config: {
+          enabled: true,
+          separator: ' > ',
+          show_home: true,
+          home_text: 'Home'
+        },
+        mobile_menu: {
+          breakpoint: 768,
+          hamburger_style: 'modern',
+          overlay_enabled: true
         }
+      };
+            
+      // Save navigation configuration
+      const navConfigPath = path.join(this.configPath, 'navigation-config.json');
+      await fs.ensureDir(this.configPath);
+      await fs.writeJson(navConfigPath, navigationConfig, { spaces: 2 });
+            
+      // Create WordPress menu registration script
+      const menuRegistrationScript = this.generateMenuRegistrationScript(navigationConfig);
+      const menuScriptPath = path.join(this.scriptsPath, 'register-wordpress-menus.php');
+      await fs.writeFile(menuScriptPath, menuRegistrationScript);
+            
+      this.results.navigation = {
+        status: 'success',
+        message: 'Navigation configuration created successfully',
+        configPath: navConfigPath,
+        scriptPath: menuScriptPath
+      };
+            
+      console.log('✅ Navigation configuration created');
+      console.log(`📄 Config saved to: ${navConfigPath}`);
+      console.log(`🔧 WordPress script: ${menuScriptPath}`);
+      console.log('✅ Task 1.2 completed successfully!\n');
+            
+    } catch (error) {
+      console.error('❌ Navigation setup failed:', error.message);
+      this.results.navigation = {
+        status: 'error',
+        message: error.message
+      };
+      this.results.errors.push({
+        task: '1.2',
+        error: error.message
+      });
     }
+  }
 
-    /**
+  /**
      * Generate WordPress menu registration PHP script
      */
-    generateMenuRegistrationScript(config) {
-        return `<?php
+  generateMenuRegistrationScript(config) {
+    return `<?php
 /**
  * PMP Course Navigation Menu Registration
  * Generated by Phase 1 Setup Script
@@ -310,15 +310,15 @@ function pmp_navigation_body_classes($classes) {
 }
 add_filter('body_class', 'pmp_navigation_body_classes');
 ?>`;
-    }
+  }
 
-    /**
+  /**
      * Generate menu items PHP code
      */
-    generateMenuItems(items) {
-        let php = '';
-        items.forEach((item, index) => {
-            php += `
+  generateMenuItems(items) {
+    let php = '';
+    items.forEach((item, index) => {
+      php += `
             // Add ${item.title}
             wp_update_nav_menu_item($menu_id, 0, array(
                 'menu-item-title' => '${item.title}',
@@ -327,178 +327,178 @@ add_filter('body_class', 'pmp_navigation_body_classes');
                 'menu-item-position' => ${item.order}
             ));`;
             
-            if (item.submenu) {
-                item.submenu.forEach(subitem => {
-                    php += `
+      if (item.submenu) {
+        item.submenu.forEach(subitem => {
+          php += `
             wp_update_nav_menu_item($menu_id, 0, array(
                 'menu-item-title' => '${subitem.title}',
                 'menu-item-url' => '${subitem.url}',
                 'menu-item-status' => 'publish'
             ));`;
-                });
-            }
         });
-        return php;
-    }
+      }
+    });
+    return php;
+  }
 
-    /**
+  /**
      * Task 1.3: Setup user dashboard
      */
-    async setupUserDashboard() {
-        console.log('📊 Task 1.3: User Dashboard Setup');
-        console.log('=================================\n');
+  async setupUserDashboard() {
+    console.log('📊 Task 1.3: User Dashboard Setup');
+    console.log('=================================\n');
         
-        try {
-            // Create dashboard configuration
-            const dashboardConfig = {
-                layout: {
-                    columns: 3,
-                    responsive_breakpoints: {
-                        tablet: 768,
-                        mobile: 480
-                    }
-                },
-                widgets: [
-                    {
-                        id: 'progress_overview',
-                        title: 'Your Progress',
-                        type: 'progress_chart',
-                        position: { row: 1, col: 1, span: 2 },
-                        settings: {
-                            show_percentage: true,
-                            show_time_remaining: true,
-                            chart_type: 'circular'
-                        }
-                    },
-                    {
-                        id: 'current_lesson',
-                        title: 'Current Lesson',
-                        type: 'lesson_card',
-                        position: { row: 1, col: 3, span: 1 },
-                        settings: {
-                            show_preview: true,
-                            show_duration: true
-                        }
-                    },
-                    {
-                        id: 'upcoming_lessons',
-                        title: 'Up Next',
-                        type: 'lesson_list',
-                        position: { row: 2, col: 1, span: 1 },
-                        settings: {
-                            limit: 5,
-                            show_week: true
-                        }
-                    },
-                    {
-                        id: 'recent_activity',
-                        title: 'Recent Activity',
-                        type: 'activity_feed',
-                        position: { row: 2, col: 2, span: 1 },
-                        settings: {
-                            limit: 10,
-                            show_timestamps: true
-                        }
-                    },
-                    {
-                        id: 'quick_actions',
-                        title: 'Quick Actions',
-                        type: 'action_buttons',
-                        position: { row: 2, col: 3, span: 1 },
-                        settings: {
-                            buttons: [
-                                { label: 'Continue Learning', action: 'continue_lesson', icon: 'play' },
-                                { label: 'Take Practice Test', action: 'practice_test', icon: 'quiz' },
-                                { label: 'Download Resources', action: 'resources', icon: 'download' },
-                                { label: 'View Progress Report', action: 'progress_report', icon: 'chart' }
-                            ]
-                        }
-                    },
-                    {
-                        id: 'study_streak',
-                        title: 'Study Streak',
-                        type: 'streak_counter',
-                        position: { row: 3, col: 1, span: 1 },
-                        settings: {
-                            show_calendar: true,
-                            show_goals: true
-                        }
-                    },
-                    {
-                        id: 'performance_metrics',
-                        title: 'Performance',
-                        type: 'metrics_grid',
-                        position: { row: 3, col: 2, span: 2 },
-                        settings: {
-                            metrics: [
-                                'lessons_completed',
-                                'practice_score_avg',
-                                'time_spent_learning',
-                                'completion_rate'
-                            ]
-                        }
-                    }
-                ],
-                user_preferences: {
-                    customizable_layout: true,
-                    widget_visibility: true,
-                    theme_selection: ['light', 'dark', 'auto']
-                }
-            };
-            
-            // Save dashboard configuration
-            const dashboardConfigPath = path.join(this.configPath, 'dashboard-config.json');
-            await fs.writeJson(dashboardConfigPath, dashboardConfig, { spaces: 2 });
-            
-            // Create dashboard template
-            const dashboardTemplate = this.generateDashboardTemplate(dashboardConfig);
-            const templatePath = path.join(this.scriptsPath, 'dashboard-template.php');
-            await fs.writeFile(templatePath, dashboardTemplate);
-            
-            // Create dashboard CSS
-            const dashboardCSS = this.generateDashboardCSS();
-            const cssPath = path.join(this.scriptsPath, 'dashboard-styles.css');
-            await fs.writeFile(cssPath, dashboardCSS);
-            
-            // Create dashboard JavaScript
-            const dashboardJS = this.generateDashboardJS();
-            const jsPath = path.join(this.scriptsPath, 'dashboard-scripts.js');
-            await fs.writeFile(jsPath, dashboardJS);
-            
-            this.results.dashboard = {
-                status: 'success',
-                message: 'Dashboard setup completed successfully',
-                configPath: dashboardConfigPath,
-                templatePath: templatePath,
-                cssPath: cssPath,
-                jsPath: jsPath
-            };
-            
-            console.log('✅ Dashboard configuration created');
-            console.log(`📄 Config: ${dashboardConfigPath}`);
-            console.log(`🎨 Template: ${templatePath}`);
-            console.log(`🎨 Styles: ${cssPath}`);
-            console.log(`⚡ Scripts: ${jsPath}`);
-            console.log('✅ Task 1.3 completed successfully!\n');
-            
-        } catch (error) {
-            console.error('❌ Dashboard setup failed:', error.message);
-            this.results.dashboard = {
-                status: 'error',
-                message: error.message
-            };
-            this.results.errors.push({
-                task: '1.3',
-                error: error.message
-            });
+    try {
+      // Create dashboard configuration
+      const dashboardConfig = {
+        layout: {
+          columns: 3,
+          responsive_breakpoints: {
+            tablet: 768,
+            mobile: 480
+          }
+        },
+        widgets: [
+          {
+            id: 'progress_overview',
+            title: 'Your Progress',
+            type: 'progress_chart',
+            position: { row: 1, col: 1, span: 2 },
+            settings: {
+              show_percentage: true,
+              show_time_remaining: true,
+              chart_type: 'circular'
+            }
+          },
+          {
+            id: 'current_lesson',
+            title: 'Current Lesson',
+            type: 'lesson_card',
+            position: { row: 1, col: 3, span: 1 },
+            settings: {
+              show_preview: true,
+              show_duration: true
+            }
+          },
+          {
+            id: 'upcoming_lessons',
+            title: 'Up Next',
+            type: 'lesson_list',
+            position: { row: 2, col: 1, span: 1 },
+            settings: {
+              limit: 5,
+              show_week: true
+            }
+          },
+          {
+            id: 'recent_activity',
+            title: 'Recent Activity',
+            type: 'activity_feed',
+            position: { row: 2, col: 2, span: 1 },
+            settings: {
+              limit: 10,
+              show_timestamps: true
+            }
+          },
+          {
+            id: 'quick_actions',
+            title: 'Quick Actions',
+            type: 'action_buttons',
+            position: { row: 2, col: 3, span: 1 },
+            settings: {
+              buttons: [
+                { label: 'Continue Learning', action: 'continue_lesson', icon: 'play' },
+                { label: 'Take Practice Test', action: 'practice_test', icon: 'quiz' },
+                { label: 'Download Resources', action: 'resources', icon: 'download' },
+                { label: 'View Progress Report', action: 'progress_report', icon: 'chart' }
+              ]
+            }
+          },
+          {
+            id: 'study_streak',
+            title: 'Study Streak',
+            type: 'streak_counter',
+            position: { row: 3, col: 1, span: 1 },
+            settings: {
+              show_calendar: true,
+              show_goals: true
+            }
+          },
+          {
+            id: 'performance_metrics',
+            title: 'Performance',
+            type: 'metrics_grid',
+            position: { row: 3, col: 2, span: 2 },
+            settings: {
+              metrics: [
+                'lessons_completed',
+                'practice_score_avg',
+                'time_spent_learning',
+                'completion_rate'
+              ]
+            }
+          }
+        ],
+        user_preferences: {
+          customizable_layout: true,
+          widget_visibility: true,
+          theme_selection: ['light', 'dark', 'auto']
         }
+      };
+            
+      // Save dashboard configuration
+      const dashboardConfigPath = path.join(this.configPath, 'dashboard-config.json');
+      await fs.writeJson(dashboardConfigPath, dashboardConfig, { spaces: 2 });
+            
+      // Create dashboard template
+      const dashboardTemplate = this.generateDashboardTemplate(dashboardConfig);
+      const templatePath = path.join(this.scriptsPath, 'dashboard-template.php');
+      await fs.writeFile(templatePath, dashboardTemplate);
+            
+      // Create dashboard CSS
+      const dashboardCSS = this.generateDashboardCSS();
+      const cssPath = path.join(this.scriptsPath, 'dashboard-styles.css');
+      await fs.writeFile(cssPath, dashboardCSS);
+            
+      // Create dashboard JavaScript
+      const dashboardJS = this.generateDashboardJS();
+      const jsPath = path.join(this.scriptsPath, 'dashboard-scripts.js');
+      await fs.writeFile(jsPath, dashboardJS);
+            
+      this.results.dashboard = {
+        status: 'success',
+        message: 'Dashboard setup completed successfully',
+        configPath: dashboardConfigPath,
+        templatePath: templatePath,
+        cssPath: cssPath,
+        jsPath: jsPath
+      };
+            
+      console.log('✅ Dashboard configuration created');
+      console.log(`📄 Config: ${dashboardConfigPath}`);
+      console.log(`🎨 Template: ${templatePath}`);
+      console.log(`🎨 Styles: ${cssPath}`);
+      console.log(`⚡ Scripts: ${jsPath}`);
+      console.log('✅ Task 1.3 completed successfully!\n');
+            
+    } catch (error) {
+      console.error('❌ Dashboard setup failed:', error.message);
+      this.results.dashboard = {
+        status: 'error',
+        message: error.message
+      };
+      this.results.errors.push({
+        task: '1.3',
+        error: error.message
+      });
     }
+  }
 
-    /**
+  /**
      * Generate dashboard template PHP
      */
-    generateDashboardTemplate(config) {
-        return `<?php
+  generateDashboardTemplate(config) {
+    return `<?php
 /**
  * PMP Course Dashboard Template
  * Generated by Phase 1 Setup Script
@@ -566,13 +566,13 @@ get_header(); ?>
 </div>
 
 <?php get_footer(); ?>`;
-    }
+  }
 
-    /**
+  /**
      * Generate dashboard CSS
      */
-    generateDashboardCSS() {
-        return `/* PMP Dashboard Styles */
+  generateDashboardCSS() {
+    return `/* PMP Dashboard Styles */
 .pmp-dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -686,13 +686,13 @@ get_header(); ?>
         width: 100%;
     }
 }`;
-    }
+  }
 
-    /**
+  /**
      * Generate dashboard JavaScript
      */
-    generateDashboardJS() {
-        return `// PMP Dashboard JavaScript
+  generateDashboardJS() {
+    return `// PMP Dashboard JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dashboard
     initializeDashboard();
@@ -833,100 +833,100 @@ function hideTooltip() {
         tooltip.remove();
     }
 }`;
-    }
+  }
 
-    /**
+  /**
      * Generate final Phase 1 report
      */
-    generatePhase1Report() {
-        console.log('\n📊 PHASE 1 COMPLETION REPORT');
-        console.log('============================\n');
+  generatePhase1Report() {
+    console.log('\n📊 PHASE 1 COMPLETION REPORT');
+    console.log('============================\n');
         
-        const tasks = [
-            { id: '1.1', name: 'Content Import and Organization', result: this.results.contentImport },
-            { id: '1.2', name: 'Primary Navigation Configuration', result: this.results.navigation },
-            { id: '1.3', name: 'User Dashboard Setup', result: this.results.dashboard }
-        ];
+    const tasks = [
+      { id: '1.1', name: 'Content Import and Organization', result: this.results.contentImport },
+      { id: '1.2', name: 'Primary Navigation Configuration', result: this.results.navigation },
+      { id: '1.3', name: 'User Dashboard Setup', result: this.results.dashboard }
+    ];
         
-        tasks.forEach(task => {
-            const status = task.result?.status === 'success' ? '✅' : '❌';
-            console.log(`${status} Task ${task.id}: ${task.name}`);
-            if (task.result?.message) {
-                console.log(`   ${task.result.message}`);
-            }
-        });
+    tasks.forEach(task => {
+      const status = task.result?.status === 'success' ? '✅' : '❌';
+      console.log(`${status} Task ${task.id}: ${task.name}`);
+      if (task.result?.message) {
+        console.log(`   ${task.result.message}`);
+      }
+    });
         
-        console.log(`\nTotal errors: ${this.results.errors.length}`);
+    console.log(`\nTotal errors: ${this.results.errors.length}`);
         
-        if (this.results.errors.length > 0) {
-            console.log('\n❌ ERRORS ENCOUNTERED:');
-            this.results.errors.forEach(error => {
-                console.log(`   Task ${error.task}: ${error.error}`);
-            });
-        }
-        
-        const successCount = tasks.filter(task => task.result?.status === 'success').length;
-        const successRate = (successCount / tasks.length) * 100;
-        
-        console.log(`\n📈 Success Rate: ${successRate.toFixed(1)}% (${successCount}/${tasks.length} tasks)`);
-        
-        if (successRate === 100) {
-            console.log('\n🎉 Phase 1 completed successfully!');
-            console.log('Ready to proceed to Phase 2: Media and Resources');
-        } else {
-            console.log('\n⚠️  Phase 1 completed with issues. Please review errors before proceeding.');
-        }
-        
-        // Save detailed report
-        const reportData = {
-            phase: 1,
-            timestamp: new Date().toISOString(),
-            tasks: tasks,
-            results: this.results,
-            success_rate: successRate
-        };
-        
-        const reportPath = path.join(this.projectRoot, 'generated/phase1-report.json');
-        fs.ensureDirSync(path.dirname(reportPath));
-        fs.writeJsonSync(reportPath, reportData, { spaces: 2 });
-        
-        console.log(`\n📄 Detailed report saved to: ${reportPath}`);
+    if (this.results.errors.length > 0) {
+      console.log('\n❌ ERRORS ENCOUNTERED:');
+      this.results.errors.forEach(error => {
+        console.log(`   Task ${error.task}: ${error.error}`);
+      });
     }
+        
+    const successCount = tasks.filter(task => task.result?.status === 'success').length;
+    const successRate = (successCount / tasks.length) * 100;
+        
+    console.log(`\n📈 Success Rate: ${successRate.toFixed(1)}% (${successCount}/${tasks.length} tasks)`);
+        
+    if (successRate === 100) {
+      console.log('\n🎉 Phase 1 completed successfully!');
+      console.log('Ready to proceed to Phase 2: Media and Resources');
+    } else {
+      console.log('\n⚠️  Phase 1 completed with issues. Please review errors before proceeding.');
+    }
+        
+    // Save detailed report
+    const reportData = {
+      phase: 1,
+      timestamp: new Date().toISOString(),
+      tasks: tasks,
+      results: this.results,
+      success_rate: successRate
+    };
+        
+    const reportPath = path.join(this.projectRoot, 'generated/phase1-report.json');
+    fs.ensureDirSync(path.dirname(reportPath));
+    fs.writeJsonSync(reportPath, reportData, { spaces: 2 });
+        
+    console.log(`\n📄 Detailed report saved to: ${reportPath}`);
+  }
 
-    /**
+  /**
      * Main execution method
      */
-    async run() {
-        try {
-            console.log('🚀 PMP WordPress Theme - Phase 1 Setup');
-            console.log('======================================\n');
+  async run() {
+    try {
+      console.log('🚀 PMP WordPress Theme - Phase 1 Setup');
+      console.log('======================================\n');
             
-            // Check prerequisites
-            const prereqsPassed = await this.checkPrerequisites();
-            if (!prereqsPassed) {
-                console.log('❌ Prerequisites not met. Exiting...');
-                process.exit(1);
-            }
+      // Check prerequisites
+      const prereqsPassed = await this.checkPrerequisites();
+      if (!prereqsPassed) {
+        console.log('❌ Prerequisites not met. Exiting...');
+        process.exit(1);
+      }
             
-            // Execute Phase 1 tasks
-            await this.executeContentImport();
-            await this.setupPrimaryNavigation();
-            await this.setupUserDashboard();
+      // Execute Phase 1 tasks
+      await this.executeContentImport();
+      await this.setupPrimaryNavigation();
+      await this.setupUserDashboard();
             
-            // Generate final report
-            this.generatePhase1Report();
+      // Generate final report
+      this.generatePhase1Report();
             
-        } catch (error) {
-            console.error('❌ Fatal error during Phase 1 setup:', error);
-            process.exit(1);
-        }
+    } catch (error) {
+      console.error('❌ Fatal error during Phase 1 setup:', error);
+      process.exit(1);
     }
+  }
 }
 
 // Execute if run directly
 if (require.main === module) {
-    const setup = new Phase1Setup();
-    setup.run();
+  const setup = new Phase1Setup();
+  setup.run();
 }
 
 module.exports = Phase1Setup;

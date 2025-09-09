@@ -37,6 +37,12 @@ class PMP_Dashboard {
         add_action('wp_ajax_track_user_event', [$this, 'ajax_track_user_event']);
         add_action('wp_ajax_update_lesson_progress', [$this, 'ajax_update_lesson_progress']);
         add_action('wp_ajax_get_detailed_progress', [$this, 'ajax_get_detailed_progress']);
+        add_action('wp_ajax_set_current_lesson', [$this, 'ajax_set_current_lesson']);
+        add_action('wp_ajax_mark_lesson_complete', [$this, 'ajax_mark_lesson_complete']);
+        add_action('wp_ajax_get_current_lesson', [$this, 'ajax_get_current_lesson']);
+        add_action('wp_ajax_get_lesson_preview', [$this, 'ajax_get_lesson_preview']);
+        add_action('wp_ajax_get_lesson_progress', [$this, 'ajax_get_lesson_progress']);
+        add_action('wp_ajax_track_lesson_event', [$this, 'ajax_track_lesson_event']);
     }
     
     /**
@@ -47,6 +53,7 @@ class PMP_Dashboard {
     public function render_dashboard(): string {
         $progress_stats = $this->get_progress_stats();
         $next_lesson = $this->get_next_lesson();
+        $upcoming_lessons = $this->get_upcoming_lessons();
         $recent_activity = $this->get_recent_activity();
         
         ob_start();
@@ -57,6 +64,9 @@ class PMP_Dashboard {
             </div>
             <div class="dashboard-next-lesson">
                 <?php echo $this->render_next_lesson_card($next_lesson); ?>
+            </div>
+            <div class="dashboard-upcoming-lessons">
+                <?php echo $this->render_upcoming_lessons_preview($upcoming_lessons); ?>
             </div>
             <div class="dashboard-activity">
                 <?php echo $this->render_recent_activity($recent_activity); ?>
@@ -94,6 +104,94 @@ class PMP_Dashboard {
         $user_progress['current_week'] = $current_week;
         
         return $user_progress;
+    }
+    
+    /**
+     * Get current lesson (lesson user is actively working on)
+     * 
+     * @return object|null Current lesson data or null if none
+     */
+    public function get_current_lesson(): ?object {
+        $current_lesson_id = get_user_meta($this->user_id, 'pmp_current_lesson', true);
+        
+        if (empty($current_lesson_id)) {
+            // If no current lesson set, use the next lesson as current
+            $next_lesson = $this->get_next_lesson();
+            if ($next_lesson && $next_lesson->id !== 'completed') {
+                $this->set_current_lesson($next_lesson->id);
+                return $next_lesson;
+            }
+            return null;
+        }
+        
+        // Get lesson data for current lesson
+        $lesson = $this->get_lesson_by_id($current_lesson_id);
+        if (!$lesson) {
+            return null;
+        }
+        
+        $progress = $this->get_progress_stats();
+        $completed_lessons = $progress['lessons_completed'] ?? [];
+        
+        return (object) [
+            'id' => $lesson['id'],
+            'title' => $lesson['title'],
+            'description' => $lesson['description'],
+            'thumbnail' => $lesson['thumbnail'] ?? $this->get_default_thumbnail(),
+            'duration' => $lesson['duration'] ?? '20 minutes',
+            'url' => $lesson['url'] ?? home_url('/lesson/' . $lesson['id'] . '/'),
+            'week' => $lesson['week'] ?? 1,
+            'module' => $lesson['module'] ?? 'Introduction',
+            'difficulty' => $lesson['difficulty'] ?? 'Beginner',
+            'eco_tasks' => $lesson['eco_tasks'] ?? [],
+            'prerequisites' => $lesson['prerequisites'] ?? [],
+            'estimated_time' => $lesson['estimated_time'] ?? 20,
+            'completion_rate' => $this->get_lesson_completion_rate($lesson['id']),
+            'is_current' => true,
+            'is_completed' => in_array($lesson['id'], $completed_lessons),
+            'progress_percentage' => $this->get_lesson_progress_percentage($lesson['id']),
+            'last_accessed' => get_user_meta($this->user_id, 'pmp_lesson_last_accessed_' . $lesson['id'], true),
+            'time_spent' => get_user_meta($this->user_id, 'pmp_lesson_time_spent_' . $lesson['id'], true) ?: 0
+        ];
+    }
+    
+    /**
+     * Set current lesson for user
+     * 
+     * @param string $lesson_id Lesson identifier
+     */
+    public function set_current_lesson($lesson_id): void {
+        update_user_meta($this->user_id, 'pmp_current_lesson', $lesson_id);
+        update_user_meta($this->user_id, 'pmp_lesson_last_accessed_' . $lesson_id, current_time('mysql'));
+        
+        // Log activity
+        $lesson = $this->get_lesson_by_id($lesson_id);
+        if ($lesson) {
+            $this->log_activity('Started: ' . $lesson['title'], 'started', ['lesson_id' => $lesson_id]);
+        }
+    }
+    
+    /**
+     * Get lesson progress percentage for a specific lesson
+     * 
+     * @param string $lesson_id Lesson identifier
+     * @return float Progress percentage (0-100)
+     */
+    private function get_lesson_progress_percentage($lesson_id): float {
+        if (class_exists('PMP_Progress_Tracker')) {
+            $progress_tracker = new PMP_Progress_Tracker($this->user_id);
+            $progress_data = $progress_tracker->get_user_progress_data();
+            
+            if (isset($progress_data['lesson_progress'][$lesson_id])) {
+                return $progress_data['lesson_progress'][$lesson_id]['completion_percentage'] ?? 0;
+            }
+        }
+        
+        // Fallback: check if lesson is in completed lessons
+        $progress = $this->get_progress_stats();
+        $completed_lessons = $progress['lessons_completed'] ?? [];
+        
+        return in_array($lesson_id, $completed_lessons) ? 100 : 0;
     }
     
     /**
@@ -149,6 +247,101 @@ class PMP_Dashboard {
             'is_recommended' => true,
             'recommendation_reason' => 'All course content completed successfully!'
         ];
+    }
+    
+    /**
+     * Get upcoming lessons preview (next 3-5 lessons)
+     * 
+     * @param int $limit Number of upcoming lessons to return (default: 4)
+     * @return array Array of upcoming lesson objects
+     */
+    public function get_upcoming_lessons($limit = 4): array {
+        $progress = $this->get_progress_stats();
+        $completed_lessons = $progress['lessons_completed'] ?? [];
+        
+        // Get all course lessons
+        $lessons = $this->get_course_lessons();
+        $upcoming_lessons = [];
+        $count = 0;
+        
+        // Find upcoming incomplete lessons
+        foreach ($lessons as $lesson) {
+            if (!in_array($lesson['id'], $completed_lessons) && $count < $limit) {
+                $upcoming_lessons[] = (object) [
+                    'id' => $lesson['id'],
+                    'title' => $lesson['title'],
+                    'description' => $lesson['description'],
+                    'thumbnail' => $lesson['thumbnail'] ?? $this->get_default_thumbnail(),
+                    'duration' => $lesson['duration'] ?? '20 minutes',
+                    'url' => $lesson['url'] ?? home_url('/lesson/' . $lesson['id'] . '/'),
+                    'week' => $lesson['week'] ?? 1,
+                    'day' => $lesson['day'] ?? 1,
+                    'module' => $lesson['module'] ?? 'Introduction',
+                    'difficulty' => $lesson['difficulty'] ?? 'Beginner',
+                    'eco_tasks' => $lesson['eco_tasks'] ?? [],
+                    'prerequisites' => $lesson['prerequisites'] ?? [],
+                    'estimated_time' => $lesson['estimated_time'] ?? 20,
+                    'completion_rate' => $this->get_lesson_completion_rate($lesson['id']),
+                    'is_next' => $count === 0,
+                    'position' => $count + 1,
+                    'unlock_status' => $this->get_lesson_unlock_status($lesson, $completed_lessons),
+                    'preview_available' => $this->is_lesson_preview_available($lesson['id'])
+                ];
+                $count++;
+            }
+        }
+        
+        return $upcoming_lessons;
+    }
+    
+    /**
+     * Get lesson unlock status
+     * 
+     * @param array $lesson Lesson data
+     * @param array $completed_lessons Array of completed lesson IDs
+     * @return string Unlock status: 'unlocked', 'locked', 'preview'
+     */
+    private function get_lesson_unlock_status($lesson, $completed_lessons): string {
+        // For now, all lessons are unlocked (sequential access)
+        // This could be enhanced to implement prerequisite-based unlocking
+        $lesson_index = $this->get_lesson_index($lesson['id']);
+        $completed_count = count($completed_lessons);
+        
+        if ($lesson_index <= $completed_count) {
+            return 'unlocked';
+        } elseif ($lesson_index <= $completed_count + 3) {
+            return 'preview';
+        } else {
+            return 'locked';
+        }
+    }
+    
+    /**
+     * Check if lesson preview is available
+     * 
+     * @param string $lesson_id Lesson identifier
+     * @return bool True if preview is available
+     */
+    private function is_lesson_preview_available($lesson_id): bool {
+        // For now, all lessons have previews available
+        // This could be enhanced to check for actual preview content
+        return true;
+    }
+    
+    /**
+     * Get lesson index in the course sequence
+     * 
+     * @param string $lesson_id Lesson identifier
+     * @return int Lesson index (0-based)
+     */
+    private function get_lesson_index($lesson_id): int {
+        $lessons = $this->get_course_lessons();
+        foreach ($lessons as $index => $lesson) {
+            if ($lesson['id'] === $lesson_id) {
+                return $index;
+            }
+        }
+        return 0;
     }
     
     /**
@@ -473,6 +666,175 @@ class PMP_Dashboard {
     }
     
     /**
+     * Render upcoming lessons preview
+     * 
+     * @param array $upcoming_lessons Array of upcoming lesson objects
+     * @return string HTML for upcoming lessons preview
+     */
+    public function render_upcoming_lessons_preview($upcoming_lessons): string {
+        if (empty($upcoming_lessons)) {
+            return '';
+        }
+        
+        ob_start();
+        ?>
+        <div class="upcoming-lessons-preview">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0 text-primary">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    Coming Up Next
+                </h5>
+                <span class="badge bg-light text-dark">
+                    <?php echo count($upcoming_lessons); ?> lessons
+                </span>
+            </div>
+            
+            <div class="upcoming-lessons-list">
+                <?php foreach ($upcoming_lessons as $index => $lesson): ?>
+                    <div class="upcoming-lesson-item <?php echo $lesson->is_next ? 'is-next' : ''; ?> <?php echo $lesson->unlock_status; ?>"
+                         data-lesson-id="<?php echo esc_attr($lesson->id); ?>">
+                        <div class="row align-items-center">
+                            <!-- Lesson Number/Position -->
+                            <div class="col-auto">
+                                <div class="lesson-position">
+                                    <?php if ($lesson->is_next): ?>
+                                        <div class="position-indicator next">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="position-indicator">
+                                            <?php echo $lesson->position; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <!-- Lesson Thumbnail -->
+                            <div class="col-auto">
+                                <div class="lesson-thumbnail-small position-relative">
+                                    <img src="<?php echo esc_url($lesson->thumbnail); ?>"
+                                         alt="<?php echo esc_attr($lesson->title); ?>"
+                                         class="img-fluid rounded">
+                                    
+                                    <!-- Unlock Status Overlay -->
+                                    <?php if ($lesson->unlock_status === 'locked'): ?>
+                                        <div class="unlock-overlay">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                    <?php elseif ($lesson->unlock_status === 'preview'): ?>
+                                        <div class="preview-overlay">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Duration Badge -->
+                                    <div class="duration-badge-small">
+                                        <?php echo esc_html($lesson->estimated_time); ?>m
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Lesson Details -->
+                            <div class="col">
+                                <div class="lesson-meta mb-1">
+                                    <span class="badge bg-light text-dark me-2">
+                                        Week <?php echo esc_html($lesson->week); ?>
+                                        <?php if (isset($lesson->day)): ?>
+                                            · Day <?php echo esc_html($lesson->day); ?>
+                                        <?php endif; ?>
+                                    </span>
+                                    <span class="badge bg-secondary">
+                                        <?php echo esc_html($lesson->module); ?>
+                                    </span>
+                                </div>
+                                
+                                <h6 class="lesson-title mb-1">
+                                    <?php echo esc_html($lesson->title); ?>
+                                </h6>
+                                
+                                <p class="lesson-description-short text-muted mb-1">
+                                    <?php echo esc_html(wp_trim_words($lesson->description, 12)); ?>
+                                </p>
+                                
+                                <!-- Lesson Stats -->
+                                <div class="lesson-stats-small">
+                                    <small class="text-muted me-3">
+                                        <i class="fas fa-clock me-1"></i>
+                                        <?php echo esc_html($lesson->estimated_time); ?> min
+                                    </small>
+                                    <small class="text-muted me-3">
+                                        <i class="fas fa-signal me-1"></i>
+                                        <?php echo esc_html($lesson->difficulty); ?>
+                                    </small>
+                                    <?php if ($lesson->completion_rate > 0): ?>
+                                        <small class="text-muted">
+                                            <i class="fas fa-users me-1"></i>
+                                            <?php echo number_format($lesson->completion_rate, 0); ?>%
+                                        </small>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Button -->
+                            <div class="col-auto">
+                                <?php if ($lesson->unlock_status === 'unlocked'): ?>
+                                    <a href="<?php echo esc_url($lesson->url); ?>"
+                                       class="btn btn-sm <?php echo $lesson->is_next ? 'btn-primary' : 'btn-outline-primary'; ?>"
+                                       data-lesson-id="<?php echo esc_attr($lesson->id); ?>">
+                                        <?php if ($lesson->is_next): ?>
+                                            <i class="fas fa-play me-1"></i>
+                                            Start
+                                        <?php else: ?>
+                                            <i class="fas fa-arrow-right me-1"></i>
+                                            View
+                                        <?php endif; ?>
+                                    </a>
+                                <?php elseif ($lesson->unlock_status === 'preview' && $lesson->preview_available): ?>
+                                    <button class="btn btn-sm btn-outline-secondary preview-lesson-btn"
+                                            data-lesson-id="<?php echo esc_attr($lesson->id); ?>">
+                                        <i class="fas fa-eye me-1"></i>
+                                        Preview
+                                    </button>
+                                <?php else: ?>
+                                    <button class="btn btn-sm btn-outline-secondary" disabled>
+                                        <i class="fas fa-lock me-1"></i>
+                                        Locked
+                                    </button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Bar for Current Lesson -->
+                        <?php if ($lesson->is_next): ?>
+                            <div class="lesson-progress-preview mt-2">
+                                <div class="progress" style="height: 4px;">
+                                    <div class="progress-bar bg-primary" 
+                                         style="width: 0%"
+                                         data-lesson-id="<?php echo esc_attr($lesson->id); ?>"></div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if ($index < count($upcoming_lessons) - 1): ?>
+                        <hr class="lesson-separator">
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            
+            <!-- View All Lessons Link -->
+            <div class="text-center mt-3">
+                <a href="<?php echo home_url('/lessons/'); ?>" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-list me-1"></i>
+                    View All Lessons
+                </a>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
      * Add activity to user's recent activity log
      * 
      * @param string $title Activity title
@@ -534,15 +896,18 @@ class PMP_Dashboard {
      */
     private function get_course_lessons(): array {
         // This would typically come from database or custom post types
-        // For now, return sample data structure
+        // For now, return sample data structure with more lessons for testing
         return [
             [
                 'id' => 'lesson-01-01',
                 'title' => 'PMP Exam Overview',
                 'description' => 'Introduction to the PMP certification and exam structure',
                 'week' => 1,
+                'day' => 1,
                 'module' => 'Foundations',
+                'difficulty' => 'Beginner',
                 'duration' => '20 minutes',
+                'estimated_time' => 20,
                 'url' => home_url('/lesson/pmp-exam-overview/'),
                 'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-01-01.jpg'
             ],
@@ -551,10 +916,91 @@ class PMP_Dashboard {
                 'title' => 'Project Management Mindset',
                 'description' => 'Developing the right mindset for project management success',
                 'week' => 1,
+                'day' => 2,
                 'module' => 'Foundations',
+                'difficulty' => 'Beginner',
                 'duration' => '18 minutes',
+                'estimated_time' => 18,
                 'url' => home_url('/lesson/project-management-mindset/'),
                 'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-01-02.jpg'
+            ],
+            [
+                'id' => 'lesson-01-03',
+                'title' => 'Study Strategy & Planning',
+                'description' => 'Effective strategies for PMP exam preparation and study planning',
+                'week' => 1,
+                'day' => 3,
+                'module' => 'Foundations',
+                'difficulty' => 'Beginner',
+                'duration' => '22 minutes',
+                'estimated_time' => 22,
+                'url' => home_url('/lesson/study-strategy-planning/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-01-03.jpg'
+            ],
+            [
+                'id' => 'lesson-01-04',
+                'title' => 'PMI Framework Introduction',
+                'description' => 'Understanding the Project Management Institute framework and standards',
+                'week' => 1,
+                'day' => 4,
+                'module' => 'Foundations',
+                'difficulty' => 'Beginner',
+                'duration' => '25 minutes',
+                'estimated_time' => 25,
+                'url' => home_url('/lesson/pmi-framework-introduction/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-01-04.jpg'
+            ],
+            [
+                'id' => 'lesson-01-05',
+                'title' => 'Project Lifecycle Fundamentals',
+                'description' => 'Core concepts of project lifecycle and phase management',
+                'week' => 1,
+                'day' => 5,
+                'module' => 'Foundations',
+                'difficulty' => 'Intermediate',
+                'duration' => '24 minutes',
+                'estimated_time' => 24,
+                'url' => home_url('/lesson/project-lifecycle-fundamentals/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-01-05.jpg'
+            ],
+            [
+                'id' => 'lesson-02-01',
+                'title' => 'Team Leadership Principles',
+                'description' => 'Essential leadership skills for project managers and team dynamics',
+                'week' => 2,
+                'day' => 1,
+                'module' => 'People Domain',
+                'difficulty' => 'Intermediate',
+                'duration' => '26 minutes',
+                'estimated_time' => 26,
+                'url' => home_url('/lesson/team-leadership-principles/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-02-01.jpg'
+            ],
+            [
+                'id' => 'lesson-02-02',
+                'title' => 'Stakeholder Engagement',
+                'description' => 'Strategies for effective stakeholder identification and engagement',
+                'week' => 2,
+                'day' => 2,
+                'module' => 'People Domain',
+                'difficulty' => 'Intermediate',
+                'duration' => '23 minutes',
+                'estimated_time' => 23,
+                'url' => home_url('/lesson/stakeholder-engagement/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-02-02.jpg'
+            ],
+            [
+                'id' => 'lesson-02-03',
+                'title' => 'Conflict Resolution',
+                'description' => 'Techniques for managing and resolving conflicts in project teams',
+                'week' => 2,
+                'day' => 3,
+                'module' => 'People Domain',
+                'difficulty' => 'Advanced',
+                'duration' => '28 minutes',
+                'estimated_time' => 28,
+                'url' => home_url('/lesson/conflict-resolution/'),
+                'thumbnail' => get_template_directory_uri() . '/images/lessons/lesson-02-03.jpg'
             ]
             // Additional lessons would be loaded from database
         ];
@@ -703,6 +1149,154 @@ class PMP_Dashboard {
     }
     
     /**
+     * Render current lesson highlighting card
+     * 
+     * @return string HTML for current lesson card
+     */
+    public function render_current_lesson_card(): string {
+        $current_lesson = $this->get_current_lesson();
+        
+        if (!$current_lesson) {
+            return '<div class="current-lesson-placeholder">
+                        <p class="text-muted">No current lesson available</p>
+                    </div>';
+        }
+        
+        ob_start();
+        ?>
+        <div class="current-lesson-card card border-primary" data-lesson-id="<?php echo esc_attr($current_lesson->id); ?>">
+            <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-play-circle me-2"></i>
+                    <span class="fw-bold">Current Lesson</span>
+                </div>
+                <div class="current-lesson-badges">
+                    <?php if ($current_lesson->is_completed): ?>
+                        <span class="badge bg-success">
+                            <i class="fas fa-check me-1"></i>Completed
+                        </span>
+                    <?php else: ?>
+                        <span class="badge bg-warning">
+                            <i class="fas fa-clock me-1"></i>In Progress
+                        </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="lesson-thumbnail position-relative">
+                            <img src="<?php echo esc_url($current_lesson->thumbnail); ?>" 
+                                 alt="<?php echo esc_attr($current_lesson->title); ?>"
+                                 class="img-fluid rounded">
+                            
+                            <!-- Progress overlay -->
+                            <?php if ($current_lesson->progress_percentage > 0 && $current_lesson->progress_percentage < 100): ?>
+                                <div class="progress-overlay">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" 
+                                             style="width: <?php echo $current_lesson->progress_percentage; ?>%"
+                                             aria-valuenow="<?php echo $current_lesson->progress_percentage; ?>" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <small class="progress-text"><?php echo number_format($current_lesson->progress_percentage, 0); ?>% Complete</small>
+                                </div>
+                            <?php endif; ?>
+                            
+                            <!-- Duration badge -->
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge bg-dark bg-opacity-75">
+                                    <i class="fas fa-clock me-1"></i><?php echo esc_html($current_lesson->duration); ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="lesson-content">
+                            <h5 class="lesson-title text-primary mb-2">
+                                <?php echo esc_html($current_lesson->title); ?>
+                            </h5>
+                            <p class="lesson-description text-muted mb-3">
+                                <?php echo esc_html($current_lesson->description); ?>
+                            </p>
+                            
+                            <div class="lesson-meta d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-calendar me-1"></i>Week <?php echo $current_lesson->week; ?>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-layer-group me-1"></i><?php echo esc_html($current_lesson->module); ?>
+                                </span>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-signal me-1"></i><?php echo esc_html($current_lesson->difficulty); ?>
+                                </span>
+                            </div>
+                            
+                            <?php if ($current_lesson->last_accessed): ?>
+                                <small class="text-muted d-block mb-2">
+                                    <i class="fas fa-history me-1"></i>
+                                    Last accessed: <?php echo human_time_diff(strtotime($current_lesson->last_accessed), current_time('timestamp')); ?> ago
+                                </small>
+                            <?php endif; ?>
+                            
+                            <?php if ($current_lesson->time_spent > 0): ?>
+                                <small class="text-muted d-block">
+                                    <i class="fas fa-stopwatch me-1"></i>
+                                    Time spent: <?php echo gmdate('H:i:s', $current_lesson->time_spent * 60); ?>
+                                </small>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="lesson-actions d-grid gap-2">
+                            <?php if ($current_lesson->is_completed): ?>
+                                <a href="<?php echo esc_url($current_lesson->url); ?>" 
+                                   class="btn btn-outline-primary btn-lg">
+                                    <i class="fas fa-eye me-2"></i>Review Lesson
+                                </a>
+                            <?php else: ?>
+                                <a href="<?php echo esc_url($current_lesson->url); ?>" 
+                                   class="btn btn-primary btn-lg continue-current-lesson-btn"
+                                   data-lesson-id="<?php echo esc_attr($current_lesson->id); ?>">
+                                    <i class="fas fa-play me-2"></i>
+                                    <?php echo $current_lesson->progress_percentage > 0 ? 'Continue' : 'Start'; ?> Lesson
+                                </a>
+                            <?php endif; ?>
+                            
+                            <button class="btn btn-outline-secondary btn-sm mark-complete-btn" 
+                                    data-lesson-id="<?php echo esc_attr($current_lesson->id); ?>"
+                                    <?php echo $current_lesson->is_completed ? 'disabled' : ''; ?>>
+                                <i class="fas fa-check me-1"></i>Mark Complete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress bar at bottom -->
+            <?php if (!$current_lesson->is_completed): ?>
+                <div class="card-footer p-0">
+                    <div class="progress" style="height: 4px; border-radius: 0;">
+                        <div class="progress-bar bg-primary" 
+                             style="width: <?php echo $current_lesson->progress_percentage; ?>%"
+                             aria-valuenow="<?php echo $current_lesson->progress_percentage; ?>" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
      * Render next lesson card
      * 
      * @param object $lesson Lesson data
@@ -766,6 +1360,79 @@ class PMP_Dashboard {
         </div>
         <?php
         return ob_get_clean();
+    }
+    
+    /**
+     * AJAX handler for setting current lesson
+     */
+    public function ajax_set_current_lesson() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        
+        if (empty($lesson_id)) {
+            wp_send_json_error('Lesson ID is required');
+        }
+        
+        $this->set_current_lesson($lesson_id);
+        
+        wp_send_json_success([
+            'message' => 'Current lesson updated successfully',
+            'current_lesson' => $this->get_current_lesson()
+        ]);
+    }
+    
+    /**
+     * AJAX handler for marking lesson as complete
+     */
+    public function ajax_mark_lesson_complete() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        
+        if (empty($lesson_id)) {
+            wp_send_json_error('Lesson ID is required');
+        }
+        
+        // Mark lesson as complete
+        $this->update_lesson_progress($lesson_id, 100);
+        
+        // Update current lesson to next lesson
+        $next_lesson = $this->get_next_lesson();
+        if ($next_lesson && $next_lesson->id !== 'completed') {
+            $this->set_current_lesson($next_lesson->id);
+        }
+        
+        wp_send_json_success([
+            'message' => 'Lesson marked as complete',
+            'current_lesson' => $this->get_current_lesson(),
+            'next_lesson' => $this->get_next_lesson(),
+            'progress' => $this->get_progress_stats()
+        ]);
+    }
+    
+    /**
+     * AJAX handler for getting current lesson data
+     */
+    public function ajax_get_current_lesson() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
+            wp_die('Security check failed');
+        }
+        
+        $current_lesson = $this->get_current_lesson();
+        
+        if ($current_lesson) {
+            wp_send_json_success($current_lesson);
+        } else {
+            wp_send_json_error('No current lesson available');
+        }
     }
     
     /**
@@ -919,15 +1586,15 @@ class PMP_Dashboard {
         }
         
         return $recommendations;
-    } = isset($_POST['user_id']) && $_POST['user_id'] !== 'current' 
-            ? intval($_POST['user_id']) 
-            : get_current_user_id();
-        
-        if (!$user_id) {
-            wp_send_json_error('User not logged in');
-            return;
-        }
-        
+    }
+    
+    /**
+     * Get personalized recommendations for user
+     * 
+     * @param int $user_id User ID
+     * @return array Recommendations
+     */
+    private function get_personalized_recommendations($user_id) {
         // Initialize progress tracker
         if (class_exists('PMP_Progress_Tracker')) {
             $progress_tracker = new PMP_Progress_Tracker($user_id);
@@ -962,197 +1629,162 @@ class PMP_Dashboard {
     }
     
     /**
-     * AJAX handler for tracking user events
+     * AJAX handler for getting lesson preview
      */
-    public function ajax_track_user_event() {
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
-            wp_die('Security check failed');
+    public function ajax_get_lesson_preview() {
+        check_ajax_referer('pmp_dashboard_nonce', 'nonce');
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        
+        if (empty($lesson_id)) {
+            wp_send_json_error('Invalid lesson ID');
         }
         
-        $user_id = get_current_user_id();
-        if (!$user_id) {
-            wp_send_json_error('User not logged in');
-            return;
+        $lesson = $this->get_lesson_by_id($lesson_id);
+        
+        if (!$lesson) {
+            wp_send_json_error('Lesson not found');
         }
         
-        $event_type = sanitize_text_field($_POST['event_type']);
-        $event_data = json_decode(stripslashes($_POST['event_data']), true);
+        // Generate preview HTML
+        $preview_html = $this->generate_lesson_preview_html($lesson);
         
-        // Log the event
-        $this->log_user_event($user_id, $event_type, $event_data);
-        
-        wp_send_json_success(['message' => 'Event tracked successfully']);
+        wp_send_json_success([
+            'preview_html' => $preview_html,
+            'lesson_url' => $lesson['url']
+        ]);
     }
     
     /**
-     * AJAX handler for updating lesson progress
+     * AJAX handler for getting lesson progress
      */
-    public function ajax_update_lesson_progress() {
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
-            wp_die('Security check failed');
+    public function ajax_get_lesson_progress() {
+        check_ajax_referer('pmp_dashboard_nonce', 'nonce');
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        
+        if (empty($lesson_id)) {
+            wp_send_json_error('Invalid lesson ID');
         }
         
-        $user_id = get_current_user_id();
-        if (!$user_id) {
-            wp_send_json_error('User not logged in');
-            return;
-        }
+        $progress_percentage = $this->get_lesson_progress_percentage($lesson_id);
         
-        $lesson_id = sanitize_text_field($_POST['lesson_id']);
-        $completion_percentage = floatval($_POST['completion_percentage']);
-        $session_data = json_decode(stripslashes($_POST['session_data'] ?? '{}'), true);
-        
-        // Update progress using progress tracker
-        if (class_exists('PMP_Progress_Tracker')) {
-            $progress_tracker = new PMP_Progress_Tracker($user_id);
-            $progress_tracker->update_lesson_progress($lesson_id, $completion_percentage, $session_data);
-        } else {
-            // Fallback to dashboard method
-            $this->update_lesson_progress($lesson_id, $completion_percentage);
-        }
-        
-        // Return updated progress data
-        $updated_progress = $this->get_progress_stats();
-        wp_send_json_success($updated_progress);
+        wp_send_json_success([
+            'progress_percentage' => $progress_percentage
+        ]);
     }
     
     /**
-     * AJAX handler for getting detailed progress data
+     * AJAX handler for tracking lesson events
      */
-    public function ajax_get_detailed_progress() {
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'pmp_ajax_nonce')) {
-            wp_die('Security check failed');
+    public function ajax_track_lesson_event() {
+        check_ajax_referer('pmp_dashboard_nonce', 'nonce');
+        
+        $lesson_id = sanitize_text_field($_POST['lesson_id'] ?? '');
+        $event_type = sanitize_text_field($_POST['event_type'] ?? '');
+        
+        if (empty($lesson_id) || empty($event_type)) {
+            wp_send_json_error('Invalid parameters');
         }
         
-        $user_id = get_current_user_id();
-        if (!$user_id) {
-            wp_send_json_error('User not logged in');
-            return;
+        $lesson = $this->get_lesson_by_id($lesson_id);
+        
+        if ($lesson) {
+            $this->log_activity(
+                ucfirst($event_type) . ': ' . $lesson['title'],
+                $event_type,
+                ['lesson_id' => $lesson_id]
+            );
         }
         
-        if (class_exists('PMP_Progress_Tracker')) {
-            $progress_tracker = new PMP_Progress_Tracker($user_id);
+        wp_send_json_success();
+    }
+    
+
+    
+    /**
+     * Generate lesson preview HTML
+     * 
+     * @param array $lesson Lesson data
+     * @return string Preview HTML
+     */
+    private function generate_lesson_preview_html($lesson): string {
+        ob_start();
+        ?>
+        <div class="lesson-preview-content">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<?php echo esc_url($lesson['thumbnail'] ?? $this->get_default_thumbnail()); ?>"
+                         alt="<?php echo esc_attr($lesson['title']); ?>"
+                         class="img-fluid rounded">
+                </div>
+                <div class="col-md-8">
+                    <div class="lesson-meta mb-2">
+                        <span class="badge bg-primary me-2">
+                            Week <?php echo esc_html($lesson['week']); ?>
+                        </span>
+                        <span class="badge bg-secondary">
+                            <?php echo esc_html($lesson['module']); ?>
+                        </span>
+                    </div>
+                    
+                    <h4 class="mb-3"><?php echo esc_html($lesson['title']); ?></h4>
+                    
+                    <p class="text-muted mb-3">
+                        <?php echo esc_html($lesson['description']); ?>
+                    </p>
+                    
+                    <div class="lesson-details">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock text-primary mb-1"></i>
+                                    <div class="small text-muted">Duration</div>
+                                    <div class="fw-bold"><?php echo esc_html($lesson['duration'] ?? '20 min'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="detail-item">
+                                    <i class="fas fa-signal text-primary mb-1"></i>
+                                    <div class="small text-muted">Difficulty</div>
+                                    <div class="fw-bold"><?php echo esc_html($lesson['difficulty'] ?? 'Beginner'); ?></div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="detail-item">
+                                    <i class="fas fa-users text-primary mb-1"></i>
+                                    <div class="small text-muted">Completion</div>
+                                    <div class="fw-bold"><?php echo number_format($this->get_lesson_completion_rate($lesson['id']), 0); ?>%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            $detailed_data = [
-                'overall_progress' => $progress_tracker->get_overall_progress(),
-                'domain_progress' => $progress_tracker->get_domain_progress(),
-                'weekly_progress' => $progress_tracker->get_weekly_progress(),
-                'performance_analytics' => $progress_tracker->get_performance_analytics(),
-                'milestone_progress' => $progress_tracker->get_milestone_progress(),
-                'study_patterns' => $progress_tracker->analyze_study_patterns()
-            ];
-        } else {
-            $detailed_data = [
-                'overall_progress' => $this->get_progress_stats(),
-                'message' => 'Limited progress data available'
-            ];
-        }
-        
-        wp_send_json_success($detailed_data);
+            <?php if (!empty($lesson['eco_tasks'])): ?>
+                <div class="mt-4">
+                    <h6 class="text-primary mb-2">
+                        <i class="fas fa-tasks me-1"></i>
+                        ECO Tasks Covered
+                    </h6>
+                    <div class="eco-tasks">
+                        <?php foreach ($lesson['eco_tasks'] as $task): ?>
+                            <span class="badge bg-light text-dark me-1 mb-1"><?php echo esc_html($task); ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <div class="mt-4">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Preview Mode:</strong> This is a preview of the lesson content. 
+                    Start the full lesson to access all materials and track your progress.
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
     }
-    
-    /**
-     * Log user event for analytics
-     * 
-     * @param int $user_id User ID
-     * @param string $event_type Event type
-     * @param array $event_data Event data
-     */
-    private function log_user_event($user_id, $event_type, $event_data) {
-        $events = get_user_meta($user_id, 'pmp_user_events', true);
-        
-        if (!is_array($events)) {
-            $events = [];
-        }
-        
-        $event = [
-            'type' => $event_type,
-            'data' => $event_data,
-            'timestamp' => current_time('mysql'),
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
-            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? ''
-        ];
-        
-        array_unshift($events, $event);
-        
-        // Keep only last 100 events
-        $events = array_slice($events, 0, 100);
-        
-        update_user_meta($user_id, 'pmp_user_events', $events);
-        
-        // Also log to activity feed if it's a significant event
-        if (in_array($event_type, ['lesson_started', 'lesson_completed', 'quiz_completed'])) {
-            $this->log_activity_from_event($event_type, $event_data);
-        }
-    }
-    
-    /**
-     * Log activity from event data
-     * 
-     * @param string $event_type Event type
-     * @param array $event_data Event data
-     */
-    private function log_activity_from_event($event_type, $event_data) {
-        $activity_titles = [
-            'lesson_started' => 'Started: ' . ($event_data['lesson_title'] ?? 'New Lesson'),
-            'lesson_completed' => 'Completed: ' . ($event_data['lesson_title'] ?? 'Lesson'),
-            'quiz_completed' => 'Completed Quiz: ' . ($event_data['quiz_title'] ?? 'Practice Quiz')
-        ];
-        
-        $title = $activity_titles[$event_type] ?? 'Activity: ' . $event_type;
-        $this->log_activity($title, $event_type, $event_data);
-    }
-    
-    /**
-     * Get personalized recommendations for user
-     * 
-     * @param int $user_id User ID
-     * @return array Recommendations
-     */
-    private function get_personalized_recommendations($user_id) {
-        if (class_exists('PMP_Progress_Tracker')) {
-            $progress_tracker = new PMP_Progress_Tracker($user_id);
-            $analytics = $progress_tracker->get_performance_analytics();
-            return $analytics['recommendations'] ?? [];
-        }
-        
-        // Fallback recommendations
-        $progress = $this->get_progress_stats();
-        $recommendations = [];
-        
-        if ($progress['percentage'] < 25) {
-            $recommendations[] = [
-                'type' => 'study_frequency',
-                'title' => 'Establish Study Routine',
-                'description' => 'Try to study for 20-30 minutes daily to build momentum.',
-                'priority' => 'high'
-            ];
-        } elseif ($progress['percentage'] < 50) {
-            $recommendations[] = [
-                'type' => 'practice',
-                'title' => 'Add Practice Questions',
-                'description' => 'Start incorporating practice questions to reinforce learning.',
-                'priority' => 'medium'
-            ];
-        } elseif ($progress['percentage'] < 75) {
-            $recommendations[] = [
-                'type' => 'review',
-                'title' => 'Review Previous Material',
-                'description' => 'Review earlier lessons to strengthen your foundation.',
-                'priority' => 'medium'
-            ];
-        } else {
-            $recommendations[] = [
-                'type' => 'exam_prep',
-                'title' => 'Focus on Exam Preparation',
-                'description' => 'Start taking full-length practice exams.',
-                'priority' => 'high'
-            ];
-        }
-        
-        return $recommendations;
-    }
-}}
+}

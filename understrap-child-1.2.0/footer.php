@@ -72,14 +72,43 @@ $container = get_theme_mod( 'understrap_container_type', 'container' );
                 <!-- Widget Area 3: Connect -->
 				<h3>Connect</h3>
                  <div class="social-links mb-3">
-                    <!-- *** Replace # with actual social media URLs *** -->
-                    <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-square"></i></a>
-                    <a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter-square"></i></a>
+                    <?php
+                    // Get social media links from theme customizer or options
+                    $linkedin_url = get_theme_mod('pmp_linkedin_url', 'https://linkedin.com/company/mohlomi-institute');
+                    $facebook_url = get_theme_mod('pmp_facebook_url', 'https://facebook.com/mohlomiinstitute');
+                    $twitter_url = get_theme_mod('pmp_twitter_url', 'https://twitter.com/mohlomiinstitute');
+                    $youtube_url = get_theme_mod('pmp_youtube_url', 'https://youtube.com/@mohlomiinstitute');
+                    ?>
+                    <?php if ($linkedin_url): ?>
+                        <a href="<?php echo esc_url($linkedin_url); ?>" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                    <?php endif; ?>
+                    <?php if ($facebook_url): ?>
+                        <a href="<?php echo esc_url($facebook_url); ?>" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-square"></i></a>
+                    <?php endif; ?>
+                    <?php if ($twitter_url): ?>
+                        <a href="<?php echo esc_url($twitter_url); ?>" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter-square"></i></a>
+                    <?php endif; ?>
+                    <?php if ($youtube_url): ?>
+                        <a href="<?php echo esc_url($youtube_url); ?>" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                    <?php endif; ?>
                  </div>
-                 <!-- *** Update placeholders *** -->
-                 <p><i class="fas fa-envelope me-2"></i><a href="mailto:info@mohlomiinstitute.com">info@mohlomiinstitute.com</a></p>
-                 <p><i class="fas fa-phone me-2"></i>[Your Phone Number]</p> <?php // Replace placeholder ?>
+                 <div class="contact-info">
+                     <?php
+                     // Get contact information from theme customizer or options
+                     $contact_email = get_theme_mod('pmp_contact_email', 'info@mohlomiinstitute.com');
+                     $contact_phone = get_theme_mod('pmp_contact_phone', '+1 (555) 123-4567');
+                     $contact_address = get_theme_mod('pmp_contact_address', '');
+                     ?>
+                     <?php if ($contact_email): ?>
+                         <p><i class="fas fa-envelope"></i><a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a></p>
+                     <?php endif; ?>
+                     <?php if ($contact_phone): ?>
+                         <p><i class="fas fa-phone"></i><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>"><?php echo esc_html($contact_phone); ?></a></p>
+                     <?php endif; ?>
+                     <?php if ($contact_address): ?>
+                         <p><i class="fas fa-map-marker-alt"></i><?php echo esc_html($contact_address); ?></p>
+                     <?php endif; ?>
+                 </div>
                  <?php // Optional extra contact info via widget ?>
                  <?php if ( is_active_sidebar( 'footer-3' ) ) : ?>
                     <?php dynamic_sidebar( 'footer-3' ); ?>
@@ -98,8 +127,11 @@ $container = get_theme_mod( 'understrap_container_type', 'container' );
                 <a href="<?php echo esc_url( home_url( '/disclaimer/' ) ); ?>">Disclaimer</a>
             </div>
             <div class="footer-copyright">
-                <!-- *** Update placeholder *** -->
-                © <?php echo esc_html( date( 'Y' ) ); ?> Mohlomi Institute [Your Legal Entity Name/Reg No]. All Rights Reserved.
+                <?php
+                $company_name = get_theme_mod('pmp_company_name', 'Mohlomi Institute');
+                $legal_entity = get_theme_mod('pmp_legal_entity', '');
+                ?>
+                © <?php echo esc_html( date( 'Y' ) ); ?> <?php echo esc_html($company_name); ?><?php echo $legal_entity ? ' ' . esc_html($legal_entity) : ''; ?>. All Rights Reserved.
             </div>
             <div class="mt-1 footer-pmi-disclaimer">
                 <small>PMP®, PMBOK® are registered marks of the Project Management Institute, Inc.</small>

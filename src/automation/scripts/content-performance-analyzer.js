@@ -810,10 +810,10 @@ class ContentPerformanceAnalyzer {
   identifySuccessFactors(content) {
     const factors = [];
     
-    if (content.watchTime > 0.7) factors.push('High retention rate');
-    if (content.engagement > 0.1) factors.push('Strong audience engagement');
-    if (content.learningEffectiveness > 0.8) factors.push('Excellent learning outcomes');
-    if (content.views > 1000) factors.push('High visibility');
+    if (content.watchTime > 0.7) {factors.push('High retention rate');}
+    if (content.engagement > 0.1) {factors.push('Strong audience engagement');}
+    if (content.learningEffectiveness > 0.8) {factors.push('Excellent learning outcomes');}
+    if (content.views > 1000) {factors.push('High visibility');}
     
     return factors;
   }
@@ -821,10 +821,10 @@ class ContentPerformanceAnalyzer {
   identifyImprovementAreas(content) {
     const areas = [];
     
-    if (content.watchTime < 0.4) areas.push('Low retention - improve content structure');
-    if (content.engagement < 0.03) areas.push('Low engagement - add interactive elements');
-    if (content.learningEffectiveness < 0.6) areas.push('Poor learning outcomes - review content accuracy');
-    if (content.views < 200) areas.push('Low visibility - improve SEO and promotion');
+    if (content.watchTime < 0.4) {areas.push('Low retention - improve content structure');}
+    if (content.engagement < 0.03) {areas.push('Low engagement - add interactive elements');}
+    if (content.learningEffectiveness < 0.6) {areas.push('Poor learning outcomes - review content accuracy');}
+    if (content.views < 200) {areas.push('Low visibility - improve SEO and promotion');}
     
     return areas;
   }
@@ -854,51 +854,51 @@ class ContentPerformanceAnalyzer {
     const wordpress = performanceData.wordpress || {};
     
     switch (contentType) {
-      case 'course-page':
-        return {
-          count: wordpress.coursePages?.totalCoursePages || 0,
-          averagePageViews: wordpress.coursePages?.averagePageViews || 0,
-          averageTimeOnPage: wordpress.coursePages?.averageTimeOnPage || 0,
-          averageBounceRate: 0.25, // Course pages typically have lower bounce rates
-          averageConversionRate: wordpress.coursePages?.conversionRate || 0,
-          totalConversions: wordpress.coursePages?.enrollmentRate * 100 || 0
-        };
-      case 'blog-post':
-        return {
-          count: wordpress.blogPosts?.totalBlogPosts || 0,
-          averagePageViews: wordpress.blogPosts?.averagePageViews || 0,
-          averageTimeOnPage: wordpress.blogPosts?.averageTimeOnPage || 0,
-          averageBounceRate: 0.45, // Blog posts typically have higher bounce rates
-          averageConversionRate: wordpress.blogPosts?.averageEngagementRate || 0,
-          totalConversions: wordpress.blogPosts?.averageShareRate * 100 || 0
-        };
-      case 'landing-page':
-        return {
-          count: wordpress.landingPages?.totalLandingPages || 0,
-          averagePageViews: wordpress.landingPages?.averagePageViews || 0,
-          averageTimeOnPage: 120, // Landing pages typically have shorter time on page
-          averageBounceRate: wordpress.landingPages?.averageBounceRate || 0,
-          averageConversionRate: wordpress.landingPages?.averageConversionRate || 0,
-          totalConversions: wordpress.landingPages?.totalConversions || 0
-        };
-      case 'lead-magnet':
-        return {
-          count: wordpress.leadMagnets?.totalLeadMagnets || 0,
-          averagePageViews: 500, // Lead magnets are typically accessed directly
-          averageTimeOnPage: 60, // Quick download pages
-          averageBounceRate: 0.15, // Low bounce rate for targeted traffic
-          averageConversionRate: wordpress.leadMagnets?.averageConversionRate || 0,
-          totalConversions: wordpress.leadMagnets?.totalDownloads || 0
-        };
-      default:
-        return {
-          count: 0,
-          averagePageViews: 0,
-          averageTimeOnPage: 0,
-          averageBounceRate: 0,
-          averageConversionRate: 0,
-          totalConversions: 0
-        };
+    case 'course-page':
+      return {
+        count: wordpress.coursePages?.totalCoursePages || 0,
+        averagePageViews: wordpress.coursePages?.averagePageViews || 0,
+        averageTimeOnPage: wordpress.coursePages?.averageTimeOnPage || 0,
+        averageBounceRate: 0.25, // Course pages typically have lower bounce rates
+        averageConversionRate: wordpress.coursePages?.conversionRate || 0,
+        totalConversions: wordpress.coursePages?.enrollmentRate * 100 || 0
+      };
+    case 'blog-post':
+      return {
+        count: wordpress.blogPosts?.totalBlogPosts || 0,
+        averagePageViews: wordpress.blogPosts?.averagePageViews || 0,
+        averageTimeOnPage: wordpress.blogPosts?.averageTimeOnPage || 0,
+        averageBounceRate: 0.45, // Blog posts typically have higher bounce rates
+        averageConversionRate: wordpress.blogPosts?.averageEngagementRate || 0,
+        totalConversions: wordpress.blogPosts?.averageShareRate * 100 || 0
+      };
+    case 'landing-page':
+      return {
+        count: wordpress.landingPages?.totalLandingPages || 0,
+        averagePageViews: wordpress.landingPages?.averagePageViews || 0,
+        averageTimeOnPage: 120, // Landing pages typically have shorter time on page
+        averageBounceRate: wordpress.landingPages?.averageBounceRate || 0,
+        averageConversionRate: wordpress.landingPages?.averageConversionRate || 0,
+        totalConversions: wordpress.landingPages?.totalConversions || 0
+      };
+    case 'lead-magnet':
+      return {
+        count: wordpress.leadMagnets?.totalLeadMagnets || 0,
+        averagePageViews: 500, // Lead magnets are typically accessed directly
+        averageTimeOnPage: 60, // Quick download pages
+        averageBounceRate: 0.15, // Low bounce rate for targeted traffic
+        averageConversionRate: wordpress.leadMagnets?.averageConversionRate || 0,
+        totalConversions: wordpress.leadMagnets?.totalDownloads || 0
+      };
+    default:
+      return {
+        count: 0,
+        averagePageViews: 0,
+        averageTimeOnPage: 0,
+        averageBounceRate: 0,
+        averageConversionRate: 0,
+        totalConversions: 0
+      };
     }
   }
 

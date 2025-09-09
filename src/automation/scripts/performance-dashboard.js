@@ -289,20 +289,20 @@ class PerformanceDashboard {
     const startDate = new Date();
 
     switch (timeframe) {
-      case '7days':
-        startDate.setDate(endDate.getDate() - 7);
-        break;
-      case '30days':
-        startDate.setDate(endDate.getDate() - 30);
-        break;
-      case '90days':
-        startDate.setDate(endDate.getDate() - 90);
-        break;
-      case '1year':
-        startDate.setFullYear(endDate.getFullYear() - 1);
-        break;
-      default:
-        startDate.setDate(endDate.getDate() - 30);
+    case '7days':
+      startDate.setDate(endDate.getDate() - 7);
+      break;
+    case '30days':
+      startDate.setDate(endDate.getDate() - 30);
+      break;
+    case '90days':
+      startDate.setDate(endDate.getDate() - 90);
+      break;
+    case '1year':
+      startDate.setFullYear(endDate.getFullYear() - 1);
+      break;
+    default:
+      startDate.setDate(endDate.getDate() - 30);
     }
 
     return {

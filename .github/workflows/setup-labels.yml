@@ -1,0 +1,107 @@
+# Setup Repository Labels
+# Creates and manages labels used by the automated labeling system
+name: Setup Labels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/setup-labels.yml'
+
+jobs:
+  setup-labels:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Setup repository labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            
+            // Define all labels used by the automation system
+            const labels = [
+              // Type labels
+              { name: 'bug', color: 'd73a4a', description: 'Something isn\'t working' },
+              { name: 'enhancement', color: 'a2eeef', description: 'New feature or request' },
+              { name: 'documentation', color: '0075ca', description: 'Improvements or additions to documentation' },
+              { name: 'breaking-change', color: 'b60205', description: 'Changes that break backward compatibility' },
+              { name: 'security', color: 'ff6b6b', description: 'Security-related changes' },
+              { name: 'performance', color: 'fef2c0', description: 'Performance improvements' },
+              { name: 'refactor', color: 'fbca04', description: 'Code refactoring without functional changes' },
+              
+              // Component labels
+              { name: 'github-actions', color: '2088ff', description: 'GitHub Actions workflows and automation' },
+              { name: 'configuration', color: 'f9d0c4', description: 'Configuration files and settings' },
+              { name: 'automation', color: '7057ff', description: 'Automation scripts and tools' },
+              { name: 'content', color: '008672', description: 'Content generation and templates' },
+              { name: 'testing', color: 'c2e0c6', description: 'Testing-related changes' },
+              { name: 'wordpress', color: '21759b', description: 'WordPress theme and plugin changes' },
+              { name: 'docker', color: '0db7ed', description: 'Docker configuration and containers' },
+              { name: 'dependencies', color: 'e99695', description: 'Dependency updates' },
+              
+              // Size labels
+              { name: 'size/XS', color: '3cbf00', description: 'Extra small changes (< 10 lines)' },
+              { name: 'size/S', color: '5d9801', description: 'Small changes (10-30 lines)' },
+              { name: 'size/M', color: 'a2eeef', description: 'Medium changes (30-100 lines)' },
+              { name: 'size/L', color: 'f9d0c4', description: 'Large changes (100-500 lines)' },
+              { name: 'size/XL', color: 'ee0701', description: 'Extra large changes (> 500 lines)' },
+              
+              // Priority labels
+              { name: 'priority/high', color: 'd93f0b', description: 'High priority' },
+              { name: 'priority/medium', color: 'fbca04', description: 'Medium priority' },
+              { name: 'priority/low', color: '0e8a16', description: 'Low priority' },
+              
+              // Status labels
+              { name: 'status/wip', color: 'f9d0c4', description: 'Work in progress' },
+              { name: 'status/ready-for-review', color: '0e8a16', description: 'Ready for review' },
+              { name: 'needs-linear-reference', color: 'b60205', description: 'Missing Linear task reference' },
+              
+              // Integration labels
+              { name: 'linear-integration', color: '5319e7', description: 'Linear project management integration' },
+              
+              // Community labels
+              { name: 'good-first-issue', color: '7057ff', description: 'Good for newcomers' },
+              { name: 'help-wanted', color: '008672', description: 'Extra attention is needed' },
+              
+              // Validation labels
+              { name: 'needs-template-completion', color: 'f9d0c4', description: 'PR template needs to be completed' },
+              { name: 'merge-conflict', color: 'd93f0b', description: 'PR has merge conflicts' },
+              { name: 'needs-triage', color: 'fbca04', description: 'Needs initial review and categorization' }
+            ];
+            
+            // Create or update each label
+            for (const label of labels) {
+              try {
+                // Try to update existing label
+                await github.rest.issues.updateLabel({
+                  owner,
+                  repo,
+                  name: label.name,
+                  color: label.color,
+                  description: label.description
+                });
+                console.log(`Updated label: ${label.name}`);
+              } catch (error) {
+                if (error.status === 404) {
+                  // Label doesn't exist, create it
+                  try {
+                    await github.rest.issues.createLabel({
+                      owner,
+                      repo,
+                      name: label.name,
+                      color: label.color,
+                      description: label.description
+                    });
+                    console.log(`Created label: ${label.name}`);
+                  } catch (createError) {
+                    console.error(`Failed to create label ${label.name}:`, createError);
+                  }
+                } else {
+                  console.error(`Failed to update label ${label.name}:`, error);
+                }
+              }
+            }

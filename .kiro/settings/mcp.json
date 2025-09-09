@@ -1,100 +1,190 @@
 {
   "mcpServers": {
-    "task-manager": {
-      "command": "/Users/bonzysalesman/.local/bin/uvx",
+    "firebase": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
       "args": [
-        "mcp-task-manager-server@latest"
+        "-y",
+        "firebase-tools@latest",
+        "experimental:mcp"
       ],
       "env": {
-        "DATABASE_PATH": "./data/pmp-tasks.db",
-        "FASTMCP_LOG_LEVEL": "ERROR"
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
       },
       "disabled": false,
       "autoApprove": [
-        "create_task",
-        "update_task",
-        "list_tasks",
-        "delete_task",
-        "create_project",
-        "get_task_by_id"
+        "mcp_firebase_firestore_get_documents",
+        "mcp_firebase_firestore_query_collection",
+        "mcp_firebase_firestore_list_collections",
+        "mcp_firebase_auth_list_users",
+        "mcp_firebase_auth_get_user",
+        "mcp_firebase_get_project",
+        "mcp_firebase_get_environment"
       ]
     },
-    "content-database": {
-      "command": "/Users/bonzysalesman/.local/bin/uvx",
+    "typescript": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
       "args": [
-        "mcp-database-server@latest"
+        "-y",
+        "typescript-mcp@latest"
       ],
       "env": {
-        "DB_TYPE": "sqlite",
-        "DB_PATH": "./data/pmp-content.db",
-        "FASTMCP_LOG_LEVEL": "ERROR"
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
       },
       "disabled": false,
       "autoApprove": [
-        "query",
-        "insert",
-        "update",
-        "create_table",
-        "describe_table"
+        "mcp_typescript_get_diagnostics",
+        "mcp_typescript_find_references",
+        "mcp_typescript_get_definitions",
+        "mcp_typescript_get_type_at_symbol",
+        "mcp_typescript_list_tools",
+        "list_tools"
       ]
     },
-    "github-integration": {
-      "command": "/Users/bonzysalesman/.local/bin/uvx",
+    "github": {
+      "command": "uvx",
       "args": [
         "mcp-github"
       ],
       "env": {
-        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
-        "GITHUB_REPO": "pmp-youtube-channel",
-        "FASTMCP_LOG_LEVEL": "ERROR"
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.local/bin:/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin"
       },
       "disabled": false,
       "autoApprove": [
-        "mcp_github_create_issue",
-        "mcp_github_create_or_update_file",
-        "mcp_github_create_pull_request",
-        "mcp_github_list_issues",
-        "mcp_github_get_file_contents",
         "mcp_github_search_repositories",
-        "search_repositories",
-        "search_repositories",
-        "get_file_contents",
-        "get_file_contents"
+        "mcp_github_get_file_contents",
+        "mcp_github_search_code",
+        "mcp_github_list_commits",
+        "create_issue",
+        "create_pull_request"
       ]
     },
-    "memory-bank": {
-      "command": "/Users/bonzysalesman/.local/bin/uvx",
+    "fetch": {
+      "command": "uvx",
       "args": [
-        "memory-bank-mcp@latest"
+        "mcp-server-fetch"
       ],
       "env": {
-        "MEMORY_BANK_PATH": "./data/pmp-learning-memory",
-        "FASTMCP_LOG_LEVEL": "ERROR"
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.local/bin:/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin"
       },
       "disabled": false,
       "autoApprove": [
-        "store_memory",
-        "retrieve_memory",
-        "update_progress",
-        "list_memories",
-        "delete_memory"
+        "mcp_fetch_fetch",
+        "fetch"
       ]
     },
-    "filesystem": {
-      "command": "/Users/bonzysalesman/.local/bin/uvx",
+    "sequential-thinking": {
+      "command": "uvx",
       "args": [
-        "mcp-server-filesystem"
+        "sequential-thinking-mcp"
       ],
       "env": {
-        "ALLOWED_DIRECTORIES": "./src,./data,./content-chunking-strategy.md",
-        "FASTMCP_LOG_LEVEL": "ERROR"
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.local/bin:/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin"
       },
       "disabled": false,
       "autoApprove": [
-        "read_file",
-        "write_file",
-        "list_directory",
-        "create_directory"
+        "mcp_sequential_thinking_think",
+        "think"
+      ]
+    },
+    "context7": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "mcp_context7_resolve_library_id",
+        "mcp_context7_get_library_docs"
+      ]
+    },
+    "linear": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.linear.app/sse"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "mcp_linear_list_issues",
+        "mcp_linear_get_issue",
+        "mcp_linear_list_my_issues",
+        "mcp_linear_create_issue",
+        "mcp_linear_update_issue",
+        "list_teams",
+        "list_issues",
+        "update_issue",
+        "create_issue",
+        "get_project",
+        "update_project"
+      ]
+    },
+    "playwright": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "simone": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
+      "args": [
+        "--yes",
+        "simone-mcp@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PROJECT_PATH": "/Users/bonzysalesman/1pwr-procurement",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "mcp_simone_log_activity",
+        "log_activity"
+      ]
+    },
+    "memory": {
+      "command": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin/npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/bin:/usr/local/bin:/usr/bin:/bin",
+        "NODE_PATH": "/Users/bonzysalesman/.nvm/versions/node/v20.18.1/lib/node_modules"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "mcp_memory_create_entities",
+        "mcp_memory_read_graph",
+        "mcp_memory_search_nodes"
       ]
     }
   }

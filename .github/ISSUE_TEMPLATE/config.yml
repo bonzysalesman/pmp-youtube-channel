@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/your-username/pmp-youtube-channel/blob/main/README.md
+    about: Check the project documentation for setup and usage information
+  - name: 💬 Discussions
+    url: https://github.com/your-username/pmp-youtube-channel/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 🔗 Linear Project Board
+    url: https://linear.app/your-team/team/PMP
+    about: View and manage project tasks in Linear

@@ -1,0 +1,371 @@
+/**
+ * PMP Progress Widget Styles
+ * 
+ * Styles for the course progress display widget in the sidebar
+ */
+
+/* Widget Container */
+.pmp-progress-widget {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.pmp-progress-widget:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pmp-progress-widget .widget-title {
+    color: #5b28b3;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+/* Progress Circle */
+.progress-circle-widget {
+    display: inline-block;
+    position: relative;
+}
+
+.progress-circle-widget .progress-circle {
+    transform: rotate(-90deg);
+    transition: all 0.3s ease;
+}
+
+.progress-circle-widget .progress-bar-circle {
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* Progress Statistics */
+.progress-stats .stat-item {
+    text-align: center;
+}
+
+.progress-stats .stat-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.progress-stats small {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Current Week Indicator */
+.current-week-indicator .badge {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+/* Widget Subtitles */
+.widget-subtitle {
+    color: #495057;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.widget-subtitle i {
+    color: #5b28b3;
+}
+
+/* Performance Statistics */
+.performance-stats .stats-grid {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.performance-stats .stat-row {
+    padding: 0.25rem 0;
+}
+
+.performance-stats .stat-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.performance-stats .stat-value {
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+/* Domain Progress */
+.domain-progress .domain-item {
+    background: #ffffff;
+    border: 1px solid #f1f3f4;
+    border-radius: 6px;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.domain-progress .domain-item:hover {
+    border-color: #dee2e6;
+}
+
+.domain-progress .domain-name {
+    font-size: 0.8rem;
+}
+
+.domain-progress .domain-percentage {
+    font-size: 0.75rem;
+}
+
+.domain-progress .progress {
+    border-radius: 3px;
+    background-color: #f8f9fa;
+}
+
+.domain-progress .domain-stats {
+    font-size: 0.7rem;
+}
+
+/* Weekly Progress */
+.weekly-progress .weeks-grid {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.weekly-progress .week-indicator-item {
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.weekly-progress .week-indicator-item:hover {
+    background-color: #f8f9fa;
+}
+
+.weekly-progress .week-indicator-item.current-week {
+    background-color: #e3f2fd;
+    border: 1px solid #bbdefb;
+}
+
+.weekly-progress .week-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.weekly-progress .week-circle.completed {
+    background-color: #28a745;
+    color: white;
+}
+
+.weekly-progress .week-circle.current {
+    background-color: #007bff;
+    color: white;
+}
+
+.weekly-progress .week-circle.in-progress {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.weekly-progress .week-circle.future {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.weekly-progress .week-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.weekly-progress .week-progress-bar .progress {
+    border-radius: 2px;
+}
+
+.weekly-progress .week-stats {
+    font-size: 0.7rem;
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Action Buttons */
+.progress-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f3f4;
+}
+
+.progress-actions .btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.progress-actions .btn-primary {
+    background-color: #5b28b3;
+    border-color: #5b28b3;
+}
+
+.progress-actions .btn-primary:hover {
+    background-color: #4a1f96;
+    border-color: #4a1f96;
+}
+
+.progress-actions .btn-outline-primary {
+    color: #5b28b3;
+    border-color: #5b28b3;
+}
+
+.progress-actions .btn-outline-primary:hover {
+    background-color: #5b28b3;
+    border-color: #5b28b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pmp-progress-widget {
+        padding: 1rem;
+    }
+    
+    .progress-stats .stat-number {
+        font-size: 1.1rem;
+    }
+    
+    .weekly-progress .weeks-grid {
+        max-height: 150px;
+    }
+    
+    .domain-progress .domain-item {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for progress updates */
+@keyframes progressUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pmp-progress-widget .progress-circle-widget.updating {
+    animation: progressUpdate 0.6s ease-in-out;
+}
+
+/* Loading state */
+.pmp-progress-widget.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.pmp-progress-widget.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #5b28b3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility improvements */
+.pmp-progress-widget .progress {
+    position: relative;
+}
+
+.pmp-progress-widget .progress::after {
+    content: attr(aria-valuenow) '%';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    color: transparent;
+    pointer-events: none;
+}
+
+.pmp-progress-widget .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .pmp-progress-widget {
+        border: 2px solid #000000;
+    }
+    
+    .pmp-progress-widget .widget-title {
+        color: #000000;
+        border-bottom-color: #000000;
+    }
+    
+    .weekly-progress .week-circle.completed {
+        background-color: #000000;
+        color: #ffffff;
+    }
+    
+    .weekly-progress .week-circle.current {
+        background-color: #000000;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .pmp-progress-widget * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .pmp-progress-widget {
+        box-shadow: none;
+        border: 1px solid #000000;
+    }
+    
+    .progress-actions {
+        display: none;
+    }
+}
