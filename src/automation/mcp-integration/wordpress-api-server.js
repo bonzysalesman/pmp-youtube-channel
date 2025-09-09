@@ -397,39 +397,39 @@ class WordPressAnalyticsAPIServer {
     const eventType = eventData.event_type;
 
     switch (eventType) {
-      case 'page_view':
-        if (!eventData.page_url) errors.push('page_url is required for page_view events');
-        if (!eventData.session_id) errors.push('session_id is required for page_view events');
-        break;
+    case 'page_view':
+      if (!eventData.page_url) {errors.push('page_url is required for page_view events');}
+      if (!eventData.session_id) {errors.push('session_id is required for page_view events');}
+      break;
 
-      case 'user_registration':
-        if (!eventData.user_id) errors.push('user_id is required for user_registration events');
-        if (!eventData.email) errors.push('email is required for user_registration events');
-        break;
+    case 'user_registration':
+      if (!eventData.user_id) {errors.push('user_id is required for user_registration events');}
+      if (!eventData.email) {errors.push('email is required for user_registration events');}
+      break;
 
-      case 'course_enrollment':
-        if (!eventData.user_id) errors.push('user_id is required for course_enrollment events');
-        if (!eventData.course_id) errors.push('course_id is required for course_enrollment events');
-        break;
+    case 'course_enrollment':
+      if (!eventData.user_id) {errors.push('user_id is required for course_enrollment events');}
+      if (!eventData.course_id) {errors.push('course_id is required for course_enrollment events');}
+      break;
 
-      case 'purchase_completed':
-        if (!eventData.user_id) errors.push('user_id is required for purchase_completed events');
-        if (!eventData.order_id) errors.push('order_id is required for purchase_completed events');
-        if (!eventData.total) errors.push('total is required for purchase_completed events');
-        break;
+    case 'purchase_completed':
+      if (!eventData.user_id) {errors.push('user_id is required for purchase_completed events');}
+      if (!eventData.order_id) {errors.push('order_id is required for purchase_completed events');}
+      if (!eventData.total) {errors.push('total is required for purchase_completed events');}
+      break;
 
-      case 'lead_capture':
-        if (!eventData.email) errors.push('email is required for lead_capture events');
-        if (!eventData.lead_magnet_type) errors.push('lead_magnet_type is required for lead_capture events');
-        break;
+    case 'lead_capture':
+      if (!eventData.email) {errors.push('email is required for lead_capture events');}
+      if (!eventData.lead_magnet_type) {errors.push('lead_magnet_type is required for lead_capture events');}
+      break;
 
-      case 'form_submission':
-        if (!eventData.form_id) errors.push('form_id is required for form_submission events');
-        break;
+    case 'form_submission':
+      if (!eventData.form_id) {errors.push('form_id is required for form_submission events');}
+      break;
 
-      case 'search_performed':
-        if (!eventData.search_query) errors.push('search_query is required for search_performed events');
-        break;
+    case 'search_performed':
+      if (!eventData.search_query) {errors.push('search_query is required for search_performed events');}
+      break;
     }
 
     return errors;

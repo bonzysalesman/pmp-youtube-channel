@@ -238,6 +238,52 @@ pmp-youtube-channel/
 - Social media links
 - Course platform integration
 
+## 🤖 MCP Integration System
+
+This project includes a comprehensive **Model Context Protocol (MCP)** integration system that provides automated content management, analytics tracking, learning progress monitoring, and GitHub workflow automation.
+
+### Available MCP Servers
+
+The system is configured with the following MCP servers:
+
+- **Firebase**: Firestore database operations and authentication
+- **TypeScript**: Code analysis, refactoring, and type checking
+- **GitHub**: Repository management, issues, and pull requests
+- **Linear**: Project management and task tracking
+- **Memory**: Knowledge graph and learning progress storage
+- **Context7**: Library documentation and API references
+- **Playwright**: Browser automation for testing
+- **Sequential Thinking**: Structured problem-solving workflows
+- **Simone**: Development activity logging and analytics
+- **Fetch**: Web content retrieval and processing
+
+### MCP Integration Features
+
+- **Automated Task Management**: Create and track content production tasks
+- **Content Analytics**: Performance monitoring and engagement metrics
+- **Learning Progress Tracking**: Personalized learning paths and progress analytics
+- **GitHub Workflow Automation**: Automated releases, QA, and content publishing
+- **Database Operations**: Comprehensive content and user data management
+- **Quality Assurance**: Automated content validation and ECO task coverage
+- **Community Management**: Engagement tracking and feedback analysis
+
+### MCP Configuration
+
+MCP servers are configured in `.kiro/settings/mcp.json` with auto-approved operations for seamless automation. See the [MCP Integration Guide](MCP-INTEGRATION-GUIDE.md) for detailed implementation documentation.
+
+### Usage Examples
+
+```bash
+# Generate content with MCP integration
+npm run generate-content week 10
+
+# Import and validate content
+npm run import-content-safe
+
+# Generate metadata and analytics
+npm run generate-metadata-all
+```
+
 ## 📝 Content Generation
 
 ### Generate Video Scripts

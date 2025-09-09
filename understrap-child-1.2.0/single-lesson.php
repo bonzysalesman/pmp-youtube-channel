@@ -195,11 +195,9 @@ get_header();
             <div class="col-md-4" id="secondary">
                 <aside class="widget-area lesson-sidebar">
                     
-                    <!-- Course Progress Widget -->
-                    <?php if ( is_user_logged_in() ) : ?>
-                        <div class="widget lesson-progress-widget">
-                            <?php echo do_shortcode( '[pmp_course_progress show_details="true" show_by_domain="true"]' ); ?>
-                        </div>
+                    <!-- Course Sidebar Widgets -->
+                    <?php if ( is_active_sidebar( 'course-sidebar' ) ) : ?>
+                        <?php dynamic_sidebar( 'course-sidebar' ); ?>
                     <?php endif; ?>
                     
                     <!-- Week Overview Widget -->

@@ -369,8 +369,8 @@ class LearningProgressTracker {
     // Determine appropriate learning pace based on user profile
     const availableHours = userProfile.available_hours_per_week || 8;
     
-    if (availableHours >= 12) return 'accelerated';
-    if (availableHours <= 6) return 'extended';
+    if (availableHours >= 12) {return 'accelerated';}
+    if (availableHours <= 6) {return 'extended';}
     return 'standard';
   }
 

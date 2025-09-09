@@ -30,9 +30,13 @@
     "test-import": "node src/automation/scripts/test-content-import.js",
     "upload-automation": "node src/automation/scripts/upload-automation.js",
     "playlist": "node src/automation/scripts/playlist-cli.js",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "validate-ci": "node scripts/validate-ci.js",
     "docker:setup": "./scripts/docker-setup.sh",
     "docker:start": "./scripts/docker-helpers.sh start",
     "docker:stop": "./scripts/docker-helpers.sh stop",
@@ -44,7 +48,10 @@
     "docker:dev": "./scripts/docker-helpers.sh dev",
     "docker:prod": "./scripts/docker-helpers.sh prod",
     "test:integration": "jest --testPathPattern=integration",
-    "test:docker": "npm run docker:health && npm run test:integration"
+    "test:docker": "npm run docker:health && npm run test:integration",
+    "changelog": "node scripts/generate-changelog.js",
+    "changelog:dry-run": "node scripts/generate-changelog.js --dry-run",
+    "changelog:version": "node scripts/generate-changelog.js --version"
   },
   "keywords": [
     "youtube",

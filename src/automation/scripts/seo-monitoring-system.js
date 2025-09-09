@@ -95,7 +95,7 @@ class SEOMonitoringSystem {
       // Simulate API call to check ranking
       const baseUrl = platform === 'youtube' 
         ? `https://youtube.com/channel/${process.env.YOUTUBE_CHANNEL_ID}`
-        : `https://pmp-course.com`;
+        : 'https://pmp-course.com';
         
       const mockRanking = {
         keyword: keyword,
@@ -206,7 +206,7 @@ class SEOMonitoringSystem {
 
   async checkRankingAlerts(keyword, currentRanking) {
     const history = this.rankingHistory.get(keyword);
-    if (!history || history.length < 2) return;
+    if (!history || history.length < 2) {return;}
 
     const previousRanking = history[history.length - 2];
     const alerts = [];
@@ -260,7 +260,7 @@ class SEOMonitoringSystem {
 
     for (const keyword of keywords) {
       const history = this.rankingHistory.get(keyword);
-      if (!history || history.length === 0) continue;
+      if (!history || history.length === 0) {continue;}
 
       const recent = history.slice(-7); // Last 7 entries
       const averageCTR = recent.reduce((sum, entry) => sum + entry.ctr, 0) / recent.length;
@@ -279,7 +279,7 @@ class SEOMonitoringSystem {
   }
 
   calculateCTRTrend(history) {
-    if (history.length < 2) return 'stable';
+    if (history.length < 2) {return 'stable';}
 
     const firstHalf = history.slice(0, Math.floor(history.length / 2));
     const secondHalf = history.slice(Math.floor(history.length / 2));
@@ -289,8 +289,8 @@ class SEOMonitoringSystem {
 
     const change = (secondAvg - firstAvg) / firstAvg;
 
-    if (change > 0.1) return 'improving';
-    if (change < -0.1) return 'declining';
+    if (change > 0.1) {return 'improving';}
+    if (change < -0.1) {return 'declining';}
     return 'stable';
   }
 
@@ -502,13 +502,13 @@ class SEOMonitoringSystem {
 
   calculateAveragePosition(rankings) {
     const validRankings = rankings.filter(r => !r.error && r.position);
-    if (validRankings.length === 0) return 0;
+    if (validRankings.length === 0) {return 0;}
     
     return validRankings.reduce((sum, r) => sum + r.position, 0) / validRankings.length;
   }
 
   calculateAverageCTR(ctrAnalysis) {
-    if (ctrAnalysis.length === 0) return 0;
+    if (ctrAnalysis.length === 0) {return 0;}
     
     return ctrAnalysis.reduce((sum, c) => sum + c.averageCTR, 0) / ctrAnalysis.length;
   }
@@ -617,7 +617,7 @@ class SEOMonitoringSystem {
    * Summarize WordPress SEO performance
    */
   summarizeWordPressSEO(wordpressTechnicalSEO) {
-    if (wordpressTechnicalSEO.length === 0) return {};
+    if (wordpressTechnicalSEO.length === 0) {return {};}
 
     const validPages = wordpressTechnicalSEO.filter(p => !p.error);
     
@@ -638,7 +638,7 @@ class SEOMonitoringSystem {
     const criticalIssues = [];
     
     wordpressTechnicalSEO.forEach(page => {
-      if (page.error) return;
+      if (page.error) {return;}
       
       if (page.seo_score < 70) {
         criticalIssues.push({
@@ -910,7 +910,7 @@ class SEOMonitoringSystem {
   async getRecentAlerts(days = 7) {
     try {
       const alertsPath = path.join(__dirname, '../../generated/seo-alerts.json');
-      if (!(await fs.pathExists(alertsPath))) return [];
+      if (!(await fs.pathExists(alertsPath))) {return [];}
       
       const alerts = await fs.readJson(alertsPath);
       const cutoffDate = new Date();
@@ -1005,7 +1005,7 @@ class SEOMonitoringSystem {
   async checkWordPressRankingAlerts(keyword, currentRanking) {
     const key = `wordpress_${keyword}`;
     const history = this.rankingHistory.get(key);
-    if (!history || history.length < 2) return;
+    if (!history || history.length < 2) {return;}
 
     const previousRanking = history[history.length - 2];
     const alerts = [];

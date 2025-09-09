@@ -56,10 +56,10 @@ class ThumbnailGenerator {
     // Default based on week color if specified
     if (videoData.color) {
       switch (videoData.color) {
-        case 'green': return this.colors.people;
-        case 'blue': return this.colors.process;
-        case 'orange': return this.colors.businessEnvironment;
-        case 'purple': return this.colors.practiceReview;
+      case 'green': return this.colors.people;
+      case 'blue': return this.colors.process;
+      case 'orange': return this.colors.businessEnvironment;
+      case 'purple': return this.colors.practiceReview;
       }
     }
     
@@ -73,17 +73,17 @@ class ThumbnailGenerator {
     const gradient = ctx.createLinearGradient(0, 0, this.width, this.height);
     
     switch (variant) {
-      case 'high-contrast':
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(1, '#2C3E50'); // Dark contrast
-        break;
-      case 'subtle':
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(1, this.lightenColor(color, 20));
-        break;
-      default: // standard
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(1, this.darkenColor(color, 30));
+    case 'high-contrast':
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(1, '#2C3E50'); // Dark contrast
+      break;
+    case 'subtle':
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(1, this.lightenColor(color, 20));
+      break;
+    default: // standard
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(1, this.darkenColor(color, 30));
     }
     
     ctx.fillStyle = gradient;
@@ -285,21 +285,21 @@ class ThumbnailGenerator {
     let templateName;
     
     switch (videoData.type) {
-      case 'daily-study':
-        templateName = 'dailyStudy';
-        break;
-      case 'practice':
-        templateName = 'practiceSession';
-        break;
-      case 'review':
-      case 'weekly-review':
-        templateName = 'reviewSession';
-        break;
-      case 'channel-trailer':
-        templateName = 'channelTrailer';
-        break;
-      default:
-        templateName = 'dailyStudy';
+    case 'daily-study':
+      templateName = 'dailyStudy';
+      break;
+    case 'practice':
+      templateName = 'practiceSession';
+      break;
+    case 'review':
+    case 'weekly-review':
+      templateName = 'reviewSession';
+      break;
+    case 'channel-trailer':
+      templateName = 'channelTrailer';
+      break;
+    default:
+      templateName = 'dailyStudy';
     }
     
     // Use template engine for generation
@@ -324,21 +324,21 @@ class ThumbnailGenerator {
     let templateName;
     
     switch (videoData.type) {
-      case 'daily-study':
-        templateName = 'dailyStudy';
-        break;
-      case 'practice':
-        templateName = 'practiceSession';
-        break;
-      case 'review':
-      case 'weekly-review':
-        templateName = 'reviewSession';
-        break;
-      case 'channel-trailer':
-        templateName = 'channelTrailer';
-        break;
-      default:
-        templateName = 'dailyStudy';
+    case 'daily-study':
+      templateName = 'dailyStudy';
+      break;
+    case 'practice':
+      templateName = 'practiceSession';
+      break;
+    case 'review':
+    case 'weekly-review':
+      templateName = 'reviewSession';
+      break;
+    case 'channel-trailer':
+      templateName = 'channelTrailer';
+      break;
+    default:
+      templateName = 'dailyStudy';
     }
     
     // Use template engine for variant generation
@@ -366,7 +366,7 @@ class ThumbnailGenerator {
     console.log('Starting batch thumbnail generation...');
     
     for (const week of contentCalendar.weeks) {
-      if (weekFilter && week.week !== weekFilter) continue;
+      if (weekFilter && week.week !== weekFilter) {continue;}
       
       console.log(`Processing Week ${week.week}: ${week.theme}`);
       
@@ -419,49 +419,49 @@ async function main() {
   
   try {
     switch (command) {
-      case 'batch':
-        const calendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
-        const calendar = await fs.readJson(calendarPath);
+    case 'batch':
+      const calendarPath = path.join(process.cwd(), 'src/config/detailed-content-calendar.json');
+      const calendar = await fs.readJson(calendarPath);
         
-        const weekFilter = args[1] ? parseInt(args[1]) : null;
-        const generateVariants = args.includes('--variants');
+      const weekFilter = args[1] ? parseInt(args[1]) : null;
+      const generateVariants = args.includes('--variants');
         
-        await generator.generateBatch(calendar, { 
-          weekFilter, 
-          generateVariants 
-        });
-        break;
+      await generator.generateBatch(calendar, { 
+        weekFilter, 
+        generateVariants 
+      });
+      break;
         
-      case 'single':
-        // Generate single thumbnail for testing
-        const testVideo = {
-          title: 'Day 1: PMP Exam 2024 Complete Overview | What You Need to Know',
-          type: 'daily-study',
-          dayNumber: 1,
-          week: 1
-        };
+    case 'single':
+      // Generate single thumbnail for testing
+      const testVideo = {
+        title: 'Day 1: PMP Exam 2024 Complete Overview | What You Need to Know',
+        type: 'daily-study',
+        dayNumber: 1,
+        week: 1
+      };
         
-        const canvas = await generator.generateThumbnail(testVideo);
-        const filepath = await generator.saveThumbnail(canvas, 'test_thumbnail.png');
-        console.log(`Test thumbnail generated: ${filepath}`);
-        break;
+      const canvas = await generator.generateThumbnail(testVideo);
+      const filepath = await generator.saveThumbnail(canvas, 'test_thumbnail.png');
+      console.log(`Test thumbnail generated: ${filepath}`);
+      break;
         
-      case 'variants':
-        // Generate A/B testing variants for a single video
-        const variantVideo = {
-          title: 'Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos',
-          type: 'daily-study',
-          dayNumber: 8,
-          week: 2,
-          color: 'green'
-        };
+    case 'variants':
+      // Generate A/B testing variants for a single video
+      const variantVideo = {
+        title: 'Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos',
+        type: 'daily-study',
+        dayNumber: 8,
+        week: 2,
+        color: 'green'
+      };
         
-        const variants = await generator.generateVariants(variantVideo);
-        console.log('Generated variants:', variants.map(v => v.filename));
-        break;
+      const variants = await generator.generateVariants(variantVideo);
+      console.log('Generated variants:', variants.map(v => v.filename));
+      break;
         
-      default:
-        console.log(`
+    default:
+      console.log(`
 PMP Thumbnail Generator
 
 Usage:

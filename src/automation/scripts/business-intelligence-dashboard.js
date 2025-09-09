@@ -483,8 +483,8 @@ class BusinessIntelligenceDashboard {
     return {
       score: Math.round(overallHealth),
       status: overallHealth >= 80 ? 'excellent' : 
-              overallHealth >= 60 ? 'good' : 
-              overallHealth >= 40 ? 'fair' : 'poor',
+        overallHealth >= 60 ? 'good' : 
+          overallHealth >= 40 ? 'fair' : 'poor',
       components: {
         revenue: Math.round((Math.min(25, Math.max(0, revenueGrowth * 100 + 15)) / 25) * 100),
         conversion: Math.round((Math.min(25, conversionRate * 500) / 25) * 100),

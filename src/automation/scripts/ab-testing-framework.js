@@ -241,20 +241,20 @@ class ABTestingFramework {
     let score = 0;
 
     switch (primaryMetric) {
-      case 'ctr':
-        score = metrics.ctr * 100; // Convert to percentage
-        break;
-      case 'views':
-        score = metrics.views;
-        break;
-      case 'engagement':
-        score = (metrics.likes + metrics.comments + metrics.shares) / Math.max(metrics.views, 1);
-        break;
-      case 'watchTime':
-        score = metrics.watchTime / Math.max(metrics.views, 1);
-        break;
-      default:
-        score = metrics[primaryMetric] || 0;
+    case 'ctr':
+      score = metrics.ctr * 100; // Convert to percentage
+      break;
+    case 'views':
+      score = metrics.views;
+      break;
+    case 'engagement':
+      score = (metrics.likes + metrics.comments + metrics.shares) / Math.max(metrics.views, 1);
+      break;
+    case 'watchTime':
+      score = metrics.watchTime / Math.max(metrics.views, 1);
+      break;
+    default:
+      score = metrics[primaryMetric] || 0;
     }
 
     return {
@@ -329,7 +329,7 @@ class ABTestingFramework {
   }
 
   calculateTestDuration(test) {
-    if (!test.startedAt) return 0;
+    if (!test.startedAt) {return 0;}
     
     const endTime = test.endedAt ? new Date(test.endedAt) : new Date();
     const startTime = new Date(test.startedAt);

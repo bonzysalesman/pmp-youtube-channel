@@ -511,7 +511,7 @@ class CourseSalesTracking {
     customer.purchaseCount += 1;
     customer.products.push(sale.product);
     customer.sources.add(sale.source);
-    if (sale.campaign) customer.campaigns.add(sale.campaign);
+    if (sale.campaign) {customer.campaigns.add(sale.campaign);}
     
     // Convert Sets back to arrays for JSON serialization
     customer.sources = Array.from(customer.sources);
@@ -660,7 +660,7 @@ class CourseSalesTracking {
 
   // YouTube conversion tracking methods
   calculateAttributionWeight(touchpoints) {
-    if (!touchpoints || touchpoints.length === 0) return 1;
+    if (!touchpoints || touchpoints.length === 0) {return 1;}
     
     // Simple linear attribution - equal weight to all touchpoints
     return 1 / touchpoints.length;
@@ -731,7 +731,7 @@ class CourseSalesTracking {
   async getAllCustomerJourneys() {
     // Get journey data for all customers
     const customersDir = path.join(this.dataPath, 'customers');
-    if (!await fs.pathExists(customersDir)) return [];
+    if (!await fs.pathExists(customersDir)) {return [];}
     
     const customerFiles = await fs.readdir(customersDir);
     const journeys = [];
@@ -747,7 +747,7 @@ class CourseSalesTracking {
   }
 
   async calculateAverageJourneyLength(journeyData) {
-    if (!Array.isArray(journeyData) || journeyData.length === 0) return 0;
+    if (!Array.isArray(journeyData) || journeyData.length === 0) {return 0;}
     
     const journeyLengths = journeyData.map(journey => {
       if (journey.firstPurchase && journey.lastPurchase) {
@@ -756,7 +756,7 @@ class CourseSalesTracking {
       return 0;
     }).filter(length => length > 0);
     
-    if (journeyLengths.length === 0) return 0;
+    if (journeyLengths.length === 0) {return 0;}
     
     const avgLengthMs = journeyLengths.reduce((sum, length) => sum + length, 0) / journeyLengths.length;
     return avgLengthMs / (1000 * 60 * 60 * 24); // Convert to days
@@ -814,7 +814,7 @@ class CourseSalesTracking {
       return null;
     }).filter(time => time !== null);
     
-    if (conversionTimes.length === 0) return { average: 0, median: 0, distribution: {} };
+    if (conversionTimes.length === 0) {return { average: 0, median: 0, distribution: {} };}
     
     const average = conversionTimes.reduce((sum, time) => sum + time, 0) / conversionTimes.length;
     const sorted = conversionTimes.sort((a, b) => a - b);
@@ -827,10 +827,10 @@ class CourseSalesTracking {
     const buckets = { '0-7': 0, '8-14': 0, '15-30': 0, '31+': 0 };
     
     times.forEach(time => {
-      if (time <= 7) buckets['0-7']++;
-      else if (time <= 14) buckets['8-14']++;
-      else if (time <= 30) buckets['15-30']++;
-      else buckets['31+']++;
+      if (time <= 7) {buckets['0-7']++;}
+      else if (time <= 14) {buckets['8-14']++;}
+      else if (time <= 30) {buckets['15-30']++;}
+      else {buckets['31+']++;}
     });
     
     return buckets;
@@ -947,7 +947,7 @@ class CourseSalesTracking {
   async getSales(dateRange = null) {
     try {
       const salesDir = path.join(this.dataPath, 'sales');
-      if (!await fs.pathExists(salesDir)) return [];
+      if (!await fs.pathExists(salesDir)) {return [];}
       
       const saleFiles = await fs.readdir(salesDir);
       const sales = [];

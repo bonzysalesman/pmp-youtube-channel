@@ -236,7 +236,7 @@ class GitHubWorkflows {
       console.log(`✅ Deployment workflow created: ${workflowTitle}`);
       return { deploymentIssue, deploymentResult };
     } catch (error) {
-      console.error(`❌ Failed to create deployment workflow:`, error);
+      console.error('❌ Failed to create deployment workflow:', error);
       throw error;
     }
   }
@@ -511,8 +511,8 @@ Thank you for contributing to the PMP YouTube Channel project! Your contribution
 
 ## Failed Checks
 ${qaResults.checks.filter(c => c.status === 'failed').map(c =>
-      `### ${c.name}\n**Status:** ❌ Failed\n**Message:** ${c.message}\n`
-    ).join('\n')}
+    `### ${c.name}\n**Status:** ❌ Failed\n**Message:** ${c.message}\n`
+  ).join('\n')}
 
 ## Action Required
 Please address the failed checks before proceeding with content publication.`;

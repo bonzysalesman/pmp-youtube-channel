@@ -719,7 +719,7 @@ class AffiliateMarketingSystem {
   async getClicks(dateRange = null) {
     try {
       const clicksDir = path.join(this.dataPath, 'clicks');
-      if (!await fs.pathExists(clicksDir)) return [];
+      if (!await fs.pathExists(clicksDir)) {return [];}
       
       const clickFiles = await fs.readdir(clicksDir);
       let allClicks = [];
@@ -749,7 +749,7 @@ class AffiliateMarketingSystem {
   async getConversions(dateRange = null) {
     try {
       const conversionsDir = path.join(this.dataPath, 'conversions');
-      if (!await fs.pathExists(conversionsDir)) return [];
+      if (!await fs.pathExists(conversionsDir)) {return [];}
       
       const conversionFiles = await fs.readdir(conversionsDir);
       let allConversions = [];
@@ -779,7 +779,7 @@ class AffiliateMarketingSystem {
   async getActiveLinks() {
     try {
       const linksDir = path.join(this.dataPath, 'links');
-      if (!await fs.pathExists(linksDir)) return [];
+      if (!await fs.pathExists(linksDir)) {return [];}
       
       const linkFiles = await fs.readdir(linksDir);
       const links = [];
@@ -803,7 +803,7 @@ class AffiliateMarketingSystem {
   async getCommissions(dateRange = null) {
     try {
       const commissionsFile = path.join(this.dataPath, 'commissions.json');
-      if (!await fs.pathExists(commissionsFile)) return [];
+      if (!await fs.pathExists(commissionsFile)) {return [];}
       
       let commissions = await fs.readJson(commissionsFile);
       
@@ -865,9 +865,9 @@ class AffiliateMarketingSystem {
       group.count += 1;
       group.total += commission.commission;
       
-      if (commission.status === 'pending') group.pending += commission.commission;
-      else if (commission.status === 'confirmed') group.confirmed += commission.commission;
-      else if (commission.status === 'paid') group.paid += commission.commission;
+      if (commission.status === 'pending') {group.pending += commission.commission;}
+      else if (commission.status === 'confirmed') {group.confirmed += commission.commission;}
+      else if (commission.status === 'paid') {group.paid += commission.commission;}
     });
     
     return grouped;
@@ -919,7 +919,7 @@ class AffiliateMarketingSystem {
   async getAffiliateIntegrations(dateRange = null) {
     try {
       const integrationsDir = path.join(this.dataPath, 'integrations');
-      if (!await fs.pathExists(integrationsDir)) return [];
+      if (!await fs.pathExists(integrationsDir)) {return [];}
       
       const integrationFiles = await fs.readdir(integrationsDir);
       const integrations = [];
@@ -1060,7 +1060,7 @@ class AffiliateMarketingSystem {
   async calculateAverageOrderValue() {
     const conversions = await this.getConversions();
     
-    if (conversions.length === 0) return 0;
+    if (conversions.length === 0) {return 0;}
     
     const totalOrderValue = conversions.reduce((sum, conv) => sum + (conv.orderValue || 0), 0);
     return totalOrderValue / conversions.length;
@@ -1070,7 +1070,7 @@ class AffiliateMarketingSystem {
     const clicks = await this.getClicks();
     const conversions = await this.getConversions();
     
-    if (clicks.length === 0) return 0;
+    if (clicks.length === 0) {return 0;}
     
     const totalCommissions = conversions.reduce((sum, conv) => sum + (conv.commission || 0), 0);
     return totalCommissions / clicks.length;

@@ -434,7 +434,7 @@ class RevenueTrackingSystem {
   async getCustomerTransactions(customerId) {
     try {
       const customer = await this.getCustomerProfile(customerId);
-      if (!customer || !customer.transactions) return [];
+      if (!customer || !customer.transactions) {return [];}
       
       const transactions = [];
       const transactionDir = path.join(this.dataPath, 'transactions');
@@ -469,7 +469,7 @@ class RevenueTrackingSystem {
   }
 
   calculateRetentionProbability(customerProfile) {
-    if (!customerProfile) return 0.5;
+    if (!customerProfile) {return 0.5;}
     
     const daysSinceLastPurchase = this.calculateDaysSinceLastPurchase(customerProfile);
     const purchaseFrequency = customerProfile.purchaseCount || 1;
@@ -478,16 +478,16 @@ class RevenueTrackingSystem {
     // Simple retention probability calculation
     let probability = 0.8; // Base probability
     
-    if (daysSinceLastPurchase > 90) probability *= 0.7;
-    if (daysSinceLastPurchase > 180) probability *= 0.5;
-    if (purchaseFrequency > 3) probability *= 1.2;
-    if (engagementScore > 0.7) probability *= 1.1;
+    if (daysSinceLastPurchase > 90) {probability *= 0.7;}
+    if (daysSinceLastPurchase > 180) {probability *= 0.5;}
+    if (purchaseFrequency > 3) {probability *= 1.2;}
+    if (engagementScore > 0.7) {probability *= 1.1;}
     
     return Math.min(1, Math.max(0, probability));
   }
 
   predictCustomerLifespan(customerProfile) {
-    if (!customerProfile) return 12; // Default 12 months
+    if (!customerProfile) {return 12;} // Default 12 months
     
     const purchaseCount = customerProfile.purchaseCount || 1;
     const engagementScore = customerProfile.engagementScore || 0.5;
@@ -495,31 +495,31 @@ class RevenueTrackingSystem {
     // Base lifespan of 12 months, adjusted by behavior
     let lifespan = 12;
     
-    if (purchaseCount > 3) lifespan += 6;
-    if (purchaseCount > 5) lifespan += 12;
-    if (engagementScore > 0.7) lifespan += 6;
+    if (purchaseCount > 3) {lifespan += 6;}
+    if (purchaseCount > 5) {lifespan += 12;}
+    if (engagementScore > 0.7) {lifespan += 6;}
     
     return lifespan;
   }
 
   calculateCLVConfidence(transactions, customerProfile) {
-    if (!transactions || transactions.length < 2) return 0.3;
+    if (!transactions || transactions.length < 2) {return 0.3;}
     
     const transactionCount = transactions.length;
     const timeSpan = this.calculateCustomerTimeSpan(transactions);
     
     let confidence = 0.5; // Base confidence
     
-    if (transactionCount >= 3) confidence += 0.2;
-    if (transactionCount >= 5) confidence += 0.2;
-    if (timeSpan >= 90) confidence += 0.1; // 3+ months of data
-    if (timeSpan >= 180) confidence += 0.1; // 6+ months of data
+    if (transactionCount >= 3) {confidence += 0.2;}
+    if (transactionCount >= 5) {confidence += 0.2;}
+    if (timeSpan >= 90) {confidence += 0.1;} // 3+ months of data
+    if (timeSpan >= 180) {confidence += 0.1;} // 6+ months of data
     
     return Math.min(1, confidence);
   }
 
   calculateCustomerTimeSpan(transactions) {
-    if (!transactions || transactions.length < 2) return 0;
+    if (!transactions || transactions.length < 2) {return 0;}
     
     const firstTransaction = new Date(transactions[0].timestamp);
     const lastTransaction = new Date(transactions[transactions.length - 1].timestamp);
@@ -528,7 +528,7 @@ class RevenueTrackingSystem {
   }
 
   calculateDaysSinceFirstPurchase(customer) {
-    if (!customer.firstPurchaseDate) return 0;
+    if (!customer.firstPurchaseDate) {return 0;}
     
     const firstPurchase = new Date(customer.firstPurchaseDate);
     const now = new Date();
@@ -537,7 +537,7 @@ class RevenueTrackingSystem {
   }
 
   calculateDaysSinceLastPurchase(customer) {
-    if (!customer.lastPurchaseDate) return Infinity;
+    if (!customer.lastPurchaseDate) {return Infinity;}
     
     const lastPurchase = new Date(customer.lastPurchaseDate);
     const now = new Date();
@@ -548,7 +548,7 @@ class RevenueTrackingSystem {
   async getTransactions(dateRange = null) {
     try {
       const transactionDir = path.join(this.dataPath, 'transactions');
-      if (!await fs.pathExists(transactionDir)) return [];
+      if (!await fs.pathExists(transactionDir)) {return [];}
       
       const transactionFiles = await fs.readdir(transactionDir);
       let allTransactions = [];
@@ -578,7 +578,7 @@ class RevenueTrackingSystem {
   async getAllCustomers() {
     try {
       const customerDir = path.join(this.dataPath, 'customers');
-      if (!await fs.pathExists(customerDir)) return [];
+      if (!await fs.pathExists(customerDir)) {return [];}
       
       const customerFiles = await fs.readdir(customerDir);
       const customers = [];
@@ -648,7 +648,7 @@ class RevenueTrackingSystem {
 
   async analyzeTrends(historicalData) {
     const months = Object.keys(historicalData).sort();
-    if (months.length < 2) return { growth: 0, trend: 'stable' };
+    if (months.length < 2) {return { growth: 0, trend: 'stable' };}
     
     const recentRevenue = historicalData[months[months.length - 1]]?.revenue || 0;
     const previousRevenue = historicalData[months[months.length - 2]]?.revenue || 0;
@@ -666,7 +666,7 @@ class RevenueTrackingSystem {
     const latestRevenue = months.length > 0 ? historicalData[months[months.length - 1]]?.revenue || 0 : 1000;
     
     const monthNames = ['january', 'february', 'march', 'april', 'may', 'june',
-                       'july', 'august', 'september', 'october', 'november', 'december'];
+      'july', 'august', 'september', 'october', 'november', 'december'];
     const currentMonth = new Date().getMonth();
     const forecastMonth = (currentMonth + month - 1) % 12;
     const seasonalityFactor = seasonalityFactors[monthNames[forecastMonth]] || 1;
@@ -722,9 +722,9 @@ class RevenueTrackingSystem {
     const dataPoints = Object.keys(historicalData).length;
     let confidence = 0.5; // Base confidence
     
-    if (dataPoints >= 6) confidence += 0.2; // 6+ months of data
-    if (dataPoints >= 12) confidence += 0.2; // 1+ year of data
-    if (trendAnalysis.trend === 'stable') confidence += 0.1;
+    if (dataPoints >= 6) {confidence += 0.2;} // 6+ months of data
+    if (dataPoints >= 12) {confidence += 0.2;} // 1+ year of data
+    if (trendAnalysis.trend === 'stable') {confidence += 0.1;}
     
     return Math.min(1, confidence);
   }
@@ -740,7 +740,7 @@ class RevenueTrackingSystem {
   }
 
   async calculateSegmentMetrics(customers) {
-    if (customers.length === 0) return {};
+    if (customers.length === 0) {return {};}
     
     const totalRevenue = customers.reduce((sum, customer) => sum + (customer.totalRevenue || 0), 0);
     const averageRevenue = totalRevenue / customers.length;
@@ -774,7 +774,7 @@ class RevenueTrackingSystem {
 
   async getAverageCustomerLifetimeValue() {
     const customers = await this.getAllCustomers();
-    if (customers.length === 0) return 0;
+    if (customers.length === 0) {return 0;}
     
     const totalCLV = customers.reduce((sum, customer) => sum + (customer.lifetimeValue?.predicted || 0), 0);
     return totalCLV / customers.length;
@@ -1015,29 +1015,29 @@ class RevenueTrackingSystem {
       let score = 0.5; // Base score
 
       // Website engagement factors
-      if (wordpressData.totalOrders > 1) score += 0.1;
-      if (wordpressData.totalOrders > 3) score += 0.1;
-      if (wordpressData.totalOrders > 5) score += 0.1;
+      if (wordpressData.totalOrders > 1) {score += 0.1;}
+      if (wordpressData.totalOrders > 3) {score += 0.1;}
+      if (wordpressData.totalOrders > 5) {score += 0.1;}
 
       // Recency factor
       if (wordpressData.lastLoginDate) {
         const daysSinceLogin = this.calculateDaysSince(wordpressData.lastLoginDate);
-        if (daysSinceLogin < 7) score += 0.1;
-        if (daysSinceLogin < 30) score += 0.05;
+        if (daysSinceLogin < 7) {score += 0.1;}
+        if (daysSinceLogin < 30) {score += 0.05;}
       }
 
       // Registration longevity
       if (wordpressData.registrationDate) {
         const daysSinceRegistration = this.calculateDaysSince(wordpressData.registrationDate);
-        if (daysSinceRegistration > 90) score += 0.05;
-        if (daysSinceRegistration > 180) score += 0.05;
+        if (daysSinceRegistration > 90) {score += 0.05;}
+        if (daysSinceRegistration > 180) {score += 0.05;}
       }
 
       // Average order value factor
       if (wordpressData.totalOrders > 0) {
         const avgOrderValue = wordpressData.totalSpent / wordpressData.totalOrders;
-        if (avgOrderValue > 100) score += 0.1;
-        if (avgOrderValue > 200) score += 0.1;
+        if (avgOrderValue > 100) {score += 0.1;}
+        if (avgOrderValue > 200) {score += 0.1;}
       }
 
       return Math.min(1, Math.max(0, score));
@@ -1173,7 +1173,7 @@ class RevenueTrackingSystem {
    * Helper methods for WordPress integration
    */
   calculateDaysSince(dateString) {
-    if (!dateString) return Infinity;
+    if (!dateString) {return Infinity;}
     const date = new Date(dateString);
     const now = new Date();
     return Math.floor((now - date) / (1000 * 60 * 60 * 24));

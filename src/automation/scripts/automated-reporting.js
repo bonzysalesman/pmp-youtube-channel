@@ -40,7 +40,7 @@ class AutomatedReporting {
   setupScheduledReports() {
     // Daily report - every day at 9 AM
     if (this.reportConfig.daily.enabled) {
-      const dailyCron = `0 9 * * *`; // 9 AM every day
+      const dailyCron = '0 9 * * *'; // 9 AM every day
       const dailyJob = cron.schedule(dailyCron, async () => {
         await this.generateDailyReport();
       }, {
@@ -54,7 +54,7 @@ class AutomatedReporting {
 
     // Weekly report - every Monday at 8 AM
     if (this.reportConfig.weekly.enabled) {
-      const weeklyCron = `0 8 * * 1`; // 8 AM every Monday
+      const weeklyCron = '0 8 * * 1'; // 8 AM every Monday
       const weeklyJob = cron.schedule(weeklyCron, async () => {
         await this.generateWeeklyReport();
       }, {
@@ -68,7 +68,7 @@ class AutomatedReporting {
 
     // Monthly report - first day of month at 7 AM
     if (this.reportConfig.monthly.enabled) {
-      const monthlyCron = `0 7 1 * *`; // 7 AM on 1st of every month
+      const monthlyCron = '0 7 1 * *'; // 7 AM on 1st of every month
       const monthlyJob = cron.schedule(monthlyCron, async () => {
         await this.generateMonthlyReport();
       }, {
@@ -359,7 +359,7 @@ class AutomatedReporting {
   }
 
   calculateGrowthRate(previous, current) {
-    if (previous === 0) return current > 0 ? 100 : 0;
+    if (previous === 0) {return current > 0 ? 100 : 0;}
     return ((current - previous) / previous) * 100;
   }
 
@@ -467,14 +467,14 @@ class AutomatedReporting {
   // Manual report generation methods
   async generateReportNow(type = 'daily') {
     switch (type) {
-      case 'daily':
-        return await this.generateDailyReport();
-      case 'weekly':
-        return await this.generateWeeklyReport();
-      case 'monthly':
-        return await this.generateMonthlyReport();
-      default:
-        throw new Error(`Unknown report type: ${type}`);
+    case 'daily':
+      return await this.generateDailyReport();
+    case 'weekly':
+      return await this.generateWeeklyReport();
+    case 'monthly':
+      return await this.generateMonthlyReport();
+    default:
+      throw new Error(`Unknown report type: ${type}`);
     }
   }
 }

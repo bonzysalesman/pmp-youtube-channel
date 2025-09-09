@@ -613,7 +613,7 @@ class ConversionFunnelAnalyzer {
   async collectFunnelData(dateRange = null) {
     try {
       const eventsDir = path.join(this.dataPath, 'daily-events');
-      if (!await fs.pathExists(eventsDir)) return [];
+      if (!await fs.pathExists(eventsDir)) {return [];}
       
       const eventFiles = await fs.readdir(eventsDir);
       let allEvents = [];
@@ -750,7 +750,7 @@ class ConversionFunnelAnalyzer {
   }
 
   calculateAverageTimeToConversion(downloads, conversions) {
-    if (conversions.length === 0) return 0;
+    if (conversions.length === 0) {return 0;}
     
     const conversionTimes = conversions.map(conversion => {
       const download = downloads.find(d => d.userId === conversion.userId);
@@ -760,7 +760,7 @@ class ConversionFunnelAnalyzer {
       return 0;
     }).filter(time => time > 0);
     
-    if (conversionTimes.length === 0) return 0;
+    if (conversionTimes.length === 0) {return 0;}
     
     const avgTimeMs = conversionTimes.reduce((sum, time) => sum + time, 0) / conversionTimes.length;
     return avgTimeMs / (1000 * 60 * 60 * 24); // Convert to days

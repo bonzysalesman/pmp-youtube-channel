@@ -50,6 +50,18 @@ function understrap_child_enqueue_styles_scripts() {
         array( 'pmp-components' ), // Depends on the PMP components style
         $theme->get( 'Version' )
     );
+    
+    // PMP Progress Widget stylesheet
+    wp_enqueue_style( 'pmp-progress-widget', get_stylesheet_directory_uri() . '/assets/css/progress-widget.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
+    
+    // PMP Next Lesson Widget stylesheet
+    wp_enqueue_style( 'pmp-next-lesson-widget', get_stylesheet_directory_uri() . '/assets/css/next-lesson-widget.css',
+        array( 'pmp-components' ), // Depends on the PMP components style
+        $theme->get( 'Version' )
+    );
 
     // --- Optional: Enqueue other libraries if needed ---
     // Example: Enqueue Font Awesome (ensure it's not already loaded by parent/plugins)
@@ -186,6 +198,19 @@ function understrap_child_widgets_init() {
 			'after_widget'  => '</div><!-- .footer-widget -->',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
+		)
+	);
+	
+	// Course Sidebar Widget Area
+	register_sidebar(
+		array(
+			'name'          => __( 'Course Sidebar', 'understrap-child' ),
+			'id'            => 'course-sidebar',
+			'description'   => __( 'Widget area for course and lesson pages sidebar.', 'understrap-child' ),
+			'before_widget' => '<div id="%1$s" class="course-sidebar-widget widget %2$s">',
+			'after_widget'  => '</div><!-- .course-sidebar-widget -->',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
 		)
 	);
 }
@@ -380,6 +405,9 @@ require_once get_stylesheet_directory() . '/includes/class-pmp-resources-manager
 require_once get_stylesheet_directory() . '/includes/class-pmp-performance-optimizer.php';
 require_once get_stylesheet_directory() . '/includes/class-pmp-asset-optimizer.php';
 require_once get_stylesheet_directory() . '/includes/class-pmp-caching-system.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-progress-widget.php';
+require_once get_stylesheet_directory() . '/includes/class-pmp-next-lesson-widget.php';
+require_once get_stylesheet_directory() . '/includes/pmp-next-lesson-widget-setup.php';
 require_once get_stylesheet_directory() . '/includes/pmp-content-shortcodes.php';
 require_once get_stylesheet_directory() . '/includes/pmp-enqueue.php';
 require_once get_stylesheet_directory() . '/includes/pmp-progress-integration.php';
@@ -388,6 +416,8 @@ require_once get_stylesheet_directory() . '/includes/pmp-progress-integration.ph
 if (current_user_can('administrator') || (defined('WP_DEBUG') && WP_DEBUG)) {
     require_once get_stylesheet_directory() . '/test-progress-tracking.php';
     require_once get_stylesheet_directory() . '/test-footer-widgets.php';
+    require_once get_stylesheet_directory() . '/test-progress-widget.php';
+    require_once get_stylesheet_directory() . '/test-next-lesson-widget.php';
 }
 
 // --- Initialize Performance Optimizer ---
