@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PMP Mastery Framework - 13 Week Calendar (Slide)</title>
+<style>
+  :root {
+    --purple:#5b27b8;
+    --deep:#3d1a7a;
+    --gold:#c7951e;
+    --gold-lt:#e8b84b;
+    --ink:#0f0a1e;
+    --ink2:#2d1f4e;
+    --off:#f9f8fc;
+    --grey:#ede9f5;
+    --white:#fff;
+    --muted:#7d6ca6;
+    --g1:#22c55e;
+    --g2:#3b82f6;
+    --g3:#f59e0b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#f3f2f8;font-family:"Poppins","Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  .canvas{
+    width:1920px;
+    height:1080px;
+    margin:0 auto;
+    padding:22px 26px 18px;
+    background:linear-gradient(180deg,#f8f7fc 0%, #f2f0f8 100%);
+    overflow:hidden;
+  }
+  .header{
+    border:1px solid #e9e5f3;
+    border-radius:14px;
+    background:radial-gradient(circle at 85% 0%, rgba(91,39,184,0.14), transparent 44%), #fff;
+    box-shadow:0 8px 24px rgba(45,31,78,.07);
+    padding:14px 18px 12px;
+    position:relative;
+  }
+  .header:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--purple));border-radius:14px 14px 0 0}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .brand img{height:28px;width:auto}
+  .brand .tag{font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;font-weight:600}
+  h1{margin:0;font-size:46px;line-height:1;color:var(--deep);letter-spacing:-.015em}
+  .sub{margin-top:6px;font-size:15px;color:#594c78;line-height:1.35;max-width:1300px}
+  .meta{margin-top:8px;display:inline-block;padding:7px 10px;border-left:3px solid var(--gold);border-radius:0 6px 6px 0;background:rgba(199,149,30,.1);font-size:13px;color:#463c61;font-weight:600}
+
+  .phase{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .p{
+    border:1px solid var(--grey);
+    border-top:4px solid var(--g1);
+    border-radius:9px;
+    background:#fff;
+    padding:8px 10px;
+    min-height:82px;
+  }
+  .p.p2{border-top-color:var(--g2)}
+  .p.p3{border-top-color:var(--g3)}
+  .p .t{font-size:17px;font-weight:800;color:var(--deep);line-height:1.1}
+  .p .w{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#6f6290;margin:2px 0 4px}
+  .p ul{margin:0;padding-left:14px;font-size:12px;line-height:1.28;color:#453b60}
+
+  .title2{margin:10px 0 8px;text-align:center;font-size:27px;color:var(--deep);font-weight:800;letter-spacing:-.01em}
+
+  .weeks{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+  }
+  .wk{background:#fff;border:1px solid var(--grey);border-radius:8px;padding:7px 8px;min-height:122px}
+  .badge{display:inline-block;font-size:8px;font-weight:800;letter-spacing:.08em;color:#fff;padding:2px 6px;border-radius:999px;text-transform:uppercase;margin-bottom:4px}
+  .b1{background:#22c55e}.b2{background:#16a34a}.b3{background:#10b981}.b4{background:#3b82f6}
+  .b5{background:#2563eb}.b6{background:#0ea5e9}.b7{background:#06b6d4}.b8{background:#14b8a6}
+  .b9{background:#f59e0b}.b10{background:#f97316}.b11{background:#ef4444}.b12{background:#8b5cf6}.b13{background:#7c3aed}
+  .wk .wt{font-size:13px;font-weight:800;color:#261d3a;line-height:1.14;margin-bottom:3px}
+  .wk ul{margin:0;padding-left:13px;font-size:10.8px;color:#413654;line-height:1.22}
+
+  .sched{margin-top:8px;border:1px solid var(--grey);border-radius:10px;background:#fff;padding:8px 10px}
+  .sched h3{margin:0 0 6px;text-align:center;color:var(--deep);font-size:16px}
+  .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .si{border:1px solid #ece7fb;background:#faf8ff;border-radius:8px;text-align:center;padding:6px 4px}
+  .dot{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:8px;font-weight:800;margin:0 auto 4px}
+  .d1{background:var(--purple)}.d2{background:#3f8efc}.d3{background:#22c55e}.d4{background:#f97316}
+  .si .l{font-size:11px;font-weight:700;color:#2b2140;line-height:1.05}
+  .si .s{font-size:9px;color:#6d5f8f;line-height:1.1;margin-top:2px}
+
+  .foot{margin-top:4px;text-align:right;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#9c8fc0;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <section class="header">
+      <div class="brand">
+        <img src="file:///Users/bonzysalesman/Project/pmp-exam-prep/src/assets/brand-manual/pmp-mastery-framework.png" alt="PMP Mastery Framework" />
+        <div class="tag">Strategic Exam Preparation System</div>
+      </div>
+      <h1>Complete 13-week study plan</h1>
+      <div class="sub">A structured roadmap aligned to the PMP Exam Content Outline, designed to move from fundamentals to exam readiness with consistent weekly progression.</div>
+      <div class="meta">87 daily lessons · 13 weeks · 7-10 hours/week</div>
+      <div class="phase">
+        <article class="p p1"><div class="t">Month 1: Foundation</div><div class="w">Weeks 1-4</div><ul><li>Introduction & foundations</li><li>Building a team (part 1-2)</li><li>Starting the project</li></ul></article>
+        <article class="p p2"><div class="t">Month 2: Execution</div><div class="w">Weeks 5-8</div><ul><li>Starting project (part 2)</li><li>Doing the work (part 1-2)</li><li>Mid-point assessment</li></ul></article>
+        <article class="p p3"><div class="t">Month 3: Mastery</div><div class="w">Weeks 9-13</div><ul><li>Keeping on track</li><li>Business environment focus</li><li>Final review & exam week</li></ul></article>
+      </div>
+    </section>
+
+    <div class="title2">Weekly breakdown</div>
+    <section class="weeks">
+      <article class="wk"><span class="badge b1">Week 1</span><div class="wt">Introduction & Foundations</div><ul><li>Day 1: PMP overview</li><li>Day 2: Resources & ECO</li><li>Day 3-4: Mindset parts 1-2</li><li>Day 5: Review & practice</li></ul></article>
+      <article class="wk"><span class="badge b2">Week 2</span><div class="wt">Building a Team (Part 1)</div><ul><li>Day 8: Build team</li><li>Day 9: Define ground rules</li><li>Day 10: Negotiate agreements</li><li>Day 11: Empower team members</li></ul></article>
+      <article class="wk"><span class="badge b3">Week 3</span><div class="wt">Building a Team (Part 2)</div><ul><li>Day 15: Ensure team trained</li><li>Day 16: Virtual teams</li><li>Day 17: Shared understanding</li><li>Day 18-19: Review & practice</li></ul></article>
+      <article class="wk"><span class="badge b4">Week 4</span><div class="wt">Starting the Project</div><ul><li>Day 22: Determine methodology</li><li>Day 23: Plan scope</li><li>Day 24-25: Budget/resources</li><li>Day 26: Review & practice</li></ul></article>
+
+      <article class="wk"><span class="badge b5">Week 5</span><div class="wt">Starting Project (Part 2)</div><ul><li>Day 29: Plan schedule</li><li>Day 30: Plan quality</li><li>Day 31: Integrate planning</li><li>Day 32-33: Procurement/governance</li></ul></article>
+      <article class="wk"><span class="badge b6">Week 6</span><div class="wt">Doing the Work (Part 1)</div><ul><li>Day 36: Assess/manage risks</li><li>Day 37: Execute for value</li><li>Day 38: Communications</li><li>Day 39-40: Stakeholders + review</li></ul></article>
+      <article class="wk"><span class="badge b7">Week 7</span><div class="wt">Doing the Work (Part 2)</div><ul><li>Day 43: Manage artifacts</li><li>Day 44: Manage changes</li><li>Day 45: Manage issues</li><li>Day 46-47: Transfer + review</li></ul></article>
+      <article class="wk"><span class="badge b8">Week 8</span><div class="wt">Mid-point Assessment</div><ul><li>Day 50: WG3 review</li><li>Day 51: WG3 practice test</li><li>Day 52-53: Test + midpoint review</li><li>Day 54: Mid-point practice</li></ul></article>
+
+      <article class="wk"><span class="badge b9">Week 9</span><div class="wt">Keeping on Track (Part 1)</div><ul><li>Day 57: Lead a team</li><li>Day 58: Support performance</li><li>Day 59: Remove impediments</li><li>Day 60-61: Conflict + review</li></ul></article>
+      <article class="wk"><span class="badge b10">Week 10</span><div class="wt">Keeping on Track (Part 2)</div><ul><li>Day 64: Collaborate stakeholders</li><li>Day 65: Mentor stakeholders</li><li>Day 66: Performance through EQ</li><li>Day 67-68: Review + practice test</li></ul></article>
+      <article class="wk"><span class="badge b11">Week 11</span><div class="wt">Business Environment</div><ul><li>Day 71: Compliance</li><li>Day 72: Benefits/value</li><li>Day 73: External changes</li><li>Day 74-75: Org change + review</li></ul></article>
+      <article class="wk"><span class="badge b12">Week 12</span><div class="wt">Final Review</div><ul><li>Day 78: Full practice exam #1</li><li>Day 79: Detailed review</li><li>Day 80: Targeted revision</li><li>Day 81-82: Full exam #2 + polish</li></ul></article>
+
+      <article class="wk"><span class="badge b13">Week 13</span><div class="wt">Exam Week</div><ul><li>Day 85: Light review + logistics</li><li>Day 86: Exam day</li><li>Day 87: Post-exam reflection</li><li>Day 87+: Next-step planning</li></ul></article>
+    </section>
+
+    <section class="sched">
+      <h3>Weekly study schedule (7-10 hours)</h3>
+      <div class="sg">
+        <div class="si"><div class="dot d1">M-F</div><div class="l">Monday-Friday</div><div class="s">1-2h daily sessions</div></div>
+        <div class="si"><div class="dot d2">Sat</div><div class="l">Saturday</div><div class="s">2-3h review + practice</div></div>
+        <div class="si"><div class="dot d3">Sun</div><div class="l">Sunday</div><div class="s">Rest or light review</div></div>
+        <div class="si"><div class="dot d4">87</div><div class="l">Total Lessons</div><div class="s">Complete ECO coverage</div></div>
+      </div>
+    </section>
+    <div class="foot">PMP Mastery Framework · Version 1.1 (Slide optimized)</div>
+  </div>
+</body>
+</html>

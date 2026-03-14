@@ -1,0 +1,201 @@
+{
+    "module_id": "ba-agent",
+    "name": "Virtual Business Analyst",
+    "version": "1.0.0",
+    "description": "Expert Business Analyst agent powered by BABOK v3 and CIS modules.",
+    "author": "Antigravity",
+    "dependencies": [
+        "bmm",
+        "cis"
+    ],
+    "agents": [
+        {
+            "id": "vba",
+            "path": "bmm/agents/ba.md",
+            "role": "Lead Analyst"
+        }
+    ],
+    "skills": [
+        {
+            "id": "kiro-spec",
+            "path": "bmm/skills/kiro_spec_methodology.md"
+        },
+        {
+            "id": "babok-knowledge",
+            "path": "bmm/skills/babok_knowledge.md"
+        },
+        {
+            "id": "ba-techniques",
+            "path": "bmm/skills/ba_techniques.md"
+        },
+        {
+            "id": "pmp-conflict-auditor",
+            "path": "bmm/skills/pmp_conflict_auditor.md"
+        },
+        {
+            "id": "pmp_conflict_management",
+            "path": "pmp/skills/pmp_conflict_management.md"
+        },
+        {
+            "id": "pmp_team_leadership",
+            "path": "pmp/skills/pmp_team_leadership.md"
+        },
+        {
+            "id": "pmp_performance_support",
+            "path": "pmp/skills/pmp_performance_support.md"
+        },
+        {
+            "id": "pmp_empowerment",
+            "path": "pmp/skills/pmp_empowerment.md"
+        },
+        {
+            "id": "pmp_training_facilitation",
+            "path": "pmp/skills/pmp_training_facilitation.md"
+        },
+        {
+            "id": "pmp_team_building",
+            "path": "pmp/skills/pmp_team_building.md"
+        },
+        {
+            "id": "pmp_impediment_removal",
+            "path": "pmp/skills/pmp_impediment_removal.md"
+        },
+        {
+            "id": "pmp_negotiation",
+            "path": "pmp/skills/pmp_negotiation.md"
+        },
+        {
+            "id": "pmp_stakeholder_collaboration",
+            "path": "pmp/skills/pmp_stakeholder_collaboration.md"
+        },
+        {
+            "id": "pmp_shared_understanding",
+            "path": "pmp/skills/pmp_shared_understanding.md"
+        },
+        {
+            "id": "pmp_virtual_team_management",
+            "path": "pmp/skills/pmp_virtual_team_management.md"
+        },
+        {
+            "id": "pmp_ground_rules",
+            "path": "pmp/skills/pmp_ground_rules.md"
+        },
+        {
+            "id": "pmp_mentoring",
+            "path": "pmp/skills/pmp_mentoring.md"
+        },
+        {
+            "id": "pmp_emotional_intelligence",
+            "path": "pmp/skills/pmp_emotional_intelligence.md"
+        },
+        {
+            "id": "pmp_value_delivery",
+            "path": "pmp/skills/pmp_value_delivery.md"
+        },
+        {
+            "id": "pmp_communications_management",
+            "path": "pmp/skills/pmp_communications_management.md"
+        },
+        {
+            "id": "pmp_risk_management",
+            "path": "pmp/skills/pmp_risk_management.md"
+        },
+        {
+            "id": "pmp_stakeholder_engagement",
+            "path": "pmp/skills/pmp_stakeholder_engagement.md"
+        },
+        {
+            "id": "pmp_resource_management",
+            "path": "pmp/skills/pmp_resource_management.md"
+        },
+        {
+            "id": "pmp_schedule_management",
+            "path": "pmp/skills/pmp_schedule_management.md"
+        },
+        {
+            "id": "pmp_quality_management",
+            "path": "pmp/skills/pmp_quality_management.md"
+        },
+        {
+            "id": "pmp_scope_management",
+            "path": "pmp/skills/pmp_scope_management.md"
+        },
+        {
+            "id": "pmp_integration_planning",
+            "path": "pmp/skills/pmp_integration_planning.md"
+        },
+        {
+            "id": "pmp_change_management",
+            "path": "pmp/skills/pmp_change_management.md"
+        },
+        {
+            "id": "pmp_procurement_management",
+            "path": "pmp/skills/pmp_procurement_management.md"
+        },
+        {
+            "id": "pmp_artefact_management",
+            "path": "pmp/skills/pmp_artefact_management.md"
+        },
+        {
+            "id": "pmp_methodology_selection",
+            "path": "pmp/skills/pmp_methodology_selection.md"
+        },
+        {
+            "id": "pmp_governance_establishment",
+            "path": "pmp/skills/pmp_governance_establishment.md"
+        },
+        {
+            "id": "pmp_issue_management",
+            "path": "pmp/skills/pmp_issue_management.md"
+        },
+        {
+            "id": "pmp_knowledge_transfer",
+            "path": "pmp/skills/pmp_knowledge_transfer.md"
+        },
+        {
+            "id": "pmp_closure_management",
+            "path": "pmp/skills/pmp_closure_management.md"
+        },
+        {
+            "id": "pmp_compliance_management",
+            "path": "pmp/skills/pmp_compliance_management.md"
+        },
+        {
+            "id": "pmp_benefits_evaluation",
+            "path": "pmp/skills/pmp_benefits_evaluation.md"
+        },
+        {
+            "id": "pmp_env_change_analysis",
+            "path": "pmp/skills/pmp_env_change_analysis.md"
+        },
+        {
+            "id": "pmp_org_change_support",
+            "path": "pmp/skills/pmp_org_change_support.md"
+        }
+    ],
+    "knowledge_atoms": {
+        "text": "_bmad-output/atoms/babok_text.txt",
+        "techniques": "_bmad-output/atoms/techniques/",
+        "visual_pages": "_bmad-output/atoms/visual_pages/",
+        "images": "_bmad-output/atoms/images/",
+        "pmp_templates": "_bmad/pmp/atoms/templates/",
+        "pmp_formulas": "_bmad/pmp/atoms/formulas/",
+        "pmp_scenarios": "_bmad/pmp/atoms/scenarios/"
+    },
+    "workflows": [
+        {
+            "id": "analyze-requirements",
+            "path": "bmm/workflows/ba/analyze-requirements.md"
+        },
+        {
+            "id": "pmp-strategic-analysis",
+            "path": "bmm/workflows/ba/pmp-strategic-analysis.md"
+        }
+    ],
+    "teams": [
+        {
+            "id": "team-ba",
+            "path": "bmm/teams/team-ba.yaml"
+        }
+    ]
+}

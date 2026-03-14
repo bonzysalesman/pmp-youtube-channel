@@ -1,0 +1,422 @@
+{
+  "providers": {
+    "mailchimp": {
+      "enabled": true,
+      "apiKey": "MAILCHIMP_API_KEY",
+      "listId": "MAILCHIMP_LIST_ID",
+      "serverPrefix": "us1",
+      "features": {
+        "automation": true,
+        "segmentation": true,
+        "analytics": true,
+        "templates": true
+      }
+    },
+    "convertkit": {
+      "enabled": false,
+      "apiKey": "CONVERTKIT_API_KEY",
+      "formId": "CONVERTKIT_FORM_ID",
+      "features": {
+        "sequences": true,
+        "tagging": true,
+        "analytics": true
+      }
+    },
+    "activecampaign": {
+      "enabled": false,
+      "apiKey": "ACTIVECAMPAIGN_API_KEY",
+      "apiUrl": "ACTIVECAMPAIGN_API_URL",
+      "features": {
+        "automation": true,
+        "crm": true,
+        "segmentation": true
+      }
+    }
+  },
+  "sequences": {
+    "welcome": {
+      "enabled": true,
+      "name": "New Subscriber Welcome Series",
+      "delay": 0,
+      "emails": 5,
+      "daysBetween": [0, 2, 5, 8, 14],
+      "goals": ["introduce_channel", "provide_value", "build_community", "encourage_engagement", "check_progress"],
+      "tags": ["welcome_sequence", "new_subscriber"]
+    },
+    "weekly_tips": {
+      "enabled": true,
+      "name": "Weekly Study Tips",
+      "schedule": "monday_9am",
+      "aligned_with_study_calendar": true,
+      "personalized": true,
+      "tags": ["weekly_tips", "study_calendar"]
+    },
+    "course_promotion": {
+      "enabled": true,
+      "name": "Course Promotion Sequence",
+      "start_week": 3,
+      "frequency": "bi_weekly",
+      "emails": 4,
+      "soft_promotion": true,
+      "value_first": true,
+      "tags": ["course_promotion", "sales_sequence"]
+    },
+    "engagement_recovery": {
+      "enabled": true,
+      "name": "Re-engagement Campaign",
+      "trigger": "inactive_30_days",
+      "emails": 3,
+      "daysBetween": [0, 7, 14],
+      "goals": ["check_in", "provide_help", "final_attempt"],
+      "tags": ["re_engagement", "inactive_recovery"]
+    },
+    "exam_prep": {
+      "enabled": true,
+      "name": "Final Exam Preparation",
+      "trigger": "week_12_complete",
+      "emails": 6,
+      "daysBetween": [0, 2, 4, 7, 10, 14],
+      "intensive": true,
+      "tags": ["exam_prep", "final_push"]
+    },
+    "post_certification": {
+      "enabled": true,
+      "name": "Post-Certification Success",
+      "trigger": "exam_passed",
+      "emails": 3,
+      "daysBetween": [0, 7, 30],
+      "goals": ["congratulate", "career_guidance", "community_building"],
+      "tags": ["certified", "success_story"]
+    },
+    "qa_reminders": {
+      "enabled": true,
+      "name": "Q&A Session Reminders",
+      "advance_notice": 48,
+      "follow_up": 24,
+      "registration_required": true,
+      "tags": ["qa_session", "live_event"]
+    }
+  },
+  "segmentation": {
+    "criteria": {
+      "study_week": {
+        "enabled": true,
+        "segments": [
+          {"name": "Week 1-3: Getting Started", "weeks": [1, 2, 3]},
+          {"name": "Week 4-6: Building Foundation", "weeks": [4, 5, 6]},
+          {"name": "Week 7-9: Core Concepts", "weeks": [7, 8, 9]},
+          {"name": "Week 10-12: Advanced Topics", "weeks": [10, 11, 12]},
+          {"name": "Week 13: Final Preparation", "weeks": [13]},
+          {"name": "Completed Program", "weeks": [14]}
+        ]
+      },
+      "engagement_level": {
+        "enabled": true,
+        "segments": [
+          {"name": "Highly Engaged", "criteria": "high_video_completion_rate"},
+          {"name": "Moderately Engaged", "criteria": "regular_email_opens"},
+          {"name": "Low Engagement", "criteria": "minimal_interaction"},
+          {"name": "Inactive", "criteria": "no_activity_30_days"}
+        ]
+      },
+      "domain_focus": {
+        "enabled": true,
+        "segments": [
+          {"name": "People Domain Focus", "criteria": "people_video_preference"},
+          {"name": "Process Domain Focus", "criteria": "process_video_preference"},
+          {"name": "Business Environment Focus", "criteria": "business_video_preference"},
+          {"name": "Balanced Approach", "criteria": "equal_domain_engagement"}
+        ]
+      },
+      "completion_rate": {
+        "enabled": true,
+        "segments": [
+          {"name": "Ahead of Schedule", "criteria": "completion_rate_above_100"},
+          {"name": "On Track", "criteria": "completion_rate_80_100"},
+          {"name": "Behind Schedule", "criteria": "completion_rate_50_80"},
+          {"name": "At Risk", "criteria": "completion_rate_below_50"}
+        ]
+      },
+      "lead_magnet_source": {
+        "enabled": true,
+        "segments": [
+          {"name": "Study Calendar Downloaders", "source": "13-week-study-calendar"},
+          {"name": "Practice Questions Users", "source": "50-common-questions"},
+          {"name": "Mindset Focused", "source": "pmp-mindset-cheat-sheet"},
+          {"name": "ECO Task Oriented", "source": "eco-task-checklist"}
+        ]
+      },
+      "video_progress": {
+        "enabled": true,
+        "segments": [
+          {"name": "Daily Watchers", "criteria": "watches_daily_videos"},
+          {"name": "Weekend Bingers", "criteria": "watches_multiple_weekend"},
+          {"name": "Selective Viewers", "criteria": "watches_specific_topics"},
+          {"name": "Non-Watchers", "criteria": "no_video_activity"}
+        ]
+      }
+    },
+    "dynamic_segmentation": {
+      "enabled": true,
+      "update_frequency": "daily",
+      "auto_move_subscribers": true
+    }
+  },
+  "personalization": {
+    "enabled": true,
+    "fields": {
+      "first_name": true,
+      "current_week": true,
+      "study_progress": true,
+      "engagement_level": true,
+      "domain_preference": true,
+      "time_zone": false,
+      "study_schedule": false
+    },
+    "content_adaptation": {
+      "by_week": true,
+      "by_engagement": true,
+      "by_domain_focus": true,
+      "by_learning_style": false
+    }
+  },
+  "qaSession": {
+    "frequency": "monthly",
+    "schedule": "first_saturday_2pm",
+    "duration": 60,
+    "platform": "youtube_live",
+    "backup_platform": "zoom",
+    "maxParticipants": 500,
+    "recordSession": true,
+    "features": {
+      "pre_registration": true,
+      "question_submission": true,
+      "chat_moderation": true,
+      "follow_up_email": true,
+      "recording_distribution": true
+    },
+    "promotion": {
+      "advance_notice_days": 14,
+      "reminder_schedule": [7, 2, 1],
+      "channels": ["email", "youtube_community", "discord", "social"]
+    },
+    "content_themes": [
+      "People Domain Deep Dive",
+      "Process Mastery Session", 
+      "Business Environment Focus",
+      "Exam Strategy & Mindset",
+      "Practice Questions Review",
+      "Study Plan Optimization",
+      "Career Development",
+      "Success Stories & Tips",
+      "Common Mistakes to Avoid",
+      "Final Exam Preparation",
+      "Post-Certification Planning",
+      "Open Q&A Session"
+    ]
+  },
+  "automation": {
+    "triggers": {
+      "new_subscriber": {
+        "actions": ["add_to_welcome_sequence", "assign_initial_tags", "send_welcome_email"]
+      },
+      "week_completion": {
+        "actions": ["update_progress", "send_congratulations", "preview_next_week"]
+      },
+      "video_watched": {
+        "actions": ["update_engagement_score", "track_domain_preference", "suggest_related_content"]
+      },
+      "email_opened": {
+        "actions": ["increase_engagement_score", "track_content_interest"]
+      },
+      "link_clicked": {
+        "actions": ["track_interest", "add_interest_tag", "personalize_future_content"]
+      },
+      "inactive_period": {
+        "actions": ["start_re_engagement_sequence", "send_check_in_email", "offer_help"]
+      },
+      "exam_scheduled": {
+        "actions": ["start_exam_prep_sequence", "increase_email_frequency", "provide_final_resources"]
+      },
+      "exam_passed": {
+        "actions": ["send_congratulations", "request_testimonial", "offer_advanced_content"]
+      }
+    },
+    "workflows": {
+      "study_progress_tracking": {
+        "enabled": true,
+        "frequency": "daily",
+        "actions": ["update_segments", "personalize_content", "identify_at_risk_students"]
+      },
+      "engagement_optimization": {
+        "enabled": true,
+        "frequency": "weekly",
+        "actions": ["analyze_open_rates", "optimize_send_times", "test_subject_lines"]
+      },
+      "content_recommendation": {
+        "enabled": true,
+        "frequency": "real_time",
+        "actions": ["suggest_videos", "recommend_practice", "highlight_weak_areas"]
+      }
+    }
+  },
+  "templates": {
+    "welcome_series": {
+      "email_1": {
+        "subject": "Welcome to your PMP success journey, {{firstName}}!",
+        "template_id": "welcome_1",
+        "goals": ["introduce_channel", "set_expectations", "provide_first_value"]
+      },
+      "email_2": {
+        "subject": "Your Week {{currentWeek}} study plan is ready!",
+        "template_id": "welcome_2", 
+        "goals": ["provide_study_plan", "explain_structure", "encourage_start"]
+      },
+      "email_3": {
+        "subject": "How to maximize your PMP study effectiveness",
+        "template_id": "welcome_3",
+        "goals": ["share_study_tips", "build_confidence", "prevent_overwhelm"]
+      },
+      "email_4": {
+        "subject": "Join our PMP study community",
+        "template_id": "welcome_4",
+        "goals": ["introduce_community", "encourage_participation", "build_connection"]
+      },
+      "email_5": {
+        "subject": "How are you doing with your PMP studies?",
+        "template_id": "welcome_5",
+        "goals": ["check_progress", "offer_help", "gather_feedback"]
+      }
+    },
+    "weekly_tips": {
+      "subject_templates": [
+        "Week {{week}}: {{weekTitle}} - Your PMP Study Guide",
+        "{{weekTitle}} - Week {{week}} Focus Areas",
+        "Your Week {{week}} PMP Success Plan"
+      ],
+      "content_sections": [
+        "week_overview",
+        "key_objectives", 
+        "video_schedule",
+        "practice_goals",
+        "success_tips",
+        "next_week_preview"
+      ]
+    },
+    "qa_session": {
+      "announcement": {
+        "subject": "🎯 Monthly PMP Q&A Session - {{sessionDate}}",
+        "template_id": "qa_announcement"
+      },
+      "reminder": {
+        "subject": "⏰ Q&A Session Tomorrow - {{sessionTitle}}",
+        "template_id": "qa_reminder"
+      },
+      "follow_up": {
+        "subject": "📹 Q&A Session Recording + Key Takeaways",
+        "template_id": "qa_follow_up"
+      }
+    }
+  },
+  "analytics": {
+    "tracking": {
+      "open_rates": true,
+      "click_rates": true,
+      "unsubscribe_rates": true,
+      "conversion_rates": true,
+      "engagement_scores": true,
+      "study_progress_correlation": true
+    },
+    "goals": {
+      "overall_open_rate": 0.25,
+      "overall_click_rate": 0.05,
+      "unsubscribe_rate": 0.02,
+      "welcome_sequence_completion": 0.70,
+      "weekly_tips_engagement": 0.30,
+      "qa_session_attendance": 0.15
+    },
+    "reporting": {
+      "frequency": "weekly",
+      "recipients": ["marketing@example.com", "content@example.com"],
+      "dashboards": {
+        "subscriber_growth": true,
+        "engagement_trends": true,
+        "sequence_performance": true,
+        "segmentation_analysis": true,
+        "qa_session_metrics": true
+      }
+    }
+  },
+  "compliance": {
+    "gdpr": {
+      "enabled": true,
+      "double_opt_in": true,
+      "consent_tracking": true,
+      "data_retention": 730
+    },
+    "can_spam": {
+      "enabled": true,
+      "unsubscribe_link": true,
+      "physical_address": true,
+      "clear_sender_info": true
+    },
+    "casl": {
+      "enabled": false,
+      "express_consent": true,
+      "implied_consent_tracking": true
+    }
+  },
+  "integrations": {
+    "youtube": {
+      "enabled": true,
+      "sync_video_progress": true,
+      "community_post_integration": true,
+      "subscriber_sync": false
+    },
+    "discord": {
+      "enabled": true,
+      "role_assignment": true,
+      "progress_announcements": true,
+      "qa_coordination": true
+    },
+    "website": {
+      "enabled": true,
+      "form_integration": true,
+      "progress_tracking": true,
+      "content_gating": true
+    },
+    "crm": {
+      "enabled": false,
+      "platform": "hubspot",
+      "lead_scoring": true,
+      "sales_handoff": true
+    },
+    "analytics": {
+      "google_analytics": {
+        "enabled": true,
+        "tracking_id": "GA_TRACKING_ID",
+        "event_tracking": true
+      },
+      "facebook_pixel": {
+        "enabled": true,
+        "pixel_id": "FB_PIXEL_ID",
+        "conversion_tracking": true
+      }
+    }
+  },
+  "testing": {
+    "ab_testing": {
+      "enabled": true,
+      "test_elements": ["subject_lines", "send_times", "content_variations"],
+      "sample_size": 100,
+      "confidence_level": 0.95,
+      "test_duration": 7
+    },
+    "send_time_optimization": {
+      "enabled": true,
+      "test_different_times": true,
+      "personalized_send_times": false,
+      "timezone_consideration": true
+    }
+  }
+}

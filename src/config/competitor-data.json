@@ -1,0 +1,241 @@
+{
+  "PMP Exam Prep Channel 1": {
+    "name": "PMP Exam Prep Channel 1",
+    "analyzedAt": "2025-09-05T22:51:42.081Z",
+    "metrics": {
+      "estimatedViews": 90995,
+      "estimatedSubscribers": 18213,
+      "videoCount": 228,
+      "averageViewDuration": 605
+    },
+    "topKeywords": [
+      {
+        "keyword": "PMP exam prep",
+        "estimatedPosition": 6,
+        "estimatedTraffic": 1621
+      },
+      {
+        "keyword": "PMP certification study guide",
+        "estimatedPosition": 16,
+        "estimatedTraffic": 3267
+      },
+      {
+        "keyword": "PMP exam 2024",
+        "estimatedPosition": 14,
+        "estimatedTraffic": 2680
+      },
+      {
+        "keyword": "project management certification",
+        "estimatedPosition": 18,
+        "estimatedTraffic": 191
+      },
+      {
+        "keyword": "PMP study plan",
+        "estimatedPosition": 17,
+        "estimatedTraffic": 1042
+      },
+      {
+        "keyword": "PMP practice questions",
+        "estimatedPosition": 17,
+        "estimatedTraffic": 3650
+      },
+      {
+        "keyword": "PMP exam tips",
+        "estimatedPosition": 15,
+        "estimatedTraffic": 5076
+      },
+      {
+        "keyword": "project management professional",
+        "estimatedPosition": 4,
+        "estimatedTraffic": 1322
+      },
+      {
+        "keyword": "PMP exam questions",
+        "estimatedPosition": 18,
+        "estimatedTraffic": 478
+      },
+      {
+        "keyword": "PMP mock exam",
+        "estimatedPosition": 5,
+        "estimatedTraffic": 3100
+      }
+    ],
+    "contentStrategy": {
+      "uploadFrequency": "daily",
+      "averageVideoLength": "15-20 minutes",
+      "primaryTopics": [
+        "PMP exam prep",
+        "project management",
+        "certification"
+      ]
+    },
+    "strengths": [
+      "High subscriber count",
+      "Consistent upload schedule"
+    ],
+    "opportunities": [
+      "Limited ECO-focused content",
+      "Infrequent uploads"
+    ]
+  },
+  "Project Management Institute": {
+    "name": "Project Management Institute",
+    "analyzedAt": "2025-09-05T22:51:42.081Z",
+    "metrics": {
+      "estimatedViews": 36355,
+      "estimatedSubscribers": 13939,
+      "videoCount": 116,
+      "averageViewDuration": 804
+    },
+    "topKeywords": [
+      {
+        "keyword": "PMP exam prep",
+        "estimatedPosition": 1,
+        "estimatedTraffic": 1871
+      },
+      {
+        "keyword": "PMP certification study guide",
+        "estimatedPosition": 11,
+        "estimatedTraffic": 2095
+      },
+      {
+        "keyword": "PMP exam 2024",
+        "estimatedPosition": 11,
+        "estimatedTraffic": 2309
+      },
+      {
+        "keyword": "project management certification",
+        "estimatedPosition": 4,
+        "estimatedTraffic": 3333
+      },
+      {
+        "keyword": "PMP study plan",
+        "estimatedPosition": 7,
+        "estimatedTraffic": 2654
+      },
+      {
+        "keyword": "PMP practice questions",
+        "estimatedPosition": 14,
+        "estimatedTraffic": 3272
+      },
+      {
+        "keyword": "PMP exam tips",
+        "estimatedPosition": 6,
+        "estimatedTraffic": 476
+      },
+      {
+        "keyword": "project management professional",
+        "estimatedPosition": 5,
+        "estimatedTraffic": 133
+      },
+      {
+        "keyword": "PMP exam questions",
+        "estimatedPosition": 7,
+        "estimatedTraffic": 4610
+      },
+      {
+        "keyword": "PMP mock exam",
+        "estimatedPosition": 9,
+        "estimatedTraffic": 381
+      }
+    ],
+    "contentStrategy": {
+      "uploadFrequency": "daily",
+      "averageVideoLength": "15-20 minutes",
+      "primaryTopics": [
+        "PMP exam prep",
+        "project management",
+        "certification"
+      ]
+    },
+    "strengths": [
+      "High subscriber count",
+      "Consistent upload schedule",
+      "Strong engagement rates",
+      "Professional production quality"
+    ],
+    "opportunities": [
+      "Limited ECO-focused content",
+      "Infrequent uploads"
+    ]
+  },
+  "PMP Training Provider": {
+    "name": "PMP Training Provider",
+    "analyzedAt": "2025-09-05T22:51:42.081Z",
+    "metrics": {
+      "estimatedViews": 41300,
+      "estimatedSubscribers": 35850,
+      "videoCount": 200,
+      "averageViewDuration": 592
+    },
+    "topKeywords": [
+      {
+        "keyword": "PMP exam prep",
+        "estimatedPosition": 2,
+        "estimatedTraffic": 3404
+      },
+      {
+        "keyword": "PMP certification study guide",
+        "estimatedPosition": 18,
+        "estimatedTraffic": 1024
+      },
+      {
+        "keyword": "PMP exam 2024",
+        "estimatedPosition": 16,
+        "estimatedTraffic": 3997
+      },
+      {
+        "keyword": "project management certification",
+        "estimatedPosition": 1,
+        "estimatedTraffic": 4316
+      },
+      {
+        "keyword": "PMP study plan",
+        "estimatedPosition": 15,
+        "estimatedTraffic": 988
+      },
+      {
+        "keyword": "PMP practice questions",
+        "estimatedPosition": 20,
+        "estimatedTraffic": 1441
+      },
+      {
+        "keyword": "PMP exam tips",
+        "estimatedPosition": 20,
+        "estimatedTraffic": 724
+      },
+      {
+        "keyword": "project management professional",
+        "estimatedPosition": 16,
+        "estimatedTraffic": 2062
+      },
+      {
+        "keyword": "PMP exam questions",
+        "estimatedPosition": 13,
+        "estimatedTraffic": 4056
+      },
+      {
+        "keyword": "PMP mock exam",
+        "estimatedPosition": 19,
+        "estimatedTraffic": 2311
+      }
+    ],
+    "contentStrategy": {
+      "uploadFrequency": "daily",
+      "averageVideoLength": "15-20 minutes",
+      "primaryTopics": [
+        "PMP exam prep",
+        "project management",
+        "certification"
+      ]
+    },
+    "strengths": [
+      "High subscriber count",
+      "Consistent upload schedule",
+      "Strong engagement rates"
+    ],
+    "opportunities": [
+      "Limited ECO-focused content"
+    ]
+  }
+}

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | PMP Mastery Framework</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --purple: #5b27b8;
+            --deep: #3d1a7a;
+            --cta: #5a2ea6;
+            --gold: #c7951e;
+            --gold-lt: #e8b84b;
+            --white: #ffffff;
+            --off: #f9f8fc;
+            --ink: #0f0a1e;
+            --ink2: #2d1f4e;
+            --muted: #c4b8dc;
+            --grey: #ede9f5;
+            --font: 'Poppins', sans-serif;
+
+            /* Domain Colors from Guidelines */
+            --people: #2ecc71;
+            --process: #3498db;
+            --business: #e67e22;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--off);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* Nav */
+        nav {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none;
+        }
+
+        .logo-pmp {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--purple);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-rule {
+            height: 2px;
+            width: 100%;
+            background: var(--gold);
+            margin: 4px 0;
+        }
+
+        .logo-sub {
+            font-size: 8px;
+            font-weight: 500;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: 0.24em;
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--deep);
+            padding: 100px 5% 150px;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(91, 39, 184, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Containers */
+        .container {
+            max-width: 1200px;
+            margin: -80px auto 100px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 4px solid var(--gold);
+        }
+
+        .stat-val {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--deep);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        /* Roadmap Navigation */
+        .roadmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .roadmap-title h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--deep);
+            text-transform: uppercase;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .roadmap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .week-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--grey);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .week-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .week-banner {
+            height: 120px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: var(--white);
+            position: relative;
+        }
+
+        .week-num {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+        }
+
+        .week-title {
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+            z-index: 1;
+        }
+
+        .week-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .focus-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .week-desc {
+            font-size: 12px;
+            color: var(--ink2);
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .day-scroller {
+            border-top: 1px solid var(--grey);
+            padding: 15px 20px;
+            background: var(--off);
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .day-dot {
+            width: 30px;
+            height: 30px;
+            background: var(--white);
+            border: 1px solid var(--grey);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .day-dot.active {
+            background: var(--purple);
+            color: var(--white);
+            border-color: var(--purple);
+        }
+
+        /* Domain Accent Backgrounds */
+        .bg-people {
+            background: var(--people);
+        }
+
+        .bg-process {
+            background: var(--process);
+        }
+
+        .bg-business {
+            background: var(--business);
+        }
+
+        .bg-foundation {
+            background: var(--purple);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ink);
+            padding: 80px 5%;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 30px;
+            filter: brightness(0) invert(1) opacity(0.5);
+        }
+
+        .copyright {
+            font-size: 12px;
+            letter-spacing: 0.1em;
+        }
+
+        .brand-p {
+            color: var(--gold);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">
+            <span class="logo-pmp">PMP</span>
+            <span class="logo-rule"></span>
+            <span class="logo-sub">Mastery Framework</span>
+        </a>
+        <!-- Add other nav items if needed -->
+    </nav>
+
+    <section class="hero">
+        <div class="eyebrow">The Definitive Roadmap</div>
+        <h1>Achieve Mastery</h1>
+        <p class="hero-desc">The official 13-week structured journey designed to bridge professional experience with the
+            PMP Exam Content Outline.</p>
+    </section>
+
+    <div class="container">
+        <!-- Stats Summary -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-val">13</span>
+                <span class="stat-label">Weeks Duration</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val">87</span>
+                <span class="stat-label">Active Units</span>
+            </div>
+            <div class="stat-card" style="border-top-color: var(--people);">
+                <span class="stat-val">42%</span>
+                <span class="stat-label">People Domain</span>
+            </div>
+            <div class="stat-card" style="border-top-color: var(--process);">
+                <span class="stat-val">50%</span>
+                <span class="stat-label">Process Domain</span>
+            </div>
+        </div>
+
+        <!-- Roadmap Header -->
+        <div class="roadmap-header">
+            <div class="roadmap-title">
+                <div class="eyebrow" style="margin-bottom: 8px;">Month 1</div>
+                <h2>Foundation & People</h2>
+            </div>
+        </div>
+
+        <!-- Roadmap Grid -->
+        <div class="roadmap-grid">
+            <!-- Week 1 -->
+            <div class="week-card">
+                <div class="week-banner bg-foundation">
+                    <span class="week-num">Week 01</span>
+                    <span class="week-title">Introduction & Foundations</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">System Orientation, Structural Blueprint, Strategic Logic.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot active">01</div>
+                    <div class="day-dot active">02</div>
+                    <div class="day-dot">03</div>
+                    <div class="day-dot">04</div>
+                    <div class="day-dot">05</div>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="week-card">
+                <div class="week-banner bg-people">
+                    <span class="week-num">Week 02</span>
+                    <span class="week-title">Building A Team (Pt. 1)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Resource Management, Governance, Alignment, Leadership.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">08</div>
+                    <div class="day-dot">09</div>
+                    <div class="day-dot">10</div>
+                    <div class="day-dot">11</div>
+                    <div class="day-dot">12</div>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="week-card">
+                <div class="week-banner bg-people">
+                    <span class="week-num">Week 03</span>
+                    <span class="week-title">Building A Team (Pt. 2)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Capability, Technology, Trust, Shared Vision.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">15</div>
+                    <div class="day-dot">16</div>
+                    <div class="day-dot">17</div>
+                    <div class="day-dot">18</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                </div>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="week-card">
+                <div class="week-banner bg-people">
+                    <span class="week-num">Week 04</span>
+                    <span class="week-title">Starting the Project</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Methodologies, Scope boundaries, Fiscal Discipline.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">22</div>
+                    <div class="day-dot">23</div>
+                    <div class="day-dot">24</div>
+                    <div class="day-dot">25</div>
+                    <div class="day-dot">26</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Month 2 Header -->
+        <div class="roadmap-header" style="margin-top: 80px;">
+            <div class="roadmap-title">
+                <div class="eyebrow" style="margin-bottom: 8px;">Month 2</div>
+                <h2>Process & Execution</h2>
+            </div>
+        </div>
+
+        <div class="roadmap-grid">
+            <!-- Week 5 -->
+            <div class="week-card">
+                <div class="week-banner bg-process">
+                    <span class="week-num">Week 05</span>
+                    <span class="week-title">Project Initiation (Pt. 2)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Timeline Logic, Quality Stars, Procurement, Governance.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">29</div>
+                    <div class="day-dot">30</div>
+                    <div class="day-dot">31</div>
+                    <div class="day-dot">32</div>
+                    <div class="day-dot">33</div>
+                </div>
+            </div>
+
+            <!-- Week 6 -->
+            <div class="week-card">
+                <div class="week-banner bg-process">
+                    <span class="week-num">Week 06</span>
+                    <span class="week-title">Doing the Work (Pt. 1)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Uncertainty Management, Value Delivery, Information Flow.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">36</div>
+                    <div class="day-dot">37</div>
+                    <div class="day-dot">38</div>
+                    <div class="day-dot">39</div>
+                    <div class="day-dot">40</div>
+                </div>
+            </div>
+
+            <!-- Week 7 -->
+            <div class="week-card">
+                <div class="week-banner bg-process">
+                    <span class="week-num">Week 07</span>
+                    <span class="week-title">Doing the Work (Pt. 2)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Artifacts, Change Control, Tactical Problem Solving.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">43</div>
+                    <div class="day-dot">44</div>
+                    <div class="day-dot">45</div>
+                    <div class="day-dot">46</div>
+                    <div class="day-dot">47</div>
+                </div>
+            </div>
+
+            <!-- Week 8 -->
+            <div class="week-card">
+                <div class="week-banner bg-process">
+                    <span class="week-num">Week 08</span>
+                    <span class="week-title">Mid-Point Assessment</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Deep Analysis, Mindset recalibration, Milestone Validation.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">50</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                    <div class="day-dot">52</div>
+                    <div class="day-dot">53</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Month 3 Header -->
+        <div class="roadmap-header" style="margin-top: 80px;">
+            <div class="roadmap-title">
+                <div class="eyebrow" style="margin-bottom: 8px;">Month 3</div>
+                <h2>Mastery & Business</h2>
+            </div>
+        </div>
+
+        <div class="roadmap-grid">
+            <!-- Week 9 -->
+            <div class="week-card">
+                <div class="week-banner bg-people">
+                    <span class="week-num">Week 09</span>
+                    <span class="week-title">Keeping on Track (Pt. 1)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Performance Leadership, Servant Leadership, Conflict tactics.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">57</div>
+                    <div class="day-dot">58</div>
+                    <div class="day-dot">59</div>
+                    <div class="day-dot">60</div>
+                    <div class="day-dot">61</div>
+                </div>
+            </div>
+
+            <!-- Week 10 -->
+            <div class="week-card">
+                <div class="week-banner bg-people">
+                    <span class="week-num">Week 10</span>
+                    <span class="week-title">Keeping on Track (Pt. 2)</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Collaboration, Strategic Partnerships, Emotional Intelligence.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">64</div>
+                    <div class="day-dot">65</div>
+                    <div class="day-dot">66</div>
+                    <div class="day-dot">67</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                </div>
+            </div>
+
+            <!-- Week 11 -->
+            <div class="week-card">
+                <div class="week-banner bg-business">
+                    <span class="week-num">Week 11</span>
+                    <span class="week-title">Focus on the Business</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Compliance, Value Realization, PESTLE & Adaptation.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot">71</div>
+                    <div class="day-dot">72</div>
+                    <div class="day-dot">73</div>
+                    <div class="day-dot">74</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                </div>
+            </div>
+
+            <!-- Week 12 -->
+            <div class="week-card">
+                <div class="week-banner bg-foundation">
+                    <span class="week-num">Week 12</span>
+                    <span class="week-title">Exam Simulation Month</span>
+                </div>
+                <div class="week-body">
+                    <div class="focus-label">Focus</div>
+                    <p class="week-desc">Full Simulation (180 Qs), Error-Type Analysis, Remediation.</p>
+                </div>
+                <div class="day-scroller">
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                    <div class="day-dot">79</div>
+                    <div class="day-dot">80</div>
+                    <div class="day-dot" style="border-color: var(--gold); color: var(--gold);">★</div>
+                    <div class="day-dot">82</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <span class="logo-pmp" style="color: white; font-size: 40px;">PMP</span>
+            <span class="logo-rule" style="width: 100px; margin: 8px auto;"></span>
+            <span class="logo-sub" style="color: white; opacity: 0.6; font-size: 10px;">Mastery Framework</span>
+        </div>
+        <p class="copyright">© 2026 <span class="brand-p">PMP Mastery Framework</span>. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

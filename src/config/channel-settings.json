@@ -1,0 +1,75 @@
+{
+  "channel": {
+    "name": "PMP Exam Success",
+    "description": "Complete 13-Week PMP Certification Study Plan | Daily Videos | Practice Questions | Exam Success Strategies",
+    "keywords": [
+      "PMP exam prep",
+      "PMP certification",
+      "project management",
+      "PMI certification",
+      "PMP study guide",
+      "PMP exam 2024",
+      "project manager training",
+      "PMP practice questions"
+    ],
+    "category": "Education",
+    "country": "US",
+    "language": "en"
+  },
+  "branding": {
+    "primaryColor": "#3498DB",
+    "secondaryColor": "#2ECC71", 
+    "accentColor": "#E67E22",
+    "backgroundColor": "#FFFFFF",
+    "textColor": "#2C3E50"
+  },
+  "upload": {
+    "defaultPrivacy": "public",
+    "defaultCategory": "27",
+    "defaultLanguage": "en",
+    "defaultLicense": "youtube",
+    "enableComments": true,
+    "enableRatings": true,
+    "enableEmbedding": true,
+    "enableNotifications": true
+  },
+  "monetization": {
+    "enableAds": true,
+    "adFormats": ["display", "overlay", "skippable", "non_skippable"],
+    "enableMemberships": false,
+    "enableSuperChat": true,
+    "enableMerchandise": false
+  },
+  "community": {
+    "responseTimeTarget": 120,
+    "pinnedCommentTemplate": "🎯 Welcome to Day {{day}} of our 13-Week PMP Study Plan! Download your FREE study calendar: {{lead_magnet_url}}",
+    "communityPostFrequency": "weekly",
+    "liveSessionFrequency": "monthly"
+  },
+  "analytics": {
+    "trackingGoals": {
+      "month1": {
+        "subscribers": 500,
+        "watchTime": 1000,
+        "engagement": 0.05
+      },
+      "month3": {
+        "subscribers": 2000,
+        "watchTime": 5000,
+        "engagement": 0.06
+      },
+      "month6": {
+        "subscribers": 10000,
+        "watchTime": 25000,
+        "engagement": 0.07
+      }
+    },
+    "keyMetrics": [
+      "subscriber_growth",
+      "watch_time_retention",
+      "click_through_rate",
+      "engagement_rate",
+      "comment_response_time"
+    ]
+  }
+}

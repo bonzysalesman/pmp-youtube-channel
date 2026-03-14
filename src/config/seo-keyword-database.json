@@ -1,0 +1,116 @@
+{
+  "primaryKeywords": {
+    "core": [
+      "PMP exam prep",
+      "PMP certification study guide",
+      "PMP exam 2024",
+      "project management certification",
+      "PMP study plan",
+      "PMP practice questions",
+      "PMP exam tips",
+      "project management professional"
+    ],
+    "examFocused": [
+      "PMP exam questions",
+      "PMP mock exam",
+      "PMP practice test",
+      "PMP exam simulator",
+      "PMP exam prep course",
+      "PMP certification training"
+    ],
+    "studyFocused": [
+      "PMP study guide",
+      "PMP study materials",
+      "PMP exam study plan",
+      "PMP certification prep",
+      "PMP exam preparation"
+    ]
+  },
+  "longTailKeywords": {
+    "timeBasedStudy": [
+      "13 week PMP study plan",
+      "daily PMP study routine",
+      "PMP exam prep in 3 months",
+      "structured PMP study schedule",
+      "weekly PMP study guide"
+    ],
+    "domainSpecific": [
+      "PMP people domain questions",
+      "PMP process domain study guide",
+      "PMP business environment prep",
+      "project team management PMP",
+      "project planning PMP exam"
+    ],
+    "examStrategy": [
+      "how to pass PMP exam first try",
+      "PMP exam tips and tricks",
+      "PMP exam mindset preparation",
+      "PMP certification study strategy",
+      "best way to study for PMP"
+    ],
+    "contentType": [
+      "PMP study videos",
+      "free PMP exam prep",
+      "PMP certification YouTube",
+      "PMP exam prep playlist",
+      "PMP study guide PDF"
+    ]
+  },
+  "competitorKeywords": [
+    "PMP bootcamp alternative",
+    "affordable PMP exam prep",
+    "free PMP study resources",
+    "PMP exam prep without bootcamp",
+    "budget PMP certification study"
+  ],
+  "seasonalKeywords": {
+    "newYear": [
+      "PMP certification 2024 goals",
+      "new year PMP study plan",
+      "career advancement PMP 2024"
+    ],
+    "examDates": [
+      "PMP exam dates 2024",
+      "when to take PMP exam",
+      "PMP exam scheduling tips"
+    ]
+  },
+  "keywordMetrics": {
+    "highVolume": {
+      "PMP exam prep": {
+        "searchVolume": "high",
+        "competition": "high",
+        "difficulty": 8
+      },
+      "PMP certification": {
+        "searchVolume": "high",
+        "competition": "high",
+        "difficulty": 9
+      }
+    },
+    "mediumVolume": {
+      "PMP study guide": {
+        "searchVolume": "medium",
+        "competition": "medium",
+        "difficulty": 6
+      },
+      "PMP practice questions": {
+        "searchVolume": "medium",
+        "competition": "medium",
+        "difficulty": 5
+      }
+    },
+    "lowCompetition": {
+      "13 week PMP study plan": {
+        "searchVolume": "low",
+        "competition": "low",
+        "difficulty": 3
+      },
+      "PMP exam mindset": {
+        "searchVolume": "low",
+        "competition": "low",
+        "difficulty": 2
+      }
+    }
+  }
+}

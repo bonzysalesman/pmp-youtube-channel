@@ -1,0 +1,334 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "Introduction & Foundations",
+      "lessons": [
+        {
+          "day": 1,
+          "title": "PMP & Course Overview"
+        },
+        {
+          "day": 2,
+          "title": "Resources & ECO"
+        },
+        {
+          "day": 3,
+          "title": "PMP Mindset (Part 1)"
+        },
+        {
+          "day": 4,
+          "title": "PMP Mindset (Part 2)"
+        },
+        {
+          "day": 5,
+          "title": "Foundations Review"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "theme": "Building A Team (Part 1)",
+      "lessons": [
+        {
+          "day": 8,
+          "title": "Build A Team"
+        },
+        {
+          "day": 9,
+          "title": "Define Team Ground Rules"
+        },
+        {
+          "day": 10,
+          "title": "Negotiate Agreements"
+        },
+        {
+          "day": 11,
+          "title": "Empower Team Members"
+        },
+        {
+          "day": 12,
+          "title": "Review & Practice"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "theme": "Building A Team (Part 2)",
+      "lessons": [
+        {
+          "day": 15,
+          "title": "Ensure Team Trained"
+        },
+        {
+          "day": 16,
+          "title": "Virtual Teams"
+        },
+        {
+          "day": 17,
+          "title": "Shared Understanding"
+        },
+        {
+          "day": 18,
+          "title": "Review & Practice"
+        },
+        {
+          "day": 19,
+          "title": "Practice Test"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "theme": "Starting the Project",
+      "lessons": [
+        {
+          "day": 22,
+          "title": "Determine Methodology"
+        },
+        {
+          "day": 23,
+          "title": "Plan & Manage Scope"
+        },
+        {
+          "day": 24,
+          "title": "Budget/Resources (Part 1)"
+        },
+        {
+          "day": 25,
+          "title": "Budget/Resources (Part 2)"
+        },
+        {
+          "day": 26,
+          "title": "Review & Practice"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "theme": "Starting the Project (Part 2)",
+      "lessons": [
+        {
+          "day": 29,
+          "title": "Plan & Manage Schedule"
+        },
+        {
+          "day": 30,
+          "title": "Plan & Manage Quality"
+        },
+        {
+          "day": 31,
+          "title": "Integrate Planning"
+        },
+        {
+          "day": 32,
+          "title": "Plan Procurement"
+        },
+        {
+          "day": 33,
+          "title": "Governance & Closure"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "theme": "Doing the Work (Part 1)",
+      "lessons": [
+        {
+          "day": 36,
+          "title": "Assess & Manage Risks"
+        },
+        {
+          "day": 37,
+          "title": "Execute for Value"
+        },
+        {
+          "day": 38,
+          "title": "Manage Communications"
+        },
+        {
+          "day": 39,
+          "title": "Engage Stakeholders"
+        },
+        {
+          "day": 40,
+          "title": "Review & Practice"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "theme": "Doing the Work (Part 2)",
+      "lessons": [
+        {
+          "day": 43,
+          "title": "Manage Artifacts"
+        },
+        {
+          "day": 44,
+          "title": "Manage Changes"
+        },
+        {
+          "day": 45,
+          "title": "Manage Issues"
+        },
+        {
+          "day": 46,
+          "title": "Knowledge Transfer"
+        },
+        {
+          "day": 47,
+          "title": "Review & Practice"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "theme": "Mid-Point Assessment",
+      "lessons": [
+        {
+          "day": 50,
+          "title": "WG 3 Review"
+        },
+        {
+          "day": 51,
+          "title": "WG 3 Practice Test"
+        },
+        {
+          "day": 52,
+          "title": "Test Review"
+        },
+        {
+          "day": 53,
+          "title": "Mid-Point Review"
+        },
+        {
+          "day": 54,
+          "title": "Mid-Point Practice"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "theme": "Keeping on Track (Part 1)",
+      "lessons": [
+        {
+          "day": 57,
+          "title": "Lead A Team"
+        },
+        {
+          "day": 58,
+          "title": "Support Performance"
+        },
+        {
+          "day": 59,
+          "title": "Remove Impediments"
+        },
+        {
+          "day": 60,
+          "title": "Manage Conflict"
+        },
+        {
+          "day": 61,
+          "title": "Review & Practice"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "theme": "Keeping on Track (Part 2)",
+      "lessons": [
+        {
+          "day": 64,
+          "title": "Collaborate with Stakeholders"
+        },
+        {
+          "day": 65,
+          "title": "Mentor Stakeholders"
+        },
+        {
+          "day": 66,
+          "title": "Performance Through EQ"
+        },
+        {
+          "day": 67,
+          "title": "Review & Practice"
+        },
+        {
+          "day": 68,
+          "title": "Practice Test"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "theme": "Business Environment",
+      "lessons": [
+        {
+          "day": 71,
+          "title": "Plan & Manage Compliance"
+        },
+        {
+          "day": 72,
+          "title": "Evaluate Benefits/Value"
+        },
+        {
+          "day": 73,
+          "title": "Evaluate External Changes"
+        },
+        {
+          "day": 74,
+          "title": "Support Org Change"
+        },
+        {
+          "day": 75,
+          "title": "Review & Practice Test"
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "theme": "Final Review",
+      "lessons": [
+        {
+          "day": 78,
+          "title": "Full Practice Exam #1"
+        },
+        {
+          "day": 79,
+          "title": "Detailed Review"
+        },
+        {
+          "day": 80,
+          "title": "Targeted Review"
+        },
+        {
+          "day": 81,
+          "title": "Full Practice Exam #2"
+        },
+        {
+          "day": 82,
+          "title": "Final Polish"
+        }
+      ]
+    },
+    {
+      "week": 13,
+      "theme": "Exam Week",
+      "lessons": [
+        {
+          "day": 85,
+          "title": "Light Review & Logistics"
+        },
+        {
+          "day": 86,
+          "title": "Exam Day"
+        },
+        {
+          "day": 87,
+          "title": "Post-Exam Celebration!"
+        }
+      ]
+    }
+  ]
+}

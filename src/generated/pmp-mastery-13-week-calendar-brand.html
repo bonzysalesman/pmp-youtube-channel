@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMP Mastery Framework - 13-Week Study Calendar</title>
+  <style>
+    :root {
+      --purple: #5b27b8;
+      --deep: #3d1a7a;
+      --cta: #5a2ea6;
+      --gold: #c7951e;
+      --gold-lt: #e8b84b;
+      --white: #ffffff;
+      --off: #f9f8fc;
+      --ink: #0f0a1e;
+      --ink2: #2d1f4e;
+      --muted: #c4b8dc;
+      --grey: #ede9f5;
+      --g1: #2ecc71;
+      --g2: #3f8efc;
+      --g3: #e67e22;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f3f2f8;
+      color: var(--ink);
+      font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .poster {
+      width: 1280px;
+      margin: 0 auto;
+      padding: 56px 52px 42px;
+      background: linear-gradient(180deg, #faf9fd 0%, #f5f3fa 100%);
+    }
+
+    .header {
+      position: relative;
+      background: radial-gradient(circle at 85% 0%, rgba(91,39,184,0.18), transparent 42%), linear-gradient(150deg, #ffffff 0%, #faf8fe 100%);
+      border: 1px solid #ece8f7;
+      border-radius: 20px;
+      padding: 34px 38px;
+      overflow: hidden;
+      box-shadow: 0 10px 34px rgba(45, 31, 78, 0.08);
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--purple));
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .brand-logo {
+      height: 46px;
+      width: auto;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7e6aa6;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      color: var(--deep);
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      font-size: 18px;
+      line-height: 1.45;
+      color: #5f5184;
+      max-width: 980px;
+    }
+
+    .meta {
+      margin-top: 16px;
+      display: inline-block;
+      border-left: 3px solid var(--gold);
+      background: rgba(199,149,30,0.08);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      color: #4f4467;
+      font-weight: 600;
+    }
+
+    .phase-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .phase {
+      border: 1px solid var(--grey);
+      border-radius: 12px;
+      padding: 16px 16px 14px;
+      background: var(--white);
+      box-shadow: 0 3px 12px rgba(15,10,30,0.05);
+      min-height: 140px;
+    }
+
+    .phase.p1 { border-top: 4px solid var(--g1); }
+    .phase.p2 { border-top: 4px solid var(--g2); }
+    .phase.p3 { border-top: 4px solid var(--g3); }
+
+    .phase .m {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--deep);
+      margin-bottom: 4px;
+    }
+
+    .phase .w {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #706193;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .phase ul {
+      margin: 0;
+      padding-left: 16px;
+      color: #4e4367;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 30px;
+      margin: 28px 0 14px;
+      color: var(--deep);
+      letter-spacing: -0.01em;
+    }
+
+    .weeks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .wk {
+      background: var(--white);
+      border: 1px solid var(--grey);
+      border-radius: 10px;
+      padding: 12px 12px 11px;
+      min-height: 148px;
+    }
+
+    .wk .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .wk .title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1f1732;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .wk ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #3f3558;
+    }
+
+    .b1{ background:#22c55e; } .b2{ background:#16a34a; } .b3{ background:#10b981; }
+    .b4{ background:#3b82f6; } .b5{ background:#2563eb; } .b6{ background:#0ea5e9; }
+    .b7{ background:#06b6d4; } .b8{ background:#14b8a6; } .b9{ background:#f59e0b; }
+    .b10{ background:#f97316; } .b11{ background:#ef4444; } .b12{ background:#8b5cf6; }
+    .b13{ background:#7c3aed; }
+
+    .schedule {
+      margin-top: 18px;
+      background: var(--white);
+      border: 1px solid var(--grey);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 14px rgba(15,10,30,0.05);
+    }
+
+    .schedule h3 {
+      text-align: center;
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: var(--deep);
+    }
+
+    .sched-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .sched-item {
+      text-align: center;
+      border-radius: 10px;
+      background: #faf8ff;
+      border: 1px solid #ece7fb;
+      padding: 11px 8px;
+    }
+
+    .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      margin: 0 auto 7px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .d1{ background: var(--purple);} .d2{ background:#3f8efc;} .d3{ background:#22c55e;} .d4{ background:#f97316;}
+
+    .sched-item .label { font-size: 14px; font-weight: 700; color: #2a2040; }
+    .sched-item .sub { font-size: 12px; color: #6a5a8f; margin-top: 2px; }
+
+    .foot {
+      margin-top: 12px;
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9d90bf;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <section class="header">
+      <div class="brand-row">
+        <img class="brand-logo" src="file:///Users/bonzysalesman/Project/pmp-exam-prep/src/assets/brand-manual/pmp-mastery-framework.png" alt="PMP Mastery Framework" />
+        <div class="brand-tag">Strategic Exam Preparation System</div>
+      </div>
+      <h1>Complete 13-week study plan</h1>
+      <p class="subtitle">A structured roadmap aligned to the PMP Exam Content Outline, designed to move from fundamentals to exam readiness with consistent weekly progression.</p>
+      <div class="meta">87 daily lessons · 13 weeks · 7-10 hours/week</div>
+
+      <div class="phase-grid">
+        <article class="phase p1">
+          <div class="m">Month 1: Foundation</div>
+          <div class="w">Weeks 1-4</div>
+          <ul>
+            <li>Introduction & foundations</li>
+            <li>Building a team (part 1 & 2)</li>
+            <li>Starting the project</li>
+          </ul>
+        </article>
+        <article class="phase p2">
+          <div class="m">Month 2: Execution</div>
+          <div class="w">Weeks 5-8</div>
+          <ul>
+            <li>Starting project (part 2)</li>
+            <li>Doing the work (part 1-2)</li>
+            <li>Mid-point assessment</li>
+          </ul>
+        </article>
+        <article class="phase p3">
+          <div class="m">Month 3: Mastery</div>
+          <div class="w">Weeks 9-13</div>
+          <ul>
+            <li>Keeping on track</li>
+            <li>Business environment focus</li>
+            <li>Final review & exam week</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <h2 class="section-title">Weekly breakdown</h2>
+    <section class="weeks">
+      <article class="wk"><span class="badge b1">Week 1</span><div class="title">Introduction & Foundations</div><ul><li>Day 1: PMP overview</li><li>Day 2: Resources & ECO</li><li>Day 3-4: Mindset parts 1-2</li><li>Day 5: Review & practice</li></ul></article>
+      <article class="wk"><span class="badge b2">Week 2</span><div class="title">Building a Team (Part 1)</div><ul><li>Day 8: Build team</li><li>Day 9: Define ground rules</li><li>Day 10: Negotiate agreements</li><li>Day 11: Empower team members</li></ul></article>
+      <article class="wk"><span class="badge b3">Week 3</span><div class="title">Building a Team (Part 2)</div><ul><li>Day 15: Ensure team trained</li><li>Day 16: Virtual teams</li><li>Day 17: Shared understanding</li><li>Day 18-19: Review & practice</li></ul></article>
+
+      <article class="wk"><span class="badge b4">Week 4</span><div class="title">Starting the Project</div><ul><li>Day 22: Determine methodology</li><li>Day 23: Plan scope</li><li>Day 24-25: Plan budget/resources</li><li>Day 26: Review & practice</li></ul></article>
+      <article class="wk"><span class="badge b5">Week 5</span><div class="title">Starting Project (Part 2)</div><ul><li>Day 29: Plan schedule</li><li>Day 30: Plan quality</li><li>Day 31: Integrate planning</li><li>Day 32-33: Procurement & governance</li></ul></article>
+      <article class="wk"><span class="badge b6">Week 6</span><div class="title">Doing the Work (Part 1)</div><ul><li>Day 36: Assess/manage risks</li><li>Day 37: Execute for value</li><li>Day 38: Manage communications</li><li>Day 39-40: Engage stakeholders + review</li></ul></article>
+
+      <article class="wk"><span class="badge b7">Week 7</span><div class="title">Doing the Work (Part 2)</div><ul><li>Day 43: Manage artifacts</li><li>Day 44: Manage changes</li><li>Day 45: Manage issues</li><li>Day 46-47: Knowledge transfer + review</li></ul></article>
+      <article class="wk"><span class="badge b8">Week 8</span><div class="title">Mid-point Assessment</div><ul><li>Day 50: WG3 review</li><li>Day 51: WG3 practice test</li><li>Day 52-53: Test + midpoint review</li><li>Day 54: Mid-point practice</li></ul></article>
+      <article class="wk"><span class="badge b9">Week 9</span><div class="title">Keeping on Track (Part 1)</div><ul><li>Day 57: Lead a team</li><li>Day 58: Support performance</li><li>Day 59: Remove impediments</li><li>Day 60-61: Manage conflict + review</li></ul></article>
+
+      <article class="wk"><span class="badge b10">Week 10</span><div class="title">Keeping on Track (Part 2)</div><ul><li>Day 64: Collaborate stakeholders</li><li>Day 65: Mentor stakeholders</li><li>Day 66: Performance through EQ</li><li>Day 67-68: Review & practice test</li></ul></article>
+      <article class="wk"><span class="badge b11">Week 11</span><div class="title">Business Environment</div><ul><li>Day 71: Compliance</li><li>Day 72: Benefits/value</li><li>Day 73: External changes</li><li>Day 74-75: Organizational change + review</li></ul></article>
+      <article class="wk"><span class="badge b12">Week 12</span><div class="title">Final Review</div><ul><li>Day 78: Full practice exam #1</li><li>Day 79: Detailed review</li><li>Day 80: Targeted revision</li><li>Day 81-82: Full exam #2 + polish</li></ul></article>
+
+      <article class="wk"><span class="badge b13">Week 13</span><div class="title">Exam Week</div><ul><li>Day 85: Light review & logistics</li><li>Day 86: Exam day</li><li>Day 87: Post-exam reflection</li><li>Day 87+: Next-step planning</li></ul></article>
+    </section>
+
+    <section class="schedule">
+      <h3>Weekly study schedule (7-10 hours)</h3>
+      <div class="sched-grid">
+        <div class="sched-item"><div class="dot d1">M-F</div><div class="label">Monday-Friday</div><div class="sub">1-2h daily sessions</div></div>
+        <div class="sched-item"><div class="dot d2">Sat</div><div class="label">Saturday</div><div class="sub">2-3h review + practice</div></div>
+        <div class="sched-item"><div class="dot d3">Sun</div><div class="label">Sunday</div><div class="sub">Rest or light review</div></div>
+        <div class="sched-item"><div class="dot d4">87</div><div class="label">Total Lessons</div><div class="sub">Complete ECO coverage</div></div>
+      </div>
+    </section>
+
+    <div class="foot">PMP Mastery Framework · Version 1.0</div>
+  </main>
+</body>
+</html>

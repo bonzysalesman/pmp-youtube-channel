@@ -1,0 +1,64 @@
+# Custom WordPress Dockerfile for PMP Frontend
+FROM wordpress:6.4-php8.2-fpm
+
+# Install additional PHP extensions and tools
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    libicu-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        gd \
+        zip \
+        pdo_mysql \
+        mysqli \
+        mbstring \
+        xml \
+        intl \
+        opcache \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configure PHP for WordPress optimization
+RUN { \
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=4000'; \
+    echo 'opcache.revalidate_freq=2'; \
+    echo 'opcache.fast_shutdown=1'; \
+    echo 'opcache.enable_cli=1'; \
+} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+
+RUN { \
+    echo 'memory_limit=512M'; \
+    echo 'upload_max_filesize=64M'; \
+    echo 'post_max_size=64M'; \
+    echo 'max_execution_time=300'; \
+    echo 'max_input_vars=3000'; \
+} > /usr/local/etc/php/conf.d/wordpress-recommended.ini
+
+# Install WP-CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/v2.8.1/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
+# Create cache directory for FastCGI
+RUN mkdir -p /var/cache/nginx && chown -R www-data:www-data /var/cache/nginx
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy custom entrypoint script
+COPY docker/wordpress/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["php-fpm"]

@@ -1,0 +1,41 @@
+# Docker Compose override for development environment
+# This file extends docker-compose.yml with development-specific settings
+
+services:
+  wordpress:
+    environment:
+      # Enable WordPress debugging in development
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DEBUG_LOG: 1
+      WORDPRESS_DEBUG_DISPLAY: 1
+      SCRIPT_DEBUG: 1
+    volumes:
+      # Mount WordPress plugins for development
+      - ./wordpress/plugins/pmp-analytics:/var/www/html/wp-content/plugins/pmp-analytics
+      - ./wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins
+      # Mount custom uploads for testing
+      - ./wordpress/uploads:/var/www/html/wp-content/uploads
+
+  db:
+    environment:
+      # Enable MySQL general log in development
+      MYSQL_GENERAL_LOG: 1
+      MYSQL_SLOW_QUERY_LOG: 1
+    volumes:
+      # Mount additional development SQL scripts
+      - ./docker/mysql/dev-scripts:/docker-entrypoint-initdb.d/dev
+
+  # Database administration tool
+  adminer:
+    image: adminer:latest
+    container_name: pmp_adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DESIGN: pepa-linha
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db
+    networks:
+      - pmp-network

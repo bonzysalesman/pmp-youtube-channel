@@ -1,0 +1,214 @@
+{
+  "channelTrailerProduction": {
+    "videoDetails": {
+      "title": "Welcome to Your PMP Exam Prep Journey! (Channel Intro & Course Overview)",
+      "targetLength": "6-7 minutes",
+      "tone": "Energetic, confident, encouraging",
+      "host": "Bonzy Salesman",
+      "primaryGoal": "Channel introduction and 13-week program overview",
+      "targetAudience": "Project managers seeking PMP certification"
+    },
+    "scriptTimeline": {
+      "hook": {
+        "timeframe": "0-30 seconds",
+        "purpose": "Capture attention with career transformation promise",
+        "keyMessage": "13-week structured path to PMP success",
+        "visualStyle": "Direct to camera, energetic opening"
+      },
+      "benefits": {
+        "timeframe": "30-90 seconds", 
+        "purpose": "Establish value proposition of PMP certification",
+        "keyPoints": [
+          "Global recognition",
+          "Career opportunities", 
+          "Practical skills",
+          "Increased earning potential"
+        ],
+        "visualStyle": "Benefits overview slide, maintain energy"
+      },
+      "uniqueApproach": {
+        "timeframe": "90-180 seconds",
+        "purpose": "Differentiate from other PMP courses",
+        "keyMessage": "ECO-based precision vs random studying",
+        "ecoBreakdown": {
+          "people": "42% - Leading teams, stakeholders, conflict",
+          "process": "50% - Technical project management",
+          "business": "8% - Business strategy connection"
+        },
+        "visualStyle": "ECO breakdown slide, lean in with authority"
+      },
+      "pmpMindset": {
+        "timeframe": "180-240 seconds",
+        "purpose": "Teach PMP thinking approach",
+        "mindsetPrinciples": [
+          "Anticipate, plan, and prevent",
+          "Be proactive, not reactive",
+          "Focus on business value over task completion",
+          "Choose collaboration over control",
+          "Prevention over firefighting"
+        ],
+        "visualStyle": "Personal tone, lean forward"
+      },
+      "roadmap": {
+        "timeframe": "240-330 seconds",
+        "purpose": "Present structured 13-week plan",
+        "monthlyBreakdown": {
+          "month1": "Building the Foundation (Weeks 1-4)",
+          "month2": "Execution Excellence (Weeks 5-8)", 
+          "month3": "Leadership and Business Focus (Weeks 9-13)"
+        },
+        "promise": "Follow consistently = ready to pass",
+        "visualStyle": "13-week overview slide, build excitement"
+      },
+      "community": {
+        "timeframe": "330-390 seconds",
+        "purpose": "Build community connection and support",
+        "communityFeatures": [
+          "Comment engagement and peer support",
+          "Personal response commitment",
+          "Weekly Q&A sessions",
+          "Progress check-ins",
+          "Celebration of success stories"
+        ],
+        "visualStyle": "Personal, community-focused tone"
+      },
+      "callToAction": {
+        "timeframe": "390-420 seconds",
+        "purpose": "Drive immediate engagement and commitment",
+        "actions": [
+          "Subscribe and ring notification bell",
+          "Download 13-week study calendar",
+          "Comment with motivation",
+          "Commit to 13-week journey"
+        ],
+        "visualStyle": "Direct, confident, enthusiastic"
+      }
+    },
+    "productionRequirements": {
+      "equipment": {
+        "camera": "Professional quality (4K recommended)",
+        "audio": "Clear, professional microphone",
+        "lighting": "Professional lighting setup",
+        "background": "Clean, branded background"
+      },
+      "visualAssets": {
+        "slides": [
+          "Benefits overview with statistics",
+          "ECO breakdown with percentages",
+          "13-week roadmap visualization",
+          "Channel branding elements"
+        ],
+        "screenCaptures": [
+          "Actual ECO document example",
+          "PMI website reference"
+        ],
+        "graphics": [
+          "Channel logo animation",
+          "Subscribe button animation",
+          "Professional headshot with PMP badge"
+        ]
+      },
+      "postProduction": {
+        "editing": [
+          "Smooth transitions between sections",
+          "Slide integration at appropriate moments",
+          "Energy maintenance throughout",
+          "Professional color correction"
+        ],
+        "audio": [
+          "Clear audio enhancement",
+          "Background music (subtle, professional)",
+          "Noise reduction",
+          "Consistent volume levels"
+        ],
+        "graphics": [
+          "Lower thirds for key statistics",
+          "ECO breakdown visualization",
+          "Timeline graphics for roadmap",
+          "End screen with subscribe elements"
+        ]
+      }
+    },
+    "thumbnailStrategy": {
+      "design": {
+        "background": "Professional blue/green gradient",
+        "mainText": "PMP EXAM PREP",
+        "subText": "13-Week Journey Starts Here",
+        "visual": "Professional headshot + PMP certification badge",
+        "badge": "Day 1 corner element"
+      },
+      "abTestVariants": [
+        "Version A: Gradient background with headshot",
+        "Version B: Solid color with certification badge prominent",
+        "Version C: Split design with before/after career imagery"
+      ],
+      "specifications": {
+        "dimensions": "1280x720 pixels",
+        "textReadability": "High contrast, mobile-friendly",
+        "brandConsistency": "Channel colors and fonts",
+        "clickworthiness": "Professional yet approachable"
+      }
+    },
+    "seoOptimization": {
+      "primaryKeywords": [
+        "PMP exam prep",
+        "PMP certification course",
+        "13-week PMP study plan",
+        "PMP exam 2024"
+      ],
+      "secondaryKeywords": [
+        "project management certification",
+        "PMP course free",
+        "how to pass PMP exam",
+        "PMP study guide"
+      ],
+      "titleOptimization": "Welcome to Your PMP Exam Prep Journey! (Channel Intro & Course Overview)",
+      "descriptionStructure": {
+        "hook": "Ready to pass your PMP exam on the first try?",
+        "value": "13-week structured study plan",
+        "timestamps": "Detailed section breakdown",
+        "resources": "Free downloads and links",
+        "engagement": "Comment prompt for motivation",
+        "hashtags": "#PMPExam #ProjectManagement #PMPCertification #StudyGuide"
+      }
+    },
+    "launchStrategy": {
+      "timing": {
+        "uploadTime": "6:00 AM EST (optimal for professional audience)",
+        "dayOfWeek": "Monday (start of work week)",
+        "seasonality": "Align with certification cycles"
+      },
+      "promotion": {
+        "communityPost": "Channel launch announcement",
+        "socialMedia": "LinkedIn, Twitter, Facebook promotion",
+        "emailList": "Announcement to existing subscribers",
+        "partnerships": "Cross-promotion with PM communities"
+      },
+      "engagement": {
+        "firstHour": "Active comment monitoring and responses",
+        "first24Hours": "Respond to all comments",
+        "firstWeek": "Daily engagement and community building"
+      }
+    },
+    "successMetrics": {
+      "immediate": {
+        "watchTime": "Target 70%+ retention through first 3 minutes",
+        "engagement": "5%+ engagement rate (likes, comments, shares)",
+        "subscriptions": "Track conversion rate from views to subscribers",
+        "comments": "Quality and quantity of motivation responses"
+      },
+      "shortTerm": {
+        "weeklyGrowth": "Subscriber growth rate",
+        "seriesEngagement": "Continuation to Day 2 video",
+        "leadMagnetDownloads": "Study calendar conversion rate",
+        "communityBuilding": "Comment quality and interaction"
+      },
+      "longTerm": {
+        "channelGrowth": "Overall subscriber and view growth",
+        "brandRecognition": "Channel authority in PMP space",
+        "studentSuccess": "Certification pass rates from followers",
+        "monetization": "Revenue generation from course sales"
+      }
+    }
+  }
+}

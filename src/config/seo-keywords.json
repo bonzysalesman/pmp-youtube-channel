@@ -1,0 +1,110 @@
+{
+  "primaryKeywords": [
+    "PMP exam prep",
+    "PMP certification",
+    "PMP study guide",
+    "PMP exam 2024",
+    "project management certification",
+    "PMI certification",
+    "PMP training",
+    "PMP exam questions"
+  ],
+  "longTailKeywords": [
+    "13-week PMP study plan",
+    "PMP exam preparation course",
+    "free PMP study materials",
+    "PMP certification study guide 2024",
+    "how to pass PMP exam",
+    "PMP exam tips and tricks",
+    "PMP practice questions free",
+    "project management professional certification"
+  ],
+  "domainSpecificKeywords": {
+    "people": [
+      "PMP people domain",
+      "project team management",
+      "stakeholder management PMP",
+      "leadership in project management",
+      "team building PMP",
+      "conflict resolution project management"
+    ],
+    "process": [
+      "PMP process domain", 
+      "project management processes",
+      "project planning PMP",
+      "project execution PMP",
+      "project monitoring controlling",
+      "project closure PMP"
+    ],
+    "businessEnvironment": [
+      "PMP business environment",
+      "organizational strategy PMP",
+      "business value project management",
+      "compliance project management"
+    ]
+  },
+  "contentTypeKeywords": {
+    "dailyStudy": [
+      "PMP daily study",
+      "PMP lesson",
+      "PMP concept explanation",
+      "PMP exam topic"
+    ],
+    "practice": [
+      "PMP practice questions",
+      "PMP exam scenarios", 
+      "PMP situational questions",
+      "PMP mock exam"
+    ],
+    "review": [
+      "PMP review session",
+      "PMP concept review",
+      "PMP weekly summary",
+      "PMP exam review"
+    ]
+  },
+  "titleFormulas": [
+    "Day {{day}}: {{topic}} | PMP Exam Prep Week {{week}}",
+    "{{topic}} Explained | PMP Certification Study Guide",
+    "Week {{week}} {{topic}} | 13-Week PMP Study Plan",
+    "PMP Practice: {{topic}} Scenarios | Exam Prep 2024",
+    "{{topic}} Review | PMP Exam Success Strategy"
+  ],
+  "hashtagSets": {
+    "primary": [
+      "#PMPExam",
+      "#PMPCertification", 
+      "#ProjectManagement",
+      "#PMPStudyGuide",
+      "#PMPExamPrep"
+    ],
+    "secondary": [
+      "#PMP2024",
+      "#ProjectManager",
+      "#PMI",
+      "#PMPTraining",
+      "#PMPExamTips"
+    ],
+    "niche": [
+      "#13WeekStudyPlan",
+      "#PMPSuccess",
+      "#ProjectManagementCertification",
+      "#PMPExamStrategy",
+      "#PMPStudyPlan"
+    ]
+  },
+  "competitorAnalysis": {
+    "targetChannels": [
+      "PM PrepCast",
+      "Project Management Videos",
+      "Simplilearn",
+      "PMI Official"
+    ],
+    "gapOpportunities": [
+      "structured 13-week plan",
+      "daily consistent content",
+      "ECO task mapping",
+      "free comprehensive curriculum"
+    ]
+  }
+}

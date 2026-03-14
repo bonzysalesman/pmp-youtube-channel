@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Strategic Peer Pathway | PMP Mastery Framework</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --purple: #5b27b8;
+            --deep: #0f0a1e;
+            /* Darker for Sales Page */
+            --glow: #3d1a7a;
+            --cta: #5a2ea6;
+            --gold: #c7951e;
+            --gold-lt: #e8b84b;
+            --white: #ffffff;
+            --off: #f9f8fc;
+            --ink: #ffffff;
+            /* Inverse for Dark Mode */
+            --muted: rgba(255, 255, 255, 0.4);
+            --grey: rgba(255, 255, 255, 0.1);
+            --font: 'Poppins', sans-serif;
+
+            /* Domain Accents */
+            --people: #2ecc71;
+            --process: #3498db;
+            --business: #e67e22;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--deep);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Branding / Nav */
+        header {
+            padding: 40px 5%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .logo-pmp {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-rule {
+            height: 3px;
+            width: 100%;
+            background: var(--gold);
+            margin: 8px 0;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            opacity: 0.8;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(91, 39, 184, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 1px solid var(--grey);
+            border-radius: 100px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 84px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-h {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        /* CTA Button */
+        .cta-btn {
+            display: inline-block;
+            background: var(--purple);
+            color: var(--white);
+            padding: 22px 50px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(91, 39, 184, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            background: var(--cta);
+            box-shadow: 0 20px 60px rgba(91, 39, 184, 0.6);
+        }
+
+        /* Value Grid */
+        .value-sec {
+            padding: 120px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sec-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .sec-title h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--grey);
+            padding: 50px;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--purple);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .card p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* The Rationale Matrix */
+        .matrix-sec {
+            background: #090610;
+            padding: 100px 5%;
+            margin-top: 100px;
+        }
+
+        .matrix-wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 800px) {
+            .matrix-wrap {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .matrix-badge {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .matrix-visual {
+            background: var(--purple);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .matrix-visual table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            color: white;
+        }
+
+        .matrix-visual th {
+            text-align: left;
+            opacity: 0.6;
+            padding-bottom: 10px;
+        }
+
+        .matrix-visual td {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* The Persona */
+        .persona-sec {
+            padding: 120px 5%;
+            text-align: center;
+        }
+
+        .persona-title {
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 900;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            line-height: 1.1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 100px 5% 50px;
+            background: #000;
+            text-align: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 40px;
+        }
+
+        .footer-logo .logo-pmp {
+            font-size: 32px;
+        }
+
+        .copy {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <span class="logo-pmp">PMP</span>
+            <span class="logo-rule"></span>
+            <span class="logo-sub">Mastery Framework</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="badge">A Premier 13-Week Pathway</div>
+        <h1>The <span class="highlight">Strategic Peer</span> Pathway</h1>
+        <p class="sub-h">Beyond rote memorization. We train you to think like a senior collaborator, aligning your
+            professional experience with the PMP® Global Standard.</p>
+        <a href="#" class="cta-btn">Enroll as a Strategic Peer</a>
+    </section>
+
+    <section class="value-sec">
+        <div class="sec-title">
+            <div class="badge" style="color: var(--purple); border-color: rgba(91,39,184,0.2);">Mastery Pillars</div>
+            <h2>Rigorous Leadership Foundations</h2>
+            <div class="gold-line"></div>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <h3>People Pillar</h3>
+                <p>Deep training in <strong>Servant Leadership</strong> and Emotional Intelligence. Master the
+                    interpersonal dynamics required by the People Domain (42% of Exam).</p>
+            </div>
+            <div class="card">
+                <h3>Process Pillar</h3>
+                <p>Master-level proficiency in <strong>Integrated Change Control</strong> and Risk Management. Navigate
+                    Agile, Hybrid, and Waterfall with technical precision.</p>
+            </div>
+            <div class="card">
+                <h3>Business Pillar</h3>
+                <p>Strategic instruction in <strong>PESTLE and VUCA</strong>. Understand the organizational context that
+                    separates managers from strategic leaders.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="matrix-sec">
+        <div class="matrix-wrap">
+            <div class="matrix-content">
+                <span class="matrix-badge">Exclusive Proprietary Tool</span>
+                <h2 style="font-size: 32px; font-weight: 900; margin-bottom: 20px;">The Rationale Matrix</h2>
+                <p style="color: var(--muted); font-size: 16px; margin-bottom: 30px;">Don't just find the right
+                    answer—master the <strong>logic of the leader</strong>. Our verified Rationale Matrix ensures every
+                    simulation question is audited against the PMI mindset.</p>
+                <ul style="list-style: none; color: var(--gold); font-weight: 600; font-size: 14px;">
+                    <li style="margin-bottom: 10px;">• 500+ Situational Rationale Analyses</li>
+                    <li style="margin-bottom: 10px;">• Integrated "Analyze First" Discipline</li>
+                    <li style="margin-bottom: 10px;">• Audited Performance Confidence Dashboard</li>
+                </ul>
+            </div>
+            <div class="matrix-visual">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question Type</th>
+                            <th>Vocal Rationale</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conflict Res.</td>
+                            <td>Servant Leadership / Win-Win</td>
+                            <td>[Verified]</td>
+                        </tr>
+                        <tr>
+                            <td>Risk Response</td>
+                            <td>Primary Data Analysis First</td>
+                            <td>[Verified]</td>
+                        </tr>
+                        <tr>
+                            <td>Scope Creep</td>
+                            <td>Change Control Integration</td>
+                            <td>[Verified]</td>
+                        </tr>
+                        <tr>
+                            <td>Team Morale</td>
+                            <td>EQ / Empowerment Audit</td>
+                            <td>[Verified]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="persona-sec">
+        <div class="badge">The Persona</div>
+        <h2 class="persona-title">"You are not a student. You are a <span class="highlight">Senior Collaborator</span>
+            on the path to global legitimacy."</h2>
+        <p style="color: var(--muted); max-width: 700px; margin: 0 auto 50px;">This pedagogical approach provides
+            immediate credibility and makes you a visible champion for value delivery within your organization.</p>
+        <a href="#" class="cta-btn">Achieve Mastery Today</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <span class="logo-pmp">PMP</span>
+            <span class="logo-rule" style="width: 80px; margin: 8px auto;"></span>
+            <span class="logo-sub">Mastery Framework</span>
+        </div>
+        <p class="copy">© 2026 PMP MASTERY FRAMEWORK. ALIGNED WITH PMI ECO 2021/2024 STANDARDS.</p>
+    </footer>
+
+</body>
+
+</html>

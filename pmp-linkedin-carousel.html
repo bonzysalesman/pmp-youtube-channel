@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Carousel | PMP Mastery Framework</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --purple: #5b27b8;
+            --deep: #0f0a1e;
+            --gold: #c7951e;
+            --white: #ffffff;
+            --font: 'Poppins', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f0f0f0;
+            font-family: var(--font);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: center;
+        }
+
+        /* Slide Container */
+        .carousel-slide {
+            width: 1080px;
+            height: 1080px;
+            /* Square for LinkedIn */
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 80px;
+        }
+
+        .dark-slide {
+            background: var(--deep);
+            color: var(--white);
+        }
+
+        /* Header / Logo Utility */
+        .mini-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 100px;
+        }
+
+        .mini-pmp {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--purple);
+            line-height: 1;
+        }
+
+        .dark-slide .mini-pmp {
+            color: var(--white);
+        }
+
+        .mini-rule {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 4px 0;
+        }
+
+        .mini-sub {
+            font-size: 7px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* Content Styles */
+        .slide-num {
+            position: absolute;
+            top: 80px;
+            right: 80px;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+        }
+
+        h1 {
+            font-size: 82px;
+            font-weight: 900;
+            line-height: 1.0;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+        }
+
+        .highlight {
+            color: var(--purple);
+        }
+
+        .dark-slide .highlight {
+            color: var(--gold);
+        }
+
+        p {
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 1.5;
+            color: #444;
+            max-width: 800px;
+        }
+
+        .dark-slide p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-cta {
+            position: absolute;
+            bottom: 80px;
+            left: 80px;
+            right: 80px;
+            border-top: 1px solid #eee;
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dark-slide .footer-cta {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-text {
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Big Icons / Graphics */
+        .circle-bg {
+            position: absolute;
+            top: 50%;
+            right: -200px;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            border: 40px solid var(--purple);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .matrix-graphic {
+            margin-top: 60px;
+            background: #f9f8fc;
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--purple);
+        }
+
+        .matrix-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .matrix-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Cover -->
+    <div class="carousel-slide dark-slide">
+        <div class="slide-num">01 / 05</div>
+        <div class="mini-logo">
+            <span class="mini-pmp">PMP</span>
+            <span class="mini-rule"></span>
+            <span class="mini-sub">Mastery Framework</span>
+        </div>
+        <h1>Stop Being a <span class="highlight">Student</span>.</h1>
+        <p>Become a Strategic Peer. The PMP designation is about more than an exam—it's about global leadership
+            legitimacy.</p>
+        <div class="footer-cta">
+            <span class="cta-text">Swipe to Analyze</span>
+            <span class="mini-sub">Strategic Peer Pathway</span>
+        </div>
+        <div class="circle-bg" style="border-color: var(--gold);"></div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="carousel-slide">
+        <div class="slide-num">02 / 05</div>
+        <div class="mini-logo">
+            <span class="mini-pmp">PMP</span>
+            <span class="mini-rule"></span>
+            <span class="mini-sub">Mastery Framework</span>
+        </div>
+        <h1>The "Analyze <span class="highlight">First</span>" Gap</h1>
+        <p>PMI expects you to evaluate before you act. Most candidates act before they think. We bridge that gap.</p>
+        <div class="footer-cta">
+            <span class="cta-text">The Rationale Matrix</span>
+            <span class="mini-sub">pmpmastery.com</span>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Matrix -->
+    <div class="carousel-slide dark-slide">
+        <div class="slide-num">03 / 05</div>
+        <div class="mini-logo">
+            <span class="mini-pmp">PMP</span>
+            <span class="mini-rule"></span>
+            <span class="mini-sub">Mastery Framework</span>
+        </div>
+        <h1>The Leadership <span class="highlight">Logic</span></h1>
+        <p>Our <strong>Rationale Matrix</strong> audits every situational scenario against the leader's mindset.</p>
+        <div class="matrix-graphic" style="background: rgba(255,255,255,0.05); border-color: var(--gold);">
+            <div class="matrix-row" style="color: var(--gold);"><span>Scenario: Conflict</span> <span>Analyze → EQ →
+                    Win-Win</span></div>
+            <div class="matrix-row"><span>Scenario: Scope</span> <span>Assess → Change Control</span></div>
+            <div class="matrix-row"><span>Scenario: Risk</span> <span>Evaluate → Impact → Plan</span></div>
+        </div>
+        <div class="footer-cta">
+            <span class="cta-text">Think Like a Peer</span>
+        </div>
+    </div>
+
+    <!-- Slide 4: Accountability -->
+    <div class="carousel-slide">
+        <div class="slide-num">04 / 05</div>
+        <div class="mini-logo">
+            <span class="mini-pmp">PMP</span>
+            <span class="mini-rule"></span>
+            <span class="mini-sub">Mastery Framework</span>
+        </div>
+        <h1>Vocational <span class="highlight">Rigor</span></h1>
+        <p>82 Lessons. 500+ Rationals. 2 Full-Length Simulations. We don't just aim for a pass—we aim for Above Target
+            (AT).</p>
+        <div class="footer-cta">
+            <span class="cta-text">Join the 13-Week Journey</span>
+        </div>
+    </div>
+
+    <!-- Slide 5: Final CTA -->
+    <div class="carousel-slide dark-slide" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="mini-logo" style="align-items: center;">
+            <span class="mini-pmp" style="font-size: 48px;">PMP</span>
+            <span class="mini-rule" style="width: 100px;"></span>
+            <span class="mini-sub">Mastery Framework</span>
+        </div>
+        <h1 style="font-size: 64px;">Ready to <span class="highlight">Lead</span>?</h1>
+        <p style="font-size: 24px; margin-bottom: 40px;">Enroll in the Strategic Peer Pathway today.</p>
+        <div
+            style="background: var(--gold); color: var(--deep); padding: 20px 40px; border-radius: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;">
+            Link in Bio</div>
+    </div>
+
+</body>
+
+</html>

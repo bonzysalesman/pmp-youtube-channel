@@ -1,0 +1,239 @@
+{
+  "dimensions": {
+    "width": 1280,
+    "height": 720,
+    "safeWidth": 1235,
+    "safeHeight": 675,
+    "aspectRatio": "16:9"
+  },
+  "colorScheme": {
+    "people": {
+      "primary": "#2ECC71",
+      "secondary": "#27AE60",
+      "accent": "#E8F8F5",
+      "description": "Green theme for People Domain (42%)"
+    },
+    "process": {
+      "primary": "#3498DB",
+      "secondary": "#2980B9",
+      "accent": "#EBF5FB",
+      "description": "Blue theme for Process Domain (50%)"
+    },
+    "businessEnvironment": {
+      "primary": "#E67E22",
+      "secondary": "#D35400",
+      "accent": "#FDF2E9",
+      "description": "Orange theme for Business Environment Domain (8%)"
+    },
+    "practiceReview": {
+      "primary": "#9B59B6",
+      "secondary": "#8E44AD",
+      "accent": "#F4ECF7",
+      "description": "Purple theme for Practice and Review content"
+    }
+  },
+  "typography": {
+    "primaryFont": "Arial, sans-serif",
+    "fallbackFonts": ["Helvetica", "sans-serif"],
+    "sizes": {
+      "dayNumber": 72,
+      "mainTitle": 48,
+      "subtitle": 36,
+      "metadata": 32,
+      "small": 24
+    },
+    "weights": {
+      "bold": "bold",
+      "normal": "normal",
+      "light": "300"
+    }
+  },
+  "templates": {
+    "dailyStudy": {
+      "name": "Daily Study Video",
+      "description": "15-20 minute daily lesson format",
+      "elements": {
+        "dayNumber": {
+          "position": { "x": 160, "y": 120 },
+          "maxWidth": 300,
+          "fontSize": 72,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "format": "Day {dayNumber}"
+        },
+        "mainTitle": {
+          "position": { "x": 640, "y": 360 },
+          "maxWidth": 1135,
+          "fontSize": 48,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "wordWrap": true
+        },
+        "weekIndicator": {
+          "position": { "x": 1120, "y": 640 },
+          "maxWidth": 300,
+          "fontSize": 36,
+          "color": "#FFFFFF",
+          "fontWeight": "normal",
+          "format": "Week {week}"
+        }
+      }
+    },
+    "practiceSession": {
+      "name": "Practice Session",
+      "description": "20-25 minute practice format",
+      "elements": {
+        "practiceLabel": {
+          "position": { "x": 200, "y": 120 },
+          "maxWidth": 400,
+          "fontSize": 64,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "text": "PRACTICE"
+        },
+        "mainTitle": {
+          "position": { "x": 640, "y": 360 },
+          "maxWidth": 1135,
+          "fontSize": 44,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "wordWrap": true
+        },
+        "weekIndicator": {
+          "position": { "x": 1120, "y": 640 },
+          "maxWidth": 300,
+          "fontSize": 36,
+          "color": "#FFFFFF",
+          "fontWeight": "normal",
+          "format": "Week {week}"
+        }
+      }
+    },
+    "reviewSession": {
+      "name": "Review Session",
+      "description": "15-20 minute review format",
+      "elements": {
+        "reviewTitle": {
+          "position": { "x": 640, "y": 150 },
+          "maxWidth": 1135,
+          "fontSize": 56,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "format": "Week {week} Review"
+        },
+        "topicsCovered": {
+          "position": { "x": 640, "y": 360 },
+          "maxWidth": 1135,
+          "fontSize": 40,
+          "color": "#FFFFFF",
+          "fontWeight": "normal",
+          "wordWrap": true
+        },
+        "progressIndicator": {
+          "position": { "x": 640, "y": 620 },
+          "maxWidth": 400,
+          "fontSize": 32,
+          "color": "#FFFFFF",
+          "fontWeight": "normal",
+          "format": "{progress}% Complete"
+        }
+      }
+    },
+    "channelTrailer": {
+      "name": "Channel Trailer",
+      "description": "Channel introduction and overview",
+      "elements": {
+        "mainTitle": {
+          "position": { "x": 640, "y": 280 },
+          "maxWidth": 1135,
+          "fontSize": 52,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "wordWrap": true
+        },
+        "subtitle": {
+          "position": { "x": 640, "y": 400 },
+          "maxWidth": 1000,
+          "fontSize": 36,
+          "color": "#FFFFFF",
+          "fontWeight": "normal",
+          "wordWrap": true
+        },
+        "callToAction": {
+          "position": { "x": 640, "y": 520 },
+          "maxWidth": 800,
+          "fontSize": 32,
+          "color": "#FFFFFF",
+          "fontWeight": "bold",
+          "text": "Subscribe for Your 13-Week Journey"
+        }
+      }
+    }
+  },
+  "variants": {
+    "standard": {
+      "name": "Standard Gradient",
+      "description": "Standard gradient background from primary to darker shade",
+      "backgroundType": "gradient",
+      "gradientStops": [
+        { "position": 0, "color": "primary" },
+        { "position": 1, "color": "primaryDark30" }
+      ]
+    },
+    "highContrast": {
+      "name": "High Contrast",
+      "description": "High contrast gradient for better readability",
+      "backgroundType": "gradient",
+      "gradientStops": [
+        { "position": 0, "color": "primary" },
+        { "position": 1, "color": "#2C3E50" }
+      ]
+    },
+    "subtle": {
+      "name": "Subtle Gradient",
+      "description": "Subtle gradient with lighter variation",
+      "backgroundType": "gradient",
+      "gradientStops": [
+        { "position": 0, "color": "primary" },
+        { "position": 1, "color": "primaryLight20" }
+      ]
+    },
+    "withBranding": {
+      "name": "With Branding Element",
+      "description": "Includes branding element in corner",
+      "backgroundType": "gradient",
+      "gradientStops": [
+        { "position": 0, "color": "primary" },
+        { "position": 1, "color": "primaryDark30" }
+      ],
+      "includeBranding": true
+    }
+  },
+  "brandingElements": {
+    "logo": {
+      "position": { "x": 1100, "y": 50 },
+      "width": 160,
+      "height": 60,
+      "opacity": 0.9
+    },
+    "watermark": {
+      "position": { "x": 1200, "y": 680 },
+      "fontSize": 18,
+      "color": "rgba(255, 255, 255, 0.7)",
+      "text": "PMPJourney.com"
+    }
+  },
+  "outputSettings": {
+    "format": "png",
+    "quality": 95,
+    "compression": "medium",
+    "filenamePattern": "{week}_{day}_{type}_{variant}",
+    "directory": "generated/thumbnails"
+  },
+  "abTestingConfig": {
+    "defaultVariants": ["standard", "highContrast", "subtle"],
+    "testDuration": "7 days",
+    "metrics": ["clickThroughRate", "impressions", "watchTime"],
+    "significanceThreshold": 0.05
+  }
+}

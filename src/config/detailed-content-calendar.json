@@ -1,0 +1,113 @@
+{
+  "program": {
+    "title": "13-Week PMP Certification Journey",
+    "totalWeeks": 13,
+    "totalLessons": 87,
+    "startDate": "2024-09-01",
+    "endDate": "2024-11-26"
+  },
+  "months": [
+    {
+      "month": 1,
+      "title": "Foundation: Intro & Team Building",
+      "weeks": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "month": 2,
+      "title": "Execution: Starting & Doing",
+      "weeks": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "month": 3,
+      "title": "Mastery: Leadership & Final Prep",
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "Introduction & Foundations",
+      "color": "purple",
+      "workGroup": "Introduction",
+      "focus": "Program overview, exam structure, mindset foundation",
+      "lessons": [
+        {
+          "day": 1,
+          "title": "PMP & Course Overview",
+          "type": "daily-study",
+          "duration": "15-18 minutes",
+          "content": "Exam format, domains breakdown, eligibility requirements"
+        },
+        {
+          "day": 2,
+          "title": "Resources & ECO",
+          "type": "daily-study",
+          "duration": "15-18 minutes",
+          "content": "PMBOK vs ECO, recommended materials, what NOT to waste time on"
+        },
+        {
+          "day": 3,
+          "title": "PMP Mindset (Part 1)",
+          "type": "daily-study",
+          "duration": "15-18 minutes",
+          "content": "Proactive vs reactive, servant leadership, value focus"
+        },
+        {
+          "day": 4,
+          "title": "PMP Mindset (Part 2)",
+          "type": "daily-study",
+          "duration": "15-18 minutes",
+          "content": "3 mindset application examples, ethical decision making"
+        },
+        {
+          "day": 5,
+          "title": "Foundations Review",
+          "type": "review",
+          "duration": "15 minutes",
+          "content": "Recap of foundations, readiness check"
+        }
+      ]
+    }
+  ],
+  "productionGuidelines": {
+    "videoLengthStandards": {
+      "dailyStudy": "12-18 minutes",
+      "reviewSessions": "15-20 minutes",
+      "examSimulations": "10-15 minutes + exam time"
+    },
+    "thumbnailColorCoding": {
+      "people": {
+        "color": "green",
+        "hex": "#2ECC71"
+      },
+      "process": {
+        "color": "blue",
+        "hex": "#3498DB"
+      },
+      "businessEnvironment": {
+        "color": "orange",
+        "hex": "#E67E22"
+      },
+      "practiceReview": {
+        "color": "purple",
+        "hex": "#9B59B6"
+      }
+    }
+  }
+}

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PMP Mastery Framework — Slide Design Review & Redesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --purple:#5b27b8;--deep:#3d1a7a;--gold:#c7951e;--gold-lt:#e8b84b;
+  --white:#fff;--off:#f9f8fc;--ink:#0f0a1e;--ink2:#2d1f4e;
+  --muted:#9585c0;--grey:#ede9f5;--red:#d94040;--green:#2a9d5c;
+  --font:'Poppins',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:#111;color:var(--ink);line-height:1.6;}
+
+/* HEADER */
+.hero{background:var(--deep);padding:64px 8% 56px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:-120px;right:-120px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(91,40,179,.5) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:var(--white);letter-spacing:-.01em;margin-bottom:8px;}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.55);max-width:600px;line-height:1.7;}
+.hero-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt));margin:20px 0;}
+
+/* TABS */
+.tabs{background:#1a1a1a;position:sticky;top:0;z-index:100;border-bottom:1px solid #333;}
+.tabs-inner{max-width:1280px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;padding:0 40px;}
+.tabs-inner::-webkit-scrollbar{display:none;}
+.tab{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#666;padding:15px 20px;white-space:nowrap;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.tab:hover,.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* SECTIONS */
+.section{max-width:1280px;margin:0 auto;padding:72px 40px;}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.sec-title{font-size:clamp(24px,3.5vw,36px);font-weight:800;color:var(--white);letter-spacing:-.01em;margin-bottom:32px;}
+.sec-intro{font-size:16px;font-weight:300;color:rgba(255,255,255,.55);max-width:700px;line-height:1.8;margin-bottom:48px;}
+
+/* CRITIQUE GRID */
+.critique-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:52px;}
+@media(max-width:700px){.critique-grid{grid-template-columns:1fr;}}
+.issue-card{border-radius:10px;padding:24px;border-top:3px solid var(--red);background:#1e1e1e;}
+.issue-card.ok{border-top-color:var(--green);}
+.ibadge{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:12px;display:inline-block;}
+.issue-card      .ibadge{background:rgba(217,64,64,.15);color:#f08080;}
+.issue-card.ok   .ibadge{background:rgba(42,157,92,.15);color:#6bcf9b;}
+.ititle{font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.ibody{font-size:13px;color:#999;line-height:1.65;}
+
+/* SLIDE DISPLAY */
+.slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(560px,1fr));gap:28px;margin-bottom:60px;}
+@media(max-width:640px){.slides-grid{grid-template-columns:1fr;}}
+
+.slide-wrap{position:relative;}
+.slide-label{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#555;margin-bottom:8px;}
+.slide-type{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:8px;}
+.type-cover  {background:rgba(61,26,122,.4);color:#b09edc;}
+.type-section{background:rgba(91,40,179,.3);color:#c4a8f0;}
+.type-content{background:#222;color:#888;}
+.type-dark   {background:rgba(61,26,122,.4);color:#b09edc;}
+.type-stat   {background:rgba(199,149,30,.2);color:var(--gold);}
+.type-quote  {background:#222;color:#888;}
+.type-tips   {background:#1a2a1a;color:#6bcf9b;}
+
+/* ── THE ACTUAL SLIDE PREVIEWS ── */
+.slide{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);
+  position:relative;
+  font-family:var(--font);
+}
+
+/* SLIDE: cover */
+.slide.cover{
+  background:var(--deep);
+  display:flex;align-items:stretch;justify-content:stretch;
+  flex-direction:column;
+}
+.slide.cover::before{
+  content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,40,179,.5) 0%,transparent 70%);
+}
+.slide.cover .inner{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(24px,5%,56px) clamp(28px,7%,80px);position:relative;z-index:1;
+}
+.cover-pmp{font-size:clamp(32px,8vw,88px);font-weight:900;letter-spacing:.04em;color:#fff;line-height:1;}
+.cover-rule{display:block;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt),transparent);margin:10px 0 12px;width:clamp(80px,18%,200px);}
+.cover-sub{font-size:clamp(7px,1.2vw,13px);font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.cover-desc{font-size:clamp(9px,1.5vw,16px);font-weight:300;color:rgba(255,255,255,.4);margin-top:20px;line-height:1.5;}
+
+/* SLIDE: section divider */
+.slide.section-div{
+  background:var(--purple);display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(24px,5%,64px) clamp(28px,7%,80px);
+  position:relative;
+}
+.slide.section-div::before{
+  content:'';position:absolute;left:0;top:0;width:8px;height:100%;
+  background:linear-gradient(180deg,var(--gold) 0%,rgba(255,255,255,.2) 100%);
+}
+.sec-num{font-size:clamp(7px,1.1vw,10px);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.sec-h1{font-size:clamp(18px,4vw,46px);font-weight:900;text-transform:uppercase;color:#fff;letter-spacing:-.01em;margin:0 0 6px;}
+.sec-h2{font-size:clamp(7px,1.2vw,11px);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 20px;}
+.sec-p{font-size:clamp(8px,1.4vw,16px);font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.6;}
+
+/* SLIDE: content (white) */
+.slide.content{
+  background:var(--white);display:flex;flex-direction:column;
+  padding:clamp(16px,4%,48px) clamp(20px,6%,64px) clamp(16px,4%,44px);
+  position:relative;
+}
+.slide.content::before{
+  content:'';position:absolute;left:0;top:0;width:5px;height:100%;
+  background:linear-gradient(180deg,var(--gold) 0%,var(--purple) 100%);
+}
+.slide-h1{font-size:clamp(13px,2.8vw,38px);font-weight:900;text-transform:uppercase;color:var(--deep);letter-spacing:-.02em;margin:0 0 4px;}
+.slide-h2{font-size:clamp(7px,1.1vw,11px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:clamp(10px,2%,24px);}
+.slide-body{font-size:clamp(8px,1.4vw,17px);color:var(--ink2);line-height:1.65;flex:1;}
+.slide-body ul{padding-left:1.3em;margin:4px 0;}
+.slide-body li{margin-bottom:6px;color:var(--ink2);}
+.slide-body li::marker{color:var(--gold);}
+.slide-body strong{color:var(--purple);font-weight:700;}
+
+/* SLIDE: dark */
+.slide.dark-slide{
+  background:var(--deep);display:flex;flex-direction:column;
+  padding:clamp(16px,4%,52px) clamp(20px,6%,68px);position:relative;
+}
+.slide.dark-slide::before{
+  content:'';position:absolute;left:0;top:0;width:5px;height:100%;
+  background:linear-gradient(180deg,var(--gold) 0%,var(--purple) 100%);
+}
+.dark-slide .slide-h1{color:#fff;}
+.dark-slide .slide-body{color:rgba(255,255,255,.7);}
+.dark-slide .slide-body li::marker{color:var(--gold);}
+.dark-slide .slide-body strong{color:var(--gold-lt);}
+.dark-slide .slide-h2{color:var(--gold);}
+
+/* SLIDE: stat */
+.slide.stat{
+  background:var(--deep);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 60px;text-align:center;position:relative;
+}
+.stat-num{font-size:clamp(40px,12vw,120px);font-weight:900;color:var(--gold);line-height:1;letter-spacing:-.02em;}
+.stat-h2{font-size:clamp(7px,1.2vw,13px);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:8px 0 20px;}
+.stat-p{font-size:clamp(9px,1.6vw,18px);font-weight:300;color:rgba(255,255,255,.7);max-width:480px;line-height:1.6;}
+
+/* SLIDE: quote */
+.slide.quote{
+  background:var(--ink);display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(20px,5%,60px) clamp(24px,7%,80px);position:relative;
+}
+.slide.quote::before{content:'';position:absolute;left:0;top:0;width:5px;height:100%;background:var(--gold);}
+.quote-mark{font-size:clamp(32px,8vw,80px);font-weight:900;color:var(--gold);line-height:.7;margin-bottom:8px;}
+.quote-text{font-size:clamp(11px,2.2vw,26px);font-style:italic;font-weight:300;color:#fff;line-height:1.5;max-width:700px;margin-bottom:16px;}
+.quote-attr{font-size:clamp(7px,1.1vw,13px);letter-spacing:.15em;text-transform:uppercase;color:var(--gold);}
+
+/* SLIDE: tips (checklist) */
+.slide.tips{
+  background:var(--white);display:flex;flex-direction:column;
+  padding:clamp(16px,3.5%,44px) clamp(20px,6%,64px);position:relative;
+}
+.slide.tips::before{
+  content:'';position:absolute;left:0;top:0;width:5px;height:100%;
+  background:linear-gradient(180deg,var(--gold) 0%,var(--purple) 100%);
+}
+.tips-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;flex:1;margin-top:4px;}
+.tips-list li{
+  display:flex;align-items:flex-start;gap:10px;padding:8px 12px;
+  background:var(--off);border-left:2px solid var(--gold);border-radius:0 4px 4px 0;
+  font-size:clamp(7px,1.3vw,14px);color:var(--ink2);line-height:1.4;
+}
+.tips-list li::before{
+  content:'✓';display:inline-flex;align-items:center;justify-content:center;
+  min-width:18px;height:18px;background:var(--purple);color:#fff;border-radius:50%;
+  font-size:9px;font-weight:900;flex-shrink:0;margin-top:1px;
+}
+
+/* SLIDE: domain cards */
+.domain-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;flex:1;margin-top:6px;}
+.domain-card{border-top:3px solid;border-radius:0 0 6px 6px;padding:12px 10px;background:var(--off);}
+.domain-card:nth-child(1){border-color:var(--purple);}
+.domain-card:nth-child(2){border-color:var(--gold);}
+.domain-card:nth-child(3){border-color:var(--deep);}
+.dc-num{font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.dc-title{font-size:clamp(9px,1.8vw,17px);font-weight:800;color:var(--deep);margin-bottom:5px;}
+.dc-body{font-size:clamp(7px,1.1vw,11px);color:#666;line-height:1.4;}
+.dc-pct{font-size:clamp(14px,3vw,24px);font-weight:900;color:var(--purple);margin-top:8px;}
+.dc-pct-label{font-size:7px;color:var(--muted);letter-spacing:.08em;}
+
+/* AGENDA SLIDE */
+.agenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;margin-top:6px;}
+.agenda-item{background:var(--off);border-left:2px solid var(--gold);border-radius:0 4px 4px 0;padding:10px 12px;font-size:clamp(7px,1.3vw,14px);color:var(--ink2);line-height:1.35;}
+.agenda-item strong{display:block;font-size:clamp(6px,1.1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+
+/* WEEK PLAN */
+.week-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:1;margin-top:6px;}
+.week-card{border-radius:6px;padding:10px 10px;text-align:center;}
+.week-card:nth-child(-n+3){background:rgba(91,40,179,.07);}
+.week-card:nth-child(4){background:rgba(199,149,30,.1);border:1px solid rgba(199,149,30,.3);}
+.wc-phase{font-size:7px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.wc-title{font-size:clamp(9px,1.6vw,14px);font-weight:700;color:var(--deep);margin-bottom:5px;}
+.wc-body{font-size:clamp(6px,1.1vw,10px);color:#666;line-height:1.4;}
+
+/* TABLE SLIDE */
+.slide-table{width:100%;border-collapse:collapse;font-size:clamp(7px,1.3vw,13px);margin-top:4px;flex:1;}
+.slide-table th{background:var(--deep);color:#fff;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:clamp(6px,1.1vw,11px);padding:8px 10px;text-align:left;}
+.slide-table td{padding:7px 10px;border-bottom:1px solid var(--grey);color:var(--ink2);}
+.slide-table tr:nth-child(even) td{background:var(--off);}
+
+/* approach cards */
+.approach-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;flex:1;margin-top:6px;}
+.approach-card{border:1.5px solid var(--grey);border-top:3px solid;border-radius:0 0 6px 6px;padding:10px 10px;}
+.approach-card:nth-child(1){border-top-color:var(--purple);}
+.approach-card:nth-child(2){border-top-color:var(--gold);}
+.approach-card:nth-child(3){border-top-color:var(--deep);}
+.ac-title{font-size:clamp(9px,1.8vw,16px);font-weight:800;color:var(--deep);margin-bottom:3px;}
+.ac-sub{font-size:6px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.ac-list{font-size:clamp(6px,1.1vw,11px);color:#555;line-height:1.5;padding-left:1em;margin:0;}
+
+/* callout box */
+.callout-box{
+  background:rgba(91,40,179,.07);border-left:3px solid var(--purple);
+  padding:8px 12px;border-radius:0 5px 5px 0;
+  font-size:clamp(7px,1.2vw,13px);color:var(--ink2);margin-top:8px;line-height:1.4;
+}
+.callout-box.gold{background:rgba(199,149,30,.07);border-left-color:var(--gold);}
+
+/* page num */
+.pg{position:absolute;bottom:10px;right:18px;font-size:clamp(5px,.9vw,10px);font-weight:500;letter-spacing:.1em;color:var(--muted);}
+
+/* FOOTER logo */
+.slide-footer{position:absolute;bottom:10px;left:18px;display:flex;align-items:center;gap:6px;}
+.sf-pmp{font-size:clamp(7px,1.1vw,12px);font-weight:900;letter-spacing:.06em;color:var(--purple);line-height:1;}
+.sf-rule{display:block;width:20px;height:1.5px;background:var(--gold);margin:2px 0 3px;}
+.sf-sub{font-size:clamp(4px,.7vw,7px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.dark-slide .sf-pmp,.slide.dark-slide .sf-pmp{color:#fff;}
+.slide.stat .sf-pmp,.slide.section-div .sf-pmp,.slide.cover .sf-pmp,.slide.quote .sf-pmp{color:#fff;}
+.slide.stat .sf-sub,.slide.section-div .sf-sub,.slide.cover .sf-sub,.slide.quote .sf-sub{color:rgba(255,255,255,.35);}
+
+/* Compare panels */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:52px;}
+.compare-panel{}
+.cp-label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.cp-label.before{color:var(--red);}
+.cp-label.after{color:var(--green);}
+.cp-img{width:100%;aspect-ratio:16/9;background:#1a1a1a;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.cp-old{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;text-align:center;padding:20px;
+  font-size:10px;color:#666;
+}
+.old-title{font-size:clamp(10px,2vw,20px);font-weight:700;color:#333;font-family:Georgia,serif;}
+.old-bullet{text-align:left;font-size:clamp(7px,1.2vw,11px);color:#555;line-height:1.5;padding:4px 8px;background:#f5f5f5;border-radius:3px;margin-top:4px;width:90%;}
+
+/* MARP CODE BLOCK */
+.code-block{
+  background:#0d1117;border-radius:10px;padding:28px 32px;margin:28px 0;
+  font-family:'Courier New',monospace;font-size:13px;line-height:1.7;color:#c9d1d9;
+  overflow-x:auto;border:1px solid #30363d;
+}
+.code-block .cm{color:#8b949e;}
+.code-block .ck{color:#ff7b72;}
+.code-block .cv{color:#a5d6ff;}
+.code-block .cs{color:#a8ff78;}
+.code-block .cn{color:#ffa657;}
+.code-block .cp{color:#d2a8ff;}
+
+/* Pipeline diagram */
+.pipeline{display:flex;align-items:center;gap:0;margin:36px 0;overflow-x:auto;}
+.pipe-step{
+  background:#1a1a1a;border:1px solid #333;border-radius:8px;
+  padding:20px 20px;text-align:center;flex:1;min-width:140px;
+}
+.pipe-arrow{color:#555;font-size:28px;padding:0 8px;flex-shrink:0;}
+.ps-icon{font-size:28px;margin-bottom:8px;}
+.ps-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.ps-desc{font-size:11px;color:#666;line-height:1.4;}
+
+/* file tree */
+.tree{
+  background:#0d1117;border-radius:8px;padding:24px 28px;
+  font-family:'Courier New',monospace;font-size:13px;line-height:1.8;
+  color:#c9d1d9;border:1px solid #30363d;margin:24px 0;
+}
+.tree .dir{color:var(--gold);}
+.tree .file{color:#a5d6ff;}
+.tree .comment{color:#8b949e;}
+
+/* IMPROVEMENTS section */
+.improvements{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0;}
+.imp-card{background:#1a1a1a;border-radius:10px;padding:24px;border-left:4px solid var(--purple);}
+.imp-card.gold-border{border-left-color:var(--gold);}
+.imp-badge{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.imp-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.imp-body{font-size:13px;color:#888;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Design Review &amp; Redesign · Day 1 Slides</div>
+  <h1 class="hero-title">PMP Mastery Framework<br/>Slide System Overhaul</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">Design critique of the current Keynote deck, full Marp brand theme, redesigned Day 1 slides preview, and automated batch export pipeline.</p>
+</div>
+
+<!-- TABS -->
+<nav class="tabs">
+  <div class="tabs-inner">
+    <span class="tab active" onclick="show('critique')">01 Design Critique</span>
+    <span class="tab" onclick="show('slides')">02 Redesigned Slides</span>
+    <span class="tab" onclick="show('marp')">03 Marp Theme</span>
+    <span class="tab" onclick="show('pipeline')">04 Export Pipeline</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ 01 CRITIQUE -->
+<div id="critique" class="panel">
+  <div class="section">
+    <div class="sec-label">01 — Design Critique</div>
+    <h2 class="sec-title">What the current slides get wrong</h2>
+    <p class="sec-intro">The existing Keynote deck uses a default white theme with no brand identity. Here's a systematic breakdown of every issue — and what the redesign fixes.</p>
+
+    <div class="critique-grid">
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">No brand identity</div>
+        <div class="ibody">The only brand element is "PMP MASTERY FRAMEWORK" as plain text on one slide. No logo mark, no brand colors (#5b27b8, #3d1a7a, #c7951e), no Poppins font. Indistinguishable from a default Keynote deck.</div>
+      </div>
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">Incoherent image strategy</div>
+        <div class="ibody">Three visual sources mixed with no rationale: stock beach/dune photos (zero PM relevance), a Gemini-generated "PASS" archery target with clip-art overlays, and a staircase infographic. Each has different art direction, colour temperature, and quality level.</div>
+      </div>
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">White everywhere = no hierarchy</div>
+        <div class="ibody">Cover slide, section dividers, and content slides are visually identical — all white. There's no visual signal for "you're on a new section" or "this is a key callout." Every slide reads at the same weight.</div>
+      </div>
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">Generic AI-generated visuals</div>
+        <div class="ibody">The Gemini infographics use orange, teal, and multicolour gradients — the base-tier PMP Exam Prep brand palette. They actively undermine Mastery Framework's premium positioning and inject a completely different visual identity.</div>
+      </div>
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">Default Keynote fonts</div>
+        <div class="ibody">Arial/Helvetica rendered at inconsistent sizes. No Poppins (the brand font), no uppercase tracking on headings, no weight hierarchy between 900-weight display titles and 300-weight subtitles as specified in the brand manual.</div>
+      </div>
+      <div class="issue-card">
+        <span class="ibadge">✗ Issue</span>
+        <div class="ititle">Not Marp-native despite YAML header</div>
+        <div class="ibody">The source file uses a generic default theme. No slide class directives (cover, section, dark, stat), no custom CSS applied, no footer/logo. The Marp setup is present but completely unarmed — it outputs an unstyled deck.</div>
+      </div>
+      <div class="issue-card ok">
+        <span class="ibadge">✓ Strong</span>
+        <div class="ititle">Solid content structure</div>
+        <div class="ibody">The actual learning content is well-organised: clear modules, relevant topics (ECO domains, project vs. ops, delivery approaches). Day 1 scope is appropriate. This content just needs the right visual container.</div>
+      </div>
+      <div class="issue-card ok">
+        <span class="ibadge">✓ Strong</span>
+        <div class="ititle">Marp toolchain already in place</div>
+        <div class="ibody">The YAML frontmatter and existing slides.md architecture are correct. Upgrading from default to the custom pmp-mastery theme is a single configuration change — no content rewriting needed.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:22px;font-weight:800;color:var(--white);margin-bottom:24px;">What the redesign fixes</h3>
+    <div class="improvements">
+      <div class="imp-card">
+        <div class="imp-badge">Typography</div>
+        <div class="imp-title">Poppins 900 → 300 weight hierarchy</div>
+        <div class="imp-body">Cover/section titles at 900 weight, eyebrow labels at 700 with 0.28em tracking, body at 400 — exactly matching the brand manual type system.</div>
+      </div>
+      <div class="imp-card gold-border">
+        <div class="imp-badge">Color</div>
+        <div class="imp-title">Deep purple + gold accent system</div>
+        <div class="imp-body">Cover/section slides on #3d1a7a. Content slides on white with 6px brand-gradient left bar. Gold accent on rules, eyebrows, list markers. Monochrome for print.</div>
+      </div>
+      <div class="imp-card">
+        <div class="imp-badge">Slide Classes</div>
+        <div class="imp-title">6 purpose-built layouts</div>
+        <div class="imp-body">cover · section · content · dark · stat · quote · tips · agenda — each with precise spacing, colour, and typographic rules purpose-built for their role.</div>
+      </div>
+      <div class="imp-card gold-border">
+        <div class="imp-badge">Images</div>
+        <div class="imp-title">CSS-native visual hierarchy, no images needed</div>
+        <div class="imp-body">Brand-colored backgrounds, domain percentage cards, week-plan grids, and styled tables replace the mismatched stock/AI images. Works at every screen size, exports cleanly to PDF.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ 02 SLIDES -->
+<div id="slides" class="panel" style="display:none">
+  <div class="section">
+    <div class="sec-label">02 — Redesigned Slides</div>
+    <h2 class="sec-title">Day 1 · Introduction &amp; Foundations</h2>
+    <p class="sec-intro">14 slides covering the full Day 1 module. Every slide uses the pmp-mastery theme — brand colors, Poppins type system, logo footer, and purpose-built layouts.</p>
+
+    <div class="slides-grid">
+
+      <!-- SLIDE 1: Cover -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 01</div>
+        <span class="slide-type type-cover">cover</span>
+        <div class="slide cover">
+          <div class="inner">
+            <div class="cover-pmp">PMP</div>
+            <span class="cover-rule"></span>
+            <div class="cover-sub">Mastery &nbsp; Framework</div>
+            <div class="cover-desc">Day 1: Introduction &amp; Foundations<br/>Understanding the landscape you're stepping into</div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">1 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Agenda -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 02</div>
+        <span class="slide-type type-content">agenda</span>
+        <div class="slide content">
+          <div class="slide-h1">Day 1 Agenda</div>
+          <div class="slide-h2">What we cover today</div>
+          <div class="agenda-grid">
+            <div class="agenda-item"><strong>Module 1</strong>Course orientation &amp; success blueprint</div>
+            <div class="agenda-item"><strong>Module 2</strong>Exam structure, format &amp; what PMI tests</div>
+            <div class="agenda-item"><strong>Module 3</strong>Project management vocabulary essentials</div>
+            <div class="agenda-item"><strong>Module 4</strong>ECO domains — People, Process, Business</div>
+            <div class="agenda-item"><strong>Module 5</strong>Predictive vs. Agile vs. Hybrid</div>
+            <div class="agenda-item"><strong>Module 6</strong>PMBOK® Guide: how to use it (and what it won't)</div>
+            <div class="agenda-item"><strong>Module 7</strong>Your 12-week study framework</div>
+            <div class="agenda-item"><strong>Q&amp;A</strong>Open floor</div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">2 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Section divider Module 1 -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 03</div>
+        <span class="slide-type type-section">section divider</span>
+        <div class="slide section-div">
+          <div class="sec-num">Module 01</div>
+          <div class="sec-h1">Welcome &amp; Course Orientation</div>
+          <div class="sec-h2">Your success blueprint starts here</div>
+          <div class="sec-p">This is not another exam cram. It's a structured pathway to genuine project management mastery.</div>
+          <div class="slide-footer"><div class="sf-pmp" style="color:#fff;">PMP</div><div><span class="sf-rule"></span><span class="sf-sub" style="color:rgba(255,255,255,.35);">Mastery Framework</span></div></div>
+          <div class="pg">3 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Welcome content -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 04</div>
+        <span class="slide-type type-content">content</span>
+        <div class="slide content">
+          <div class="slide-h1">Welcome &amp; Introductions</div>
+          <div class="slide-h2">Who's in the room?</div>
+          <div class="slide-body">
+            <ul>
+              <li>Welcome to the PMP Mastery Framework — Day 1 of 12</li>
+              <li>Your instructor: <strong>[Name]</strong>, PMP, PMI-ACP</li>
+              <li>Participant introductions — <em>name · role · years in PM</em></li>
+              <li>What brought you here today?</li>
+            </ul>
+            <div class="callout-box" style="margin-top:10px;font-style:italic;">The PMP credential is held by fewer than 1 million professionals worldwide. You're joining an elite tier.</div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">4 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: Stat -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 05</div>
+        <span class="slide-type type-stat">stat</span>
+        <div class="slide stat">
+          <div class="stat-num">42%</div>
+          <div class="stat-h2">Average salary increase post-PMP</div>
+          <div class="stat-p">PMI Talent Triangle™ data shows PMP-certified PMs consistently outperform uncertified counterparts in compensation and project outcomes.</div>
+          <div class="slide-footer"><div class="sf-pmp" style="color:#fff;">PMP</div><div><span class="sf-rule"></span><span class="sf-sub" style="color:rgba(255,255,255,.35);">Mastery Framework</span></div></div>
+          <div class="pg">5 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: Course Purpose -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 06</div>
+        <span class="slide-type type-content">content</span>
+        <div class="slide content">
+          <div class="slide-h1">Course Purpose &amp; Focus</div>
+          <div class="slide-h2">What this course is — and isn't</div>
+          <div class="slide-body">
+            <ul>
+              <li><strong>ECO-first:</strong> Detailed review of every domain, task, and enabler in the Examination Content Outline</li>
+              <li><strong>Skills-based:</strong> Practical judgment, not memorised facts</li>
+              <li><strong>Hybrid-forward:</strong> 50% agile/hybrid — we reflect that throughout</li>
+            </ul>
+            <div class="callout-box" style="margin-top:10px;">The exam tests how you <em>think</em> as a PM, not what you can recall. Our methodology targets that distinction.</div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">6 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Exam Format Table -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 07</div>
+        <span class="slide-type type-content">content + table</span>
+        <div class="slide content">
+          <div class="slide-h1">Exam Format at a Glance</div>
+          <div class="slide-h2">Structure, timing &amp; delivery</div>
+          <table class="slide-table">
+            <thead><tr><th>Element</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Questions</strong></td><td>180 total (175 scored, 5 unscored pretest)</td></tr>
+              <tr><td><strong>Time allowed</strong></td><td>230 minutes · two 10-min breaks</td></tr>
+              <tr><td><strong>Question types</strong></td><td>Multiple choice, drag-and-drop, matching, hotspot, LMR</td></tr>
+              <tr><td><strong>Delivery</strong></td><td>Pearson VUE — test centre or online proctored</td></tr>
+              <tr><td><strong>Score reporting</strong></td><td>Above Target / Target / Below Target / Needs Improvement</td></tr>
+            </tbody>
+          </table>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">7 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: 3 Domains -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 08</div>
+        <span class="slide-type type-content">domain cards</span>
+        <div class="slide content">
+          <div class="slide-h1">The Three ECO Domains</div>
+          <div class="slide-h2">Your exam blueprint</div>
+          <div class="domain-grid">
+            <div class="domain-card">
+              <div class="dc-num">Domain 01</div>
+              <div class="dc-title">People</div>
+              <div class="dc-body">Leadership, team management, stakeholder engagement, conflict resolution</div>
+              <div class="dc-pct">42%<span class="dc-pct-label"> of exam weight</span></div>
+            </div>
+            <div class="domain-card">
+              <div class="dc-num">Domain 02</div>
+              <div class="dc-title">Process</div>
+              <div class="dc-body">Project execution, planning, monitoring &amp; control across all approaches</div>
+              <div class="dc-pct">50%<span class="dc-pct-label"> of exam weight</span></div>
+            </div>
+            <div class="domain-card">
+              <div class="dc-num">Domain 03</div>
+              <div class="dc-title">Business Environment</div>
+              <div class="dc-body">Strategy alignment, benefits realisation, compliance, org change</div>
+              <div class="dc-pct">8%<span class="dc-pct-label"> of exam weight</span></div>
+            </div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">8 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: Project vs Ops Table -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 09</div>
+        <span class="slide-type type-content">content + table</span>
+        <div class="slide content">
+          <div class="slide-h1">Project vs. Operations</div>
+          <div class="slide-h2">A critical distinction</div>
+          <table class="slide-table">
+            <thead><tr><th></th><th>Project</th><th>Operations</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nature</strong></td><td>Temporary, unique</td><td>Ongoing, repetitive</td></tr>
+              <tr><td><strong>Output</strong></td><td>Unique product or result</td><td>Sustains the business</td></tr>
+              <tr><td><strong>End state</strong></td><td>Closes when complete</td><td>Continues indefinitely</td></tr>
+            </tbody>
+          </table>
+          <div class="callout-box gold" style="margin-top:8px;font-size:clamp(7px,1.2vw,12px);">
+            <strong>Exam watch:</strong> PMI often tests your ability to distinguish project work from operational work in scenario-based questions.
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">9 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: Delivery Approaches -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 10</div>
+        <span class="slide-type type-content">3-column cards</span>
+        <div class="slide content">
+          <div class="slide-h1">Three Delivery Approaches</div>
+          <div class="slide-h2">Predictive · Agile · Hybrid</div>
+          <div class="approach-grid">
+            <div class="approach-card">
+              <div class="ac-title">Predictive</div>
+              <div class="ac-sub">Waterfall / Plan-driven</div>
+              <ul class="ac-list"><li>Defined upfront requirements</li><li>Sequential phases</li><li>Change is costly</li><li>Best: high certainty</li></ul>
+            </div>
+            <div class="approach-card">
+              <div class="ac-title">Agile</div>
+              <div class="ac-sub">Iterative / Adaptive</div>
+              <ul class="ac-list"><li>Evolving requirements</li><li>Short delivery cycles</li><li>Change is embraced</li><li>Best: high uncertainty</li></ul>
+            </div>
+            <div class="approach-card">
+              <div class="ac-title">Hybrid</div>
+              <div class="ac-sub">Combined approach</div>
+              <ul class="ac-list"><li>Mix of both methods</li><li>Tailored to context</li><li>Most common in practice</li><li>Best: mixed certainty</li></ul>
+            </div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">10 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: Exam Strategy Tips -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 11</div>
+        <span class="slide-type type-tips">checklist</span>
+        <div class="slide tips">
+          <div class="slide-h1">Exam Strategy: Day 1 Mindset</div>
+          <div class="slide-h2">How to approach the next 12 weeks</div>
+          <ul class="tips-list">
+            <li>Read the ECO, not just the PMBOK® — the ECO is the actual exam blueprint</li>
+            <li>Practise situational thinking — ask <em>what would an experienced PM do?</em> not <em>what does the textbook say?</em></li>
+            <li>Track your weak domains — log every practice error by domain</li>
+            <li>Simulate exam conditions weekly from Week 4 — stamina is a real factor</li>
+            <li>Apply concepts to your own work — the best retention comes from lived experience</li>
+          </ul>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">11 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 12: Quote -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 12</div>
+        <span class="slide-type type-quote">quote</span>
+        <div class="slide quote">
+          <div class="quote-mark">&ldquo;</div>
+          <div class="quote-text">The PMP exam doesn't reward what you know. It rewards how you think.</div>
+          <div class="quote-attr">Approach every scenario as a senior PM advising a colleague — not a student recalling a formula</div>
+          <div class="slide-footer"><div class="sf-pmp" style="color:#fff;">PMP</div><div><span class="sf-rule"></span><span class="sf-sub" style="color:rgba(255,255,255,.35);">Mastery Framework</span></div></div>
+          <div class="pg">12 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13: 12-Week Plan -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 13</div>
+        <span class="slide-type type-content">week plan</span>
+        <div class="slide content">
+          <div class="slide-h1">Your 12-Week Study Framework</div>
+          <div class="slide-h2">Structure beats willpower</div>
+          <div class="week-grid">
+            <div class="week-card"><div class="wc-phase">Weeks 1–3</div><div class="wc-title">Foundation</div><div class="wc-body">ECO domains, vocabulary, delivery approaches, PMBOK® orientation</div></div>
+            <div class="week-card"><div class="wc-phase">Weeks 4–7</div><div class="wc-title">Deep Dive</div><div class="wc-body">Process domain tasks, agile tools, risk, stakeholders, EVM</div></div>
+            <div class="week-card"><div class="wc-phase">Weeks 8–10</div><div class="wc-title">Application</div><div class="wc-body">People domain leadership, conflict, coaching, Business Environment</div></div>
+            <div class="week-card"><div class="wc-phase">Weeks 11–12</div><div class="wc-title">Exam Prep</div><div class="wc-body">Full mock exams, weak-area targeting, final review, exam-day strategy</div></div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp">PMP</div><div><span class="sf-rule"></span><span class="sf-sub">Mastery Framework</span></div></div>
+          <div class="pg">13 / 14</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 14: Dark takeaways -->
+      <div class="slide-wrap">
+        <div class="slide-label">Slide 14</div>
+        <span class="slide-type type-dark">dark</span>
+        <div class="slide dark-slide">
+          <div class="slide-h1">Day 1 Key Takeaways</div>
+          <div class="slide-h2">What to lock in before tomorrow</div>
+          <div class="slide-body">
+            <ul>
+              <li><strong>The ECO is your guide</strong> — 3 domains, 180 questions, your 12-week roadmap</li>
+              <li><strong>50/50 split matters</strong> — half the exam is agile/hybrid; adjust your study balance</li>
+              <li><strong>Situational thinking</strong> — every question tests PM judgment, not memorisation</li>
+              <li><strong>12-week structure</strong> — Foundation → Deep Dive → Application → Exam Prep</li>
+            </ul>
+            <div style="margin-top:12px;font-size:clamp(7px,1.1vw,11px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(199,149,30,.8);">Pre-reading for Day 2</div>
+            <div style="font-size:clamp(7px,1.2vw,12px);color:rgba(255,255,255,.55);margin-top:4px;line-height:1.4;">Review ECO Section 1: People Domain task statements (pp. 8–14). Note any terms you can't define confidently.</div>
+          </div>
+          <div class="slide-footer"><div class="sf-pmp" style="color:#fff;">PMP</div><div><span class="sf-rule"></span><span class="sf-sub" style="color:rgba(255,255,255,.35);">Mastery Framework</span></div></div>
+          <div class="pg">14 / 14</div>
+        </div>
+      </div>
+
+    </div><!-- end slides-grid -->
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ 03 MARP THEME -->
+<div id="marp" class="panel" style="display:none">
+  <div class="section">
+    <div class="sec-label">03 — Marp Brand Theme</div>
+    <h2 class="sec-title">pmp-mastery.css — Slide Classes</h2>
+    <p class="sec-intro">Save as <code style="background:#1a1a1a;color:var(--gold);padding:2px 8px;border-radius:4px;">src/themes/pmp-mastery.css</code> and reference it in every slides.md frontmatter.</p>
+
+    <div class="code-block">
+<span class="cm">/* Frontmatter for every slides.md */</span>
+<span class="ck">---</span>
+<span class="cv">marp</span>: <span class="cs">true</span>
+<span class="cv">theme</span>: <span class="cs">pmp-mastery</span>
+<span class="cv">paginate</span>: <span class="cs">true</span>
+<span class="cv">size</span>: <span class="cs">16:9</span>
+<span class="ck">---</span>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">Available Slide Classes</h3>
+    <div class="code-block">
+<span class="cm">&lt;!-- COVER — deep purple, PMP mark, day/session title --&gt;</span>
+<span class="cn">&lt;!-- _class: cover --&gt;</span>
+<span class="ck"># PMP</span>
+---
+<span class="ck">## MASTERY FRAMEWORK</span>
+Day 1: Introduction &amp; Foundations
+
+<span class="cm">---
+&lt;!-- SECTION DIVIDER — brand purple, uppercase title, optional intro --&gt;</span>
+<span class="cn">&lt;!-- _class: section --&gt;</span>
+&lt;span class="section-num"&gt;Module 01&lt;/span&gt;
+<span class="ck"># Core Vocabulary</span>
+<span class="ck">## The language of project management</span>
+Lead paragraph text here.
+
+<span class="cm">---
+&lt;!-- CONTENT — white, brand bar, gold eyebrow label --&gt;</span>
+<span class="ck"># Slide Title</span>
+<span class="ck">## Eyebrow Label / Subtitle</span>
+- Bullet one
+- Bullet two
+
+<span class="cm">---
+&lt;!-- DARK — deep purple, white type, gold accents --&gt;</span>
+<span class="cn">&lt;!-- _class: dark --&gt;</span>
+<span class="ck"># Key Takeaways</span>
+<span class="ck">## What to lock in today</span>
+
+<span class="cm">---
+&lt;!-- STAT — big number callout on dark --&gt;</span>
+<span class="cn">&lt;!-- _class: stat --&gt;</span>
+<span class="ck"># 42%</span>
+<span class="ck">## Average salary increase post-PMP</span>
+Supporting context paragraph here.
+
+<span class="cm">---
+&lt;!-- QUOTE — ink black, large italic, gold attribution --&gt;</span>
+<span class="cn">&lt;!-- _class: quote --&gt;</span>
+&gt; The PMP exam rewards how you think.
+
+Attribution text here.
+
+<span class="cm">---
+&lt;!-- TIPS / CHECKLIST — white, checkmark bullets --&gt;</span>
+<span class="cn">&lt;!-- _class: tips --&gt;</span>
+<span class="ck"># Exam Strategy</span>
+<span class="ck">## Day 1 mindset</span>
+- First tip
+- Second tip
+
+<span class="cm">---
+&lt;!-- AGENDA — 2-column grid, gold-bordered items --&gt;</span>
+<span class="cn">&lt;!-- _class: agenda --&gt;</span>
+<span class="ck"># Day 1 Agenda</span>
+<span class="ck">## What we cover today</span>
+- **Module 1** · Course orientation
+- **Module 2** · Exam structure
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">Inline Callout Components</h3>
+    <div class="code-block">
+<span class="cm">&lt;!-- Purple callout box --&gt;</span>
+&lt;span class="callout"&gt;Key insight text here&lt;/span&gt;
+
+<span class="cm">&lt;!-- Gold callout box --&gt;</span>
+&lt;span class="gold-callout"&gt;**Exam watch:** Scenario-based questions test this distinction.&lt;/span&gt;
+
+<span class="cm">&lt;!-- Domain badges (inline) --&gt;</span>
+&lt;span class="badge badge-people"&gt;People&lt;/span&gt;
+&lt;span class="badge badge-process"&gt;Process&lt;/span&gt;
+&lt;span class="badge badge-business"&gt;Business Environment&lt;/span&gt;
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ 04 PIPELINE -->
+<div id="pipeline" class="panel" style="display:none">
+  <div class="section">
+    <div class="sec-label">04 — Export Pipeline</div>
+    <h2 class="sec-title">Automated Batch Export</h2>
+    <p class="sec-intro">One command exports every slides.md in your course tree to PDF and PPTX, applying the brand theme automatically. Zero manual effort per deck.</p>
+
+    <div class="pipeline">
+      <div class="pipe-step"><div class="ps-icon">📝</div><div class="ps-label">slides.md</div><div class="ps-desc">Marp Markdown with class directives</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="ps-icon">🎨</div><div class="ps-label">pmp-mastery.css</div><div class="ps-desc">Brand theme applied automatically</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="ps-icon">⚙️</div><div class="ps-label">Marp CLI</div><div class="ps-desc">@marp-team/marp-cli renders decks</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="ps-icon">📦</div><div class="ps-label">dist/slides/</div><div class="ps-desc">PDF + PPTX per week/day</div></div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:40px 0 16px;">1. Install Marp CLI</h3>
+    <div class="code-block">
+npm install --save-dev @marp-team/marp-cli
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">2. Project structure</h3>
+    <div class="tree">
+<span class="dir">src/</span>
+  <span class="dir">themes/</span>
+    <span class="file">pmp-mastery.css</span>         <span class="comment"># brand theme → copy from deliverable</span>
+  <span class="dir">generated/</span>
+    <span class="dir">week-1/</span>
+      <span class="dir">day-1/</span>
+        <span class="file">slides.md</span>            <span class="comment"># theme: pmp-mastery in frontmatter</span>
+      <span class="dir">day-2/</span>
+        <span class="file">slides.md</span>
+    <span class="dir">week-2/</span>
+      <span class="dir">day-1/</span>
+        <span class="file">slides.md</span>
+<span class="dir">scripts/</span>
+  <span class="file">export-slides.mjs</span>            <span class="comment"># batch export script → copy from deliverable</span>
+<span class="dir">dist/</span>
+  <span class="dir">slides/</span>                      <span class="comment"># auto-created, gitignored</span>
+    <span class="dir">week-1/</span>
+      <span class="dir">day-1/</span>
+        <span class="file">slides.pdf</span>
+        <span class="file">slides.pptx</span>
+<span class="file">package.json</span>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">3. package.json scripts</h3>
+    <div class="code-block">
+<span class="ck">{</span>
+  <span class="cv">"scripts"</span>: <span class="ck">{</span>
+    <span class="cv">"slides"</span>:          <span class="cs">"node scripts/export-slides.mjs"</span>,
+    <span class="cv">"slides:pdf"</span>:      <span class="cs">"node scripts/export-slides.mjs --pdf"</span>,
+    <span class="cv">"slides:pptx"</span>:     <span class="cs">"node scripts/export-slides.mjs --pptx"</span>,
+    <span class="cv">"slides:html"</span>:     <span class="cs">"node scripts/export-slides.mjs --html"</span>,
+    <span class="cv">"slides:watch"</span>:    <span class="cs">"node scripts/export-slides.mjs --watch"</span>,
+    <span class="cv">"slides:day1"</span>:     <span class="cs">"node scripts/export-slides.mjs --week 1 --day 1"</span>
+  <span class="ck">}</span>
+<span class="ck">}</span>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">4. Usage</h3>
+    <div class="code-block">
+<span class="cm"># Export all decks (PDF + PPTX)</span>
+<span class="cs">npm run slides</span>
+
+<span class="cm"># Quick HTML preview (fast, no headless Chrome needed)</span>
+<span class="cs">npm run slides:html</span>
+
+<span class="cm"># Just Day 1 of Week 1</span>
+<span class="cs">npm run slides:day1</span>
+
+<span class="cm"># Watch mode — re-exports on file save</span>
+<span class="cs">npm run slides:watch</span>
+
+<span class="cm"># VS Code live preview while editing</span>
+<span class="cm"># Install "Marp for VS Code" extension → Cmd+Shift+P → "Marp: Open Preview"</span>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--white);margin:36px 0 16px;">5. Fix absolute image paths (existing slides)</h3>
+    <div class="code-block">
+<span class="cm"># Your current slides.md uses file:/// absolute paths — these break on other machines.
+# Run this one-liner to convert all absolute paths to relative:</span>
+
+find src/generated -name "slides.md" -exec \
+  sed -i <span class="cs">'s|file:///[^ ]*/\([^/)]*\)|\1|g'</span> {} \;
+
+<span class="cm"># Then move images to src/generated/week-N/day-N/images/</span>
+<span class="cm"># and reference them as: ![bg left:40%](images/photo.jpg)</span>
+    </div>
+
+  </div>
+</div>
+
+<footer style="background:#0a0a0a;color:#333;padding:32px 40px;text-align:center;font-size:11px;letter-spacing:.1em;border-top:1px solid #1a1a1a;">
+  <strong style="color:var(--gold);">PMP Mastery Framework</strong> — Slide Design Review &amp; Redesign · 2026
+</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  event.target.classList.add('active');
+  window.scrollTo({top:120,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

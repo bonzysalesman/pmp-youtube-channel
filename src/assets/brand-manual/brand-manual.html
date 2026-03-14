@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PMP Mastery Framework — Brand Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --purple:#5b27b8;
+  --deep:#3d1a7a;
+  --cta:#5a2ea6;
+  --gold:#c7951e;
+  --gold-lt:#e8b84b;
+  --white:#fff;
+  --off:#f9f8fc;
+  --ink:#0f0a1e;
+  --ink2:#2d1f4e;
+  --muted:#c4b8dc;
+  --grey:#ede9f5;
+  --font:'Poppins','Source Sans Pro',sans-serif;
+  --max:900px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--white);color:var(--ink);line-height:1.6;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--deep);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:80px 10%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-180px;right:-180px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(91,40,179,.45) 0%,transparent 70%);pointer-events:none;}
+.cover::after{content:'';position:absolute;bottom:-80px;left:6%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(201,146,42,.13) 0%,transparent 70%);pointer-events:none;}
+.cover-eyebrow{font-size:11px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:44px;}
+.cover-mark{margin-bottom:52px;position:relative;z-index:1;text-align:left;}
+.cover-pmp{font-size:clamp(80px,13vw,130px);font-weight:900;letter-spacing:.04em;color:var(--white);line-height:1;display:block;}
+.cover-rule{display:block;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt),transparent);margin:14px 0 16px;width:clamp(200px,35vw,280px);}
+.cover-sub{font-size:16px;font-weight:300;letter-spacing:.28em;color:rgba(255,255,255,.6);text-transform:uppercase;display:block;}
+.cover-divider{width:56px;height:1px;background:var(--gold);margin:44px 0;}
+.cover-doc{font-size:clamp(14px,2vw,16px);font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.cover-title{font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--white);letter-spacing:-.01em;}
+.cover-ver{position:absolute;bottom:40px;right:60px;font-size:11px;font-weight:400;letter-spacing:.15em;color:rgba(255,255,255,.25);text-transform:uppercase;}
+
+/* NAV */
+.toc{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--grey);}
+.toc-inner{max-width:var(--max);margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;}
+.toc-inner::-webkit-scrollbar{display:none;}
+.toc-item{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:15px 18px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:all .2s;}
+.toc-item:hover{color:var(--purple);border-bottom-color:var(--purple);}
+
+/* LAYOUT */
+.wrap{max-width:var(--max);margin:0 auto;padding:96px 40px;}
+.sec-dark{background:var(--deep);}.sec-tint{background:var(--off);}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.sec-h{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.02em;color:var(--deep);line-height:1.1;margin-bottom:36px;}
+.sec-dark .sec-h{color:var(--white);}
+.sec-tint .sec-h{color:var(--deep);}
+.intro{font-size:16px;font-weight:300;color:var(--ink2);line-height:1.8;max-width:640px;margin-bottom:44px;}
+.sec-dark .intro{color:rgba(255,255,255,.6);}
+.gold-bar{display:block;width:44px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt));border-radius:2px;margin-bottom:22px;}
+.hl{background:var(--off);border-left:4px solid var(--gold);padding:22px 26px;border-radius:0 8px 8px 0;font-size:15px;color:var(--ink2);line-height:1.7;margin:28px 0;}
+.sec-dark .hl{background:rgba(255,255,255,.06);border-left-color:rgba(201,146,42,.5);color:rgba(255,255,255,.65);}
+
+/* LOGO SHOWCASE */
+.logo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:52px;border-radius:12px;overflow:hidden;}
+@media(max-width:640px){.logo-grid{grid-template-columns:1fr;}}
+.lc{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 28px 28px;gap:20px;min-height:180px;}
+.lc-white{background:var(--white);border:1px solid var(--grey);}
+.lc-dark{background:var(--deep);}
+.lc-grey{background:#f2f2f2;}
+.lmark{display:flex;flex-direction:column;align-items:center;}
+.lpmp{font-weight:900;letter-spacing:.05em;line-height:1;font-size:40px;}
+.lrule{display:block;height:2px;margin:7px 0 9px;align-self:stretch;}
+.lsub{font-size:8.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;}
+.lpmp-pu{color:var(--purple);}
+.lpmp-wh{color:var(--white);}
+.lpmp-bk{color:var(--ink);}
+.lrule-au{background:var(--gold);}
+.lrule-gy{background:#888;}
+.lsub-pu{color:var(--purple);}
+.lsub-wh{color:rgba(255,255,255,.65);}
+.lsub-bk{color:#444;}
+.llabel{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;}
+.lc-white .llabel{color:var(--muted);}
+.lc-dark .llabel{color:rgba(255,255,255,.3);}
+.lc-grey .llabel{color:#aaa;}
+
+/* SWATCHES */
+.sw-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-bottom:36px;}
+.sw{border-radius:10px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.07);}
+.sw-chip{height:90px;}
+.sw-info{background:var(--white);padding:12px 15px;border:1px solid var(--grey);border-top:none;border-radius:0 0 10px 10px;}
+.sw-name{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--ink);margin-bottom:3px;text-transform:uppercase;}
+.sw-hex{font-size:11px;color:var(--muted);letter-spacing:.08em;font-family:'Courier New',monospace;}
+.sw-role{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* TYPE SPECIMENS */
+.ts{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--grey);}
+.ts:last-child{border-bottom:none;margin-bottom:0;}
+.ts-meta{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;}
+.ts-role{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
+.ts-spec{font-size:11px;color:var(--muted);}
+.t-xl{font-size:54px;font-weight:900;letter-spacing:-.02em;color:var(--deep);text-transform:uppercase;line-height:1;}
+.t-lg{font-size:30px;font-weight:700;letter-spacing:.02em;color:var(--deep);text-transform:uppercase;}
+.t-sm{font-size:12px;font-weight:400;letter-spacing:.26em;color:var(--purple);text-transform:uppercase;}
+.t-body{font-size:16px;font-weight:400;color:var(--ink2);line-height:1.75;max-width:580px;}
+
+/* RULES GRID */
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px;}
+@media(max-width:600px){.rg{grid-template-columns:1fr;}}
+.rc{border-radius:10px;padding:26px;border-top:3px solid transparent;}
+.rc-do{background:#f0faf4;border-top-color:#2a9d5c;}
+.rc-nt{background:#fff5f5;border-top-color:#d94040;}
+.rbadge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:14px;}
+.rc-do .rbadge{background:#d4f0e0;color:#1a7a42;}
+.rc-nt .rbadge{background:#ffd9d9;color:#b53030;}
+.rtitle{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.rbody{font-size:13px;color:#555;line-height:1.6;}
+
+/* TOKEN TABLE */
+.tt{width:100%;border-collapse:collapse;font-size:14px;margin-top:28px;}
+.tt th{text-align:left;padding:11px 15px;background:var(--grey);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);}
+.tt td{padding:13px 15px;border-bottom:1px solid var(--grey);vertical-align:top;}
+.tt tr:last-child td{border-bottom:none;}
+.tn{font-family:'Courier New',monospace;font-size:12px;color:var(--purple);font-weight:600;}
+.tv{font-family:'Courier New',monospace;font-size:12px;color:var(--ink2);}
+.td{font-size:12px;color:#777;}
+
+/* CLEARSPACE */
+.cs-wrap{display:inline-block;position:relative;margin:36px 0;padding:44px;background:var(--grey);border-radius:12px;}
+.cs-x-top,.cs-x-bot{position:absolute;left:44px;right:44px;height:44px;background:rgba(201,146,42,.1);border:1px dashed rgba(201,146,42,.5);}
+.cs-x-top{top:0;}.cs-x-bot{bottom:0;}
+.cs-x-l,.cs-x-r{position:absolute;top:44px;bottom:44px;width:44px;background:rgba(201,146,42,.1);border:1px dashed rgba(201,146,42,.5);}
+.cs-x-l{left:0;}.cs-x-r{right:0;}
+.cs-xl{position:absolute;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.1em;}
+.cs-xl.t{top:12px;left:50%;transform:translateX(-50%);}
+.cs-xl.b{bottom:12px;left:50%;transform:translateX(-50%);}
+.cs-xl.l{left:12px;top:50%;transform:translateY(-50%);}
+.cs-xl.r{right:12px;top:50%;transform:translateY(-50%);}
+.cs-logo{background:var(--white);padding:18px 26px;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,.08);display:inline-flex;flex-direction:column;align-items:center;position:relative;z-index:1;}
+
+/* PILLAR */
+.pl-row{display:flex;flex-wrap:wrap;gap:16px;margin:28px 0;}
+.pl{display:flex;flex-direction:column;align-items:center;justify-content:center;width:138px;height:138px;border-radius:50%;border:2px solid rgba(201,146,42,.5);text-align:center;padding:14px;}
+.pl-w{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.pl-ln{width:20px;height:1px;background:rgba(201,146,42,.35);margin:7px auto;}
+.pl-d{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.04em;line-height:1.4;}
+
+/* USAGE CARDS */
+.uc-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;margin-top:36px;}
+.uc{border-radius:10px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);}
+.uc-prev{height:88px;display:flex;align-items:center;justify-content:center;padding:0 20px;}
+.uc-info{padding:13px 18px;background:var(--white);border:1px solid var(--grey);border-top:none;border-radius:0 0 10px 10px;}
+.uc-t{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
+.uc-d{font-size:11px;color:#888;line-height:1.45;}
+
+/* TWO COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+@media(max-width:640px){.two{grid-template-columns:1fr;}}
+
+/* FOOTER */
+.footer{background:var(--ink);color:rgba(255,255,255,.3);padding:44px 40px;text-align:center;font-size:12px;letter-spacing:.08em;}
+.footer strong{color:var(--gold);font-weight:600;}
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover" id="top">
+  <div class="cover-eyebrow">Brand Identity · Visual Standards · Usage Guidelines</div>
+  <div class="cover-mark">
+    <span class="cover-pmp">PMP</span>
+    <span class="cover-rule"></span>
+    <span class="cover-sub">Mastery &nbsp; Framework</span>
+  </div>
+  <div class="cover-divider"></div>
+  <div class="cover-doc">Brand Manual</div>
+  <div class="cover-title">Identity System &amp; Design Standards</div>
+  <div class="cover-ver">Version 1.0 · 2026</div>
+</div>
+
+<!-- ═══ TOC ═══ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-item" href="#essence">Brand Essence</a>
+    <a class="toc-item" href="#logo">Logo</a>
+    <a class="toc-item" href="#color">Color</a>
+    <a class="toc-item" href="#type">Typography</a>
+    <a class="toc-item" href="#usage">Usage</a>
+    <a class="toc-item" href="#space">Clear Space</a>
+    <a class="toc-item" href="#rules">Do's &amp; Don'ts</a>
+    <a class="toc-item" href="#tokens">Tokens</a>
+  </div>
+</nav>
+
+<!-- ═══ 01 ESSENCE ═══ -->
+<div class="sec-dark" id="essence">
+  <div class="wrap">
+    <div class="sec-label">01 — Brand Essence</div>
+    <h2 class="sec-h">What We Stand For</h2>
+    <p class="intro">PMP Mastery Framework is the premium tier — engineered for senior PMs, C-suite executives, and high-performers who demand depth over decoration. Every design decision flows from four brand pillars.</p>
+    <div class="pl-row">
+      <div class="pl"><div class="pl-w">Authority</div><div class="pl-ln"></div><div class="pl-d">Commands credibility without claiming it</div></div>
+      <div class="pl"><div class="pl-w">Mastery</div><div class="pl-ln"></div><div class="pl-d">Deep expertise, not surface-level polish</div></div>
+      <div class="pl"><div class="pl-w">Precision</div><div class="pl-ln"></div><div class="pl-d">Every detail intentional, nothing wasted</div></div>
+      <div class="pl"><div class="pl-w">Elevation</div><div class="pl-ln"></div><div class="pl-d">Perceptibly above base-tier offerings</div></div>
+    </div>
+    <div class="hl"><strong style="color:var(--gold);">Brand Position:</strong> The visual identity must telegraph the premium tier at a glance — before a single word of copy is read.</div>
+  </div>
+</div>
+
+<!-- ═══ 02 LOGO ═══ -->
+<div id="logo">
+  <div class="wrap">
+    <div class="sec-label">02 — Logo System</div>
+    <h2 class="sec-h">The Mark</h2>
+    <p class="intro">A centered stacked wordmark. "PMP" in ultra-bold commands the top; a gold rule punctuates; "MASTERY FRAMEWORK" floats below in generously tracked medium-weight small-caps. No border frame — typography stands alone.</p>
+
+    <div class="logo-grid">
+      <div class="lc lc-white">
+        <div class="lmark">
+          <span class="lpmp lpmp-pu">PMP</span>
+          <span class="lrule lrule-au"></span>
+          <span class="lsub lsub-pu">Mastery &nbsp; Framework</span>
+        </div>
+        <span class="llabel">Light — Navbar</span>
+      </div>
+      <div class="lc lc-dark">
+        <div class="lmark">
+          <span class="lpmp lpmp-wh">PMP</span>
+          <span class="lrule lrule-au"></span>
+          <span class="lsub lsub-wh">Mastery &nbsp; Framework</span>
+        </div>
+        <span class="llabel">Dark — Presentations</span>
+      </div>
+      <div class="lc lc-grey">
+        <div class="lmark">
+          <span class="lpmp lpmp-bk">PMP</span>
+          <span class="lrule lrule-gy"></span>
+          <span class="lsub lsub-bk">Mastery &nbsp; Framework</span>
+        </div>
+        <span class="llabel">Monochrome — Print</span>
+      </div>
+    </div>
+
+    <div class="two">
+      <div>
+        <span class="gold-bar"></span>
+        <h3 style="font-size:17px;font-weight:700;color:var(--deep);margin-bottom:10px;">Construction</h3>
+        <p style="font-size:14px;color:#555;line-height:1.75;">The mark is always centered. "PMP" sits at 2.2× the optical height of "MASTERY FRAMEWORK". The gold rule is anchored to the PMP block width — it never extends to match the subtitle. Never recreate from scratch; always use approved files.</p>
+      </div>
+      <div>
+        <span class="gold-bar"></span>
+        <h3 style="font-size:17px;font-weight:700;color:var(--deep);margin-bottom:10px;">Canonical Files</h3>
+        <p style="font-size:14px;color:#555;line-height:1.9;font-family:'Courier New',monospace;font-size:12px;">
+          pmp-mastery-framework.png<br>
+          pmp-mastery-framework-dark.png<br>
+          pmp-mastery-framework-mono.png
+        </p>
+        <p style="font-size:13px;color:#888;margin-top:10px;">Location: <span style="font-family:monospace;background:#f0ecfa;color:var(--purple);padding:2px 6px;border-radius:3px;">/src/assets/</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 03 COLOR ═══ -->
+<div class="sec-tint" id="color">
+  <div class="wrap">
+    <div class="sec-label">03 — Color System</div>
+    <h2 class="sec-h">Palette</h2>
+    <p class="intro">Anchored to the live site's primary purple and deepened for executive positioning. Gold is a precision accent — never a fill on large surfaces.</p>
+    <div class="sw-row">
+      <div class="sw">
+        <div class="sw-chip" style="background:#5b27b8;"></div>
+        <div class="sw-info"><div class="sw-name">Brand Purple</div><div class="sw-hex">#5b27b8</div><div class="sw-role">Navbar logo · Interactive · Headings</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#3d1a7a;"></div>
+        <div class="sw-info"><div class="sw-name">Deep Purple</div><div class="sw-hex">#3d1a7a</div><div class="sw-role">Dark bg · Cover · Hero · Dark logo</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#5a2ea6;"></div>
+        <div class="sw-info"><div class="sw-name">Hero CTA</div><div class="sw-hex">#5a2ea6</div><div class="sw-role">CTA buttons · Hover states</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:linear-gradient(135deg,#c7951e,#e8b84b);"></div>
+        <div class="sw-info"><div class="sw-name">Gold Accent</div><div class="sw-hex">#c7951e → #e8b84b</div><div class="sw-role">Logo rule · Eyebrows · Dividers</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#fff;border:1px solid #ede9f5;"></div>
+        <div class="sw-info"><div class="sw-name">Pure White</div><div class="sw-hex">#ffffff</div><div class="sw-role">Navbar bg · Light logo · Print</div></div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#0f0a1e;"></div>
+        <div class="sw-info"><div class="sw-name">Ink</div><div class="sw-hex">#0f0a1e</div><div class="sw-role">Body text · Mono logo</div></div>
+      </div>
+    </div>
+    <div class="hl"><strong>Gold usage rule:</strong> Gold appears only on lines, dividers, labels, and the logo rule. It is never used as a button fill or large surface. Its power comes from restraint.</div>
+  </div>
+</div>
+
+<!-- ═══ 04 TYPOGRAPHY ═══ -->
+<div id="type">
+  <div class="wrap">
+    <div class="sec-label">04 — Typography</div>
+    <h2 class="sec-h">Type System</h2>
+    <p class="intro">Poppins is the brand typeface — geometric, authoritative, strong weight range. Source Sans Pro is the site-native fallback for body copy where Poppins is unavailable.</p>
+
+    <div class="ts">
+      <div class="ts-meta"><span class="ts-role">Display Heading</span><span class="ts-spec">Poppins 900 · Uppercase · −0.02em tracking</span></div>
+      <div class="t-xl">Achieve Mastery</div>
+    </div>
+    <div class="ts">
+      <div class="ts-meta"><span class="ts-role">Section Heading</span><span class="ts-spec">Poppins 700 · Uppercase · +0.02em tracking</span></div>
+      <div class="t-lg">PMP Certification Framework</div>
+    </div>
+    <div class="ts">
+      <div class="ts-meta"><span class="ts-role">Eyebrow / Label</span><span class="ts-spec">Poppins 400 · Uppercase · +0.26em tracking · Brand Purple</span></div>
+      <div class="t-sm">Executive Study Program · 2026</div>
+    </div>
+    <div class="ts">
+      <div class="ts-meta"><span class="ts-role">Body Copy</span><span class="ts-spec">Poppins 400 · 16px / 1.75 lh · Ink-mid</span></div>
+      <div class="t-body">The PMP Mastery Framework delivers structured, executive-grade preparation aligned with the PMI Examination Content Outline. Each module is engineered to compress study time while maximising retention and exam confidence.</div>
+    </div>
+
+    <table class="tt" style="margin-top:44px;">
+      <thead><tr><th>Role</th><th>Weight</th><th>Size</th><th>Case</th><th>Tracking</th></tr></thead>
+      <tbody>
+        <tr><td><span class="td">Logo — PMP</span></td><td><span class="tv">900</span></td><td><span class="tv">context</span></td><td><span class="tv">Uppercase</span></td><td><span class="tv">0.04–0.05em</span></td></tr>
+        <tr><td><span class="td">Logo — Subtitle</span></td><td><span class="tv">500</span></td><td><span class="tv">~45% of PMP</span></td><td><span class="tv">Uppercase</span></td><td><span class="tv">0.22–0.28em</span></td></tr>
+        <tr><td><span class="td">H1 Display</span></td><td><span class="tv">900</span></td><td><span class="tv">48–72px</span></td><td><span class="tv">Uppercase</span></td><td><span class="tv">−0.02em</span></td></tr>
+        <tr><td><span class="td">H2 Section</span></td><td><span class="tv">700</span></td><td><span class="tv">28–40px</span></td><td><span class="tv">Uppercase</span></td><td><span class="tv">−0.01em</span></td></tr>
+        <tr><td><span class="td">Eyebrow Label</span></td><td><span class="tv">600–700</span></td><td><span class="tv">10–12px</span></td><td><span class="tv">Uppercase</span></td><td><span class="tv">0.2–0.3em</span></td></tr>
+        <tr><td><span class="td">Body</span></td><td><span class="tv">400</span></td><td><span class="tv">15–17px</span></td><td><span class="tv">Normal</span></td><td><span class="tv">0</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 05 USAGE ═══ -->
+<div class="sec-tint" id="usage">
+  <div class="wrap">
+    <div class="sec-label">05 — Usage Contexts</div>
+    <h2 class="sec-h">Where &amp; How</h2>
+    <p class="intro">Each variant is engineered for a specific surface. Never substitute — dark logo on white backgrounds or light logo on dark surfaces undermines contrast and brand integrity.</p>
+    <div class="uc-row">
+      <div class="uc">
+        <div class="uc-prev" style="background:#fff;border:1px solid #ede9f5;border-bottom:none;border-radius:10px 10px 0 0;">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <span style="font-size:22px;font-weight:900;letter-spacing:.05em;color:#5b27b8;line-height:1;">PMP</span>
+            <span style="display:block;width:44px;height:1.5px;background:#c7951e;margin:5px 0 6px;"></span>
+            <span style="font-size:5.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#5b27b8;">Mastery &nbsp; Framework</span>
+          </div>
+        </div>
+        <div class="uc-info"><div class="uc-t">Navbar / Header</div><div class="uc-d">Light variant on white. 60px height. header.php only.</div></div>
+      </div>
+      <div class="uc">
+        <div class="uc-prev" style="background:#3d1a7a;border-radius:10px 10px 0 0;">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <span style="font-size:22px;font-weight:900;letter-spacing:.05em;color:#fff;line-height:1;">PMP</span>
+            <span style="display:block;width:44px;height:1.5px;background:#c7951e;margin:5px 0 6px;"></span>
+            <span style="font-size:5.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);">Mastery &nbsp; Framework</span>
+          </div>
+        </div>
+        <div class="uc-info"><div class="uc-t">Hero / Presentations</div><div class="uc-d">Dark variant on deep purple. Slides, course materials, intros.</div></div>
+      </div>
+      <div class="uc">
+        <div class="uc-prev" style="background:#f2f2f2;border-radius:10px 10px 0 0;">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <span style="font-size:22px;font-weight:900;letter-spacing:.05em;color:#0f0a1e;line-height:1;">PMP</span>
+            <span style="display:block;width:44px;height:1.5px;background:#888;margin:5px 0 6px;"></span>
+            <span style="font-size:5.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#444;">Mastery &nbsp; Framework</span>
+          </div>
+        </div>
+        <div class="uc-info"><div class="uc-t">Print / PDF</div><div class="uc-d">Monochrome. Study guides, certificates, invoices, letterhead.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 06 CLEARSPACE ═══ -->
+<div id="space">
+  <div class="wrap">
+    <div class="sec-label">06 — Clear Space &amp; Minimum Size</div>
+    <h2 class="sec-h">Breathing Room</h2>
+    <p class="intro">Clear space = cap-height of the "P" in the PMP block at its rendered size, denoted <strong>X</strong>. Maintain on all four sides. Never crowd the mark with other elements.</p>
+
+    <div class="cs-wrap">
+      <div class="cs-x-top"></div><div class="cs-x-bot"></div>
+      <div class="cs-x-l"></div><div class="cs-x-r"></div>
+      <div class="cs-xl t">X</div><div class="cs-xl b">X</div>
+      <div class="cs-xl l">X</div><div class="cs-xl r">X</div>
+      <div class="cs-logo">
+        <span style="font-size:48px;font-weight:900;letter-spacing:.05em;color:#5b27b8;line-height:1;">PMP</span>
+        <span style="display:block;width:100%;height:2px;background:#c7951e;margin:8px 0 10px;"></span>
+        <span style="font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#5b27b8;">Mastery &nbsp; Framework</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--deep);margin:52px 0 8px;">Minimum Sizes</h3>
+    <p style="font-size:14px;color:#888;margin-bottom:24px;">Below 40px tall, drop the subtitle and render the PMP block only.</p>
+    <div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <span style="font-size:42px;font-weight:900;letter-spacing:.05em;color:var(--purple);line-height:1;">PMP</span>
+          <span style="display:block;width:100%;height:2px;background:var(--gold);margin:6px 0 8px;"></span>
+          <span style="font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);">Mastery Framework</span>
+        </div>
+        <span style="font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;">Standard · 60px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <span style="font-size:26px;font-weight:900;letter-spacing:.05em;color:var(--purple);line-height:1;">PMP</span>
+          <span style="display:block;width:100%;height:1.5px;background:var(--gold);margin:4px 0 5px;"></span>
+          <span style="font-size:6px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);">Mastery Framework</span>
+        </div>
+        <span style="font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;">Compact · 40px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <span style="font-size:18px;font-weight:900;letter-spacing:.05em;color:var(--purple);line-height:1;">PMP</span>
+        <span style="font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;">Minimum · 24px</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 07 DO's & DON'Ts ═══ -->
+<div class="sec-tint" id="rules">
+  <div class="wrap">
+    <div class="sec-label">07 — Do's &amp; Don'ts</div>
+    <h2 class="sec-h">Logo Integrity</h2>
+    <div class="rg">
+      <div class="rc rc-do"><span class="rbadge">✓ Do</span><div class="rtitle">Use on approved backgrounds only</div><div class="rbody">Light on white. Dark on deep purple or dark photography. Monochrome for all print surfaces.</div></div>
+      <div class="rc rc-nt"><span class="rbadge">✗ Don't</span><div class="rtitle">Place on busy or low-contrast surfaces</div><div class="rbody">Never over complex imagery, colour gradients, or patterns that reduce legibility below 4.5:1 contrast.</div></div>
+      <div class="rc rc-do"><span class="rbadge">✓ Do</span><div class="rtitle">Scale uniformly from approved PNGs</div><div class="rbody">Use the canonical files at their native aspect ratio. Scale down as needed — never stretch or distort.</div></div>
+      <div class="rc rc-nt"><span class="rbadge">✗ Don't</span><div class="rtitle">Alter type, colour, or spacing</div><div class="rbody">No different typeface, no adjusted tracking, no recolouring outside the three approved systems, no effects.</div></div>
+      <div class="rc rc-do"><span class="rbadge">✓ Do</span><div class="rtitle">Honour the gold rule</div><div class="rbody">The rule is a core component of the mark — always present, always gold. It spans the PMP block width precisely.</div></div>
+      <div class="rc rc-nt"><span class="rbadge">✗ Don't</span><div class="rtitle">Add borders or frames</div><div class="rbody">The Mastery Framework mark has shed the legacy border box. Do not reintroduce enclosures of any kind.</div></div>
+      <div class="rc rc-do"><span class="rbadge">✓ Do</span><div class="rtitle">Use monochrome for all print</div><div class="rbody">Certificates, letterhead, guides, and any printed document uses black ink on white — full stop.</div></div>
+      <div class="rc rc-nt"><span class="rbadge">✗ Don't</span><div class="rtitle">Import base-tier brand colours</div><div class="rbody">The base PMP Exam Prep product uses orange and teal. These never appear in Mastery Framework materials.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 TOKENS ═══ -->
+<div id="tokens">
+  <div class="wrap">
+    <div class="sec-label">08 — Design Tokens</div>
+    <h2 class="sec-h">CSS Variables</h2>
+    <p class="intro">All decisions are encoded as CSS custom properties. Reference tokens throughout the codebase — never hardcode values in component stylesheets.</p>
+    <table class="tt">
+      <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tn">--color-primary</span></td><td><span class="tv">#5b27b8</span></td><td><span class="td">Brand purple — interactive, navbar logo, headings</span></td></tr>
+        <tr><td><span class="tn">--color-deep</span></td><td><span class="tv">#3d1a7a</span></td><td><span class="td">Dark bg — cover, hero, presentations</span></td></tr>
+        <tr><td><span class="tn">--color-cta</span></td><td><span class="tv">#5a2ea6</span></td><td><span class="td">CTA buttons, hover states, links</span></td></tr>
+        <tr><td><span class="tn">--color-gold</span></td><td><span class="tv">#c7951e</span></td><td><span class="td">Logo rule, eyebrow labels, dividers</span></td></tr>
+        <tr><td><span class="tn">--color-gold-light</span></td><td><span class="tv">#e8b84b</span></td><td><span class="td">Gold gradient endpoint (never standalone)</span></td></tr>
+        <tr><td><span class="tn">--font-primary</span></td><td><span class="tv">'Poppins', sans-serif</span></td><td><span class="td">All type — headings, body, labels</span></td></tr>
+        <tr><td><span class="tn">--font-fallback</span></td><td><span class="tv">'Source Sans Pro', sans-serif</span></td><td><span class="td">Body fallback when Poppins not loaded</span></td></tr>
+        <tr><td><span class="tn">--radius-btn</span></td><td><span class="tv">15px</span></td><td><span class="td">All CTA buttons — site consistency</span></td></tr>
+        <tr><td><span class="tn">--logo-height-nav</span></td><td><span class="tv">60px</span></td><td><span class="td">Logo height in header.php</span></td></tr>
+        <tr><td><span class="tn">--tracking-logo-sub</span></td><td><span class="tv">0.22em–0.28em</span></td><td><span class="td">Logo subtitle, eyebrow labels</span></td></tr>
+        <tr><td><span class="tn">--tracking-label</span></td><td><span class="tv">0.12em–0.18em</span></td><td><span class="td">Navigation items, utility labels</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer class="footer">
+  <div style="margin-bottom:6px;"><strong>PMP Mastery Framework</strong> — Brand Identity Manual</div>
+  <div>Version 1.0 · 2026 · All rights reserved · For internal use only</div>
+</footer>
+
+</body>
+</html>

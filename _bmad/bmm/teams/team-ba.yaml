@@ -1,0 +1,20 @@
+# Team: Virtual BA Analyst
+
+This team combines core Business Analysis expertise with creative intelligence and strategic vision.
+
+## Roles & Agents
+
+- **Lead Analyst**: `ba.md` (VBA Agent)
+    - Responsibilities: Domain expertise, logic, structure, and Kiro Spec orchestration.
+- **Strategic Advisor**: `innovation-strategist.md` (CIS Module)
+    - Responsibilities: Identifying disruption, market alignment, and value proposition.
+- **Narrative Architect**: `storyteller/agent.md` (CIS Module)
+    - Responsibilities: Crafting compelling user stories and stakeholder-facing documentation.
+
+## Collaboration Mode: Party Mode
+
+The team operates in **Party Mode**, allowing for concurrent multi-agent collaboration:
+1.  **VBA** generates the initial analysis/requirement.
+2.  **Innovation Strategist** reviews for strategic value and suggests enhancements.
+3.  **Storyteller** refines the prose for readability and stakeholder resonance.
+4.  **VBA** finalizes the output and generates the associated Kiro Spec updates.

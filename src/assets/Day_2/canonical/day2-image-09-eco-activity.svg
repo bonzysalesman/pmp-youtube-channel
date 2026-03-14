@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgDark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#140a3c"/>
+      <stop offset="56%" stop-color="#2a1369"/>
+      <stop offset="100%" stop-color="#4a1fa3"/>
+    </linearGradient>
+    <linearGradient id="bgLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fcfbff"/>
+      <stop offset="100%" stop-color="#efe9fb"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#efc861"/>
+      <stop offset="100%" stop-color="#d8a729"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#120733" flood-opacity="0.25"/>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    
+  </defs>
+  
+    
+  <rect width="1920" height="1080" fill="url(#bgDark)"/>
+  <circle cx="1480" cy="180" r="320" fill="#7d57e4" opacity="0.22" filter="url(#softGlow)"/>
+  <circle cx="1620" cy="850" r="420" fill="#5f33c8" opacity="0.16" filter="url(#softGlow)"/>
+  <rect x="0" y="0" width="860" height="1080" fill="#160b41" opacity="0.30"/>
+  
+    
+  <g filter="url(#cardShadow)">
+    <rect x="940" y="140" width="860" height="800" rx="22" fill="#ffffff"/>
+  </g>
+  <rect x="940" y="140" width="860" height="6" rx="6" fill="#3d8bfd"/>
+  
+  
+    
+  <rect x="1040" y="280" width="640" height="360" rx="18" fill="#2f1a72"/>
+  <rect x="1058" y="296" width="604" height="304" rx="10" fill="#f4f0ff"/>
+  
+      <rect x="1074" y="318" width="572" height="10" fill="#3d8bfd"/>
+      <rect x="1074" y="354" width="480" height="10" fill="#2fbf71"/>
+      <rect x="1074" y="390" width="392" height="10" fill="#d8a729"/>
+      <rect x="1074" y="426" width="554" height="10" fill="#6c35d4"/>
+    
+  <rect x="1022" y="622" width="676" height="24" rx="10" fill="#3e2689"/>
+  
+    <rect x="1030" y="690" width="700" height="92" rx="16" fill="#f3efff"/>
+    <rect x="1030" y="804" width="700" height="92" rx="16" fill="#f3efff"/>
+    <circle cx="1080" cy="736" r="14" fill="#6c35d4"/>
+    <circle cx="1080" cy="850" r="14" fill="#3d8bfd"/>
+    <rect x="1110" y="724" width="560" height="12" fill="#cfcae6"/>
+    <rect x="1110" y="838" width="520" height="12" fill="#cfcae6"/>
+  
+</svg>

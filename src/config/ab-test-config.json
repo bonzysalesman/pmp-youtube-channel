@@ -1,0 +1,108 @@
+{
+  "defaultConfigurations": {
+    "title": {
+      "duration": 7,
+      "trafficSplit": "equal",
+      "minSampleSize": 100,
+      "confidenceLevel": 0.95,
+      "primaryMetric": "ctr",
+      "secondaryMetrics": ["views", "watchTime", "engagement"]
+    },
+    "thumbnail": {
+      "duration": 14,
+      "trafficSplit": "equal",
+      "minSampleSize": 200,
+      "confidenceLevel": 0.95,
+      "primaryMetric": "ctr",
+      "secondaryMetrics": ["views", "impressions"]
+    },
+    "description": {
+      "duration": 14,
+      "trafficSplit": "equal",
+      "minSampleSize": 150,
+      "confidenceLevel": 0.95,
+      "primaryMetric": "engagement",
+      "secondaryMetrics": ["comments", "likes", "shares"]
+    }
+  },
+  "testTemplates": {
+    "weeklyTitleTest": {
+      "name": "Weekly Title Optimization",
+      "description": "Test different title formulas for weekly content",
+      "variants": [
+        {
+          "name": "Direct Formula",
+          "template": "Week {week}: {topic} | PMP Exam Prep",
+          "keywords": ["PMP exam prep", "week {week}"]
+        },
+        {
+          "name": "Benefit Formula", 
+          "template": "Master {topic} | PMP Week {week} Study Guide",
+          "keywords": ["master {topic}", "PMP study guide"]
+        },
+        {
+          "name": "Question Formula",
+          "template": "How to {action} {topic} | PMP Week {week}",
+          "keywords": ["how to", "PMP week {week}"]
+        }
+      ]
+    },
+    "thumbnailColorTest": {
+      "name": "Domain Color Optimization",
+      "description": "Test color schemes for different PMP domains",
+      "variants": [
+        {
+          "name": "High Contrast",
+          "colorScheme": "highContrast",
+          "backgroundColor": "#1a1a1a",
+          "textColor": "#ffffff",
+          "accentColor": "#ff6b35"
+        },
+        {
+          "name": "Domain Standard",
+          "colorScheme": "domainStandard", 
+          "backgroundColor": "domain-specific",
+          "textColor": "#ffffff",
+          "accentColor": "domain-specific"
+        },
+        {
+          "name": "Subtle Professional",
+          "colorScheme": "subtle",
+          "backgroundColor": "#f8f9fa",
+          "textColor": "#2c3e50",
+          "accentColor": "#3498db"
+        }
+      ]
+    }
+  },
+  "metrics": {
+    "ctr": {
+      "name": "Click-Through Rate",
+      "description": "Percentage of impressions that result in clicks",
+      "target": 0.05,
+      "goodThreshold": 0.04,
+      "excellentThreshold": 0.06
+    },
+    "views": {
+      "name": "View Count",
+      "description": "Total number of video views",
+      "target": 1000,
+      "goodThreshold": 500,
+      "excellentThreshold": 2000
+    },
+    "watchTime": {
+      "name": "Average Watch Time",
+      "description": "Average time viewers spend watching the video",
+      "target": 600,
+      "goodThreshold": 300,
+      "excellentThreshold": 900
+    },
+    "engagement": {
+      "name": "Engagement Rate",
+      "description": "Combined likes, comments, and shares per view",
+      "target": 0.08,
+      "goodThreshold": 0.05,
+      "excellentThreshold": 0.12
+    }
+  }
+}

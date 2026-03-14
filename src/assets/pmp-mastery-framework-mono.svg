@@ -1,0 +1,7 @@
+<svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="150" fill="none" />
+  <text x="50%" y="70" font-family="'Poppins', sans-serif" font-weight="900" font-size="64" fill="#0f0a1e" letter-spacing="0.05em" text-anchor="middle">PMP</text>
+  <!-- Gray Rule -->
+  <rect x="120" y="82" width="160" height="2" fill="#888888" />
+  <text x="50%" y="110" font-family="'Poppins', sans-serif" font-weight="500" font-size="14" fill="#444444" letter-spacing="0.22em" text-transform="uppercase" text-anchor="middle">MASTERY FRAMEWORK</text>
+</svg>

@@ -1,0 +1,315 @@
+{
+  "leadMagnets": {
+    "13-week-study-calendar": {
+      "title": "13-Week PMP Study Calendar",
+      "description": "Complete day-by-day study plan with video schedule and milestone tracking",
+      "type": "calendar",
+      "template": "study-calendar-template.json",
+      "enabled": true,
+      "targetAudience": "new_students",
+      "estimatedValue": "$47",
+      "keywords": ["study plan", "calendar", "schedule", "13 weeks"],
+      "conversionGoal": "email_signup",
+      "followUpSequence": "new_student_welcome"
+    },
+    "50-common-questions": {
+      "title": "50 Most Common PMP Exam Questions",
+      "description": "Practice questions with detailed explanations organized by domain",
+      "type": "practice_questions",
+      "template": "practice-questions-template.json",
+      "enabled": true,
+      "targetAudience": "exam_prep",
+      "estimatedValue": "$29",
+      "keywords": ["practice questions", "exam prep", "test", "quiz"],
+      "conversionGoal": "course_interest",
+      "followUpSequence": "exam_prep_sequence"
+    },
+    "pmp-mindset-cheat-sheet": {
+      "title": "PMP Mindset Cheat Sheet",
+      "description": "Essential mindset principles and approaches for PMP exam success",
+      "type": "reference_guide",
+      "template": "mindset-cheat-sheet-template.json",
+      "enabled": true,
+      "targetAudience": "all_students",
+      "estimatedValue": "$19",
+      "keywords": ["mindset", "principles", "approach", "success"],
+      "conversionGoal": "community_engagement",
+      "followUpSequence": "mindset_mastery_sequence"
+    },
+    "eco-task-checklist": {
+      "title": "Complete ECO Task Checklist",
+      "description": "All 27 ECO tasks with examples, key points, and progress tracking",
+      "type": "checklist",
+      "template": "eco-checklist-template.json",
+      "enabled": true,
+      "targetAudience": "advanced_students",
+      "estimatedValue": "$39",
+      "keywords": ["ECO tasks", "checklist", "exam outline", "comprehensive"],
+      "conversionGoal": "advanced_course_interest",
+      "followUpSequence": "advanced_student_sequence"
+    },
+    "pmp-formula-sheet": {
+      "title": "PMP Formula & Calculation Sheet",
+      "description": "All essential formulas and calculations for the PMP exam",
+      "type": "reference_guide",
+      "template": "formula-sheet-template.json",
+      "enabled": false,
+      "targetAudience": "exam_prep",
+      "estimatedValue": "$25",
+      "keywords": ["formulas", "calculations", "math", "earned value"],
+      "conversionGoal": "exam_prep_course",
+      "followUpSequence": "formula_mastery_sequence"
+    },
+    "stakeholder-analysis-template": {
+      "title": "Stakeholder Analysis Template",
+      "description": "Professional template for stakeholder identification and analysis",
+      "type": "template",
+      "template": "stakeholder-template.json",
+      "enabled": false,
+      "targetAudience": "practitioners",
+      "estimatedValue": "$35",
+      "keywords": ["stakeholder", "analysis", "template", "practical"],
+      "conversionGoal": "template_collection",
+      "followUpSequence": "practitioner_sequence"
+    }
+  },
+  "distribution": {
+    "channels": {
+      "youtube": {
+        "enabled": true,
+        "placement": ["video_descriptions", "community_posts", "end_screens"],
+        "callToAction": "Download your free {title} - link in description!",
+        "trackingParams": "utm_source=youtube&utm_medium=video&utm_campaign=lead_magnet"
+      },
+      "website": {
+        "enabled": true,
+        "placement": ["blog_posts", "landing_pages", "popup_forms"],
+        "callToAction": "Get instant access to {title}",
+        "trackingParams": "utm_source=website&utm_medium=form&utm_campaign=lead_magnet"
+      },
+      "email": {
+        "enabled": true,
+        "placement": ["signature", "newsletter", "welcome_sequence"],
+        "callToAction": "Don't miss this free resource: {title}",
+        "trackingParams": "utm_source=email&utm_medium=newsletter&utm_campaign=lead_magnet"
+      },
+      "social": {
+        "enabled": true,
+        "placement": ["posts", "stories", "bio_links"],
+        "callToAction": "Free download: {title} - link in bio!",
+        "trackingParams": "utm_source=social&utm_medium=post&utm_campaign=lead_magnet"
+      }
+    },
+    "deliveryMethods": {
+      "instant_download": {
+        "enabled": true,
+        "requireEmail": true,
+        "downloadPage": "/download/{magnetId}",
+        "expirationHours": 24
+      },
+      "email_delivery": {
+        "enabled": true,
+        "deliveryDelay": 0,
+        "emailTemplate": "lead_magnet_delivery",
+        "attachmentSize": "10MB"
+      },
+      "drip_sequence": {
+        "enabled": false,
+        "sequenceLength": 5,
+        "daysBetween": 2,
+        "emailTemplate": "drip_sequence"
+      }
+    },
+    "trackingEnabled": true,
+    "analyticsIntegration": {
+      "googleAnalytics": true,
+      "facebookPixel": true,
+      "customEvents": true
+    }
+  },
+  "emailCapture": {
+    "provider": "mailchimp",
+    "apiKey": "MAILCHIMP_API_KEY",
+    "listId": "MAILCHIMP_LIST_ID",
+    "requireEmail": true,
+    "optionalFields": ["firstName", "lastName", "company", "experience"],
+    "doubleOptIn": true,
+    "welcomeSequence": {
+      "enabled": true,
+      "delay": 300,
+      "template": "welcome_sequence"
+    },
+    "segmentation": {
+      "enabled": true,
+      "criteria": {
+        "by_magnet": true,
+        "by_audience": true,
+        "by_source": true,
+        "by_engagement": true
+      }
+    },
+    "customFields": {
+      "pmp_status": ["studying", "certified", "considering"],
+      "experience_level": ["beginner", "intermediate", "advanced"],
+      "study_week": ["1-3", "4-6", "7-9", "10-13", "completed"],
+      "primary_interest": ["videos", "study_guide", "practice", "community"]
+    }
+  },
+  "branding": {
+    "colors": {
+      "primary": "#2E86AB",
+      "secondary": "#A23B72",
+      "accent": "#F18F01",
+      "text": "#333333",
+      "lightGray": "#F5F5F5",
+      "darkGray": "#666666",
+      "success": "#28A745",
+      "warning": "#FFC107",
+      "danger": "#DC3545"
+    },
+    "fonts": {
+      "heading": "Montserrat",
+      "subheading": "Montserrat",
+      "body": "Open Sans",
+      "monospace": "Courier New"
+    },
+    "logo": {
+      "file": "pmp-study-logo.png",
+      "width": 200,
+      "height": 60,
+      "position": "top-center"
+    },
+    "footer": {
+      "text": "© 2024 PMP Study Channel. All rights reserved.",
+      "website": "www.pmpstudychannel.com",
+      "email": "hello@pmpstudychannel.com"
+    }
+  },
+  "performance": {
+    "tracking": {
+      "downloads": true,
+      "emailCaptures": true,
+      "conversionRates": true,
+      "sourceAttribution": true,
+      "userJourney": true
+    },
+    "goals": {
+      "downloadConversionRate": 0.15,
+      "emailConversionRate": 0.30,
+      "monthlyDownloads": 500,
+      "monthlyEmailCaptures": 150
+    },
+    "alerts": {
+      "lowDownloads": {
+        "threshold": 50,
+        "period": "week",
+        "enabled": true
+      },
+      "lowConversion": {
+        "threshold": 0.20,
+        "period": "week",
+        "enabled": true
+      },
+      "highBounceRate": {
+        "threshold": 0.70,
+        "period": "day",
+        "enabled": true
+      }
+    },
+    "reporting": {
+      "frequency": "weekly",
+      "recipients": ["marketing@example.com", "content@example.com"],
+      "includeMetrics": [
+        "total_downloads",
+        "email_captures",
+        "conversion_rates",
+        "top_performers",
+        "source_breakdown"
+      ]
+    }
+  },
+  "automation": {
+    "regeneration": {
+      "enabled": true,
+      "schedule": "monthly",
+      "triggers": ["template_update", "content_change", "performance_drop"]
+    },
+    "distribution": {
+      "autoPost": {
+        "enabled": false,
+        "platforms": ["twitter", "linkedin"],
+        "frequency": "weekly"
+      },
+      "emailSequences": {
+        "enabled": true,
+        "triggerOnDownload": true,
+        "segmentByMagnet": true
+      }
+    },
+    "optimization": {
+      "abTesting": {
+        "enabled": true,
+        "testElements": ["titles", "descriptions", "call_to_action"],
+        "sampleSize": 100,
+        "confidenceLevel": 0.95
+      },
+      "personalizedRecommendations": {
+        "enabled": false,
+        "basedOn": ["download_history", "engagement_level", "study_progress"]
+      }
+    }
+  },
+  "integrations": {
+    "emailMarketing": {
+      "mailchimp": {
+        "enabled": true,
+        "apiKey": "MAILCHIMP_API_KEY",
+        "listId": "MAILCHIMP_LIST_ID"
+      },
+      "convertkit": {
+        "enabled": false,
+        "apiKey": "CONVERTKIT_API_KEY",
+        "formId": "CONVERTKIT_FORM_ID"
+      }
+    },
+    "analytics": {
+      "googleAnalytics": {
+        "enabled": true,
+        "trackingId": "GA_TRACKING_ID",
+        "events": ["download", "email_capture", "form_view"]
+      },
+      "mixpanel": {
+        "enabled": false,
+        "projectToken": "MIXPANEL_TOKEN"
+      }
+    },
+    "storage": {
+      "aws": {
+        "enabled": false,
+        "bucket": "lead-magnets",
+        "region": "us-east-1"
+      },
+      "local": {
+        "enabled": true,
+        "path": "./generated/lead-magnets"
+      }
+    }
+  },
+  "security": {
+    "downloadLinks": {
+      "expiration": 24,
+      "maxDownloads": 3,
+      "ipRestriction": false
+    },
+    "emailValidation": {
+      "enabled": true,
+      "blockDisposable": true,
+      "blockInvalid": true
+    },
+    "rateLimiting": {
+      "enabled": true,
+      "maxDownloadsPerHour": 5,
+      "maxDownloadsPerDay": 10
+    }
+  }
+}

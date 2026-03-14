@@ -1,0 +1,275 @@
+{
+  "people_domain": {
+    "1.1_manage_conflict": {
+      "primary_chunk": "chunk-02-conflict.md",
+      "week": 2,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ],
+      "video_references": [
+        "Day 8: Team Ground Rules (prevention)",
+        "Week 2 Practice: Conflict resolution scenarios"
+      ]
+    },
+    "1.2_lead_a_team": {
+      "primary_chunk": "chunk-04-leadership.md",
+      "week": 4,
+      "supporting_chunks": [
+        "chunk-01-mindset.md",
+        "chunk-02-empowerment.md"
+      ],
+      "video_references": [
+        "Day 4: PMP Mindset (leadership principles)",
+        "Day 10: Servant Leadership"
+      ]
+    },
+    "1.3_support_team_performance": {
+      "primary_chunk": "chunk-03-team-performance.md",
+      "week": 3,
+      "supporting_chunks": [
+        "chunk-02-empowerment.md",
+        "chunk-03-training.md"
+      ]
+    },
+    "1.4_empower_team_members_stakeholders": {
+      "primary_chunk": "chunk-02-empowerment.md",
+      "week": 2,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ],
+      "video_references": [
+        "Day 10: Servant Leadership in Action"
+      ]
+    },
+    "1.5_ensure_adequate_training": {
+      "primary_chunk": "chunk-03-training.md",
+      "week": 3,
+      "supporting_chunks": [
+        "chunk-03-mentoring.md"
+      ]
+    },
+    "1.6_build_a_team": {
+      "primary_chunk": "chunk-02-team-basics.md",
+      "week": 2,
+      "supporting_chunks": [
+        "chunk-03-team-performance.md"
+      ],
+      "video_references": [
+        "Day 8: Team Ground Rules",
+        "Week 2 Intro: Building High-Performance Teams"
+      ]
+    },
+    "1.7_address_remove_impediments": {
+      "primary_chunk": "chunk-04-impediments.md",
+      "week": 4,
+      "supporting_chunks": [
+        "chunk-01-mindset.md",
+        "chunk-04-leadership.md"
+      ]
+    },
+    "1.8_negotiate_project_agreements": {
+      "primary_chunk": "chunk-02-negotiation.md",
+      "week": 2,
+      "video_references": [
+        "Day 9: Negotiation Skills Every PMP Needs"
+      ]
+    },
+    "1.9_collaborate_with_stakeholders": {
+      "primary_chunk": "chunk-04-collaboration.md",
+      "week": 4,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ]
+    },
+    "1.10_build_shared_understanding": {
+      "primary_chunk": "chunk-04-collaboration.md",
+      "week": 4,
+      "supporting_chunks": [
+        "chunk-07-communications.md"
+      ]
+    },
+    "1.11_engage_support_virtual_teams": {
+      "primary_chunk": "chunk-03-virtual-teams.md",
+      "week": 3,
+      "supporting_chunks": [
+        "chunk-07-communications.md"
+      ]
+    },
+    "1.12_define_team_ground_rules": {
+      "primary_chunk": "chunk-02-team-basics.md",
+      "week": 2,
+      "video_references": [
+        "Day 8: Team Ground Rules That Actually Work"
+      ]
+    },
+    "1.13_mentor_relevant_stakeholders": {
+      "primary_chunk": "chunk-03-mentoring.md",
+      "week": 3,
+      "supporting_chunks": [
+        "chunk-03-training.md"
+      ]
+    },
+    "1.14_promote_team_performance_emotional_intelligence": {
+      "primary_chunk": "chunk-03-team-performance.md",
+      "week": 3,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ]
+    }
+  },
+  "process_domain": {
+    "2.1_execute_projects_urgency_business_value": {
+      "primary_chunk": "chunk-09-execution.md",
+      "week": 9,
+      "supporting_chunks": [
+        "chunk-09-value.md",
+        "chunk-01-mindset.md"
+      ]
+    },
+    "2.2_manage_communications": {
+      "primary_chunk": "chunk-07-communications.md",
+      "week": 7,
+      "supporting_chunks": [
+        "chunk-03-virtual-teams.md",
+        "chunk-04-collaboration.md"
+      ]
+    },
+    "2.3_assess_manage_risks": {
+      "primary_chunk": "chunk-07-risk.md",
+      "week": 7,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ]
+    },
+    "2.4_engage_stakeholders": {
+      "primary_chunk": "chunk-08-stakeholders.md",
+      "week": 8,
+      "supporting_chunks": [
+        "chunk-04-collaboration.md",
+        "chunk-01-mindset.md"
+      ]
+    },
+    "2.5_plan_manage_budget_resources": {
+      "primary_chunk": "chunk-06-resources.md",
+      "week": 6
+    },
+    "2.6_plan_manage_schedule": {
+      "primary_chunk": "chunk-06-schedule.md",
+      "week": 6
+    },
+    "2.7_plan_manage_quality": {
+      "primary_chunk": "chunk-07-quality.md",
+      "week": 7
+    },
+    "2.8_plan_manage_scope": {
+      "primary_chunk": "chunk-06-scope.md",
+      "week": 6
+    },
+    "2.9_integrate_project_planning": {
+      "primary_chunk": "chunk-05-integration.md",
+      "week": 5
+    },
+    "2.10_manage_project_changes": {
+      "primary_chunk": "chunk-09-changes.md",
+      "week": 9
+    },
+    "2.11_plan_manage_procurement": {
+      "primary_chunk": "chunk-08-procurement.md",
+      "week": 8
+    },
+    "2.12_manage_project_artifacts": {
+      "primary_chunk": "chunk-08-artifacts.md",
+      "week": 8
+    },
+    "2.13_determine_appropriate_methodology": {
+      "primary_chunk": "chunk-05-methodology.md",
+      "week": 5
+    },
+    "2.14_establish_project_governance": {
+      "primary_chunk": "chunk-05-governance.md",
+      "week": 5
+    },
+    "2.15_manage_project_issues": {
+      "primary_chunk": "chunk-10-issues.md",
+      "week": 10,
+      "video_references": [
+        "Day 64: Issue Management Excellence"
+      ]
+    },
+    "2.16_ensure_knowledge_transfer": {
+      "primary_chunk": "chunk-10-knowledge.md",
+      "week": 10,
+      "video_references": [
+        "Day 65: Knowledge Transfer Excellence"
+      ]
+    },
+    "2.17_plan_manage_closure_transitions": {
+      "primary_chunk": "chunk-11-closure.md",
+      "week": 11,
+      "video_references": [
+        "Day 73: Project Closure Excellence"
+      ]
+    }
+  },
+  "business_environment_domain": {
+    "3.1_plan_manage_compliance": {
+      "primary_chunk": "chunk-10-compliance.md",
+      "week": 10,
+      "video_references": [
+        "Day 66: Compliance Excellence"
+      ]
+    },
+    "3.2_evaluate_deliver_benefits_value": {
+      "primary_chunk": "chunk-09-value.md",
+      "week": 9,
+      "supporting_chunks": [
+        "chunk-01-mindset.md"
+      ],
+      "video_references": [
+        "Day 62: Value Delivery Excellence"
+      ]
+    },
+    "3.3_evaluate_address_external_changes": {
+      "primary_chunk": "chunk-11-business-env.md",
+      "week": 11,
+      "video_references": [
+        "Day 71: Business Environment Mastery"
+      ]
+    },
+    "3.4_support_organizational_change": {
+      "primary_chunk": "chunk-11-org-change.md",
+      "week": 11,
+      "video_references": [
+        "Day 72: Organizational Change Excellence"
+      ]
+    }
+  },
+  "exam_preparation": {
+    "comprehensive_review": {
+      "primary_chunks": [
+        "chunk-12-exam-prep.md",
+        "chunk-12-review-people.md", 
+        "chunk-12-review-process.md"
+      ],
+      "week": 12,
+      "video_references": [
+        "Day 78: Exam Strategy Mastery",
+        "Day 79: People Domain Mastery Review",
+        "Day 80: Process Domain Mastery Review"
+      ]
+    },
+    "final_preparation": {
+      "primary_chunks": [
+        "chunk-13-final-review.md",
+        "chunk-13-business-env.md",
+        "chunk-13-mindset-mastery.md"
+      ],
+      "week": 13,
+      "video_references": [
+        "Day 85: Final Preparation Excellence",
+        "Day 86: Business Environment Mastery Review", 
+        "Day 87: PMP Mindset Mastery"
+      ]
+    }
+  }
+}

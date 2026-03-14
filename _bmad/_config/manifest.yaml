@@ -1,0 +1,30 @@
+installation:
+  version: 6.0.1
+  installDate: 2026-02-19T22:31:11.344Z
+  lastUpdated: 2026-02-19T22:41:00.356Z
+modules:
+  - name: core
+    version: 6.0.1
+    installDate: 2026-02-19T22:31:11.344Z
+    lastUpdated: 2026-02-19T22:41:00.356Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: bmm
+    version: 6.0.1
+    installDate: 2026-02-19T22:31:11.325Z
+    lastUpdated: 2026-02-19T22:41:00.356Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: cis
+    version: 1.0.0
+    installDate: 2026-03-04T22:00:00.000Z
+    lastUpdated: 2026-03-04T22:00:00.000Z
+    source: built-in
+  - name: ba-agent
+    version: 1.0.0
+    installDate: 2026-03-05T00:30:00.000Z
+    lastUpdated: 2026-03-05T00:30:00.000Z
+    source: custom
+ides: []

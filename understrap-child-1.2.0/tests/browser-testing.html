@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMP Frontend - Cross-Browser Testing Suite</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/pmp-components.css">
+    <link rel="stylesheet" href="../assets/css/browser-compatibility.css">
+    
+    <style>
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+        
+        .test-section h2 {
+            color: #5b28b3;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #5b28b3;
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .test-card {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+        
+        .test-result {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .test-pass {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .test-fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .test-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .browser-info {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 0.25rem;
+        }
+        
+        .feature-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 0.5rem;
+            border-radius: 50%;
+        }
+        
+        .supported {
+            background-color: #28a745;
+        }
+        
+        .not-supported {
+            background-color: #dc3545;
+        }
+        
+        .progress-demo {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #5b28b3, #28a745);
+            width: 75%;
+            transition: width 0.3s ease;
+        }
+        
+        .flex-demo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .grid-item {
+            padding: 1rem;
+            background: #e9ecef;
+            text-align: center;
+            border-radius: 4px;
+        }
+        
+        .transform-demo {
+            width: 100px;
+            height: 100px;
+            background: #5b28b3;
+            margin: 1rem auto;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .transform-demo:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .animation-demo {
+            width: 50px;
+            height: 50px;
+            background: #28a745;
+            border-radius: 50%;
+            margin: 1rem auto;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .custom-properties-demo {
+            --demo-color: #5b28b3;
+            --demo-size: 20px;
+            color: var(--demo-color);
+            font-size: var(--demo-size);
+            padding: 1rem;
+            background: rgba(91, 40, 179, 0.1);
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .sticky-demo {
+            position: sticky;
+            top: 20px;
+            background: #fff3cd;
+            padding: 1rem;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>PMP Frontend - Cross-Browser Testing Suite</h1>
+        
+        <div class="browser-info" id="browserInfo">
+            <h3>Browser Information</h3>
+            <p>Loading browser detection...</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>Feature Support Detection</h2>
+            <div class="feature-list" id="featureList">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>CSS Layout Tests</h2>
+            
+            <h3>Flexbox Layout</h3>
+            <div class="flex-demo">
+                <div>Left Item</div>
+                <div>Center Item</div>
+                <div>Right Item</div>
+            </div>
+            
+            <h3>CSS Grid Layout</h3>
+            <div class="grid-demo">
+                <div class="grid-item">Grid Item 1</div>
+                <div class="grid-item">Grid Item 2</div>
+                <div class="grid-item">Grid Item 3</div>
+            </div>
+            
+            <h3>CSS Custom Properties</h3>
+            <div class="custom-properties-demo">
+                This text uses CSS custom properties for color and size.
+            </div>
+            
+            <h3>Sticky Positioning</h3>
+            <div class="sticky-demo">
+                This element should stick to the top when scrolling.
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>CSS Effects Tests</h2>
+            
+            <h3>CSS Transforms</h3>
+            <div class="transform-demo" title="Hover to see transform effect"></div>
+            
+            <h3>CSS Animations</h3>
+            <div class="animation-demo"></div>
+            
+            <h3>Progress Bar</h3>
+            <div class="progress-demo">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>JavaScript API Tests</h2>
+            <div class="test-grid" id="jsTests">
+                <!-- JavaScript tests will be populated -->
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>PMP Component Tests</h2>
+            
+            <h3>Navigation Sidebar (Responsive)</h3>
+            <div class="test-card">
+                <button id="toggleNav" class="btn btn-primary">Toggle Navigation</button>
+                <div id="navDemo" style="display: none; margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #dee2e6;">Week 1: Introduction</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #dee2e6;">Week 2: People Domain</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #dee2e6;">Week 3: Process Domain</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Progress Circle</h3>
+            <div class="test-card">
+                <div id="progressCircle" style="width: 100px; height: 100px; margin: 1rem auto; position: relative;">
+                    <svg width="100" height="100" style="transform: rotate(-90deg);">
+                        <circle cx="50" cy="50" r="40" stroke="#e9ecef" stroke-width="8" fill="none"></circle>
+                        <circle cx="50" cy="50" r="40" stroke="#5b28b3" stroke-width="8" fill="none" 
+                                stroke-dasharray="251.2" stroke-dashoffset="62.8" 
+                                style="transition: stroke-dashoffset 0.5s ease;"></circle>
+                    </svg>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">75%</div>
+                </div>
+            </div>
+            
+            <h3>Interactive Cards</h3>
+            <div class="test-grid">
+                <div class="test-card pmp-hover-effect" style="cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                    <h4>Lesson Card</h4>
+                    <p>Hover to see interaction effect</p>
+                </div>
+                <div class="test-card pmp-hover-effect" style="cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                    <h4>Resource Card</h4>
+                    <p>Touch-friendly on mobile</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Accessibility Tests</h2>
+            <div class="test-grid" id="accessibilityTests">
+                <!-- Accessibility tests will be populated -->
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Performance Tests</h2>
+            <div class="test-grid" id="performanceTests">
+                <!-- Performance tests will be populated -->
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Recommendations</h2>
+            <div id="recommendations">
+                <!-- Recommendations will be populated -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <script src="../assets/js/browser-compatibility.js"></script>
+    <script>
+        // Wait for browser compatibility to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure compatibility script has run
+            setTimeout(function() {
+                populateTestResults();
+                runJavaScriptTests();
+                runAccessibilityTests();
+                runPerformanceTests();
+                setupInteractiveElements();
+            }, 100);
+        });
+        
+        function populateTestResults() {
+            const compatibility = window.pmpCompatibilityReport;
+            
+            if (!compatibility) {
+                document.getElementById('browserInfo').innerHTML = '<p style="color: red;">Browser compatibility script failed to load</p>';
+                return;
+            }
+            
+            // Browser Information
+            const browserInfo = document.getElementById('browserInfo');
+            browserInfo.innerHTML = `
+                <h3>Browser Information</h3>
+                <p><strong>Browser:</strong> ${compatibility.browser.name} ${compatibility.browser.version}</p>
+                <p><strong>Device Type:</strong> ${compatibility.browser.mobile ? 'Mobile' : compatibility.browser.tablet ? 'Tablet' : 'Desktop'}</p>
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+            `;
+            
+            // Feature Support
+            const featureList = document.getElementById('featureList');
+            const features = compatibility.features;
+            
+            featureList.innerHTML = Object.keys(features).map(feature => {
+                const supported = features[feature];
+                return `
+                    <div class="feature-item">
+                        <div class="feature-icon ${supported ? 'supported' : 'not-supported'}"></div>
+                        <span>${feature}: ${supported ? 'Supported' : 'Not Supported'}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function runJavaScriptTests() {
+            const tests = [
+                {
+                    name: 'Fetch API',
+                    test: () => typeof fetch !== 'undefined',
+                    description: 'Modern network requests'
+                },
+                {
+                    name: 'Promises',
+                    test: () => typeof Promise !== 'undefined',
+                    description: 'Asynchronous operations'
+                },
+                {
+                    name: 'Arrow Functions',
+                    test: () => {
+                        try {
+                            new Function('() => {}');
+                            return true;
+                        } catch (e) {
+                            return false;
+                        }
+                    },
+                    description: 'ES6 syntax support'
+                },
+                {
+                    name: 'Local Storage',
+                    test: () => {
+                        try {
+                            localStorage.setItem('test', 'test');
+                            localStorage.removeItem('test');
+                            return true;
+                        } catch (e) {
+                            return false;
+                        }
+                    },
+                    description: 'Client-side storage'
+                },
+                {
+                    name: 'Intersection Observer',
+                    test: () => 'IntersectionObserver' in window,
+                    description: 'Lazy loading support'
+                },
+                {
+                    name: 'Service Workers',
+                    test: () => 'serviceWorker' in navigator,
+                    description: 'Offline functionality'
+                }
+            ];
+            
+            const jsTests = document.getElementById('jsTests');
+            jsTests.innerHTML = tests.map(test => {
+                const result = test.test();
+                return `
+                    <div class="test-card">
+                        <h4>${test.name}</h4>
+                        <p>${test.description}</p>
+                        <div class="test-result ${result ? 'test-pass' : 'test-fail'}">
+                            ${result ? 'PASS' : 'FAIL'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function runAccessibilityTests() {
+            const tests = [
+                {
+                    name: 'Keyboard Navigation',
+                    test: () => {
+                        // Check if elements can receive focus
+                        const focusableElements = document.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                        return focusableElements.length > 0;
+                    },
+                    description: 'Elements can be navigated with keyboard'
+                },
+                {
+                    name: 'ARIA Labels',
+                    test: () => {
+                        // Check for ARIA attributes
+                        const ariaElements = document.querySelectorAll('[aria-label], [aria-labelledby], [role]');
+                        return ariaElements.length > 0;
+                    },
+                    description: 'Screen reader support'
+                },
+                {
+                    name: 'Color Contrast',
+                    test: () => {
+                        // Basic check for high contrast mode support
+                        return window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches !== undefined;
+                    },
+                    description: 'High contrast mode detection'
+                },
+                {
+                    name: 'Reduced Motion',
+                    test: () => {
+                        // Check for reduced motion preference
+                        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches !== undefined;
+                    },
+                    description: 'Motion sensitivity support'
+                }
+            ];
+            
+            const accessibilityTests = document.getElementById('accessibilityTests');
+            accessibilityTests.innerHTML = tests.map(test => {
+                const result = test.test();
+                return `
+                    <div class="test-card">
+                        <h4>${test.name}</h4>
+                        <p>${test.description}</p>
+                        <div class="test-result ${result ? 'test-pass' : 'test-warning'}">
+                            ${result ? 'SUPPORTED' : 'LIMITED'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function runPerformanceTests() {
+            const tests = [
+                {
+                    name: 'Performance API',
+                    test: () => 'performance' in window && 'now' in performance,
+                    description: 'Performance monitoring'
+                },
+                {
+                    name: 'RequestAnimationFrame',
+                    test: () => 'requestAnimationFrame' in window,
+                    description: 'Smooth animations'
+                },
+                {
+                    name: 'WebP Support',
+                    test: () => {
+                        // This is async, so we'll just check if the browser is likely to support it
+                        const canvas = document.createElement('canvas');
+                        return canvas.toDataURL && canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+                    },
+                    description: 'Optimized image format'
+                },
+                {
+                    name: 'CSS Containment',
+                    test: () => CSS && CSS.supports && CSS.supports('contain', 'layout'),
+                    description: 'Layout optimization'
+                }
+            ];
+            
+            const performanceTests = document.getElementById('performanceTests');
+            performanceTests.innerHTML = tests.map(test => {
+                const result = test.test();
+                return `
+                    <div class="test-card">
+                        <h4>${test.name}</h4>
+                        <p>${test.description}</p>
+                        <div class="test-result ${result ? 'test-pass' : 'test-warning'}">
+                            ${result ? 'SUPPORTED' : 'LIMITED'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function setupInteractiveElements() {
+            // Navigation toggle
+            const toggleNav = document.getElementById('toggleNav');
+            const navDemo = document.getElementById('navDemo');
+            
+            toggleNav.addEventListener('click', function() {
+                navDemo.style.display = navDemo.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // Hover effects for cards
+            const hoverCards = document.querySelectorAll('.pmp-hover-effect');
+            hoverCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Show recommendations
+            const compatibility = window.pmpCompatibilityReport;
+            if (compatibility && compatibility.recommendations) {
+                const recommendations = document.getElementById('recommendations');
+                if (compatibility.recommendations.length > 0) {
+                    recommendations.innerHTML = `
+                        <h3>Browser Recommendations</h3>
+                        <ul>
+                            ${compatibility.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                        </ul>
+                    `;
+                } else {
+                    recommendations.innerHTML = `
+                        <div class="test-result test-pass">
+                            <strong>Excellent!</strong> Your browser supports all tested features for the best PMP learning experience.
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Add some scroll behavior for testing sticky elements
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                console.log('Scroll position:', window.pageYOffset);
+            }, 100);
+        });
+    </script>
+</body>
+</html>

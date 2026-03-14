@@ -1,0 +1,31 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+      .main-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 52px; fill: #2C3E50; letter-spacing: 2px; }
+      .accent-text { fill: #3498DB; }
+      .desc-text { font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 18px; fill: #7F8C8D; letter-spacing: 12px; }
+      .grid-line { stroke: #ECF0F1; stroke-width: 1; }
+      .marker { fill: #E67E22; }
+    </style>
+  </defs>
+
+  <!-- Background Grid Concept -->
+  <line x1="50" y1="50" x2="550" y2="50" class="grid-line" />
+  <line x1="50" y1="100" x2="550" y2="100" class="grid-line" />
+  <line x1="50" y1="150" x2="550" y2="150" class="grid-line" />
+  
+  <!-- Markers -->
+  <rect x="50" y="48" width="10" height="4" class="marker" />
+  <rect x="540" y="98" width="10" height="4" class="marker" />
+  <rect x="50" y="148" width="10" height="4" class="marker" />
+
+  <!-- Logo Content -->
+  <text x="50%" y="100" text-anchor="middle" class="main-text">
+    <tspan class="accent-text">PMP</tspan> MASTERY
+  </text>
+  <text x="50%" y="140" text-anchor="middle" class="desc-text" text-transform="uppercase">Framework</text>
+  
+  <!-- Modern Geometric Accent -->
+  <path d="M560 50 L580 50 L580 150 L560 150" fill="none" stroke="#3498DB" stroke-width="2" />
+</svg>

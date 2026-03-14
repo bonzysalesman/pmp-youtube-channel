@@ -1,0 +1,184 @@
+{
+  "videoDatabase": [
+    {
+      "week": 1,
+      "day": "Monday",
+      "type": "channel-trailer",
+      "title": "Welcome to Your PMP Exam Prep Journey! (Channel Intro & Course Overview)",
+      "duration": "6-7 minutes",
+      "host": "Bonzy Salesman",
+      "tone": "Energetic, confident, encouraging",
+      "hook": "Are you a project manager who's tired of feeling stuck in your career? Ready to unlock global opportunities, increase your earning potential, and join an elite community of certified professionals?",
+      "keyPoints": [
+        "Global recognition and career opportunities",
+        "ECO-based structured approach vs random studying", 
+        "PMP mindset: proactive, value-focused, collaborative",
+        "13-week roadmap with community support"
+      ],
+      "cta": "Subscribe + download study calendar + comment motivation",
+      "leadMagnet": "13-Week Study Calendar",
+      "thumbnailColor": "blue-green gradient",
+      "thumbnailElements": [
+        "PMP EXAM PREP (large text)",
+        "13-Week Journey Starts Here (smaller)",
+        "Professional headshot + PMP badge",
+        "Day 1 corner badge"
+      ],
+      "keywords": [
+        "PMP certification", "PMP exam prep", "13-week study plan", 
+        "project management", "PMP course", "certification success",
+        "ECO-based approach", "PMP mindset"
+      ],
+      "scriptStructure": [
+        "Hook (0-30s): Career transformation promise",
+        "Benefits (30-90s): Why PMP matters globally", 
+        "Unique Approach (90-180s): ECO-based precision",
+        "PMP Mindset (180-240s): Think like a PMP",
+        "13-Week Roadmap (240-330s): Month-by-month plan",
+        "Community (330-390s): Support and engagement",
+        "CTA (390-420s): Subscribe and engage"
+      ],
+      "visualElements": [
+        "Professional background with branding",
+        "ECO breakdown slides",
+        "13-week roadmap visualization", 
+        "Direct-to-camera personal moments",
+        "Subscribe animation ending"
+      ],
+      "successMetrics": {
+        "watchTime": "70%+ retention through first 3 minutes",
+        "engagement": "5%+ engagement rate",
+        "conversion": "Track subscribe rate",
+        "comments": "Quality motivation responses"
+      },
+      "description": "🎯 Ready to pass your PMP exam on the first try? Welcome to your 13-week structured study plan!\n\n📅 FREE DOWNLOAD: Complete 13-Week Study Calendar\n\n⏰ TIMESTAMPS:\n0:00 - Why PMP Certification Matters\n1:30 - The ECO-Based Approach\n3:00 - The PMP Mindset\n4:00 - Your 13-Week Roadmap\n5:30 - Community & Support\n6:00 - Next Steps\n\n💬 COMMENT BELOW: What's your biggest motivation for earning PMP certification?\n\n#PMPExam #ProjectManagement #PMPCertification #StudyGuide"
+    },
+    {
+      "week": 1,
+      "day": "Tuesday",
+      "dayNumber": 1,
+      "type": "daily-study",
+      "title": "Day 1: PMP Exam 2024 Complete Overview | What You Need to Know",
+      "duration": "15-18 minutes",
+      "content": "Exam format, domains breakdown, eligibility requirements",
+      "practiceElement": "ECO navigation exercise",
+      "nextPreview": "Essential resources",
+      "ecoTasks": ["Understanding exam structure", "Domain weighting"],
+      "thumbnailColor": "purple",
+      "keywords": ["PMP exam 2024", "PMP exam format", "PMP domains", "PMI certification"],
+      "learningObjectives": [
+        "Understand the current PMP exam format and structure",
+        "Learn the three domain areas and their weightings",
+        "Know the eligibility requirements for taking the exam"
+      ]
+    },
+    {
+      "week": 1,
+      "day": "Wednesday",
+      "dayNumber": 2,
+      "type": "daily-study", 
+      "title": "Day 2: PMP Study Resources That Actually Work | Avoid These Mistakes",
+      "duration": "15-18 minutes",
+      "content": "PMBOK vs ECO, recommended materials, what NOT to waste time on",
+      "leadMagnet": "Complete Resource Checklist",
+      "communityQuestion": "What resources are you currently using?",
+      "ecoTasks": ["Resource evaluation", "Study planning"],
+      "thumbnailColor": "purple",
+      "keywords": ["PMP study materials", "PMBOK guide", "PMP resources", "study plan"],
+      "learningObjectives": [
+        "Distinguish between PMBOK Guide and ECO for exam prep",
+        "Identify the most effective study resources",
+        "Avoid common resource selection mistakes"
+      ]
+    },
+    {
+      "week": 2,
+      "day": "Monday",
+      "type": "weekly-intro",
+      "title": "Week 2: Building High-Performance Teams | People Domain (42%)",
+      "duration": "15-18 minutes",
+      "ecoTasks": ["Manage conflict", "Lead a team"],
+      "content": "Team formation stages, diversity benefits, psychological safety",
+      "caseStudy": "Remote team formation success story",
+      "thumbnailColor": "green",
+      "domain": "People",
+      "keywords": ["team building", "people domain", "team leadership", "psychological safety"],
+      "learningObjectives": [
+        "Understand the stages of team formation",
+        "Recognize the benefits of diverse teams",
+        "Create psychological safety in team environments"
+      ]
+    },
+    {
+      "week": 2,
+      "day": "Tuesday",
+      "dayNumber": 8,
+      "type": "daily-study",
+      "title": "Day 8: Team Ground Rules That Actually Work | Avoid Team Chaos",
+      "duration": "15-18 minutes",
+      "content": "Ground rule categories, facilitation techniques, enforcement",
+      "templateOffer": "Team Charter Template",
+      "practice": "Ground rule scenario workshop",
+      "ecoTasks": ["Define team ground rules"],
+      "thumbnailColor": "green",
+      "domain": "People",
+      "keywords": ["team ground rules", "team charter", "team facilitation", "team management"],
+      "learningObjectives": [
+        "Create effective team ground rules",
+        "Facilitate ground rule establishment sessions",
+        "Enforce ground rules consistently and fairly"
+      ]
+    }
+  ],
+  "contentTemplates": {
+    "dailyStudy": {
+      "structure": [
+        "Hook (0-30s)",
+        "Learning Objectives (30-60s)", 
+        "ECO Connection (60-90s)",
+        "Main Content (8-12min)",
+        "Practice Application (2-4min)",
+        "Key Takeaways (1-2min)",
+        "Next Preview (30s)"
+      ],
+      "duration": "15-18 minutes",
+      "thumbnailElements": ["Day number", "Topic title", "Domain color"]
+    },
+    "practice": {
+      "structure": [
+        "Session Overview (30-60s)",
+        "Practice Scenarios (15-18min)",
+        "Key Learning Points (2-3min)",
+        "Next Steps (1-2min)"
+      ],
+      "duration": "20-25 minutes",
+      "thumbnailColor": "purple"
+    },
+    "weeklyReview": {
+      "structure": [
+        "Week Overview (30-60s)",
+        "Key Concepts Review (8-10min)",
+        "Integration Exercise (3-4min)",
+        "Week Assessment (1-2min)",
+        "Next Week Preview (1-2min)"
+      ],
+      "duration": "15-20 minutes",
+      "thumbnailColor": "mixed-domain"
+    }
+  },
+  "seoTemplates": {
+    "titleFormats": [
+      "Day {{day}}: {{topic}} | PMP Exam Prep Week {{week}}",
+      "Week {{week}}: {{topic}} | {{domain}} Domain Mastery",
+      "{{topic}} Explained | PMP Certification Study Guide",
+      "PMP Practice: {{topic}} | Exam Success Strategy"
+    ],
+    "descriptionTemplate": "🎯 Day {{day}} of our 13-Week PMP Study Plan! Today we're covering {{topic}}.\n\n📚 What You'll Learn:\n{{objectives}}\n\n🎯 ECO Tasks Covered:\n{{ecoTasks}}\n\n📖 FREE Study Resources:\n• 13-Week Study Calendar: {{calendarUrl}}\n• PMP Mindset Cheat Sheet: {{cheatsheetUrl}}\n\n#PMPExam #PMPCertification #ProjectManagement #PMPStudyGuide",
+    "hashtagSets": {
+      "primary": ["#PMPExam", "#PMPCertification", "#ProjectManagement", "#PMPStudyGuide", "#PMPExamPrep"],
+      "people": ["#TeamLeadership", "#StakeholderManagement", "#ConflictResolution", "#TeamBuilding"],
+      "process": ["#ProjectPlanning", "#RiskManagement", "#QualityManagement", "#ProjectExecution"],
+      "business": ["#BusinessValue", "#OrganizationalStrategy", "#ComplianceManagement"]
+    }
+  }
+}

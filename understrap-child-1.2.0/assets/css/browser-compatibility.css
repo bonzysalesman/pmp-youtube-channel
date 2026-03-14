@@ -1,0 +1,449 @@
+/**
+ * Browser Compatibility CSS
+ * Cross-browser styles and fallbacks for optimal compatibility
+ */
+
+/* ==========================================================================
+   Browser-Specific Resets and Normalizations
+   ========================================================================== */
+
+/* IE-specific fixes */
+.browser-ie .pmp-grid {
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
+    -ms-grid-rows: auto;
+}
+
+.browser-ie .pmp-flex {
+    display: -ms-flexbox;
+    -ms-flex-direction: row;
+    -ms-flex-wrap: wrap;
+}
+
+/* Safari-specific fixes */
+.browser-safari .pmp-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+.browser-safari .pmp-transform {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+/* Firefox-specific fixes */
+.browser-firefox .pmp-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.browser-firefox .pmp-select {
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* ==========================================================================
+   Feature Detection Fallbacks
+   ========================================================================== */
+
+/* Flexbox fallbacks */
+.no-flexbox .pmp-nav-sidebar {
+    float: left;
+    width: 280px;
+}
+
+.no-flexbox .pmp-main-content {
+    margin-left: 300px;
+    display: block;
+}
+
+.no-flexbox .pmp-flex-center {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.no-flexbox .pmp-flex-between {
+    overflow: hidden;
+}
+
+.no-flexbox .pmp-flex-between > * {
+    float: left;
+}
+
+.no-flexbox .pmp-flex-between > *:last-child {
+    float: right;
+}
+
+/* Grid fallbacks */
+.no-grid .pmp-course-grid {
+    display: block;
+}
+
+.no-grid .pmp-course-card {
+    display: inline-block;
+    width: 300px;
+    margin: 1rem;
+    vertical-align: top;
+}
+
+.no-grid .pmp-resource-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.no-grid .pmp-resource-card {
+    flex: 1 1 300px;
+    min-width: 280px;
+}
+
+/* Custom Properties fallbacks */
+.no-custom-properties .pmp-primary-bg {
+    background-color: #5b28b3; /* fallback for var(--primary-color) */
+}
+
+.no-custom-properties .pmp-secondary-bg {
+    background-color: #28a745; /* fallback for var(--secondary-color) */
+}
+
+.no-custom-properties .pmp-text-primary {
+    color: #5b28b3; /* fallback for var(--primary-color) */
+}
+
+.no-custom-properties .pmp-text-secondary {
+    color: #28a745; /* fallback for var(--secondary-color) */
+}
+
+/* Transform fallbacks */
+.no-transforms .pmp-hover-lift:hover {
+    margin-top: -2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.no-transforms .pmp-slide-in {
+    opacity: 1;
+    margin-left: 0;
+}
+
+/* Transition fallbacks */
+.no-transitions .pmp-smooth-hover:hover {
+    /* Instant state changes for browsers without transition support */
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+/* ==========================================================================
+   Mobile and Touch Device Optimizations
+   ========================================================================== */
+
+/* Touch-friendly interactions */
+.touch-device .pmp-button {
+    min-height: 44px; /* iOS recommended touch target size */
+    min-width: 44px;
+    padding: 12px 16px;
+}
+
+.touch-device .pmp-nav-link {
+    padding: 16px 20px;
+    font-size: 16px; /* Prevent zoom on iOS */
+}
+
+.touch-device .pmp-form-input {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 12px 16px;
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+    .pmp-hover-effect:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        background-color: inherit !important;
+    }
+    
+    .pmp-card:hover {
+        transform: none !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+}
+
+/* Mobile-specific layouts */
+.is-mobile .pmp-nav-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+}
+
+.is-mobile .pmp-nav-sidebar.is-open {
+    left: 0;
+}
+
+.is-mobile .pmp-main-content {
+    margin-left: 0;
+    padding-top: 60px; /* Account for mobile header */
+}
+
+.is-mobile .pmp-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* ==========================================================================
+   High Contrast and Accessibility Fallbacks
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .pmp-card {
+        border: 2px solid;
+        background-color: Canvas;
+        color: CanvasText;
+    }
+    
+    .pmp-button {
+        border: 2px solid ButtonText;
+        background-color: ButtonFace;
+        color: ButtonText;
+    }
+    
+    .pmp-button:hover,
+    .pmp-button:focus {
+        background-color: Highlight;
+        color: HighlightText;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .pmp-animate,
+    .pmp-transition,
+    .pmp-smooth-scroll {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .pmp-progress-circle {
+        animation: none !important;
+    }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    .pmp-nav-sidebar,
+    .pmp-mobile-menu,
+    .pmp-video-player,
+    .pmp-interactive-element {
+        display: none !important;
+    }
+    
+    .pmp-main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .pmp-lesson-content {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .pmp-page-break {
+        page-break-before: always;
+    }
+    
+    .pmp-no-print {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   Browser Version-Specific Fixes
+   ========================================================================== */
+
+/* Chrome-specific fixes */
+.browser-chrome .pmp-input-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    -webkit-text-fill-color: #333;
+}
+
+/* Safari-specific fixes */
+.browser-safari .pmp-video-controls {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.browser-safari .pmp-progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.browser-safari .pmp-progress-bar::-webkit-progress-bar {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.browser-safari .pmp-progress-bar::-webkit-progress-value {
+    background-color: var(--primary-color, #5b28b3);
+    border-radius: 4px;
+}
+
+/* Firefox-specific fixes */
+.browser-firefox .pmp-progress-bar {
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+}
+
+.browser-firefox .pmp-progress-bar::-moz-progress-bar {
+    background-color: var(--primary-color, #5b28b3);
+    border-radius: 4px;
+}
+
+/* Edge-specific fixes */
+.browser-edge .pmp-grid-container {
+    display: -ms-grid;
+    -ms-grid-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* IE-specific fixes */
+.browser-ie .pmp-svg-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.browser-ie .pmp-flex-item {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+/* ==========================================================================
+   Performance Optimizations
+   ========================================================================== */
+
+/* GPU acceleration for supported browsers */
+.supports-transforms .pmp-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Optimize animations for performance */
+.supports-animations .pmp-fade-in {
+    animation: pmpFadeIn 0.3s ease-out;
+}
+
+.supports-animations .pmp-slide-up {
+    animation: pmpSlideUp 0.4s ease-out;
+}
+
+@keyframes pmpFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pmpSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fallback animations for browsers without CSS animations */
+.no-animations .pmp-fade-in,
+.no-animations .pmp-slide-up {
+    opacity: 1;
+    transform: none;
+}
+
+/* ==========================================================================
+   Responsive Design Enhancements
+   ========================================================================== */
+
+/* Enhanced responsive breakpoints */
+@media screen and (max-width: 480px) {
+    .pmp-responsive-text {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    
+    .pmp-responsive-spacing {
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .pmp-responsive-text {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+    
+    .pmp-responsive-spacing {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .pmp-responsive-text {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    .pmp-responsive-spacing {
+        padding: 2rem;
+        margin: 1.5rem 0;
+    }
+}
+
+/* ==========================================================================
+   Utility Classes for Cross-Browser Compatibility
+   ========================================================================== */
+
+/* Clearfix for float-based layouts */
+.pmp-clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Screen reader only content */
+.pmp-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus visible for keyboard navigation */
+.pmp-focus-visible:focus {
+    outline: 2px solid var(--primary-color, #5b28b3);
+    outline-offset: 2px;
+}
+
+/* Safe area insets for devices with notches */
+.pmp-safe-area {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}

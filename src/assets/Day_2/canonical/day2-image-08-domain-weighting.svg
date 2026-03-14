@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgDark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#140a3c"/>
+      <stop offset="56%" stop-color="#2a1369"/>
+      <stop offset="100%" stop-color="#4a1fa3"/>
+    </linearGradient>
+    <linearGradient id="bgLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fcfbff"/>
+      <stop offset="100%" stop-color="#efe9fb"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#efc861"/>
+      <stop offset="100%" stop-color="#d8a729"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#120733" flood-opacity="0.25"/>
+    </filter>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    
+  </defs>
+  
+    <rect width="1920" height="1080" fill="url(#bgLight)"/>
+    
+  <g filter="url(#cardShadow)">
+    <rect x="100" y="90" width="1720" height="900" rx="22" fill="#ffffff"/>
+  </g>
+  <rect x="100" y="90" width="1720" height="6" rx="6" fill="#d8a729"/>
+  
+  
+
+    <path d="M690,550 L690,250 A300,300 0 0,1 987,596 Z" fill="#2fbf71"/>
+    <path d="M690,550 L987,596 A300,300 0 1,1 690,250 Z" fill="#3d8bfd"/>
+    <path d="M690,550 L690,250 A300,300 0 0,1 836,287 Z" fill="#ef8a23"/>
+    <circle cx="690" cy="550" r="155" fill="#fff"/>
+
+    <rect x="1110" y="340" width="420" height="34" rx="10" fill="#2fbf71"/><text x="1122" y="363" font-size="18" fill="white" font-weight="700">people 42%</text>
+    <rect x="1110" y="420" width="420" height="34" rx="10" fill="#3d8bfd"/><text x="1122" y="443" font-size="18" fill="white" font-weight="700">process 50%</text>
+    <rect x="1110" y="500" width="420" height="34" rx="10" fill="#ef8a23"/><text x="1122" y="523" font-size="18" fill="white" font-weight="700">business env 8%</text>
+
+    <rect x="1110" y="590" width="620" height="14" rx="7" fill="#eee8f8"/>
+    <rect x="1110" y="590" width="520" height="14" rx="7" fill="#3d8bfd"/>
+    <rect x="1110" y="640" width="620" height="14" rx="7" fill="#eee8f8"/>
+    <rect x="1110" y="640" width="430" height="14" rx="7" fill="#2fbf71"/>
+    <rect x="1110" y="690" width="620" height="14" rx="7" fill="#eee8f8"/>
+    <rect x="1110" y="690" width="140" height="14" rx="7" fill="#ef8a23"/>
+  
+</svg>

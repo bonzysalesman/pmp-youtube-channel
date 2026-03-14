@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LinkedIn Cover - Day 1</title>
+<style>
+  :root {
+    --purple:#5b27b8;
+    --deep:#3d1a7a;
+    --gold:#c7951e;
+    --gold-lt:#e8b84b;
+    --ink:#0f0a1e;
+    --off:#f9f8fc;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Poppins","Helvetica Neue",Arial,sans-serif;
+    background:#f3f2f8;
+    display:grid;
+    place-items:center;
+    min-height:100vh;
+  }
+  .canvas{
+    width:1080px;
+    height:1350px;
+    position:relative;
+    overflow:hidden;
+    border-radius:28px;
+    background:#111;
+    box-shadow:0 20px 50px rgba(15,10,30,.28);
+  }
+
+  .bg {
+    position:absolute;
+    inset:0;
+    background-image:url('file:///Users/bonzysalesman/Project/pmp-exam-prep/src/assets/Day_1/Day_1_Slide_1.png');
+    background-size:cover;
+    background-position:center;
+    transform:scale(1.08);
+  }
+
+  .mask {
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 82% 12%, rgba(91,39,184,.34), transparent 38%),
+      linear-gradient(145deg, rgba(15,10,30,.76) 0%, rgba(61,26,122,.62) 48%, rgba(15,10,30,.48) 100%);
+  }
+
+  .content {
+    position:absolute;
+    inset:0;
+    padding:74px 66px 62px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    color:var(--white);
+  }
+
+  .eyebrow{
+    font-size:18px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold-lt);
+    font-weight:600;
+    margin-bottom:28px;
+  }
+
+  .brand {
+    margin-bottom:26px;
+  }
+
+  .brand .pmp {
+    display:block;
+    font-size:138px;
+    font-weight:900;
+    letter-spacing:.04em;
+    line-height:.9;
+    margin:0;
+  }
+
+  .brand .rule {
+    width:300px;
+    height:4px;
+    border-radius:4px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-lt),transparent);
+    margin:14px 0 12px;
+  }
+
+  .brand .sub {
+    font-size:31px;
+    letter-spacing:.14em;
+    font-weight:300;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.9);
+  }
+
+  .title-wrap {
+    margin-top:20px;
+    max-width:820px;
+  }
+
+  .kicker{
+    display:inline-block;
+    padding:9px 16px;
+    border-left:3px solid var(--gold);
+    background:rgba(199,149,30,.16);
+    border-radius:0 10px 10px 0;
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#f7e3ac;
+    margin-bottom:16px;
+  }
+
+  h1{
+    margin:0;
+    font-size:82px;
+    line-height:.95;
+    letter-spacing:-.02em;
+    font-weight:900;
+    text-wrap:balance;
+  }
+
+  .desc{
+    margin-top:16px;
+    font-size:29px;
+    line-height:1.2;
+    color:rgba(255,255,255,.9);
+    font-weight:500;
+  }
+
+  .bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:18px;
+  }
+
+  .pill {
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.26);
+    padding:13px 20px;
+    border-radius:999px;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:.03em;
+  }
+
+  .cta {
+    text-align:right;
+    font-size:17px;
+    line-height:1.25;
+    color:rgba(255,255,255,.92);
+    font-weight:600;
+  }
+
+  .accent {
+    color:#f7d36c;
+  }
+</style>
+</head>
+<body>
+  <main class="canvas">
+    <div class="bg"></div>
+    <div class="mask"></div>
+    <div class="content">
+      <div>
+        <div class="eyebrow">LinkedIn Follow-up Post</div>
+        <div class="brand">
+          <span class="pmp">PMP</span>
+          <div class="rule"></div>
+          <div class="sub">Mastery Framework</div>
+        </div>
+
+        <div class="title-wrap">
+          <div class="kicker">Day 1</div>
+          <h1>Introduction &amp; Foundations</h1>
+          <div class="desc">ECO-first breakdown, exam strategy, and your 13-week study system.</div>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="pill">Part 2 of the 13-week PMP plan</div>
+        <div class="cta">Comment <span class="accent">DAY2</span> to get the next module.</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
